@@ -69,8 +69,8 @@
       },
       "priority": 3,
       "dependencies": ["US-12-002", "US-11-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Receiving History section in detail sheet. Filters movements by PO orderNumber reference. Sorted newest first. Empty state for no receives. Hidden for draft/cancelled."
     },
     {
       "id": "US-12-004",
