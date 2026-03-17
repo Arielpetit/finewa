@@ -63,6 +63,8 @@ export function ItemDetailSheet({
   onEdit,
   onArchive,
 }: ItemDetailSheetProps) {
+  const { data: allMovements } = useMovements();
+
   if (!item) return null;
 
   const category = categories.find((c) => c.id === item.categoryId);
