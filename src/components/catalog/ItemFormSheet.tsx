@@ -34,7 +34,7 @@ const schema = z.object({
   status: z.nativeEnum(ItemStatus).default(ItemStatus.Active),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormValues = z.output<typeof schema>;
 
 interface ItemFormSheetProps {
   open: boolean;
