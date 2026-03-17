@@ -126,29 +126,17 @@ function CatalogPage() {
     setSelected(new Set());
   }, [selected, updateItem]);
 
-  const actionRenderer = can("edit_item") ? (item: Item) => (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Actions">
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => openEdit(item)}>
-          <Pencil className="mr-2 h-4 w-4" />Edit
-        </DropdownMenuItem>
-        {isAdmin ? (
-          <DropdownMenuItem onClick={() => setDeleteTarget(item)} className="text-destructive">
-            <Trash2 className="mr-2 h-4 w-4" />Delete
-          </DropdownMenuItem>
-        ) : (
-          <DropdownMenuItem onClick={() => setDeleteTarget(item)}>
-            <Archive className="mr-2 h-4 w-4" />Archive
-          </DropdownMenuItem>
-        )}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  ) : undefined;
+  const navigate = useNavigate();
+
+  const actionRenderer = (item: Item) => (
+    <RowActionsMenu
+      item={item}
+      onViewDetails={(i) => setDetailItem(i)}
+      onEdit={(i) => openEdit(i)}
+      onLogMovement={(i) => navigate({ to: "/app/movements", search: { item: i.id } })}
+      onDelete={(i) => setDeleteTarget(i)}
+    />
+  );
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
