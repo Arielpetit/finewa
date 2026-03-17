@@ -26,8 +26,8 @@
       },
       "priority": 1,
       "dependencies": ["US-01-001", "US-01-002", "US-02-006"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Hero with 48/32px wordmark, staggered metric cards, amber Try Demo + outline Sign In."
     },
     {
       "id": "US-03-002",
@@ -49,8 +49,8 @@
       },
       "priority": 2,
       "dependencies": ["US-03-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "3-col / 2-col / 1-col responsive grid with 6 Lucide icon cards."
     },
     {
       "id": "US-03-003",
@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": ["US-03-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Minimal footer with border-t separator and dynamic year."
     },
     {
       "id": "US-03-004",
@@ -90,8 +90,8 @@
       },
       "priority": 4,
       "dependencies": ["US-03-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Route-level head config with title, description, OG tags. Single H1 for wordmark."
     }
   ]
 }

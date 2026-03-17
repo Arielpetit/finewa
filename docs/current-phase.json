@@ -1,7 +1,7 @@
 {
-  "currentPrd": "PRD-03",
-  "currentPrdFile": "docs/PRD-03-landing-page.json",
+  "currentPrd": "PRD-04",
+  "currentPrdFile": "docs/PRD-04-authentication.json",
   "totalPrds": 28,
-  "completedPrds": ["PRD-01", "PRD-02"],
+  "completedPrds": ["PRD-01", "PRD-02", "PRD-03"],
   "status": "in-progress"
 }
