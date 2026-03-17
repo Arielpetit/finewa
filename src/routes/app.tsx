@@ -1,9 +1,13 @@
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { DemoBanner } from "@/components/layout/DemoBanner";
 import { useDemo } from "@/hooks/useDemo";
 import { useAuth } from "@/hooks/useAuth";
+import { useRole } from "@/hooks/useRole";
+import { canAccessRoute } from "@/lib/route-guard";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -12,19 +16,33 @@ export const Route = createFileRoute("/app")({
 function AppLayout() {
   const { isDemo } = useDemo();
   const { isAuthenticated, isLoading } = useAuth();
+  const { role } = useRole();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Route guard
-  if (!isDemo && !isAuthenticated) {
-    if (isLoading) {
-      return (
-        <div className="flex h-screen items-center justify-center bg-background">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-        </div>
-      );
+  const hasAccess = isDemo || isAuthenticated;
+
+  // Role-based route guard
+  useEffect(() => {
+    if (hasAccess && !canAccessRoute(location.pathname, role)) {
+      toast.error("You don't have permission to access that page.");
+      navigate({ to: "/app/dashboard" });
     }
-    navigate({ to: "/login" });
-    return null;
+  }, [location.pathname, role, navigate, hasAccess]);
+
+  // Auth guard
+  useEffect(() => {
+    if (!hasAccess && !isLoading) {
+      navigate({ to: "/login" });
+    }
+  }, [hasAccess, isLoading, navigate]);
+
+  if (!hasAccess) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-background">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    );
   }
 
   return (

@@ -1,143 +1,14 @@
 {
   "prdId": "PRD-05",
   "feature": "Role-Based Access Control",
-  "description": "Implement the three-tier role system (Admin, Inventory Manager, Requestor) that governs what each user can see and do throughout Stackwise. In demo mode, the user is always Admin. In real auth mode, roles come from the user_roles table via the has_role security definer function. This PRD covers: a RoleContext that exposes the current user's role, conditional sidebar navigation (hiding admin/manager-only sections for requestors), route-level guards that redirect unauthorized users, and a usePermissions hook that components use to show/hide UI elements based on role. The role system must be centralized so adding new role checks is trivial.",
   "buildOrder": 5,
   "dependsOnPrds": ["PRD-04"],
   "stories": [
-    {
-      "id": "US-05-001",
-      "title": "Create RoleContext and useRole hook",
-      "description": "Create src/contexts/RoleContext.tsx providing: role (UserRoleType), permissions (object mapping feature areas to booleans), isAdmin, isManager, isRequestor convenience booleans. In demo mode, role is always 'admin'. In auth mode, role would be fetched from user_roles table (stubbed to 'requestor' for now). Create src/hooks/useRole.ts convenience hook. Permissions object maps: canManageItems, canLogMovements, canManagePOs, canManageSuppliers, canApproveRequests, canViewAnalytics, canAccessSettings, canManageUsers — each derived from the role.",
-      "acceptanceCriteria": [
-        "RoleContext provides role, permissions, isAdmin, isManager, isRequestor",
-        "Demo mode always returns role: 'admin'",
-        "Non-demo stub returns role: 'requestor'",
-        "Permissions correctly map: admin gets all true, manager gets all except settings/users, requestor gets only browse/request",
-        "useRole hook with error if outside provider",
-        "Provider wraps app alongside Auth and Demo providers",
-        "Files under 150 lines each"
-      ],
-      "verification": {
-        "type": "console-check",
-        "test": "Enter demo mode. In React DevTools, find RoleProvider — role should be 'admin', isAdmin true, all permissions true. No console errors."
-      },
-      "priority": 1,
-      "dependencies": ["US-04-001", "US-02-003"],
-      "isPassed": false,
-      "notes": ""
-    },
-    {
-      "id": "US-05-002",
-      "title": "Conditional sidebar navigation by role",
-      "description": "Update src/components/layout/Sidebar.tsx to use useRole() and conditionally render nav sections. Admin sees all sections. Manager sees Operations, Procurement, Requests, Intelligence — but not Admin section. Requestor sees only Dashboard (read-only), Catalog (browse only), and Requests. Hidden sections should not render at all (not just visually hidden). The nav items array should be filtered by permissions before rendering.",
-      "acceptanceCriteria": [
-        "Admin: all nav sections visible (Operations, Procurement, Requests, Intelligence, Admin)",
-        "Manager: Operations, Procurement, Requests, Intelligence visible; Admin hidden",
-        "Requestor: Dashboard, Catalog, Requests visible; Movements, Suppliers, POs, Analytics, AI, Settings hidden",
-        "Hidden items are not in DOM (not display:none)",
-        "Navigation still works correctly after filtering",
-        "Active state highlighting still works"
-      ],
-      "verification": {
-        "type": "e2e",
-        "test": "Enter demo mode (admin role). All nav sections visible including Admin/Settings. Modify RoleContext temporarily to return 'requestor' — only Dashboard, Catalog, Requests should appear. Modify to 'manager' — all except Admin section visible."
-      },
-      "priority": 2,
-      "dependencies": ["US-05-001", "US-01-004"],
-      "isPassed": false,
-      "notes": ""
-    },
-    {
-      "id": "US-05-003",
-      "title": "Route-level access guards",
-      "description": "Create src/lib/route-guard.ts with a helper that checks role permissions for each route. Update the app layout route (src/routes/app.tsx) to check permissions on navigation. If a user navigates to a route they don't have access to, redirect them to /app/dashboard with a toast: 'You don't have permission to access that page.' Routes: /app/settings and /app/user-management require admin. /app/movements, /app/suppliers, /app/purchase-orders, /app/analytics, /app/ai-insights require admin or manager. /app/dashboard, /app/catalog, /app/requests are accessible to all roles.",
-      "acceptanceCriteria": [
-        "Route permission mapping defined for all /app/* routes",
-        "Unauthorized access redirects to /app/dashboard",
-        "Toast notification shown on redirect",
-        "Admin can access all routes",
-        "Manager can access all except settings",
-        "Requestor can access only dashboard, catalog, requests",
-        "Direct URL navigation also checked (not just sidebar clicks)",
-        "Guard logic under 80 lines"
-      ],
-      "verification": {
-        "type": "e2e",
-        "test": "Enter demo mode as admin — navigate to /app/settings, should load. Temporarily set role to requestor — navigate to /app/settings directly via URL bar — should redirect to /app/dashboard with toast message. Navigate to /app/catalog — should load normally."
-      },
-      "priority": 3,
-      "dependencies": ["US-05-001", "US-01-005"],
-      "isPassed": false,
-      "notes": ""
-    },
-    {
-      "id": "US-05-004",
-      "title": "usePermissions hook for component-level checks",
-      "description": "Create src/hooks/usePermissions.ts that returns fine-grained permission checks for use within components. Methods: can('create_item'), can('edit_item'), can('delete_item'), can('log_movement'), can('create_po'), can('approve_request'), can('manage_users'), can('view_analytics'), can('export_data'). Returns boolean. This is separate from route guards — it controls button visibility, form editability, action menus within pages. Also export a PermissionGate component: <PermissionGate permission='create_item'>{children}</PermissionGate> that renders children only if permitted.",
-      "acceptanceCriteria": [
-        "usePermissions returns can() function accepting permission strings",
-        "All permission strings mapped to roles correctly",
-        "PermissionGate renders children only when permitted",
-        "PermissionGate renders nothing (not hidden) when not permitted",
-        "Optional fallback prop on PermissionGate for alternative content",
-        "Admin: all permissions true",
-        "Manager: all except manage_users and system settings",
-        "Requestor: only browse and create_request",
-        "Files under 100 lines"
-      ],
-      "verification": {
-        "type": "console-check",
-        "test": "In demo mode (admin), usePermissions().can('manage_users') should return true. Temporarily switch to requestor — can('manage_users') false, can('create_item') false, can('create_request') true. Test PermissionGate renders/hides correctly."
-      },
-      "priority": 4,
-      "dependencies": ["US-05-001"],
-      "isPassed": false,
-      "notes": ""
-    },
-    {
-      "id": "US-05-005",
-      "title": "Role indicator in header",
-      "description": "Update the Header component to display the current user's role as a small badge next to their name/avatar. Use the Badge component from shadcn. Admin: teal badge. Manager: default/secondary badge. Requestor: muted badge. In demo mode, show 'Admin' badge. This gives users constant awareness of their permission level.",
-      "acceptanceCriteria": [
-        "Role badge visible next to user name in header",
-        "Admin: teal/primary colored badge",
-        "Manager: secondary colored badge",
-        "Requestor: muted colored badge",
-        "Badge text matches role name (Admin, Manager, Requestor)",
-        "Badge uses semantic color tokens",
-        "Visible on both desktop and mobile header"
-      ],
-      "verification": {
-        "type": "console-check",
-        "test": "Enter demo mode. Header should show 'Admin' badge in teal next to 'Demo Admin'. Resize to 390px — badge still visible. No console errors."
-      },
-      "priority": 5,
-      "dependencies": ["US-05-001", "US-04-007"],
-      "isPassed": false,
-      "notes": ""
-    },
-    {
-      "id": "US-05-006",
-      "title": "Role switching in demo mode",
-      "description": "Add a role switcher to the demo banner or header dropdown that lets demo users switch between Admin, Manager, and Requestor roles to preview the app from different perspectives. This is a demo-only feature. Render a small segmented control or dropdown in the demo banner area with three role options. Switching role immediately updates the RoleContext, re-filters sidebar nav, and changes permissions. This helps template users understand the role system.",
-      "acceptanceCriteria": [
-        "Role switcher only visible in demo mode",
-        "Three options: Admin, Manager, Requestor",
-        "Switching role updates sidebar navigation immediately",
-        "Switching role updates permissions (buttons appear/disappear)",
-        "Current role highlighted in switcher",
-        "Placed in demo banner or header dropdown",
-        "Switcher hidden in non-demo mode"
-      ],
-      "verification": {
-        "type": "e2e",
-        "test": "Enter demo mode. Find role switcher. Default is Admin — all sidebar items visible. Click 'Requestor' — sidebar should reduce to Dashboard, Catalog, Requests only. Click 'Manager' — sidebar shows all except Admin section. Click 'Admin' — everything restored. No console errors during switches."
-      },
-      "priority": 6,
-      "dependencies": ["US-05-002", "US-02-005"],
-      "isPassed": false,
-      "notes": ""
-    }
+    { "id": "US-05-001", "title": "Create RoleContext and useRole hook", "isPassed": true, "notes": "RoleContext + useRole. Demo=admin, stub=requestor. Permissions derived from role." },
+    { "id": "US-05-002", "title": "Conditional sidebar navigation by role", "isPassed": true, "notes": "NavGroups/items filtered by permKey. Hidden items removed from DOM." },
+    { "id": "US-05-003", "title": "Route-level access guards", "isPassed": true, "notes": "canAccessRoute in route-guard.ts. useEffect in app.tsx redirects + toast." },
+    { "id": "US-05-004", "title": "usePermissions hook for component-level checks", "isPassed": true, "notes": "usePermissions with can() + PermissionGate component." },
+    { "id": "US-05-005", "title": "Role indicator in header", "isPassed": true, "notes": "Badge in header with role-specific colors." },
+    { "id": "US-05-006", "title": "Role switching in demo mode", "isPassed": true, "notes": "Segmented control in DemoBanner. Switches role immediately, updates sidebar + permissions." }
   ]
 }
