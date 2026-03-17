@@ -79,6 +79,7 @@ function PurchaseOrdersPage() {
         onOpenChange={setFormOpen}
         purchaseOrder={editPO}
         suppliers={suppliers}
+        items={catalogItems}
       />
     </div>
   );
