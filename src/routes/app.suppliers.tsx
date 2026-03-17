@@ -17,6 +17,7 @@ export const Route = createFileRoute("/app/suppliers")({
 function SuppliersPage() {
   const { data: suppliers } = useSuppliers();
   const { data: items } = useItems();
+  const { data: purchaseOrders } = usePurchaseOrders();
   const { can } = usePermissions();
   const canManageSuppliers = can("manage_suppliers");
 
