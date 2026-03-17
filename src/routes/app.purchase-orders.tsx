@@ -135,6 +135,7 @@ function PurchaseOrdersPage() {
         purchaseOrder={currentDetailPO}
         suppliers={suppliers}
         items={catalogItems}
+        movements={allMovements}
         canEdit={canManagePOs}
         isAdmin={isAdmin}
         onEdit={handleEdit}
