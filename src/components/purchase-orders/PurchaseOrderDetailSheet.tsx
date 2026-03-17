@@ -89,6 +89,9 @@ export function PurchaseOrderDetailSheet({
 
   const supplier = supplierMap.get(purchaseOrder.supplierId);
   const isDraft = purchaseOrder.status === OrderStatus.Draft;
+  const canReceive =
+    purchaseOrder.status === OrderStatus.Submitted ||
+    purchaseOrder.status === OrderStatus.Partial;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
