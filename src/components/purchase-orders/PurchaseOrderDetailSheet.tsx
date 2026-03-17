@@ -32,7 +32,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { OrderStatus } from "@/types/inventory";
-import type { PurchaseOrder, Supplier, Item } from "@/types/inventory";
+import type { PurchaseOrder, Supplier, Item, StockMovement } from "@/types/inventory";
 import { POStatusActions } from "./POStatusActions";
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
