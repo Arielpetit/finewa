@@ -124,7 +124,7 @@ export function LocationFormSheet({ open, onOpenChange, editLocation }: Location
   function onSubmit(values: FormValues) {
     if (isEdit && editLocation) {
       updateMutation.mutate(
-        { id: editLocation.id, ...values, description: values.description ?? "" },
+        { id: editLocation.id, updates: { name: values.name, type: values.type, parentId: values.parentId, description: values.description, isActive: values.isActive } },
         {
           onSuccess: () => {
             toast.success("Location updated");
