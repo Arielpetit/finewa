@@ -11,8 +11,14 @@ import { ReceiveShipmentSheet } from "@/components/purchase-orders/ReceiveShipme
 import { usePurchaseOrders, useSuppliers, useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { useRole } from "@/hooks/useRole";
-import { useDeletePurchaseOrder } from "@/hooks/useInventoryMutations";
+import {
+  useDeletePurchaseOrder,
+  useUpdatePurchaseOrder,
+  useCreateMovement,
+  useUpdateItem,
+} from "@/hooks/useInventoryMutations";
 import { Button } from "@/components/ui/button";
+import { OrderStatus, MovementType } from "@/types/inventory";
 import type { PurchaseOrder } from "@/types/inventory";
 import type { POFilters } from "@/components/purchase-orders/po-filter-types";
 import { EMPTY_PO_FILTERS } from "@/components/purchase-orders/po-filter-types";
