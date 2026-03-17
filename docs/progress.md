@@ -3,13 +3,13 @@
 ## Current State
 
 - Phase: PRD generation
-- Status: Generating PRDs (16 of 28 complete)
+- Status: Generating PRDs (17 of 28 complete)
 
 ## Last Completed
 
+- PRD-17 — Command Palette & Keyboard Shortcuts (5 stories)
 - PRD-16 — CSV Import/Export & Barcode (8 stories)
 - PRD-14 — Locations & Warehouses (7 stories)
-- PRD-13 — Inventory Requests (8 stories)
 
 ## Known Issues
 
@@ -17,6 +17,5 @@
 
 ## Learnings
 
-- Location hierarchy needs strict parent-type validation
-- Request approval must validate stock availability before creating movements
 - Code128B barcode can be implemented as simple SVG without external libs
+- Two-key shortcut sequences need timeout and input-focus guards
