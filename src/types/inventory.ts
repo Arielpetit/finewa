@@ -77,11 +77,15 @@ export interface Item {
   updatedAt: string;
 }
 
+export type LocationType = "warehouse" | "zone" | "aisle" | "shelf" | "bin";
+
 export interface Location {
   id: string;
   name: string;
+  type: LocationType;
+  parentId: string | null;
+  description: string;
   address: string;
-  type: "warehouse" | "store" | "office";
   isActive: boolean;
   createdAt: string;
   updatedAt: string;

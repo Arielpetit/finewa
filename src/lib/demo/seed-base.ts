@@ -22,7 +22,15 @@ export const suppliers: Supplier[] = [
 ];
 
 export const locations: Location[] = [
-  { id: "loc-01", name: "Main Warehouse", address: "100 Warehouse Dr, Chicago IL", type: "warehouse", isActive: true, createdAt: ts(120), updatedAt: ts(5) },
-  { id: "loc-02", name: "Downtown Store", address: "200 Main St, Chicago IL", type: "store", isActive: true, createdAt: ts(100), updatedAt: ts(10) },
-  { id: "loc-03", name: "Regional Office", address: "300 Corporate Pkwy, Chicago IL", type: "office", isActive: true, createdAt: ts(80), updatedAt: ts(20) },
+  // Main Warehouse hierarchy
+  { id: "loc-01", name: "Main Warehouse", type: "warehouse", parentId: null, description: "Primary storage facility", address: "100 Warehouse Dr, Chicago IL", isActive: true, createdAt: ts(120), updatedAt: ts(5) },
+  { id: "loc-01-z1", name: "Zone A — Electronics", type: "zone", parentId: "loc-01", description: "Electronics storage zone", address: "", isActive: true, createdAt: ts(110), updatedAt: ts(5) },
+  { id: "loc-01-z2", name: "Zone B — Supplies", type: "zone", parentId: "loc-01", description: "Office and cleaning supplies", address: "", isActive: true, createdAt: ts(110), updatedAt: ts(5) },
+  { id: "loc-01-z1-a1", name: "Aisle 1", type: "aisle", parentId: "loc-01-z1", description: "Cables and accessories", address: "", isActive: true, createdAt: ts(100), updatedAt: ts(5) },
+  { id: "loc-01-z1-a2", name: "Aisle 2", type: "aisle", parentId: "loc-01-z1", description: "Peripherals", address: "", isActive: true, createdAt: ts(100), updatedAt: ts(5) },
+  { id: "loc-01-z2-a1", name: "Aisle 3", type: "aisle", parentId: "loc-01-z2", description: "Paper and writing", address: "", isActive: true, createdAt: ts(100), updatedAt: ts(5) },
+  // Downtown Store
+  { id: "loc-02", name: "Downtown Store", type: "warehouse", parentId: null, description: "Retail storefront with stock", address: "200 Main St, Chicago IL", isActive: true, createdAt: ts(100), updatedAt: ts(10) },
+  // Regional Office
+  { id: "loc-03", name: "Regional Office", type: "warehouse", parentId: null, description: "Corporate office supplies", address: "300 Corporate Pkwy, Chicago IL", isActive: true, createdAt: ts(80), updatedAt: ts(20) },
 ];
