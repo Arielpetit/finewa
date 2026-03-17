@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-12 — Purchase Orders Receiving & Print
-- Status: 0 of 6 stories passed
+- Status: 1 of 6 stories passed
 
 ## Last Completed
 
-- PRD-11 complete (10/10 stories passed)
+- US-12-001 — Receive shipment form — e2e passed
 
 ## Known Issues
 
@@ -25,4 +25,4 @@
 - Scope locators to sheet via getByLabel('PO title') to avoid strict mode violations with filters
 - Demo banner role switcher uses buttons not combobox
 - Route guard must include requestor for PO page since PRD says all authenticated users can view
-- Use exact text matching to avoid strict mode violations with similar text (e.g. "Total" vs "Total Cost")
+- Use exact text matching or getByRole('columnheader') to avoid strict mode violations

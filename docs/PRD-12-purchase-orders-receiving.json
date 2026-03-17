@@ -25,8 +25,8 @@
       },
       "priority": 1,
       "dependencies": ["US-11-007", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ReceiveShipmentSheet with line items, qty inputs constrained to 0..remaining, pre-filled. Confirm disabled when all 0. Wired via onReceive prop in detail sheet."
     },
     {
       "id": "US-12-002",
