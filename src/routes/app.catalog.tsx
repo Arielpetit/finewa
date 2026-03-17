@@ -126,14 +126,12 @@ function CatalogPage() {
     setSelected(new Set());
   }, [selected, updateItem]);
 
-  const navigate = useNavigate();
-
   const actionRenderer = (item: Item) => (
     <RowActionsMenu
       item={item}
       onViewDetails={(i) => setDetailItem(i)}
       onEdit={(i) => openEdit(i)}
-      onLogMovement={(i) => navigate({ to: "/app/movements", search: { item: i.id } })}
+      onLogMovement={(i) => { window.location.href = `/app/movements?item=${i.id}`; }}
       onDelete={(i) => setDeleteTarget(i)}
     />
   );
