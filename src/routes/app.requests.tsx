@@ -57,6 +57,8 @@ function RequestsPage() {
   const { role } = useRole();
   const { can } = usePermissions();
   const { demoStore, bumpVersion } = useDemo();
+  const navigate = useNavigate();
+  const { request: requestParam } = Route.useSearch();
   const isManagerOrAdmin = role === "admin" || role === "manager";
   const canApproveReq = can("approve_request");
   const [formOpen, setFormOpen] = useState(false);
@@ -64,6 +66,17 @@ function RequestsPage() {
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailRequest, setDetailRequest] = useState<InventoryRequest | null>(null);
   const [cancelTarget, setCancelTarget] = useState<InventoryRequest | null>(null);
+
+  // Open detail from URL param on load
+  useEffect(() => {
+    if (requestParam && requests.length > 0 && !detailRequest) {
+      const found = requests.find((r) => r.id === requestParam);
+      if (found) {
+        setDetailRequest(found);
+        setDetailOpen(true);
+      }
+    }
+  }, [requestParam, requests, detailRequest]);
 
   const approval = useApprovalActions({ items: catalogItems });
 
@@ -95,6 +108,14 @@ function RequestsPage() {
   function handleRowClick(req: InventoryRequest) {
     setDetailRequest(req);
     setDetailOpen(true);
+    navigate({ search: { request: req.id }, replace: true });
+  }
+
+  function handleDetailClose(open: boolean) {
+    setDetailOpen(open);
+    if (!open) {
+      navigate({ search: {}, replace: true });
+    }
   }
 
   function handleCancel(req: InventoryRequest) {
