@@ -91,8 +91,8 @@
       },
       "priority": 4,
       "dependencies": ["US-01-001", "US-01-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Sidebar 260px, all nav groups, Stackwise wordmark, header with search+action+avatar. Mobile: sidebar hidden, hamburger visible. Zero console errors."
     },
     {
       "id": "US-01-005",
