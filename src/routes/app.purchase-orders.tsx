@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { PurchaseOrdersTable } from "@/components/purchase-orders/PurchaseOrdersTable";
 import { PurchaseOrdersFilters } from "@/components/purchase-orders/PurchaseOrdersFilters";
 import { PurchaseOrderFormSheet } from "@/components/purchase-orders/PurchaseOrderFormSheet";
-import { usePurchaseOrders, useSuppliers } from "@/hooks/useInventoryData";
+import { usePurchaseOrders, useSuppliers, useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
 import type { PurchaseOrder } from "@/types/inventory";
