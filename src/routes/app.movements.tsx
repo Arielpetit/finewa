@@ -94,7 +94,7 @@ function MovementsPage() {
 
       <MovementStats movements={filtered} />
 
-      <MovementsTable movements={filtered} itemNameMap={itemNameMap} />
+      <MovementsTable movements={filtered} itemNameMap={itemNameMap} locationNameMap={locationNameMap} />
 
       <MovementFormSheet
         open={formOpen}
