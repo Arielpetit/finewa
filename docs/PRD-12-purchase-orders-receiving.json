@@ -90,8 +90,8 @@
       },
       "priority": 4,
       "dependencies": ["US-12-002", "US-11-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Ordered/Received/Remaining columns + progress bar per line. Color: gray=0%, amber=partial, green=100% with checkmark. Updates after receiving."
     },
     {
       "id": "US-12-005",
