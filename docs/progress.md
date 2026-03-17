@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-11 — Purchase Orders CRUD
-- Status: 8 of 10 stories passed
+- Status: 9 of 10 stories passed
 
 ## Last Completed
 
-- US-11-008 — PO delete for draft only — e2e passed
+- US-11-009 — Purchase orders page composition — e2e passed
 
 ## Known Issues
 
@@ -23,3 +23,5 @@
 - Also spread PO arrays in usePurchaseOrders — same pattern as suppliers
 - Use ariaSnapshot() to understand component structure for Playwright selectors
 - Scope locators to sheet via getByLabel('PO title') to avoid strict mode violations with filters
+- Demo banner role switcher uses buttons not combobox — use getByRole('button', { name: 'Requestor' })
+- Route guard must include requestor for PO page since PRD says all authenticated users can view
