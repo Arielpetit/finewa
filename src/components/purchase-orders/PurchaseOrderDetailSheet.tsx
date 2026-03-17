@@ -61,6 +61,7 @@ interface PurchaseOrderDetailSheetProps {
   isAdmin: boolean;
   onEdit: (po: PurchaseOrder) => void;
   onDelete: (id: string) => void;
+  onReceive?: (po: PurchaseOrder) => void;
 }
 
 export function PurchaseOrderDetailSheet({
