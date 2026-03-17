@@ -7,7 +7,7 @@
 
 ## Last Completed
 
-- US-01-002 — Add Geist Sans and Geist Mono fonts — console-check PASSED
+- US-01-003 — Create TypeScript types for inventory domain — console-check PASSED
 
 ## Known Issues
 
@@ -15,7 +15,7 @@
 
 ## Learnings
 
-- All CSS tokens must use oklch format — verified via getComputedStyle in e2e
-- Stock status tokens registered in @theme inline
-- Geist variable fonts: copy woff2 to public/fonts/, use absolute URL in @font-face
+- All CSS tokens must use oklch format
+- Geist variable fonts: copy woff2 to public/fonts/, absolute URL in @font-face
 - Register --font-sans and --font-mono in @theme inline for Tailwind class integration
+- Domain types: 5 enums + 12 interfaces covers full inventory domain at 174 lines
