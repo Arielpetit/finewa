@@ -45,7 +45,7 @@ export function useCategories(): QueryResult<Category[]> {
 export function useSuppliers(): QueryResult<Supplier[]> {
   const { isDemo, demoStore, version } = useDemo();
   return useMemo(() => {
-    if (isDemo && demoStore) return { data: demoStore.getSuppliers(), isLoading: false, error: null };
+    if (isDemo && demoStore) return { data: [...demoStore.getSuppliers()], isLoading: false, error: null };
     return { data: [] as Supplier[], isLoading: false, error: null };
   }, [isDemo, demoStore, version]);
 }
