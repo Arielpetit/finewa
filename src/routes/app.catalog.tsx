@@ -154,7 +154,7 @@ function CatalogPage() {
       item={item}
       onViewDetails={(i) => openDetail(i)}
       onEdit={(i) => openEdit(i)}
-      onLogMovement={(i) => { window.location.href = `/app/movements?item=${i.id}`; }}
+      onLogMovement={(i) => setMovementItemId(i.id)}
       onDelete={(i) => setDeleteTarget(i)}
     />
   );
