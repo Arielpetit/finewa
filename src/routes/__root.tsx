@@ -2,6 +2,7 @@ import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-r
 import { DemoProvider } from "@/contexts/DemoContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { RoleProvider } from "@/contexts/RoleContext";
+import { Toaster } from "@/components/ui/sonner";
 
 import appCss from "../styles.css?url";
 
