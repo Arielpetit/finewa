@@ -125,6 +125,9 @@ function RequestsPage() {
         request={currentDetail}
         items={catalogItems}
         canApprove={canApprove}
+        onApprove={() => {}}
+        onDecline={() => {}}
+        onPartial={() => {}}
       />
 
       <RequestFormSheet open={formOpen} onOpenChange={setFormOpen} items={catalogItems} />
