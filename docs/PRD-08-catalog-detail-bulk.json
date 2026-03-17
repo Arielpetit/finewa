@@ -113,8 +113,8 @@
       },
       "priority": 5,
       "dependencies": ["US-07-001", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "showCheckboxes prop conditionally renders checkbox column. Selected rows get bg-primary/5 tint. Page change clears selection. Requestor sees no checkboxes."
     },
     {
       "id": "US-08-006",
