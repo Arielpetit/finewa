@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-08 — Catalog Detail & Bulk
-- Status: Ready to start
+- Status: 6 of 8 stories passed
 
 ## Last Completed
 
-- PRD-07 — Product Catalog CRUD & Browse — all 8 stories passed
+- US-08-006 — Bulk action floating bar — e2e passed
 
 ## Known Issues
 
@@ -20,3 +20,4 @@
 - zod schemas: avoid `.default()` with `zodResolver` — use explicit `defaultValues` in useForm instead
 - ItemFormSheet: use `z.coerce.number()` for numeric inputs from HTML forms
 - CatalogTable: sort state externalized so parent can reset pagination on sort change
+- Toaster component must be mounted in __root.tsx RootComponent for toast.success() to render

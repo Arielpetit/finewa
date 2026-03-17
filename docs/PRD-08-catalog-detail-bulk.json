@@ -137,8 +137,8 @@
       },
       "priority": 6,
       "dependencies": ["US-08-005", "US-02-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "BulkActionBar with 4 update dropdowns, deselect, slide-up animation. Also fixed missing Toaster in __root.tsx."
     },
     {
       "id": "US-08-007",
