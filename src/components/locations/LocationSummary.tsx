@@ -113,14 +113,13 @@ export function LocationSummary({ node, allLocations, items }: LocationSummaryPr
               </div>
             ))}
           </div>
-          <Link
-            to="/app/catalog"
-            search={{ location: node.id }}
+          <a
+            href={`/app/catalog?location=${node.id}`}
             className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
           >
             View All in Catalog
             <ExternalLink className="h-3 w-3" />
-          </Link>
+          </a>
         </div>
       )}
     </div>
