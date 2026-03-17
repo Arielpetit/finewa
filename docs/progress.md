@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-10 — Suppliers
-- Status: 3 of 7 stories passed
+- Status: 4 of 7 stories passed
 
 ## Last Completed
 
-- US-10-003 — Supplier detail sheet overview — e2e passed
+- US-10-004 — Supplier detail order history — e2e passed
 
 ## Known Issues
 

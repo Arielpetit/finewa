@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { SuppliersTable } from "@/components/suppliers/SuppliersTable";
 import { SupplierFormSheet } from "@/components/suppliers/SupplierFormSheet";
 import { SupplierDetailSheet } from "@/components/suppliers/SupplierDetailSheet";
-import { useSuppliers, useItems } from "@/hooks/useInventoryData";
+import { useSuppliers, useItems, usePurchaseOrders } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
 import type { Supplier } from "@/types/inventory";
@@ -17,6 +17,7 @@ export const Route = createFileRoute("/app/suppliers")({
 function SuppliersPage() {
   const { data: suppliers } = useSuppliers();
   const { data: items } = useItems();
+  const { data: purchaseOrders } = usePurchaseOrders();
   const { can } = usePermissions();
   const canManageSuppliers = can("manage_suppliers");
 
@@ -62,6 +63,7 @@ function SuppliersPage() {
         onOpenChange={setDetailOpen}
         supplier={detailSupplier}
         items={items}
+        purchaseOrders={purchaseOrders}
         canEdit={canManageSuppliers}
         onEdit={openEdit}
       />

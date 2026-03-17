@@ -10,13 +10,15 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
-import type { Supplier, Item } from "@/types/inventory";
+import { SupplierOrderHistory } from "@/components/suppliers/SupplierOrderHistory";
+import type { Supplier, Item, PurchaseOrder } from "@/types/inventory";
 
 interface SupplierDetailSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   supplier: Supplier | null;
   items: Item[];
+  purchaseOrders: PurchaseOrder[];
   canEdit: boolean;
   onEdit: (s: Supplier) => void;
 }
@@ -28,6 +30,7 @@ export function SupplierDetailSheet({
   onOpenChange,
   supplier,
   items,
+  purchaseOrders,
   canEdit,
   onEdit,
 }: SupplierDetailSheetProps) {
@@ -145,6 +148,9 @@ export function SupplierDetailSheet({
             </div>
           )}
         </div>
+
+        {/* ── Order History ────────────────────────── */}
+        <SupplierOrderHistory purchaseOrders={purchaseOrders} supplierId={supplier.id} />
       </SheetContent>
     </Sheet>
   );
