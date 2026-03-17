@@ -253,6 +253,14 @@ function CatalogPage() {
           onDeselectAll={() => setSelected(new Set())}
         />
       </PermissionGate>
+
+      <MovementFormSheet
+        open={!!movementItemId}
+        onOpenChange={(v) => { if (!v) setMovementItemId(null); }}
+        items={allItems}
+        locations={locations}
+        preSelectedItemId={movementItemId}
+      />
     </div>
   );
 }
