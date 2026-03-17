@@ -3,6 +3,7 @@ import { useDemo } from "@/hooks/useDemo";
 import type {
   Item,
   Supplier,
+  Location,
   StockMovement,
   PurchaseOrder,
   InventoryRequest,
