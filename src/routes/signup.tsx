@@ -58,7 +58,7 @@ function SignupPage() {
   };
 
   const clearField = (field: string) => {
-    setFieldErrors((p) => ({ ...p, [field]: undefined }));
+    setFieldErrors((p) => { const n = { ...p }; delete n[field]; return n; });
     setError(null);
   };
 
