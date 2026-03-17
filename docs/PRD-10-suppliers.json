@@ -134,8 +134,8 @@
       },
       "priority": 6,
       "dependencies": ["US-10-001", "US-05-004", "US-02-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "SupplierDeleteDialog with AlertDialog. Blocks on open POs (toast error). Warns about linked items. Clears item.supplierId on delete. Admin only."
     },
     {
       "id": "US-10-007",
