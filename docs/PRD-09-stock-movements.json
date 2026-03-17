@@ -96,8 +96,8 @@
       },
       "priority": 4,
       "dependencies": ["US-09-001", "US-09-002", "US-09-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Page has heading, count, Log Movement button (PermissionGated), filters, table. validateSearch supports ?item= param to pre-filter. Requestor gating via PermissionGate verified by code inspection (no role switcher UI yet)."
     },
     {
       "id": "US-09-005",
