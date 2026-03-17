@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StatusBadge } from "@/components/StatusBadge";
 import { PermissionGate } from "@/hooks/usePermissions";
+import { MovementTimeline } from "@/components/catalog/MovementTimeline";
+import { useMovements } from "@/hooks/useInventoryData";
 import type { Item, Category, Supplier, Location } from "@/types/inventory";
 
 type StockStatus = "in-stock" | "low-stock" | "out-of-stock";
@@ -61,6 +63,8 @@ export function ItemDetailSheet({
   onEdit,
   onArchive,
 }: ItemDetailSheetProps) {
+  const { data: allMovements } = useMovements();
+
   if (!item) return null;
 
   const category = categories.find((c) => c.id === item.categoryId);
@@ -140,8 +144,9 @@ export function ItemDetailSheet({
           </TabsContent>
 
           <TabsContent value="history" className="mt-6">
-            <p className="py-8 text-center text-sm text-muted-foreground">No movement history for this item.</p>
+            <MovementTimeline movements={allMovements} itemId={item.id} />
           </TabsContent>
+
 
           <TabsContent value="custom" className="mt-6">
             <p className="py-8 text-center text-sm text-muted-foreground">No custom fields defined. Admins can add custom fields in Settings.</p>

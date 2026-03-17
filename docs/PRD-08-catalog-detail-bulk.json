@@ -48,8 +48,8 @@
       },
       "priority": 2,
       "dependencies": ["US-08-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "MovementTimeline component with type icons, +/- quantities, performer, reference, relative timestamps. View All links to /app/movements?item=ID. Empty state for items with no movements."
     },
     {
       "id": "US-08-003",
