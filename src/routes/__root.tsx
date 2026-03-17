@@ -53,6 +53,7 @@ function RootComponent() {
       <DemoProvider>
         <RoleProvider>
           <Outlet />
+          <Toaster position="bottom-right" richColors />
         </RoleProvider>
       </DemoProvider>
     </AuthProvider>
