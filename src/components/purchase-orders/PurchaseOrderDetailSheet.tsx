@@ -94,6 +94,19 @@ export function PurchaseOrderDetailSheet({
   const canReceive =
     purchaseOrder.status === OrderStatus.Submitted ||
     purchaseOrder.status === OrderStatus.Partial;
+  const showHistory =
+    purchaseOrder.status === OrderStatus.Submitted ||
+    purchaseOrder.status === OrderStatus.Partial ||
+    purchaseOrder.status === OrderStatus.Received;
+
+  // Filter movements by PO reference
+  const poMovements = useMemo(
+    () =>
+      movements
+        .filter((m) => m.reference === purchaseOrder.orderNumber)
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
+    [movements, purchaseOrder.orderNumber],
+  );
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
