@@ -1,7 +1,7 @@
 {
-  "currentPrd": "PRD-07",
-  "currentPrdFile": "docs/PRD-07-catalog-crud.json",
+  "currentPrd": "PRD-08",
+  "currentPrdFile": "docs/PRD-08-catalog-detail-bulk.json",
   "totalPrds": 28,
-  "completedPrds": ["PRD-01", "PRD-02", "PRD-03", "PRD-04", "PRD-05", "PRD-06"],
+  "completedPrds": ["PRD-01", "PRD-02", "PRD-03", "PRD-04", "PRD-05", "PRD-06", "PRD-07"],
   "status": "in-progress"
 }
