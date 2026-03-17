@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StatusBadge } from "@/components/StatusBadge";
 import { PermissionGate } from "@/hooks/usePermissions";
+import { MovementTimeline } from "@/components/catalog/MovementTimeline";
+import { useMovements } from "@/hooks/useInventoryData";
 import type { Item, Category, Supplier, Location } from "@/types/inventory";
 
 type StockStatus = "in-stock" | "low-stock" | "out-of-stock";
