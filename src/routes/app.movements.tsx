@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MovementsTable } from "@/components/movements/MovementsTable";
 import { MovementsFilters } from "@/components/movements/MovementsFilters";
+import { MovementStats } from "@/components/movements/MovementStats";
 import { MovementFormSheet } from "@/components/movements/MovementFormSheet";
 import { EMPTY_MOVEMENT_FILTERS } from "@/components/movements/movement-filter-types";
 import type { MovementFilters } from "@/components/movements/movement-filter-types";
@@ -85,6 +86,8 @@ function MovementsPage() {
         items={items}
         performers={performers}
       />
+
+      <MovementStats movements={filtered} />
 
       <MovementsTable movements={filtered} itemNameMap={itemNameMap} />
 
