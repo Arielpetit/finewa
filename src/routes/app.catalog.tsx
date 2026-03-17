@@ -1,19 +1,8 @@
 import { useState, useMemo, useCallback } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
-import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,6 +18,7 @@ import { CatalogFilters } from "@/components/catalog/CatalogFilters";
 import { ItemFormSheet } from "@/components/catalog/ItemFormSheet";
 import { BulkActionBar } from "@/components/catalog/BulkActionBar";
 import { ItemDetailSheet } from "@/components/catalog/ItemDetailSheet";
+import { RowActionsMenu } from "@/components/catalog/RowActionsMenu";
 import { useItems, useCategories, useSuppliers, useLocations } from "@/hooks/useInventoryData";
 import { useCreateItem, useUpdateItem, useDeleteItem } from "@/hooks/useInventoryMutations";
 import { PermissionGate, usePermissions } from "@/hooks/usePermissions";
