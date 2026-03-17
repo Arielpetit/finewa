@@ -22,6 +22,7 @@ import {
 import { CatalogTable, type SortState } from "@/components/catalog/CatalogTable";
 import { CatalogFilters } from "@/components/catalog/CatalogFilters";
 import { ItemFormSheet } from "@/components/catalog/ItemFormSheet";
+import { BulkActionBar } from "@/components/catalog/BulkActionBar";
 import { ItemDetailSheet } from "@/components/catalog/ItemDetailSheet";
 import { useItems, useCategories, useSuppliers, useLocations } from "@/hooks/useInventoryData";
 import { useCreateItem, useUpdateItem, useDeleteItem } from "@/hooks/useInventoryMutations";
@@ -119,6 +120,16 @@ function CatalogPage() {
 
   const openEdit = (item: Item) => { setEditItem(item); setSheetOpen(true); };
   const openCreate = () => { setEditItem(null); setSheetOpen(true); };
+
+  const handleBulkUpdate = useCallback((updates: Partial<Item>) => {
+    const ids = Array.from(selected);
+    const count = ids.length;
+    ids.forEach((id) => {
+      updateItem.mutate({ id, updates });
+    });
+    toast.success(`Updated ${count} items`);
+    setSelected(new Set());
+  }, [selected, updateItem]);
 
   const actionRenderer = can("edit_item") ? (item: Item) => (
     <DropdownMenu>
@@ -223,6 +234,20 @@ function CatalogPage() {
         >
           <Plus className="h-6 w-6" />
         </button>
+      </PermissionGate>
+
+      <PermissionGate permission="edit_item">
+        <BulkActionBar
+          selectedCount={selected.size}
+          categories={categories}
+          suppliers={suppliers}
+          locations={locations}
+          onUpdateCategory={(id) => handleBulkUpdate({ categoryId: id })}
+          onUpdateSupplier={(id) => handleBulkUpdate({ supplierId: id })}
+          onUpdateLocation={(id) => handleBulkUpdate({ locationId: id })}
+          onUpdateStatus={(s) => handleBulkUpdate({ status: s })}
+          onDeselectAll={() => setSelected(new Set())}
+        />
       </PermissionGate>
     </div>
   );

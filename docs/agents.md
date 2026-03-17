@@ -25,3 +25,4 @@
 
 - Filter "Failed to load resource" from console error checks (missing favicon etc.)
 - Playwright toBeVisible/toBeHidden checks DOM visibility, not CSS visual hiding
+- Toaster (sonner) must be mounted in root layout — without it, toast() calls are silently dropped
