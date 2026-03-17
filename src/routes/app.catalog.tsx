@@ -50,6 +50,7 @@ function CatalogPage() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [editItem, setEditItem] = useState<Item | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
+  const [movementItemId, setMovementItemId] = useState<string | null>(null);
 
   // Strip stock-level status before passing to store
   const storeFilters = useMemo(() => {
