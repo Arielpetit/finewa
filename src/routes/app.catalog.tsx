@@ -121,6 +121,22 @@ function CatalogPage() {
   const openEdit = (item: Item) => { setEditItem(item); setSheetOpen(true); };
   const openCreate = () => { setEditItem(null); setSheetOpen(true); };
 
+  const handleBulkUpdate = useCallback((updates: Partial<Item>) => {
+    const ids = Array.from(selected);
+    let completed = 0;
+    ids.forEach((id) => {
+      updateItem.mutate({ id, updates }, {
+        onSuccess: () => {
+          completed++;
+          if (completed === ids.length) {
+            toast.success(`Updated ${ids.length} items`);
+            setSelected(new Set());
+          }
+        },
+      });
+    });
+  }, [selected, updateItem]);
+
   const actionRenderer = can("edit_item") ? (item: Item) => (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
