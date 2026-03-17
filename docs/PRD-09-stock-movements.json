@@ -159,8 +159,8 @@
       },
       "priority": 7,
       "dependencies": ["US-09-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "MovementStats component with 4 pills (Total, Received, Shipped, Adjustments). Reflects filtered data. 2x2 grid on mobile, inline on desktop."
     },
     {
       "id": "US-09-008",
