@@ -3,13 +3,13 @@
 ## Current State
 
 - Phase: PRD generation
-- Status: Generating PRDs (25 of 28 complete)
+- Status: Generating PRDs (26 of 28 complete)
 
 ## Last Completed
 
+- PRD-26 — Loading Skeletons & Transitions (5 stories)
 - PRD-25 — Analytics — Supplier & Cost Reports (6 stories)
 - PRD-24 — Analytics — Stock & Movement Reports (8 stories)
-- PRD-23 — Admin Settings — User Management (5 stories)
 
 ## Known Issues
 
@@ -23,3 +23,4 @@
 - Settings tabs should each have independent error boundaries
 - Last-admin protection must apply to both role changes AND deactivation
 - Analytics charts should group daily/weekly based on date range length
+- Optimistic UI works naturally with synchronous demo store; real mode needs query cache manipulation
