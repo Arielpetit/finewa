@@ -108,13 +108,13 @@ function RequestsPage() {
   function handleRowClick(req: InventoryRequest) {
     setDetailRequest(req);
     setDetailOpen(true);
-    navigate({ search: { request: req.id }, replace: true });
+    navigate({ to: "/app/requests", search: { request: req.id }, replace: true });
   }
 
   function handleDetailClose(open: boolean) {
     setDetailOpen(open);
     if (!open) {
-      navigate({ search: {}, replace: true });
+      navigate({ to: "/app/requests", search: { request: undefined }, replace: true });
     }
   }
 
