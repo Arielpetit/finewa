@@ -34,6 +34,7 @@ import { Separator } from "@/components/ui/separator";
 import { OrderStatus } from "@/types/inventory";
 import type { PurchaseOrder, Supplier, Item, StockMovement } from "@/types/inventory";
 import { POStatusActions } from "./POStatusActions";
+import { cn } from "@/lib/utils";
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
   [OrderStatus.Draft]: "Draft",
