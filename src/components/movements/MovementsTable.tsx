@@ -96,9 +96,8 @@ export function MovementsTable({ movements, itemNameMap, locationNameMap }: Move
                 const isExpanded = expandedId === m.id;
 
                 return (
-                  <>
+                  <Fragment key={m.id}>
                     <TableRow
-                      key={m.id}
                       className="cursor-pointer hover:bg-muted/50"
                       onClick={() => toggleExpand(m.id)}
                     >
