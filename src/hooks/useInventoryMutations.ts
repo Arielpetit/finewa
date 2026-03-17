@@ -75,6 +75,20 @@ export function useUpdatePurchaseOrder() {
   );
 }
 
+export function useCreateSupplier() {
+  return useDemoMutation<Supplier>((store, data) => store.createSupplier(data));
+}
+
+export function useUpdateSupplier() {
+  return useDemoMutation<{ id: string; updates: Partial<Supplier> }>((store, { id, updates }) =>
+    store.updateSupplier(id, updates),
+  );
+}
+
+export function useDeleteSupplier() {
+  return useDemoMutation<string>((store, id) => store.deleteSupplier(id));
+}
+
 export function useCreateRequest() {
   return useDemoMutation<InventoryRequest>((store, data) => store.createRequest(data));
 }
