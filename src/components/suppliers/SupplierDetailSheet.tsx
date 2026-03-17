@@ -150,6 +150,9 @@ export function SupplierDetailSheet({
           )}
         </div>
 
+        {/* ── Performance ───────────────────────── */}
+        <SupplierPerformance purchaseOrders={purchaseOrders} supplierId={supplier.id} />
+
         {/* ── Order History ────────────────────────── */}
         <SupplierOrderHistory purchaseOrders={purchaseOrders} supplierId={supplier.id} />
       </SheetContent>
