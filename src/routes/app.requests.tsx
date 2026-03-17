@@ -8,6 +8,7 @@ import { RequestFormSheet } from "@/components/requests/RequestFormSheet";
 import { RequestsTable } from "@/components/requests/RequestsTable";
 import { RequestsFilters } from "@/components/requests/RequestsFilters";
 import { RequestDetailSheet } from "@/components/requests/RequestDetailSheet";
+import { useApprovalActions } from "@/components/requests/ApprovalActions";
 import { useItems, useRequests } from "@/hooks/useInventoryData";
 import { useRole } from "@/hooks/useRole";
 import { usePermissions } from "@/hooks/usePermissions";
@@ -41,11 +42,13 @@ function RequestsPage() {
   const { role } = useRole();
   const { can } = usePermissions();
   const isManagerOrAdmin = role === "admin" || role === "manager";
-  const canApprove = can("approve_request");
+  const canApproveReq = can("approve_request");
   const [formOpen, setFormOpen] = useState(false);
   const [filters, setFilters] = useState<RequestFilters>(EMPTY_REQUEST_FILTERS);
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailRequest, setDetailRequest] = useState<InventoryRequest | null>(null);
+
+  const approval = useApprovalActions({ items: catalogItems });
 
   const pendingCount = useMemo(
     () => requests.filter((r) => r.status === RequestStatus.Pending).length,
@@ -124,11 +127,13 @@ function RequestsPage() {
         onOpenChange={setDetailOpen}
         request={currentDetail}
         items={catalogItems}
-        canApprove={canApprove}
-        onApprove={() => {}}
-        onDecline={() => {}}
-        onPartial={() => {}}
+        canApprove={canApproveReq}
+        onApprove={approval.openApprove}
+        onDecline={approval.openDecline}
+        onPartial={approval.openPartial}
       />
+
+      {approval.renderDialogs()}
 
       <RequestFormSheet open={formOpen} onOpenChange={setFormOpen} items={catalogItems} />
     </div>
