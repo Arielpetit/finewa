@@ -73,6 +73,9 @@ export function RequestsTable({ requests, onRowClick, showRequestor = false }: R
             >
               <TableCell className="font-mono text-xs">{req.requestNumber}</TableCell>
               <TableCell className="font-medium">{req.title}</TableCell>
+              {showRequestor && (
+                <TableCell className="text-sm">{req.requestedBy}</TableCell>
+              )}
               <TableCell>
                 <Badge variant="outline" className={STATUS_CLASS[req.status]}>
                   {STATUS_LABEL[req.status]}
