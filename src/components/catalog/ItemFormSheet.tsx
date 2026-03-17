@@ -200,7 +200,7 @@ export function ItemFormSheet({
             <legend className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Assignment</legend>
             <div>
               <label className={labelCls}>Supplier</label>
-              <Select value={watch("supplierId") ?? ""} onValueChange={(v) => setValue("supplierId", v || undefined)}>
+              <Select value={watch("supplierId") ?? ""} onValueChange={(v) => setValue("supplierId", v || "")}>
                 <SelectTrigger className="h-9"><SelectValue placeholder="Select supplier" /></SelectTrigger>
                 <SelectContent>
                   {suppliers.map((s) => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}
