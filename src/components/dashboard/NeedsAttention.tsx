@@ -69,7 +69,7 @@ export function NeedsAttention() {
           <div className="space-y-2">
             {outOfStockItems.slice(0, 3).map((item) => (
               <div key={item.id} className="flex items-center gap-3 text-sm">
-                <StatusBadge type="stock" status="out-of-stock" />
+                <StatusBadge status="out-of-stock" />
                 <span className="min-w-0 flex-1 truncate">{item.name}</span>
                 <span className="font-mono text-xs text-muted-foreground">{item.sku}</span>
               </div>

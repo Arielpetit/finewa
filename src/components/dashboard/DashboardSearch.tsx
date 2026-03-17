@@ -69,7 +69,7 @@ export function DashboardSearch() {
                   >
                     <span className="min-w-0 flex-1 truncate">{item.name}</span>
                     <span className="shrink-0 font-mono text-xs text-muted-foreground">{item.sku}</span>
-                    <StatusBadge type="stock" status={stockStatus(item)} />
+                    <StatusBadge status={stockStatus(item)} />
                   </button>
                 </li>
               ))}
