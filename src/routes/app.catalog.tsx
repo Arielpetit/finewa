@@ -123,18 +123,12 @@ function CatalogPage() {
 
   const handleBulkUpdate = useCallback((updates: Partial<Item>) => {
     const ids = Array.from(selected);
-    let completed = 0;
+    const count = ids.length;
     ids.forEach((id) => {
-      updateItem.mutate({ id, updates }, {
-        onSuccess: () => {
-          completed++;
-          if (completed === ids.length) {
-            toast.success(`Updated ${ids.length} items`);
-            setSelected(new Set());
-          }
-        },
-      });
+      updateItem.mutate({ id, updates });
     });
+    toast.success(`Updated ${count} items`);
+    setSelected(new Set());
   }, [selected, updateItem]);
 
   const actionRenderer = can("edit_item") ? (item: Item) => (
