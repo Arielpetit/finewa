@@ -161,7 +161,11 @@ export function ItemDetailSheet({
 
 
           <TabsContent value="custom" className="mt-6">
-            <p className="py-8 text-center text-sm text-muted-foreground">No custom fields defined. Admins can add custom fields in Settings.</p>
+            <CustomFieldsTab
+              customFields={item.customFields}
+              onUpdate={(fields) => updateItem.mutate({ id: item.id, updates: { customFields: fields } })}
+            />
+          </TabsContent>
           </TabsContent>
         </Tabs>
       </SheetContent>
