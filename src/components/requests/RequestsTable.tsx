@@ -34,12 +34,13 @@ interface RequestsTableProps {
   requests: InventoryRequest[];
   onRowClick: (request: InventoryRequest) => void;
   showRequestor?: boolean;
+  preSorted?: boolean;
 }
 
-export function RequestsTable({ requests, onRowClick, showRequestor = false }: RequestsTableProps) {
+export function RequestsTable({ requests, onRowClick, showRequestor = false, preSorted = false }: RequestsTableProps) {
   const sorted = useMemo(
-    () => [...requests].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
-    [requests],
+    () => preSorted ? requests : [...requests].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
+    [requests, preSorted],
   );
 
   if (sorted.length === 0) {
