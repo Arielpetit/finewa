@@ -18,8 +18,10 @@ export enum OrderStatus {
 export enum RequestStatus {
   Pending = "pending",
   Approved = "approved",
+  PartiallyFulfilled = "partially_fulfilled",
   Fulfilled = "fulfilled",
   Declined = "declined",
+  Cancelled = "cancelled",
 }
 
 export enum ItemStatus {
@@ -147,11 +149,14 @@ export interface RequestItem {
 export interface InventoryRequest {
   id: string;
   requestNumber: string;
+  title: string;
   status: RequestStatus;
+  priority: "normal" | "urgent";
   items: RequestItem[];
   requestedBy: string;
   approvedBy: string | null;
   reason: string;
+  declineReason?: string;
   createdAt: string;
   updatedAt: string;
 }
