@@ -4,6 +4,8 @@ import {
   PackageMinus,
   PenLine,
   ArrowLeftRight,
+  ChevronRight,
+  ExternalLink,
 } from "lucide-react";
 import {
   Table,
@@ -40,13 +42,14 @@ function directionOf(type: MovementType, qty: number): "in" | "out" {
 interface MovementsTableProps {
   movements: StockMovement[];
   itemNameMap: Map<string, string>;
-  onRowClick?: (m: StockMovement) => void;
+  locationNameMap?: Map<string, string>;
 }
 
 const PER_PAGE = 25;
 
-export function MovementsTable({ movements, itemNameMap, onRowClick }: MovementsTableProps) {
+export function MovementsTable({ movements, itemNameMap, locationNameMap }: MovementsTableProps) {
   const [page, setPage] = useState(0);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const sorted = useMemo(
     () => [...movements].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
@@ -59,6 +62,10 @@ export function MovementsTable({ movements, itemNameMap, onRowClick }: Movements
   const start = safePage * PER_PAGE + 1;
   const end = Math.min((safePage + 1) * PER_PAGE, sorted.length);
 
+  const toggleExpand = (id: string) => {
+    setExpandedId((prev) => (prev === id ? null : id));
+  };
+
   if (sorted.length === 0) {
     return <p className="py-16 text-center text-sm text-muted-foreground">No stock movements recorded</p>;
   }
@@ -70,6 +77,7 @@ export function MovementsTable({ movements, itemNameMap, onRowClick }: Movements
           <Table>
             <TableHeader className="sticky top-0 bg-card">
               <TableRow>
+                <TableHead className="w-[36px]" />
                 <TableHead className="w-[140px]">Type</TableHead>
                 <TableHead>Item</TableHead>
                 <TableHead className="w-[100px]">Quantity</TableHead>
@@ -85,51 +93,71 @@ export function MovementsTable({ movements, itemNameMap, onRowClick }: Movements
                 const Icon = meta.icon;
                 const dir = directionOf(m.type, m.quantity);
                 const absQty = Math.abs(m.quantity);
+                const isExpanded = expandedId === m.id;
 
                 return (
-                  <TableRow
-                    key={m.id}
-                    className="cursor-pointer hover:bg-muted/50"
-                    onClick={() => onRowClick?.(m)}
-                  >
-                    <TableCell>
-                      <span className="inline-flex items-center gap-1.5 text-sm">
-                        <Icon className="h-4 w-4 text-muted-foreground" />
-                        {meta.label}
-                      </span>
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      {itemNameMap.get(m.itemId) ?? m.itemId}
-                    </TableCell>
-                    <TableCell>
-                      <span className={`font-mono text-sm font-medium ${dir === "in" ? "text-emerald-600" : "text-red-500"}`}>
-                        {dir === "in" ? "+" : "−"}{absQty}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
-                        dir === "in"
-                          ? "bg-emerald-500/10 text-emerald-600"
-                          : "bg-red-500/10 text-red-500"
-                      }`}>
-                        {dir}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-sm text-muted-foreground">{m.performedBy}</TableCell>
-                    <TableCell className="max-w-[180px] truncate text-sm text-muted-foreground">{m.reference || "—"}</TableCell>
-                    <TableCell>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <span className="cursor-default text-sm text-muted-foreground">
-                            {formatDistanceToNow(new Date(m.createdAt), { addSuffix: true })}
-                          </span>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          {format(new Date(m.createdAt), "PPpp")}
-                        </TooltipContent>
-                      </Tooltip>
-                    </TableCell>
-                  </TableRow>
+                  <>
+                    <TableRow
+                      key={m.id}
+                      className="cursor-pointer hover:bg-muted/50"
+                      onClick={() => toggleExpand(m.id)}
+                    >
+                      <TableCell className="w-[36px] px-2">
+                        <ChevronRight
+                          className={`h-4 w-4 text-muted-foreground transition-transform duration-200 ${isExpanded ? "rotate-90" : ""}`}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <span className="inline-flex items-center gap-1.5 text-sm">
+                          <Icon className="h-4 w-4 text-muted-foreground" />
+                          {meta.label}
+                        </span>
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {itemNameMap.get(m.itemId) ?? m.itemId}
+                      </TableCell>
+                      <TableCell>
+                        <span className={`font-mono text-sm font-medium ${dir === "in" ? "text-emerald-600" : "text-red-500"}`}>
+                          {dir === "in" ? "+" : "−"}{absQty}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <span className={`inline-block rounded-full px-2 py-0.5 text-xs font-medium ${
+                          dir === "in"
+                            ? "bg-emerald-500/10 text-emerald-600"
+                            : "bg-red-500/10 text-red-500"
+                        }`}>
+                          {dir}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-sm text-muted-foreground">{m.performedBy}</TableCell>
+                      <TableCell className="max-w-[180px] truncate text-sm text-muted-foreground">{m.reference || "—"}</TableCell>
+                      <TableCell>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <span className="cursor-default text-sm text-muted-foreground">
+                              {formatDistanceToNow(new Date(m.createdAt), { addSuffix: true })}
+                            </span>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            {format(new Date(m.createdAt), "PPpp")}
+                          </TooltipContent>
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                    {isExpanded && (
+                      <TableRow key={`${m.id}-detail`} className="bg-muted/30 hover:bg-muted/30">
+                        <TableCell colSpan={8} className="px-6 py-4">
+                          <MovementDetail
+                            movement={m}
+                            itemName={itemNameMap.get(m.itemId) ?? m.itemId}
+                            fromLocation={m.fromLocationId && locationNameMap ? locationNameMap.get(m.fromLocationId) : undefined}
+                            toLocation={m.toLocationId && locationNameMap ? locationNameMap.get(m.toLocationId) : undefined}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    )}
+                  </>
                 );
               })}
             </TableBody>
@@ -145,5 +173,43 @@ export function MovementsTable({ movements, itemNameMap, onRowClick }: Movements
         </div>
       </div>
     </TooltipProvider>
+  );
+}
+
+interface MovementDetailProps {
+  movement: StockMovement;
+  itemName: string;
+  fromLocation?: string;
+  toLocation?: string;
+}
+
+function MovementDetail({ movement, itemName, fromLocation, toLocation }: MovementDetailProps) {
+  const isTransfer = movement.type === MovementType.Transferred;
+
+  return (
+    <div className="space-y-2 text-sm">
+      {(movement.notes || movement.reference) && (
+        <div>
+          <span className="font-medium text-foreground">Note: </span>
+          <span className="text-muted-foreground">{movement.notes || movement.reference}</span>
+        </div>
+      )}
+      {isTransfer && (fromLocation || toLocation) && (
+        <div>
+          <span className="font-medium text-foreground">Transfer: </span>
+          <span className="text-muted-foreground">{fromLocation ?? "—"} → {toLocation ?? "—"}</span>
+        </div>
+      )}
+      <div>
+        <a
+          href={`/app/catalog?item=${movement.itemId}`}
+          className="inline-flex items-center gap-1 text-primary hover:underline"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <ExternalLink className="h-3 w-3" />
+          View {itemName}
+        </a>
+      </div>
+    </div>
   );
 }
