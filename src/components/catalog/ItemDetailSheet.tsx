@@ -157,7 +157,7 @@ export function ItemDetailSheet({
 
           <TabsContent value="history" className="mt-6">
             <MovementTimeline movements={allMovements} itemId={item.id} />
-          </TabsContent>
+
 
 
           <TabsContent value="custom" className="mt-6">
