@@ -80,7 +80,7 @@ export function useStockSummary(): QueryResult<StockSummary> {
 export function usePurchaseOrders(): QueryResult<PurchaseOrder[]> {
   const { isDemo, demoStore, version } = useDemo();
   return useMemo(() => {
-    if (isDemo && demoStore) return { data: demoStore.getPurchaseOrders(), isLoading: false, error: null };
+    if (isDemo && demoStore) return { data: [...demoStore.getPurchaseOrders()], isLoading: false, error: null };
     return { data: [] as PurchaseOrder[], isLoading: false, error: null };
   }, [isDemo, demoStore, version]);
 }

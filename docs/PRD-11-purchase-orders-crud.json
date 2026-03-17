@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": ["US-02-007", "US-05-004", "US-10-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Sheet with supplier select, date picker, notes. Zod validation. Create mode generates PO-YYYY-XXXX number. Edit mode shows status badge."
     },
     {
       "id": "US-11-004",
