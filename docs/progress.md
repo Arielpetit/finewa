@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD generation
-- Status: Inventory created, PRDs not yet generated
+- Status: Generating PRDs (1 of 28 complete)
 
 ## Last Completed
 
-(none yet)
+- PRD-01 — Design System & App Shell (8 stories)
 
 ## Known Issues
 

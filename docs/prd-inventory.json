@@ -21,7 +21,7 @@
       "buildOrder": 1,
       "dependsOnPrds": [],
       "estimatedStories": 8,
-      "isGenerated": false
+      "isGenerated": true
     },
     {
       "prdId": "PRD-02",
