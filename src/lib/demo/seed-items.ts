@@ -42,7 +42,7 @@ const item = (
 export const items: Item[] = [
   // Electronics — 8 items
   item(1, "USB-C Charging Cable", "cat-01", "sup-02", "loc-01", 150, 30, 3.5, 8.99),
-  item(2, "Wireless Mouse", "cat-01", "sup-02", "loc-01", 85, 20, 12, 24.99),
+  item(2, "Wireless Mouse", "cat-01", "sup-02", "loc-01", 18, 20, 12, 24.99), // low
   item(3, "HDMI Adapter", "cat-01", "sup-01", "loc-01", 42, 15, 8, 15.99),
   item(4, "Surge Protector", "cat-01", "sup-01", "loc-01", 12, 10, 15, 29.99), // low
   item(5, "LED Desk Lamp", "cat-01", "sup-02", "loc-02", 0, 10, 22, 39.99), // out
