@@ -3,13 +3,13 @@
 ## Current State
 
 - Phase: PRD generation
-- Status: Generating PRDs (24 of 28 complete)
+- Status: Generating PRDs (25 of 28 complete)
 
 ## Last Completed
 
+- PRD-25 — Analytics — Supplier & Cost Reports (6 stories)
 - PRD-24 — Analytics — Stock & Movement Reports (8 stories)
 - PRD-23 — Admin Settings — User Management (5 stories)
-- PRD-22 — Admin Settings — System Configuration (8 stories)
 
 ## Known Issues
 
