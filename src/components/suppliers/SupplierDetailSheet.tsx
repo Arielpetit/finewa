@@ -18,6 +18,7 @@ interface SupplierDetailSheetProps {
   onOpenChange: (open: boolean) => void;
   supplier: Supplier | null;
   items: Item[];
+  purchaseOrders: PurchaseOrder[];
   canEdit: boolean;
   onEdit: (s: Supplier) => void;
 }
