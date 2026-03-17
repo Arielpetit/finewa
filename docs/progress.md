@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-11 — Purchase Orders CRUD
-- Status: 6 of 10 stories passed
+- Status: 7 of 10 stories passed
 
 ## Last Completed
 
-- US-11-006 — PO status workflow actions — e2e passed
+- US-11-007 — PO detail sheet — e2e passed
 
 ## Known Issues
 
@@ -22,3 +22,4 @@
 - Use semantic color tokens (stock-healthy, amber-accent, destructive) for status badges
 - Also spread PO arrays in usePurchaseOrders — same pattern as suppliers
 - Use ariaSnapshot() to understand component structure for Playwright selectors
+- Scope locators to sheet via getByLabel('PO title') to avoid strict mode violations with filters

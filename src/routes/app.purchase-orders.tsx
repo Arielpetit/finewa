@@ -4,9 +4,11 @@ import { Plus } from "lucide-react";
 import { PurchaseOrdersTable } from "@/components/purchase-orders/PurchaseOrdersTable";
 import { PurchaseOrdersFilters } from "@/components/purchase-orders/PurchaseOrdersFilters";
 import { PurchaseOrderFormSheet } from "@/components/purchase-orders/PurchaseOrderFormSheet";
+import { PurchaseOrderDetailSheet } from "@/components/purchase-orders/PurchaseOrderDetailSheet";
 import { usePurchaseOrders, useSuppliers, useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
+import { OrderStatus } from "@/types/inventory";
 import type { PurchaseOrder } from "@/types/inventory";
 import type { POFilters } from "@/components/purchase-orders/po-filter-types";
 import { EMPTY_PO_FILTERS } from "@/components/purchase-orders/po-filter-types";
@@ -25,6 +27,8 @@ function PurchaseOrdersPage() {
   const [filters, setFilters] = useState<POFilters>(EMPTY_PO_FILTERS);
   const [formOpen, setFormOpen] = useState(false);
   const [editPO, setEditPO] = useState<PurchaseOrder | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [detailPO, setDetailPO] = useState<PurchaseOrder | null>(null);
 
   const filtered = useMemo(() => {
     return purchaseOrders.filter((po) => {
@@ -40,14 +44,26 @@ function PurchaseOrdersPage() {
     });
   }, [purchaseOrders, filters]);
 
+  // Keep detailPO in sync with latest data
+  const currentDetailPO = useMemo(() => {
+    if (!detailPO) return null;
+    return purchaseOrders.find((po) => po.id === detailPO.id) ?? detailPO;
+  }, [purchaseOrders, detailPO]);
+
   function openCreate() {
     setEditPO(null);
     setFormOpen(true);
   }
 
   function handleRowClick(po: PurchaseOrder) {
-    // Detail sheet wired in US-11-007/009
-    console.log("PO row clicked:", po.orderNumber);
+    setDetailPO(po);
+    setDetailOpen(true);
+  }
+
+  function handleEdit(po: PurchaseOrder) {
+    setDetailOpen(false);
+    setEditPO(po);
+    setFormOpen(true);
   }
 
   return (
@@ -71,6 +87,16 @@ function PurchaseOrdersPage() {
         purchaseOrders={filtered}
         suppliers={suppliers}
         onRowClick={handleRowClick}
+      />
+
+      <PurchaseOrderDetailSheet
+        open={detailOpen}
+        onOpenChange={setDetailOpen}
+        purchaseOrder={currentDetailPO}
+        suppliers={suppliers}
+        items={catalogItems}
+        canEdit={canManagePOs}
+        onEdit={handleEdit}
       />
 
       <PurchaseOrderFormSheet
