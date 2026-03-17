@@ -67,6 +67,7 @@ export function ItemDetailSheet({
   onArchive,
 }: ItemDetailSheetProps) {
   const { data: allMovements } = useMovements();
+  const updateItem = useUpdateItem();
 
   if (!item) return null;
 
