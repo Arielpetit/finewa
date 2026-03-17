@@ -50,8 +50,8 @@
       },
       "priority": 2,
       "dependencies": ["US-02-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "207 lines. CRUD for all entities, filtering, stock summary, movement-quantity sync. Verified: 35 items, create→36, received movement adds stock."
     },
     {
       "id": "US-02-003",

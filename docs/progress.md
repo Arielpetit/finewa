@@ -7,7 +7,7 @@
 
 ## Last Completed
 
-- US-02-001 — Create seed data generator — console-check PASSED
+- US-02-002 — Create demo store with CRUD operations — console-check PASSED
 
 ## Known Issues
 
@@ -15,8 +15,6 @@
 
 ## Learnings
 
-- All CSS tokens must use oklch format
-- Geist variable fonts: copy woff2 to public/fonts/
-- Layout: Navigate component for redirect (not beforeLoad)
-- Collapse: use conditional render, not max-h trick
-- Seed data: split across files to stay under 250 lines, barrel re-export from index.ts
+- Seed data: split across files, barrel re-export
+- DemoStore: version counter for change detection, movements auto-update item stock
+- Each new DemoStore() gets fresh seed data (constructor calls generateSeedData)
