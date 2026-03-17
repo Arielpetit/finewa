@@ -3,13 +3,13 @@
 ## Current State
 
 - Phase: PRD generation
-- Status: Generating PRDs (9 of 28 complete)
+- Status: Generating PRDs (10 of 28 complete)
 
 ## Last Completed
 
-- PRD-08 — Product Catalog Detail View & Bulk Edit (8 stories)
+- PRD-09 — Stock Movements (8 stories)
+- PRD-08 — Product Catalog Detail & Bulk Edit (8 stories)
 - PRD-07 — Product Catalog CRUD & Browse (8 stories)
-- PRD-06 — Dashboard (7 stories)
 
 ## Known Issues
 
@@ -17,4 +17,4 @@
 
 ## Learnings
 
-- PRD-15 buildOrder was 4 (same as PRD-04), generated after PRD-04 since it depends on it
+- Movement form needs conditional fields based on type (transferred shows locations)
