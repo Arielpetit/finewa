@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -28,10 +28,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { useCreatePurchaseOrder, useUpdatePurchaseOrder } from "@/hooks/useInventoryMutations";
 import { OrderStatus } from "@/types/inventory";
-import type { PurchaseOrder, Supplier, PurchaseOrderItem } from "@/types/inventory";
+import type { PurchaseOrder, Supplier, PurchaseOrderItem, Item } from "@/types/inventory";
+import { LineItemsEditor, type LineItemRow } from "./LineItemsEditor";
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
   [OrderStatus.Draft]: "Draft",
@@ -60,6 +62,7 @@ interface PurchaseOrderFormSheetProps {
   onOpenChange: (open: boolean) => void;
   purchaseOrder?: PurchaseOrder | null;
   suppliers: Supplier[];
+  items: Item[];
 }
 
 export function PurchaseOrderFormSheet({
@@ -67,18 +70,17 @@ export function PurchaseOrderFormSheet({
   onOpenChange,
   purchaseOrder,
   suppliers,
+  items,
 }: PurchaseOrderFormSheetProps) {
   const isEdit = !!purchaseOrder;
   const createPO = useCreatePurchaseOrder();
   const updatePO = useUpdatePurchaseOrder();
+  const [lineItems, setLineItems] = useState<LineItemRow[]>([]);
+  const [lineError, setLineError] = useState("");
 
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      supplierId: "",
-      expectedDelivery: "",
-      notes: "",
-    },
+    defaultValues: { supplierId: "", expectedDelivery: "", notes: "" },
   });
 
   useEffect(() => {
@@ -86,21 +88,49 @@ export function PurchaseOrderFormSheet({
       if (purchaseOrder) {
         form.reset({
           supplierId: purchaseOrder.supplierId,
-          expectedDelivery: purchaseOrder.expectedDelivery
-            ? purchaseOrder.expectedDelivery.slice(0, 10)
-            : "",
+          expectedDelivery: purchaseOrder.expectedDelivery?.slice(0, 10) ?? "",
           notes: purchaseOrder.notes ?? "",
         });
+        setLineItems(
+          purchaseOrder.items.map((li) => ({
+            id: li.id,
+            itemId: li.itemId,
+            quantity: li.quantityOrdered,
+            unitCost: li.unitCost,
+          })),
+        );
       } else {
         form.reset({ supplierId: "", expectedDelivery: "", notes: "" });
+        setLineItems([]);
       }
+      setLineError("");
     }
   }, [open, purchaseOrder, form]);
 
   function onSubmit(values: FormValues) {
+    if (lineItems.length === 0) {
+      setLineError("At least one line item is required");
+      return;
+    }
+    if (lineItems.some((r) => !r.itemId)) {
+      setLineError("All line items must have an item selected");
+      return;
+    }
+    setLineError("");
+
     const now = new Date().toISOString();
+    const poItems: PurchaseOrderItem[] = lineItems.map((r) => ({
+      id: r.id,
+      purchaseOrderId: "",
+      itemId: r.itemId,
+      quantityOrdered: r.quantity,
+      quantityReceived: 0,
+      unitCost: r.unitCost,
+    }));
+    const totalCost = poItems.reduce((s, i) => s + i.quantityOrdered * i.unitCost, 0);
 
     if (isEdit && purchaseOrder) {
+      poItems.forEach((p) => (p.purchaseOrderId = purchaseOrder.id));
       updatePO.mutate(
         {
           id: purchaseOrder.id,
@@ -108,25 +138,24 @@ export function PurchaseOrderFormSheet({
             supplierId: values.supplierId,
             expectedDelivery: new Date(values.expectedDelivery).toISOString(),
             notes: values.notes,
+            items: poItems,
+            totalCost,
             updatedAt: now,
           },
         },
-        {
-          onSuccess: () => {
-            toast.success(`${purchaseOrder.orderNumber} updated`);
-            onOpenChange(false);
-          },
-        },
+        { onSuccess: () => { toast.success(`${purchaseOrder.orderNumber} updated`); onOpenChange(false); } },
       );
     } else {
       const orderNumber = generatePONumber();
+      const id = crypto.randomUUID();
+      poItems.forEach((p) => (p.purchaseOrderId = id));
       const newPO: PurchaseOrder = {
-        id: crypto.randomUUID(),
+        id,
         orderNumber,
         supplierId: values.supplierId,
         status: OrderStatus.Draft,
-        items: [] as PurchaseOrderItem[],
-        totalCost: 0,
+        items: poItems,
+        totalCost,
         expectedDelivery: new Date(values.expectedDelivery).toISOString(),
         notes: values.notes,
         createdBy: "demo-user",
@@ -134,10 +163,7 @@ export function PurchaseOrderFormSheet({
         updatedAt: now,
       };
       createPO.mutate(newPO, {
-        onSuccess: () => {
-          toast.success(`${orderNumber} created`);
-          onOpenChange(false);
-        },
+        onSuccess: () => { toast.success(`${orderNumber} created`); onOpenChange(false); },
       });
     }
   }
@@ -150,9 +176,7 @@ export function PurchaseOrderFormSheet({
             {isEdit ? `Edit ${purchaseOrder?.orderNumber}` : "New Purchase Order"}
           </SheetTitle>
           <SheetDescription>
-            {isEdit
-              ? "Update purchase order details."
-              : "Create a new purchase order for a supplier."}
+            {isEdit ? "Update purchase order details." : "Create a new purchase order for a supplier."}
           </SheetDescription>
         </SheetHeader>
 
@@ -178,13 +202,9 @@ export function PurchaseOrderFormSheet({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {suppliers
-                        .filter((s) => s.isActive)
-                        .map((s) => (
-                          <SelectItem key={s.id} value={s.id}>
-                            {s.name}
-                          </SelectItem>
-                        ))}
+                      {suppliers.filter((s) => s.isActive).map((s) => (
+                        <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -198,9 +218,7 @@ export function PurchaseOrderFormSheet({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Expected Delivery *</FormLabel>
-                  <FormControl>
-                    <Input type="date" {...field} />
-                  </FormControl>
+                  <FormControl><Input type="date" {...field} /></FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -212,21 +230,24 @@ export function PurchaseOrderFormSheet({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Notes</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} rows={3} placeholder="Additional notes…" />
-                  </FormControl>
+                  <FormControl><Textarea {...field} rows={2} placeholder="Additional notes…" /></FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
+            <Separator />
+
+            <LineItemsEditor
+              items={items}
+              lineItems={lineItems}
+              onChange={setLineItems}
+              error={lineError}
+            />
+
             <div className="flex justify-end gap-2 pt-4">
-              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
-                Cancel
-              </Button>
-              <Button type="submit">
-                {isEdit ? "Save Changes" : "Create PO"}
-              </Button>
+              <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
+              <Button type="submit">{isEdit ? "Save Changes" : "Create PO"}</Button>
             </div>
           </form>
         </Form>
