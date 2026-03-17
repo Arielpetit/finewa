@@ -62,6 +62,7 @@ interface PurchaseOrderDetailSheetProps {
   onEdit: (po: PurchaseOrder) => void;
   onDelete: (id: string) => void;
   onReceive?: (po: PurchaseOrder) => void;
+  movements?: StockMovement[];
 }
 
 export function PurchaseOrderDetailSheet({
