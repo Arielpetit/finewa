@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { useDemo } from "@/hooks/useDemo";
 import type {
   Item,
+  Supplier,
   StockMovement,
   PurchaseOrder,
   InventoryRequest,
