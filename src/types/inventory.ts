@@ -18,8 +18,10 @@ export enum OrderStatus {
 export enum RequestStatus {
   Pending = "pending",
   Approved = "approved",
+  PartiallyFulfilled = "partially_fulfilled",
   Fulfilled = "fulfilled",
   Declined = "declined",
+  Cancelled = "cancelled",
 }
 
 export enum ItemStatus {
