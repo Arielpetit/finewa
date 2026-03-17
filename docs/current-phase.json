@@ -1,7 +1,7 @@
 {
-  "currentPrd": "PRD-13",
-  "currentPrdFile": "docs/PRD-13-inventory-requests.json",
+  "currentPrd": "PRD-14",
+  "currentPrdFile": "docs/PRD-14-locations.json",
   "totalPrds": 28,
-  "completedPrds": ["PRD-01", "PRD-02", "PRD-03", "PRD-04", "PRD-05", "PRD-06", "PRD-07", "PRD-08", "PRD-09", "PRD-10", "PRD-11", "PRD-12"],
+  "completedPrds": ["PRD-01", "PRD-02", "PRD-03", "PRD-04", "PRD-05", "PRD-06", "PRD-07", "PRD-08", "PRD-09", "PRD-10", "PRD-11", "PRD-12", "PRD-13"],
   "status": "in-progress"
 }
