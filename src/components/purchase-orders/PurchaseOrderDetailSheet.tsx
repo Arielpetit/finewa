@@ -356,6 +356,12 @@ export function PurchaseOrderDetailSheet({
           {/* Status actions */}
           <POStatusActions purchaseOrder={purchaseOrder} />
         </div>
+
+        <POPrintView
+          purchaseOrder={purchaseOrder}
+          supplier={supplier}
+          items={itemMap}
+        />
       </SheetContent>
     </Sheet>
   );
