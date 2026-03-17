@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
 import { SupplierOrderHistory } from "@/components/suppliers/SupplierOrderHistory";
 import { SupplierPerformance } from "@/components/suppliers/SupplierPerformance";
+import { SupplierDeleteDialog } from "@/components/suppliers/SupplierDeleteDialog";
 import type { Supplier, Item, PurchaseOrder } from "@/types/inventory";
 
 interface SupplierDetailSheetProps {
@@ -21,7 +22,9 @@ interface SupplierDetailSheetProps {
   items: Item[];
   purchaseOrders: PurchaseOrder[];
   canEdit: boolean;
+  canDelete: boolean;
   onEdit: (s: Supplier) => void;
+  onDelete: (id: string) => void;
 }
 
 const MAX_LINKED = 10;
@@ -33,7 +36,9 @@ export function SupplierDetailSheet({
   items,
   purchaseOrders,
   canEdit,
+  canDelete,
   onEdit,
+  onDelete,
 }: SupplierDetailSheetProps) {
   const linkedItems = useMemo(() => {
     if (!supplier) return [];
@@ -50,19 +55,29 @@ export function SupplierDetailSheet({
         <SheetHeader>
           <div className="flex items-center justify-between">
             <SheetTitle>{supplier.name}</SheetTitle>
-            {canEdit && (
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => {
-                  onOpenChange(false);
-                  onEdit(supplier);
-                }}
-              >
-                <Pencil className="mr-1.5 h-3.5 w-3.5" />
-                Edit
-              </Button>
-            )}
+            <div className="flex items-center gap-2">
+              {canDelete && (
+                <SupplierDeleteDialog
+                  supplier={supplier}
+                  items={items}
+                  purchaseOrders={purchaseOrders}
+                  onDelete={(id) => { onDelete(id); onOpenChange(false); }}
+                />
+              )}
+              {canEdit && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    onOpenChange(false);
+                    onEdit(supplier);
+                  }}
+                >
+                  <Pencil className="mr-1.5 h-3.5 w-3.5" />
+                  Edit
+                </Button>
+              )}
+            </div>
           </div>
           <SheetDescription>
             {supplier.isActive ? "Active supplier" : "Inactive supplier"}
