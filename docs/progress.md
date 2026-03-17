@@ -2,14 +2,16 @@
 
 ## Current State
 
-- Phase: PRD generation
-- Status: Generating PRDs (27 of 28 complete)
+- Phase: PRD generation complete
+- Status: All 28 PRDs generated. Ready for build loop.
 
 ## Last Completed
 
-- PRD-27 — Mobile Responsiveness (6 stories)
-- PRD-26 — Loading Skeletons & Transitions (5 stories)
-- PRD-25 — Analytics — Supplier & Cost Reports (6 stories)
+- PRD-28 — Onboarding & Help (5 stories) — FINAL PRD
+
+## Total Story Count
+
+- 28 PRDs, ~190 stories across all PRDs
 
 ## Known Issues
 
@@ -25,3 +27,4 @@
 - Analytics charts should group daily/weekly based on date range length
 - Optimistic UI works naturally with synchronous demo store
 - Mobile: 44px minimum tap targets, side-sheets become full-width
+- Onboarding tour state must persist to avoid repeated showing

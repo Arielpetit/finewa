@@ -318,7 +318,7 @@
       "buildOrder": 27,
       "dependsOnPrds": ["PRD-02", "PRD-06"],
       "estimatedStories": 5,
-      "isGenerated": false
+      "isGenerated": true
     }
   ]
 }
