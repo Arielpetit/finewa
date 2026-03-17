@@ -19,6 +19,7 @@ import { ItemFormSheet } from "@/components/catalog/ItemFormSheet";
 import { BulkActionBar } from "@/components/catalog/BulkActionBar";
 import { ItemDetailSheet } from "@/components/catalog/ItemDetailSheet";
 import { RowActionsMenu } from "@/components/catalog/RowActionsMenu";
+import { MovementFormSheet } from "@/components/movements/MovementFormSheet";
 import { useItems, useCategories, useSuppliers, useLocations } from "@/hooks/useInventoryData";
 import { useCreateItem, useUpdateItem, useDeleteItem } from "@/hooks/useInventoryMutations";
 import { PermissionGate, usePermissions } from "@/hooks/usePermissions";
@@ -49,6 +50,7 @@ function CatalogPage() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [editItem, setEditItem] = useState<Item | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
+  const [movementItemId, setMovementItemId] = useState<string | null>(null);
 
   // Strip stock-level status before passing to store
   const storeFilters = useMemo(() => {
@@ -152,7 +154,7 @@ function CatalogPage() {
       item={item}
       onViewDetails={(i) => openDetail(i)}
       onEdit={(i) => openEdit(i)}
-      onLogMovement={(i) => { window.location.href = `/app/movements?item=${i.id}`; }}
+      onLogMovement={(i) => setMovementItemId(i.id)}
       onDelete={(i) => setDeleteTarget(i)}
     />
   );
@@ -251,6 +253,14 @@ function CatalogPage() {
           onDeselectAll={() => setSelected(new Set())}
         />
       </PermissionGate>
+
+      <MovementFormSheet
+        open={!!movementItemId}
+        onOpenChange={(v) => { if (!v) setMovementItemId(null); }}
+        items={allItems}
+        locations={locations}
+        preSelectedItemId={movementItemId}
+      />
     </div>
   );
 }

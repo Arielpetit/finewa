@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-09 — Stock Movements
-- Status: 4 of 8 stories passed
+- Status: 5 of 8 stories passed
 
 ## Last Completed
 
-- US-09-004 — Movements page header and composition — e2e passed
+- US-09-005 — Quick movement from catalog row action — e2e passed
 
 ## Known Issues
 
