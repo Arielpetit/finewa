@@ -252,6 +252,7 @@ export function MovementFormSheet({
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.fromLocationId && <p className="mt-1 text-xs text-destructive">{errors.fromLocationId}</p>}
               </div>
               <div>
                 <Label className="mb-1.5 block text-sm">To Location</Label>
