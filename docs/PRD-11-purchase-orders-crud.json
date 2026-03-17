@@ -93,8 +93,8 @@
       },
       "priority": 4,
       "dependencies": ["US-11-003", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "LineItemsEditor component with add/remove rows, auto-calculated line totals, running total, validation for at least 1 item. Integrated into PO form sheet."
     },
     {
       "id": "US-11-005",

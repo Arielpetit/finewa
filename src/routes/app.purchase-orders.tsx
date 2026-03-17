@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { PurchaseOrdersTable } from "@/components/purchase-orders/PurchaseOrdersTable";
 import { PurchaseOrdersFilters } from "@/components/purchase-orders/PurchaseOrdersFilters";
 import { PurchaseOrderFormSheet } from "@/components/purchase-orders/PurchaseOrderFormSheet";
-import { usePurchaseOrders, useSuppliers } from "@/hooks/useInventoryData";
+import { usePurchaseOrders, useSuppliers, useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
 import type { PurchaseOrder } from "@/types/inventory";
@@ -19,6 +19,7 @@ export const Route = createFileRoute("/app/purchase-orders")({
 function PurchaseOrdersPage() {
   const { data: purchaseOrders } = usePurchaseOrders();
   const { data: suppliers } = useSuppliers();
+  const { data: catalogItems } = useItems();
   const { can } = usePermissions();
   const canManagePOs = can("create_po");
   const [filters, setFilters] = useState<POFilters>(EMPTY_PO_FILTERS);
@@ -77,6 +78,7 @@ function PurchaseOrdersPage() {
         onOpenChange={setFormOpen}
         purchaseOrder={editPO}
         suppliers={suppliers}
+        items={catalogItems}
       />
     </div>
   );
