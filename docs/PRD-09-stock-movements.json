@@ -74,8 +74,8 @@
       },
       "priority": 3,
       "dependencies": ["US-02-007", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "MovementFormSheet with item select, type, qty, direction (auto for received/shipped/transferred, configurable for adjusted), transfer locations, reference note. Validation, toast, PermissionGate."
     },
     {
       "id": "US-09-004",
