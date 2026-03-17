@@ -48,8 +48,8 @@
       },
       "priority": 2,
       "dependencies": ["US-02-007", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "SupplierFormSheet with Zod validation, create/edit modes, email validation, admin/manager gated. Spread supplier array in useSuppliers for memo reactivity."
     },
     {
       "id": "US-10-003",

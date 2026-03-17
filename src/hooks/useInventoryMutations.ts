@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { useDemo } from "@/hooks/useDemo";
 import type {
   Item,
+  Supplier,
   StockMovement,
   PurchaseOrder,
   InventoryRequest,
@@ -73,6 +74,20 @@ export function useUpdatePurchaseOrder() {
   return useDemoMutation<{ id: string; updates: Partial<PurchaseOrder> }>((store, { id, updates }) =>
     store.updatePurchaseOrder(id, updates),
   );
+}
+
+export function useCreateSupplier() {
+  return useDemoMutation<Supplier>((store, data) => store.createSupplier(data));
+}
+
+export function useUpdateSupplier() {
+  return useDemoMutation<{ id: string; updates: Partial<Supplier> }>((store, { id, updates }) =>
+    store.updateSupplier(id, updates),
+  );
+}
+
+export function useDeleteSupplier() {
+  return useDemoMutation<string>((store, id) => store.deleteSupplier(id));
 }
 
 export function useCreateRequest() {
