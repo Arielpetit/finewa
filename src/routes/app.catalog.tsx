@@ -22,6 +22,7 @@ import {
 import { CatalogTable, type SortState } from "@/components/catalog/CatalogTable";
 import { CatalogFilters } from "@/components/catalog/CatalogFilters";
 import { ItemFormSheet } from "@/components/catalog/ItemFormSheet";
+import { ItemDetailSheet } from "@/components/catalog/ItemDetailSheet";
 import { useItems, useCategories, useSuppliers, useLocations } from "@/hooks/useInventoryData";
 import { useCreateItem, useUpdateItem, useDeleteItem } from "@/hooks/useInventoryMutations";
 import { PermissionGate, usePermissions } from "@/hooks/usePermissions";
