@@ -71,7 +71,7 @@ export const items: Item[] = [
 
   // Safety Equipment — 6 items
   item(24, "Safety Glasses (12pk)", "cat-04", "sup-04", "loc-01", 48, 12, 18, 32.99),
-  item(25, "Nitrile Gloves (100ct)", "cat-04", "sup-04", "loc-01", 100, 30, 9, 16.99),
+  item(25, "Nitrile Gloves (100ct)", "cat-04", "sup-04", "loc-01", 28, 30, 9, 16.99), // low
   item(26, "Hard Hat ANSI Type I", "cat-04", "sup-04", "loc-01", 22, 8, 14, 24.99),
   item(27, "High-Vis Vest", "cat-04", "sup-04", "loc-01", 6, 10, 7, 12.99), // low
   item(28, "First Aid Kit", "cat-04", "sup-04", "loc-02", 0, 5, 30, 54.99), // out
