@@ -104,3 +104,17 @@ export function useUpdateRequest() {
     store.updateRequest(id, updates),
   );
 }
+
+export function useCreateLocation() {
+  return useDemoMutation<Location>((store, data) => store.createLocation(data));
+}
+
+export function useUpdateLocation() {
+  return useDemoMutation<{ id: string; updates: Partial<Location> }>((store, { id, updates }) =>
+    store.updateLocation(id, updates),
+  );
+}
+
+export function useDeleteLocation() {
+  return useDemoMutation<string>((store, id) => store.deleteLocation(id));
+}
