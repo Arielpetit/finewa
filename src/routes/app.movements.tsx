@@ -58,6 +58,11 @@ function MovementsPage() {
     [items],
   );
 
+  const locationNameMap = useMemo(
+    () => new Map(locations.map((l) => [l.id, l.name])),
+    [locations],
+  );
+
   const performers = useMemo(
     () => [...new Set(movements.map((m) => m.performedBy))].sort(),
     [movements],
