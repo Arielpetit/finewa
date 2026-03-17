@@ -229,28 +229,53 @@ export function PurchaseOrderDetailSheet({
                 <TableHeader>
                   <TableRow>
                     <TableHead>Item</TableHead>
-                    <TableHead className="w-[70px]">SKU</TableHead>
-                    <TableHead className="w-[60px] text-right">Qty</TableHead>
-                    <TableHead className="w-[90px] text-right">Unit Cost</TableHead>
-                    <TableHead className="w-[90px] text-right">Total</TableHead>
+                    <TableHead className="w-[60px] text-right">Ordered</TableHead>
+                    <TableHead className="w-[70px] text-right">Received</TableHead>
+                    <TableHead className="w-[70px] text-right">Remaining</TableHead>
+                    <TableHead className="w-[100px]">Progress</TableHead>
+                    <TableHead className="w-[80px] text-right">Total</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {purchaseOrder.items.map((li) => {
                     const item = itemMap.get(li.itemId);
+                    const pct = li.quantityOrdered > 0
+                      ? Math.round((li.quantityReceived / li.quantityOrdered) * 100)
+                      : 0;
+                    const remaining = Math.max(0, li.quantityOrdered - li.quantityReceived);
+                    const barColor =
+                      pct === 0
+                        ? "bg-muted-foreground/30"
+                        : pct >= 100
+                          ? "bg-stock-healthy"
+                          : "bg-amber-accent";
                     return (
                       <TableRow key={li.id}>
-                        <TableCell className="text-sm font-medium">
-                          {item?.name ?? li.itemId}
-                        </TableCell>
-                        <TableCell className="font-mono text-xs text-muted-foreground">
-                          {item?.sku ?? "—"}
+                        <TableCell>
+                          <p className="text-sm font-medium">{item?.name ?? li.itemId}</p>
+                          <p className="font-mono text-xs text-muted-foreground">{item?.sku ?? "—"}</p>
                         </TableCell>
                         <TableCell className="text-right font-mono text-sm">
                           {li.quantityOrdered}
                         </TableCell>
                         <TableCell className="text-right font-mono text-sm">
-                          ${li.unitCost.toFixed(2)}
+                          {li.quantityReceived}
+                        </TableCell>
+                        <TableCell className="text-right font-mono text-sm">
+                          {remaining}
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-1.5">
+                            <div className="h-2 flex-1 overflow-hidden rounded-full bg-muted">
+                              <div
+                                className={cn("h-full rounded-full transition-all", barColor)}
+                                style={{ width: `${Math.min(100, pct)}%` }}
+                              />
+                            </div>
+                            {pct >= 100 && (
+                              <Check className="h-3.5 w-3.5 shrink-0 text-stock-healthy" />
+                            )}
+                          </div>
                         </TableCell>
                         <TableCell className="text-right font-mono text-sm font-medium">
                           ${(li.quantityOrdered * li.unitCost).toFixed(2)}
