@@ -88,7 +88,7 @@ export function usePurchaseOrders(): QueryResult<PurchaseOrder[]> {
 export function useRequests(): QueryResult<InventoryRequest[]> {
   const { isDemo, demoStore, version } = useDemo();
   return useMemo(() => {
-    if (isDemo && demoStore) return { data: demoStore.getRequests(), isLoading: false, error: null };
+    if (isDemo && demoStore) return { data: [...demoStore.getRequests()], isLoading: false, error: null };
     return { data: [] as InventoryRequest[], isLoading: false, error: null };
   }, [isDemo, demoStore, version]);
 }
