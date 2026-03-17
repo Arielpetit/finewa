@@ -11,12 +11,17 @@
 
 ## Patterns to Follow
 
-(will be populated as we build)
+- TanStack Router: use Navigate component for redirects, not beforeLoad (avoids hydration warnings)
+- Sidebar collapse: conditional render (`{!collapsed && ...}`) not CSS max-h trick (Playwright visibility)
+- Mobile sidebar: Sheet component from left, pass onNavigate callback to close on link click
+- Font loading: variable woff2 in public/fonts/, @font-face in styles.css, register in @theme inline
 
 ## Mistakes to Avoid
 
-(will be populated as we build)
+- Don't use max-h-0/overflow-hidden for collapsible sections — elements remain "visible" to testing tools
+- Don't use beforeLoad + throw redirect() — causes React hydration warnings in SSR
 
 ## Testing Notes
 
-(will be populated as we discover testing patterns)
+- Filter "Failed to load resource" from console error checks (missing favicon etc.)
+- Playwright toBeVisible/toBeHidden checks DOM visibility, not CSS visual hiding
