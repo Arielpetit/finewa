@@ -16,7 +16,8 @@ export const Route = createFileRoute("/app/suppliers")({
 function SuppliersPage() {
   const { data: suppliers } = useSuppliers();
   const { data: items } = useItems();
-  const { canManageSuppliers } = usePermissions();
+  const { can } = usePermissions();
+  const canManageSuppliers = can("manage_suppliers");
 
   const [formOpen, setFormOpen] = useState(false);
   const [editSupplier, setEditSupplier] = useState<Supplier | null>(null);
