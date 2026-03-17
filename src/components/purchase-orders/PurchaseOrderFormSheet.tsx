@@ -34,6 +34,7 @@ import { useCreatePurchaseOrder, useUpdatePurchaseOrder } from "@/hooks/useInven
 import { OrderStatus } from "@/types/inventory";
 import type { PurchaseOrder, Supplier, PurchaseOrderItem, Item } from "@/types/inventory";
 import { LineItemsEditor, type LineItemRow } from "./LineItemsEditor";
+import { LowStockSuggestions } from "./LowStockSuggestions";
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
   [OrderStatus.Draft]: "Draft",
