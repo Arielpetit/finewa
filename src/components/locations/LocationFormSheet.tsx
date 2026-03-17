@@ -53,7 +53,7 @@ const schema = z.object({
   name: z.string().min(1, "Name is required").max(100),
   type: z.enum(["warehouse", "zone", "aisle", "shelf", "bin"]),
   parentId: z.string().nullable(),
-  description: z.string().max(500).optional().default(""),
+  description: z.string().max(500).default(""),
   isActive: z.boolean().default(true),
 });
 
