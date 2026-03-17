@@ -92,8 +92,8 @@
       },
       "priority": 4,
       "dependencies": ["US-10-003", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "SupplierOrderHistory component with PO table, status badges, newest first, max 10. Wired into detail sheet."
     },
     {
       "id": "US-10-005",
