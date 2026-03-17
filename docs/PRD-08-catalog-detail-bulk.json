@@ -161,8 +161,8 @@
       },
       "priority": 7,
       "dependencies": ["US-08-001", "US-07-005", "US-07-006", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Extracted RowActionsMenu component with role-filtered actions. Admin: all 4 actions. Manager: View Details, Edit, Log Movement. Requestor: View Details only."
     },
     {
       "id": "US-08-008",
