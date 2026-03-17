@@ -112,8 +112,8 @@
       },
       "priority": 5,
       "dependencies": ["US-11-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "POPrintView component with Stackwise header, supplier info, line items, totals, receiving summary. Print button triggers window.print(). @media print CSS hides app chrome. A4 portrait."
     },
     {
       "id": "US-12-006",

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { format, formatDistanceToNow } from "date-fns";
-import { Pencil, ExternalLink, Trash2, PackageCheck, Clock, Check } from "lucide-react";
+import { Pencil, ExternalLink, Trash2, PackageCheck, Clock, Check, Printer } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -35,6 +35,7 @@ import { OrderStatus } from "@/types/inventory";
 import type { PurchaseOrder, Supplier, Item, StockMovement } from "@/types/inventory";
 import { POStatusActions } from "./POStatusActions";
 import { cn } from "@/lib/utils";
+import { POPrintView } from "./POPrintView";
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
   [OrderStatus.Draft]: "Draft",
@@ -174,6 +175,15 @@ export function PurchaseOrderDetailSheet({
                 Receive Shipment
               </Button>
             )}
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-1.5"
+              onClick={() => window.print()}
+            >
+              <Printer className="h-3.5 w-3.5" />
+              Print
+            </Button>
           </div>
 
           {/* Supplier link */}
@@ -346,6 +356,12 @@ export function PurchaseOrderDetailSheet({
           {/* Status actions */}
           <POStatusActions purchaseOrder={purchaseOrder} />
         </div>
+
+        <POPrintView
+          purchaseOrder={purchaseOrder}
+          supplier={supplier}
+          items={itemMap}
+        />
       </SheetContent>
     </Sheet>
   );
