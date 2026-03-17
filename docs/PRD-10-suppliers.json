@@ -113,8 +113,8 @@
       },
       "priority": 5,
       "dependencies": ["US-10-003", "US-02-004"],
-      "isPassed": false,
-      "notes": "Metrics may show placeholder values in demo since POs are minimal in seed data"
+      "isPassed": true,
+      "notes": "SupplierPerformance component with 4 metric cards. Shows insufficient data message when <3 received POs. Metrics: avg lead time, fulfillment accuracy, total orders, on-time rate."
     },
     {
       "id": "US-10-006",

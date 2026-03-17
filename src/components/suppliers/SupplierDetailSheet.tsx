@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
 import { SupplierOrderHistory } from "@/components/suppliers/SupplierOrderHistory";
+import { SupplierPerformance } from "@/components/suppliers/SupplierPerformance";
 import type { Supplier, Item, PurchaseOrder } from "@/types/inventory";
 
 interface SupplierDetailSheetProps {
@@ -148,6 +149,9 @@ export function SupplierDetailSheet({
             </div>
           )}
         </div>
+
+        {/* ── Performance ───────────────────────── */}
+        <SupplierPerformance purchaseOrders={purchaseOrders} supplierId={supplier.id} />
 
         {/* ── Order History ────────────────────────── */}
         <SupplierOrderHistory purchaseOrders={purchaseOrders} supplierId={supplier.id} />
