@@ -25,8 +25,8 @@
       },
       "priority": 1,
       "dependencies": ["US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Table with 6 seed POs, status badges, pagination, formatted costs, row click handler."
     },
     {
       "id": "US-11-002",
