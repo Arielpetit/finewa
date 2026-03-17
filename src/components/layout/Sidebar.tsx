@@ -123,6 +123,7 @@ export function Sidebar({ onNavigate }: SidebarProps) {
                   ))}
                 </div>
               )}
+            </div>
           );
         })}
 
