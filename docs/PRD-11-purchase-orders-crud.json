@@ -138,8 +138,8 @@
       },
       "priority": 6,
       "dependencies": ["US-11-001", "US-02-007", "US-05-004"],
-      "isPassed": false,
-      "notes": "partially_received→fully_received transition handled by PRD-12 receiving flow"
+      "isPassed": true,
+      "notes": "POStatusActions: Submit (draft→submitted), Cancel with AlertDialog. Terminal states show nothing. Admin/Manager only."
     },
     {
       "id": "US-11-007",
