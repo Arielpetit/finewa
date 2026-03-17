@@ -196,6 +196,7 @@ function CatalogPage() {
         onArchive={(item) => { setDetailItem(null); setDeleteTarget(item); }}
       />
 
+      <AlertDialog open={!!deleteTarget} onOpenChange={(v) => !v && setDeleteTarget(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{isAdmin ? "Delete" : "Archive"} {deleteTarget?.name}?</AlertDialogTitle>
