@@ -109,15 +109,17 @@ export function CatalogTable({
         <Table>
           <TableHeader className="sticky top-0 bg-card">
             <TableRow>
-              <TableHead className="w-10">
-                <Checkbox
-                  checked={allSelected}
-                  onCheckedChange={(v) => {
-                    if (v) onSelectedChange(new Set(paged.map((i) => i.id)));
-                    else onSelectedChange(new Set());
-                  }}
-                />
-              </TableHead>
+              {showCheckboxes && (
+                <TableHead className="w-10">
+                  <Checkbox
+                    checked={allSelected}
+                    onCheckedChange={(v) => {
+                      if (v) onSelectedChange(new Set(paged.map((i) => i.id)));
+                      else onSelectedChange(new Set());
+                    }}
+                  />
+                </TableHead>
+              )}
               <TableHead className="cursor-pointer select-none" onClick={() => toggleSort("name")}>Name<SortIcon col="name" /></TableHead>
               <TableHead className="cursor-pointer select-none" onClick={() => toggleSort("sku")}>SKU<SortIcon col="sku" /></TableHead>
               <TableHead className="cursor-pointer select-none" onClick={() => toggleSort("categoryId")}>Category<SortIcon col="categoryId" /></TableHead>
