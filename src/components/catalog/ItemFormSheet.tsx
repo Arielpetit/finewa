@@ -21,20 +21,20 @@ import { ItemStatus } from "@/types/inventory";
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
   sku: z.string().min(1, "SKU is required"),
-  description: z.string().optional(),
-  categoryId: z.string().optional(),
-  supplierId: z.string().optional(),
-  locationId: z.string().optional(),
-  unit: z.string().optional(),
-  currentStock: z.coerce.number().min(0).default(0),
-  reorderPoint: z.coerce.number().min(0).default(0),
-  reorderQuantity: z.coerce.number().min(0).default(0),
-  costPrice: z.coerce.number().min(0).default(0),
-  sellingPrice: z.coerce.number().min(0).default(0),
-  status: z.nativeEnum(ItemStatus).default(ItemStatus.Active),
+  description: z.string(),
+  categoryId: z.string(),
+  supplierId: z.string(),
+  locationId: z.string(),
+  unit: z.string(),
+  currentStock: z.coerce.number().min(0),
+  reorderPoint: z.coerce.number().min(0),
+  reorderQuantity: z.coerce.number().min(0),
+  costPrice: z.coerce.number().min(0),
+  sellingPrice: z.coerce.number().min(0),
+  status: z.nativeEnum(ItemStatus),
 });
 
-type FormValues = z.output<typeof schema>;
+type FormValues = z.infer<typeof schema>;
 
 interface ItemFormSheetProps {
   open: boolean;
