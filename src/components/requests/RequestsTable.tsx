@@ -57,6 +57,7 @@ export function RequestsTable({ requests, onRowClick, showRequestor = false }: R
           <TableRow>
             <TableHead>Request ID</TableHead>
             <TableHead>Title</TableHead>
+            {showRequestor && <TableHead>Requestor</TableHead>}
             <TableHead>Status</TableHead>
             <TableHead className="text-center">Items</TableHead>
             <TableHead>Priority</TableHead>
