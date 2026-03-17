@@ -115,8 +115,8 @@
       },
       "priority": 5,
       "dependencies": ["US-11-004", "US-02-004"],
-      "isPassed": false,
-      "notes": "Depends on seed data having items with qty below reorder point"
+      "isPassed": true,
+      "notes": "LowStockSuggestions shows items where currentStock<=reorderPoint for selected supplier. +Add creates line item with suggested qty (deficit×1.2). Hidden in edit mode."
     },
     {
       "id": "US-11-006",
