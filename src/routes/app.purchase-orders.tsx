@@ -44,6 +44,8 @@ function PurchaseOrdersPage() {
   const [editPO, setEditPO] = useState<PurchaseOrder | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailPO, setDetailPO] = useState<PurchaseOrder | null>(null);
+  const [receiveOpen, setReceiveOpen] = useState(false);
+  const [receivePO, setReceivePO] = useState<PurchaseOrder | null>(null);
 
   // Open detail from URL param
   useEffect(() => {
