@@ -161,8 +161,8 @@
       },
       "priority": 7,
       "dependencies": ["US-11-001", "US-11-006"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Detail sheet with PO info, supplier link, line items table, total, status actions, edit button for draft only."
     },
     {
       "id": "US-11-008",
