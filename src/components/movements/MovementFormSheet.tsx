@@ -267,19 +267,21 @@ export function MovementFormSheet({
                     ))}
                   </SelectContent>
                 </Select>
+                {errors.toLocationId && <p className="mt-1 text-xs text-destructive">{errors.toLocationId}</p>}
               </div>
             </>
           )}
 
           {/* Reference note */}
           <div>
-            <Label className="mb-1.5 block text-sm">Reference Note</Label>
+            <Label className="mb-1.5 block text-sm">Reference Note{isAdjusted ? " *" : ""}</Label>
             <Textarea
-              placeholder="Optional note or reference"
+              placeholder={isAdjusted ? "Reason for adjustment (required)" : "Optional note or reference"}
               value={reference}
               onChange={(e) => setReference(e.target.value)}
               rows={3}
             />
+            {errors.reference && <p className="mt-1 text-xs text-destructive">{errors.reference}</p>}
           </div>
 
           {/* Actions */}
