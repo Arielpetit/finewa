@@ -1,10 +1,14 @@
 import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { MovementsTable } from "@/components/movements/MovementsTable";
 import { MovementsFilters } from "@/components/movements/MovementsFilters";
+import { MovementFormSheet } from "@/components/movements/MovementFormSheet";
 import { EMPTY_MOVEMENT_FILTERS } from "@/components/movements/movement-filter-types";
 import type { MovementFilters } from "@/components/movements/movement-filter-types";
-import { useMovements, useItems } from "@/hooks/useInventoryData";
+import { useMovements, useItems, useLocations } from "@/hooks/useInventoryData";
+import { PermissionGate } from "@/hooks/usePermissions";
 import type { StockMovement } from "@/types/inventory";
 
 export const Route = createFileRoute("/app/movements")({
@@ -32,8 +36,10 @@ function applyFilters(movements: StockMovement[], f: MovementFilters): StockMove
 
 function MovementsPage() {
   const [filters, setFilters] = useState<MovementFilters>(EMPTY_MOVEMENT_FILTERS);
+  const [formOpen, setFormOpen] = useState(false);
   const { data: movements } = useMovements();
   const { data: items } = useItems();
+  const { data: locations } = useLocations();
 
   const itemNameMap = useMemo(
     () => new Map(items.map((i) => [i.id, i.name])),
@@ -49,9 +55,17 @@ function MovementsPage() {
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold text-foreground">Stock Movements</h1>
-        <p className="text-sm text-muted-foreground">{filtered.length} movements</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-foreground">Stock Movements</h1>
+          <p className="text-sm text-muted-foreground">{filtered.length} movements</p>
+        </div>
+        <PermissionGate permission="log_movement">
+          <Button onClick={() => setFormOpen(true)} className="gap-1.5 bg-amber-600 hover:bg-amber-700 text-white">
+            <Plus className="h-4 w-4" />
+            Log Movement
+          </Button>
+        </PermissionGate>
       </div>
 
       <MovementsFilters
@@ -62,6 +76,13 @@ function MovementsPage() {
       />
 
       <MovementsTable movements={filtered} itemNameMap={itemNameMap} />
+
+      <MovementFormSheet
+        open={formOpen}
+        onOpenChange={setFormOpen}
+        items={items}
+        locations={locations}
+      />
     </div>
   );
 }
