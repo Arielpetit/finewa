@@ -1,7 +1,7 @@
 {
-  "currentPrd": "PRD-10",
-  "currentPrdFile": "docs/PRD-10-suppliers.json",
+  "currentPrd": "PRD-11",
+  "currentPrdFile": "docs/PRD-11-purchase-orders-crud.json",
   "totalPrds": 28,
-  "completedPrds": ["PRD-01", "PRD-02", "PRD-03", "PRD-04", "PRD-05", "PRD-06", "PRD-07", "PRD-08", "PRD-09"],
+  "completedPrds": ["PRD-01", "PRD-02", "PRD-03", "PRD-04", "PRD-05", "PRD-06", "PRD-07", "PRD-08", "PRD-09", "PRD-10"],
   "status": "in-progress"
 }
