@@ -7,6 +7,7 @@ import { POSummaryStats } from "@/components/purchase-orders/POSummaryStats";
 import { PurchaseOrdersFilters } from "@/components/purchase-orders/PurchaseOrdersFilters";
 import { PurchaseOrderFormSheet } from "@/components/purchase-orders/PurchaseOrderFormSheet";
 import { PurchaseOrderDetailSheet } from "@/components/purchase-orders/PurchaseOrderDetailSheet";
+import { ReceiveShipmentSheet } from "@/components/purchase-orders/ReceiveShipmentSheet";
 import { usePurchaseOrders, useSuppliers, useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { useRole } from "@/hooks/useRole";
@@ -43,6 +44,8 @@ function PurchaseOrdersPage() {
   const [editPO, setEditPO] = useState<PurchaseOrder | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailPO, setDetailPO] = useState<PurchaseOrder | null>(null);
+  const [receiveOpen, setReceiveOpen] = useState(false);
+  const [receivePO, setReceivePO] = useState<PurchaseOrder | null>(null);
 
   // Open detail from URL param
   useEffect(() => {
@@ -134,7 +137,24 @@ function PurchaseOrdersPage() {
             },
           });
         }}
+        onReceive={(po) => {
+          setReceivePO(po);
+          setReceiveOpen(true);
+        }}
       />
+
+      {receivePO && (
+        <ReceiveShipmentSheet
+          open={receiveOpen}
+          onOpenChange={setReceiveOpen}
+          purchaseOrder={receivePO}
+          items={catalogItems}
+          onConfirm={() => {
+            // Receiving logic will be implemented in US-12-002
+            setReceiveOpen(false);
+          }}
+        />
+      )}
 
       <PurchaseOrderFormSheet
         open={formOpen}

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { format } from "date-fns";
-import { Pencil, ExternalLink, Trash2 } from "lucide-react";
+import { Pencil, ExternalLink, Trash2, PackageCheck } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -61,6 +61,7 @@ interface PurchaseOrderDetailSheetProps {
   isAdmin: boolean;
   onEdit: (po: PurchaseOrder) => void;
   onDelete: (id: string) => void;
+  onReceive?: (po: PurchaseOrder) => void;
 }
 
 export function PurchaseOrderDetailSheet({
@@ -73,6 +74,7 @@ export function PurchaseOrderDetailSheet({
   isAdmin,
   onEdit,
   onDelete,
+  onReceive,
 }: PurchaseOrderDetailSheetProps) {
   const supplierMap = useMemo(
     () => new Map(suppliers.map((s) => [s.id, s])),
@@ -87,6 +89,9 @@ export function PurchaseOrderDetailSheet({
 
   const supplier = supplierMap.get(purchaseOrder.supplierId);
   const isDraft = purchaseOrder.status === OrderStatus.Draft;
+  const canReceive =
+    purchaseOrder.status === OrderStatus.Submitted ||
+    purchaseOrder.status === OrderStatus.Partial;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -139,6 +144,17 @@ export function PurchaseOrderDetailSheet({
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
+            )}
+            {canReceive && canEdit && onReceive && (
+              <Button
+                size="sm"
+                variant="outline"
+                className="gap-1.5"
+                onClick={() => onReceive(purchaseOrder)}
+              >
+                <PackageCheck className="h-3.5 w-3.5" />
+                Receive Shipment
+              </Button>
             )}
           </div>
 
