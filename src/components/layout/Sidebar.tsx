@@ -103,29 +103,26 @@ export function Sidebar({ onNavigate }: SidebarProps) {
                 {group.label}
               </button>
 
-              <div
-                className={cn(
-                  "overflow-hidden transition-all duration-150",
-                  isCollapsed ? "max-h-0" : "max-h-96"
-                )}
-              >
-                {group.items.map((item) => (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    onClick={onNavigate}
-                    className={cn(
-                      "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-                      isActive(item.href)
-                        ? "bg-primary/10 font-medium text-primary"
-                        : "text-sidebar-foreground hover:bg-sidebar-accent"
-                    )}
-                  >
-                    <item.icon className="h-4 w-4 shrink-0" />
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
+              {!isCollapsed && (
+                <div>
+                  {group.items.map((item) => (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      onClick={onNavigate}
+                      className={cn(
+                        "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+                        isActive(item.href)
+                          ? "bg-primary/10 font-medium text-primary"
+                          : "text-sidebar-foreground hover:bg-sidebar-accent"
+                      )}
+                    >
+                      <item.icon className="h-4 w-4 shrink-0" />
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           );
         })}

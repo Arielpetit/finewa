@@ -156,8 +156,8 @@
       },
       "priority": 7,
       "dependencies": ["US-01-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Collapse/expand works for all 4 groups. Chevron rotates. Requests always visible. Conditional render instead of max-h trick for proper visibility. Zero errors."
     },
     {
       "id": "US-01-008",

@@ -7,7 +7,7 @@
 
 ## Last Completed
 
-- US-01-006 — Sidebar mobile toggle with hamburger menu — e2e PASSED
+- US-01-007 — Sidebar nav section collapse/expand — e2e PASSED
 
 ## Known Issues
 
@@ -16,7 +16,7 @@
 ## Learnings
 
 - All CSS tokens must use oklch format
-- Geist variable fonts: copy woff2 to public/fonts/, absolute URL in @font-face
-- Layout: app.tsx layout + Navigate component for redirect (not beforeLoad)
-- Mobile sidebar: Sheet component from left, onNavigate callback closes on link click
-- Implement mobile toggle alongside desktop sidebar to avoid duplicate work
+- Geist variable fonts: copy woff2 to public/fonts/
+- Layout: Navigate component for redirect (not beforeLoad)
+- Mobile sidebar: Sheet from left with onNavigate callback
+- Collapse: use conditional render, not max-h-0 trick (Playwright can't detect max-h hidden elements)
