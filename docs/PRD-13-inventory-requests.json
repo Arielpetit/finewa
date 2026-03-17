@@ -71,8 +71,8 @@
       },
       "priority": 3,
       "dependencies": ["US-13-002", "US-05-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Tabs with pending count badge. Pending tab sorts urgent-first then oldest-first via preSorted prop. Filters: status toggles, requestor search, date range. Requestor column for admin/manager."
     },
     {
       "id": "US-13-004",

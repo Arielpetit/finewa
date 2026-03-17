@@ -33,12 +33,14 @@ const STATUS_CLASS: Record<RequestStatus, string> = {
 interface RequestsTableProps {
   requests: InventoryRequest[];
   onRowClick: (request: InventoryRequest) => void;
+  showRequestor?: boolean;
+  preSorted?: boolean;
 }
 
-export function RequestsTable({ requests, onRowClick }: RequestsTableProps) {
+export function RequestsTable({ requests, onRowClick, showRequestor = false, preSorted = false }: RequestsTableProps) {
   const sorted = useMemo(
-    () => [...requests].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
-    [requests],
+    () => preSorted ? requests : [...requests].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
+    [requests, preSorted],
   );
 
   if (sorted.length === 0) {
@@ -56,6 +58,7 @@ export function RequestsTable({ requests, onRowClick }: RequestsTableProps) {
           <TableRow>
             <TableHead>Request ID</TableHead>
             <TableHead>Title</TableHead>
+            {showRequestor && <TableHead>Requestor</TableHead>}
             <TableHead>Status</TableHead>
             <TableHead className="text-center">Items</TableHead>
             <TableHead>Priority</TableHead>
@@ -71,6 +74,9 @@ export function RequestsTable({ requests, onRowClick }: RequestsTableProps) {
             >
               <TableCell className="font-mono text-xs">{req.requestNumber}</TableCell>
               <TableCell className="font-medium">{req.title}</TableCell>
+              {showRequestor && (
+                <TableCell className="text-sm">{req.requestedBy}</TableCell>
+              )}
               <TableCell>
                 <Badge variant="outline" className={STATUS_CLASS[req.status]}>
                   {STATUS_LABEL[req.status]}
