@@ -182,7 +182,7 @@ function CatalogPage() {
         onSortChange={setSort}
         selected={selected}
         onSelectedChange={setSelected}
-        onRowClick={(item) => setDetailItem(item)}
+        onRowClick={(item) => openDetail(item)}
         actionRenderer={actionRenderer}
         showCheckboxes={can("edit_item")}
       />
