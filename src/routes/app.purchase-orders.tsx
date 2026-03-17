@@ -137,7 +137,24 @@ function PurchaseOrdersPage() {
             },
           });
         }}
+        onReceive={(po) => {
+          setReceivePO(po);
+          setReceiveOpen(true);
+        }}
       />
+
+      {receivePO && (
+        <ReceiveShipmentSheet
+          open={receiveOpen}
+          onOpenChange={setReceiveOpen}
+          purchaseOrder={receivePO}
+          items={catalogItems}
+          onConfirm={() => {
+            // Receiving logic will be implemented in US-12-002
+            setReceiveOpen(false);
+          }}
+        />
+      )}
 
       <PurchaseOrderFormSheet
         open={formOpen}
