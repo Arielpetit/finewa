@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": ["US-10-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "SupplierDetailSheet with contact grid, mailto/tel links, linked items list with stock badges, edit button for admin/manager."
     },
     {
       "id": "US-10-004",
