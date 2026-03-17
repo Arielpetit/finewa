@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { SuppliersTable } from "@/components/suppliers/SuppliersTable";
 import { SupplierFormSheet } from "@/components/suppliers/SupplierFormSheet";
+import { SupplierDetailSheet } from "@/components/suppliers/SupplierDetailSheet";
 import { useSuppliers, useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
@@ -21,10 +22,17 @@ function SuppliersPage() {
 
   const [formOpen, setFormOpen] = useState(false);
   const [editSupplier, setEditSupplier] = useState<Supplier | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [detailSupplier, setDetailSupplier] = useState<Supplier | null>(null);
 
   function openCreate() {
     setEditSupplier(null);
     setFormOpen(true);
+  }
+
+  function openDetail(s: Supplier) {
+    setDetailSupplier(s);
+    setDetailOpen(true);
   }
 
   function openEdit(s: Supplier) {
@@ -47,7 +55,16 @@ function SuppliersPage() {
         )}
       </div>
 
-      <SuppliersTable suppliers={suppliers} items={items} onRowClick={openEdit} />
+      <SuppliersTable suppliers={suppliers} items={items} onRowClick={openDetail} />
+
+      <SupplierDetailSheet
+        open={detailOpen}
+        onOpenChange={setDetailOpen}
+        supplier={detailSupplier}
+        items={items}
+        canEdit={canManageSuppliers}
+        onEdit={openEdit}
+      />
 
       <SupplierFormSheet
         open={formOpen}
