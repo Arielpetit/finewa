@@ -43,6 +43,9 @@ function PurchaseOrdersPage() {
   const { can } = usePermissions();
   const { role } = useRole();
   const deletePO = useDeletePurchaseOrder();
+  const updatePO = useUpdatePurchaseOrder();
+  const createMovement = useCreateMovement();
+  const updateItem = useUpdateItem();
   const canManagePOs = can("create_po");
   const isAdmin = role === "admin";
   const [filters, setFilters] = useState<POFilters>(EMPTY_PO_FILTERS);
