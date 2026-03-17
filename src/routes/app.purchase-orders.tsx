@@ -1,12 +1,15 @@
 import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
+import { toast } from "sonner";
 import { PurchaseOrdersTable } from "@/components/purchase-orders/PurchaseOrdersTable";
 import { PurchaseOrdersFilters } from "@/components/purchase-orders/PurchaseOrdersFilters";
 import { PurchaseOrderFormSheet } from "@/components/purchase-orders/PurchaseOrderFormSheet";
 import { PurchaseOrderDetailSheet } from "@/components/purchase-orders/PurchaseOrderDetailSheet";
 import { usePurchaseOrders, useSuppliers, useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
+import { useRole } from "@/hooks/useRole";
+import { useDeletePurchaseOrder } from "@/hooks/useInventoryMutations";
 import { Button } from "@/components/ui/button";
 import { OrderStatus } from "@/types/inventory";
 import type { PurchaseOrder } from "@/types/inventory";
@@ -23,7 +26,10 @@ function PurchaseOrdersPage() {
   const { data: suppliers } = useSuppliers();
   const { data: catalogItems } = useItems();
   const { can } = usePermissions();
+  const { role } = useRole();
+  const deletePO = useDeletePurchaseOrder();
   const canManagePOs = can("create_po");
+  const isAdmin = role === "admin";
   const [filters, setFilters] = useState<POFilters>(EMPTY_PO_FILTERS);
   const [formOpen, setFormOpen] = useState(false);
   const [editPO, setEditPO] = useState<PurchaseOrder | null>(null);
@@ -96,7 +102,17 @@ function PurchaseOrdersPage() {
         suppliers={suppliers}
         items={catalogItems}
         canEdit={canManagePOs}
+        isAdmin={isAdmin}
         onEdit={handleEdit}
+        onDelete={(id) => {
+          deletePO.mutate(id, {
+            onSuccess: () => {
+              setDetailOpen(false);
+              setDetailPO(null);
+              toast.success("Purchase order deleted");
+            },
+          });
+        }}
       />
 
       <PurchaseOrderFormSheet

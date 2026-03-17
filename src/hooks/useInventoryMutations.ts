@@ -76,6 +76,10 @@ export function useUpdatePurchaseOrder() {
   );
 }
 
+export function useDeletePurchaseOrder() {
+  return useDemoMutation<string>((store, id) => store.deletePurchaseOrder(id));
+}
+
 export function useCreateSupplier() {
   return useDemoMutation<Supplier>((store, data) => store.createSupplier(data));
 }

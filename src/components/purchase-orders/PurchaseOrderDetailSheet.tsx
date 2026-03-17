@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { format } from "date-fns";
-import { Pencil, ExternalLink } from "lucide-react";
+import { Pencil, ExternalLink, Trash2 } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -17,6 +17,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -47,7 +58,9 @@ interface PurchaseOrderDetailSheetProps {
   suppliers: Supplier[];
   items: Item[];
   canEdit: boolean;
+  isAdmin: boolean;
   onEdit: (po: PurchaseOrder) => void;
+  onDelete: (id: string) => void;
 }
 
 export function PurchaseOrderDetailSheet({
@@ -57,7 +70,9 @@ export function PurchaseOrderDetailSheet({
   suppliers,
   items,
   canEdit,
+  isAdmin,
   onEdit,
+  onDelete,
 }: PurchaseOrderDetailSheetProps) {
   const supplierMap = useMemo(
     () => new Map(suppliers.map((s) => [s.id, s])),
@@ -97,6 +112,33 @@ export function PurchaseOrderDetailSheet({
                 <Pencil className="h-3.5 w-3.5" />
                 Edit
               </Button>
+            )}
+            {isDraft && isAdmin && (
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button size="sm" variant="outline" className="gap-1.5 text-destructive hover:text-destructive">
+                    <Trash2 className="h-3.5 w-3.5" />
+                    Delete
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete {purchaseOrder.orderNumber}?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Delete this draft purchase order? This cannot be undone.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                      onClick={() => onDelete(purchaseOrder.id)}
+                    >
+                      Confirm Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             )}
           </div>
 

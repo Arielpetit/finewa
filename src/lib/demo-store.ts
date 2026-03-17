@@ -182,6 +182,14 @@ export class DemoStore {
     return this.data.purchaseOrders[idx];
   }
 
+  deletePurchaseOrder(id: string): boolean {
+    const idx = this.data.purchaseOrders.findIndex((po) => po.id === id);
+    if (idx === -1) return false;
+    this.data.purchaseOrders.splice(idx, 1);
+    this.version++;
+    return true;
+  }
+
   // ─── Requests ──────────────────────────────────────────
   getRequests(): InventoryRequest[] {
     return this.data.requests;

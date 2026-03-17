@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-11 — Purchase Orders CRUD
-- Status: 7 of 10 stories passed
+- Status: 8 of 10 stories passed
 
 ## Last Completed
 
-- US-11-007 — PO detail sheet — e2e passed
+- US-11-008 — PO delete for draft only — e2e passed
 
 ## Known Issues
 
