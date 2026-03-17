@@ -145,6 +145,17 @@ export function PurchaseOrderDetailSheet({
                 </AlertDialogContent>
               </AlertDialog>
             )}
+            {canReceive && canEdit && onReceive && (
+              <Button
+                size="sm"
+                variant="outline"
+                className="gap-1.5"
+                onClick={() => onReceive(purchaseOrder)}
+              >
+                <PackageCheck className="h-3.5 w-3.5" />
+                Receive Shipment
+              </Button>
+            )}
           </div>
 
           {/* Supplier link */}
