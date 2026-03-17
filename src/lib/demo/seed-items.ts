@@ -52,7 +52,7 @@ export const items: Item[] = [
 
   // Office Supplies — 8 items
   item(9, "A4 Copy Paper (Ream)", "cat-02", "sup-01", "loc-01", 200, 50, 4, 7.99),
-  item(10, "Ballpoint Pens (12pk)", "cat-02", "sup-01", "loc-01", 90, 25, 2, 5.99),
+  item(10, "Ballpoint Pens (12pk)", "cat-02", "sup-01", "loc-01", 20, 25, 2, 5.99), // low
   item(11, "Sticky Notes (6pk)", "cat-02", "sup-01", "loc-02", 55, 20, 3, 6.49),
   item(12, "Binder Clips (Box)", "cat-02", "sup-03", "loc-01", 40, 15, 1.5, 3.99),
   item(13, "Whiteboard Markers (8pk)", "cat-02", "sup-03", "loc-02", 5, 10, 4, 8.99), // low
