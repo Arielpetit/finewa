@@ -117,8 +117,8 @@
       },
       "priority": 5,
       "dependencies": ["US-09-003", "US-08-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Catalog row action opens MovementFormSheet with preSelectedItemId, item field locked. Save creates movement and shows toast. Sheet closes after save."
     },
     {
       "id": "US-09-006",
