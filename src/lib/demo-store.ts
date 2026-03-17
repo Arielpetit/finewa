@@ -118,6 +118,11 @@ export class DemoStore {
         item.currentStock = Math.max(0, item.currentStock - Math.abs(movement.quantity));
       } else if (movement.type === MovementType.Adjusted) {
         item.currentStock = Math.max(0, item.currentStock + movement.quantity);
+      } else if (movement.type === MovementType.Transferred) {
+        // Transfer doesn't change total stock, just location
+        if (movement.toLocationId) {
+          item.locationId = movement.toLocationId;
+        }
       }
     }
     this.version++;
