@@ -136,7 +136,6 @@ export function SupplierDetailSheet({
               {linkedItems.length > MAX_LINKED && (
                 <Link
                   to="/app/catalog"
-                  search={{ supplier: supplier.id }}
                   className="mt-2 inline-flex items-center gap-1 text-sm text-primary hover:underline"
                 >
                   View All in Catalog
