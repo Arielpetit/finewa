@@ -1,9 +1,13 @@
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { DemoBanner } from "@/components/layout/DemoBanner";
 import { useDemo } from "@/hooks/useDemo";
 import { useAuth } from "@/hooks/useAuth";
+import { useRole } from "@/hooks/useRole";
+import { canAccessRoute } from "@/lib/route-guard";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/app")({
   component: AppLayout,
@@ -12,9 +16,11 @@ export const Route = createFileRoute("/app")({
 function AppLayout() {
   const { isDemo } = useDemo();
   const { isAuthenticated, isLoading } = useAuth();
+  const { role } = useRole();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Route guard
+  // Auth guard
   if (!isDemo && !isAuthenticated) {
     if (isLoading) {
       return (
@@ -26,6 +32,14 @@ function AppLayout() {
     navigate({ to: "/login" });
     return null;
   }
+
+  // Role-based route guard
+  useEffect(() => {
+    if (!canAccessRoute(location.pathname, role)) {
+      toast.error("You don't have permission to access that page.");
+      navigate({ to: "/app/dashboard" });
+    }
+  }, [location.pathname, role, navigate]);
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-background">

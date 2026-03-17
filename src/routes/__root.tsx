@@ -50,7 +50,9 @@ function RootComponent() {
   return (
     <AuthProvider>
       <DemoProvider>
-        <Outlet />
+        <RoleProvider>
+          <Outlet />
+        </RoleProvider>
       </DemoProvider>
     </AuthProvider>
   );
