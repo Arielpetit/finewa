@@ -67,13 +67,12 @@ export function MovementTimeline({ movements, itemId, maxEntries = 20 }: Movemen
 
       {/* View all link */}
       <div className="pt-3 text-center">
-        <Link
-          to="/app/movements"
-          search={{ item: itemId }}
+        <a
+          href={`/app/movements?item=${itemId}`}
           className="text-sm font-medium text-primary hover:underline"
         >
           View All in Movements →
-        </Link>
+        </a>
       </div>
     </div>
   );
