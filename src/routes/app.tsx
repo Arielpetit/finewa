@@ -20,26 +20,30 @@ function AppLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Auth guard
-  if (!isDemo && !isAuthenticated) {
-    if (isLoading) {
-      return (
-        <div className="flex h-screen items-center justify-center bg-background">
-          <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-        </div>
-      );
-    }
-    navigate({ to: "/login" });
-    return null;
-  }
+  const hasAccess = isDemo || isAuthenticated;
 
   // Role-based route guard
   useEffect(() => {
-    if (!canAccessRoute(location.pathname, role)) {
+    if (hasAccess && !canAccessRoute(location.pathname, role)) {
       toast.error("You don't have permission to access that page.");
       navigate({ to: "/app/dashboard" });
     }
-  }, [location.pathname, role, navigate]);
+  }, [location.pathname, role, navigate, hasAccess]);
+
+  // Auth guard
+  useEffect(() => {
+    if (!hasAccess && !isLoading) {
+      navigate({ to: "/login" });
+    }
+  }, [hasAccess, isLoading, navigate]);
+
+  if (!hasAccess) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-background">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-background">
