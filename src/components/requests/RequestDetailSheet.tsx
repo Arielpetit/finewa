@@ -18,6 +18,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { StatusStepper } from "@/components/requests/StatusStepper";
 import { RequestStatus } from "@/types/inventory";
 import type { InventoryRequest, Item } from "@/types/inventory";
 
@@ -48,6 +49,7 @@ interface RequestDetailSheetProps {
   onApprove?: (req: InventoryRequest) => void;
   onDecline?: (req: InventoryRequest) => void;
   onPartial?: (req: InventoryRequest) => void;
+  onCancel?: (req: InventoryRequest) => void;
 }
 
 export function RequestDetailSheet({
@@ -59,6 +61,7 @@ export function RequestDetailSheet({
   onApprove,
   onDecline,
   onPartial,
+  onCancel,
 }: RequestDetailSheetProps) {
   const itemMap = useMemo(() => new Map(items.map((i) => [i.id, i])), [items]);
 
@@ -75,6 +78,9 @@ export function RequestDetailSheet({
         </SheetHeader>
 
         <div className="mt-6 space-y-5">
+          {/* Status stepper */}
+          <StatusStepper status={request.status} />
+
           {/* Header badges */}
           <div className="flex flex-wrap items-center gap-2">
             <Badge variant="outline" className={STATUS_CLASS[request.status]}>
@@ -111,6 +117,7 @@ export function RequestDetailSheet({
             <p className="text-sm text-foreground">{request.reason}</p>
           </div>
 
+          {/* Decline reason — prominent */}
           {request.declineReason && (
             <div className="rounded-md border border-destructive/20 bg-destructive/5 p-3">
               <p className="text-xs font-medium text-destructive">Decline Reason</p>
@@ -159,11 +166,7 @@ export function RequestDetailSheet({
           <div>
             <p className="mb-2 text-sm font-medium text-foreground">Timeline</p>
             <div className="space-y-2">
-              <TimelineEntry
-                label="Submitted"
-                date={request.createdAt}
-                by={request.requestedBy}
-              />
+              <TimelineEntry label="Submitted" date={request.createdAt} by={request.requestedBy} />
               {request.status !== RequestStatus.Pending &&
                 request.status !== RequestStatus.Cancelled && (
                   <TimelineEntry
@@ -173,36 +176,41 @@ export function RequestDetailSheet({
                   />
                 )}
               {request.status === RequestStatus.Cancelled && (
-                <TimelineEntry
-                  label="Cancelled"
-                  date={request.updatedAt}
-                  by={request.requestedBy}
-                />
+                <TimelineEntry label="Cancelled" date={request.updatedAt} by={request.requestedBy} />
               )}
             </div>
           </div>
 
-          {/* Approval actions */}
+          {/* Approval actions (admin/manager) */}
           {isPending && canApprove && (
             <>
               <Separator />
               <div className="flex flex-wrap gap-2">
                 {onApprove && (
-                  <Button size="sm" onClick={() => onApprove(request)}>
-                    Approve
-                  </Button>
+                  <Button size="sm" onClick={() => onApprove(request)}>Approve</Button>
                 )}
                 {onPartial && (
-                  <Button size="sm" variant="outline" onClick={() => onPartial(request)}>
-                    Partial Fulfill
-                  </Button>
+                  <Button size="sm" variant="outline" onClick={() => onPartial(request)}>Partial Fulfill</Button>
                 )}
                 {onDecline && (
-                  <Button size="sm" variant="outline" className="text-destructive hover:text-destructive" onClick={() => onDecline(request)}>
-                    Decline
-                  </Button>
+                  <Button size="sm" variant="outline" className="text-destructive hover:text-destructive" onClick={() => onDecline(request)}>Decline</Button>
                 )}
               </div>
+            </>
+          )}
+
+          {/* Cancel button (requestor's own pending request) */}
+          {isPending && !canApprove && onCancel && (
+            <>
+              <Separator />
+              <Button
+                size="sm"
+                variant="outline"
+                className="text-destructive hover:text-destructive"
+                onClick={() => onCancel(request)}
+              >
+                Cancel Request
+              </Button>
             </>
           )}
         </div>
@@ -216,9 +224,7 @@ function TimelineEntry({ label, date, by }: { label: string; date: string; by?: 
     <div className="flex items-center gap-2 text-sm">
       <div className="h-2 w-2 shrink-0 rounded-full bg-primary" />
       <span className="font-medium text-foreground">{label}</span>
-      <span className="text-muted-foreground">
-        {format(new Date(date), "MMM d, yyyy")}
-      </span>
+      <span className="text-muted-foreground">{format(new Date(date), "MMM d, yyyy")}</span>
       {by && <span className="text-muted-foreground">by {by}</span>}
     </div>
   );

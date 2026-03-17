@@ -1,9 +1,20 @@
 import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { RequestFormSheet } from "@/components/requests/RequestFormSheet";
 import { RequestsTable } from "@/components/requests/RequestsTable";
 import { RequestsFilters } from "@/components/requests/RequestsFilters";
@@ -12,6 +23,7 @@ import { useApprovalActions } from "@/components/requests/ApprovalActions";
 import { useItems, useRequests } from "@/hooks/useInventoryData";
 import { useRole } from "@/hooks/useRole";
 import { usePermissions } from "@/hooks/usePermissions";
+import { useDemo } from "@/hooks/useDemo";
 import { RequestStatus } from "@/types/inventory";
 import type { InventoryRequest } from "@/types/inventory";
 import type { RequestFilters } from "@/components/requests/request-filter-types";
@@ -41,12 +53,14 @@ function RequestsPage() {
   const { data: requests } = useRequests();
   const { role } = useRole();
   const { can } = usePermissions();
+  const { demoStore, bumpVersion } = useDemo();
   const isManagerOrAdmin = role === "admin" || role === "manager";
   const canApproveReq = can("approve_request");
   const [formOpen, setFormOpen] = useState(false);
   const [filters, setFilters] = useState<RequestFilters>(EMPTY_REQUEST_FILTERS);
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailRequest, setDetailRequest] = useState<InventoryRequest | null>(null);
+  const [cancelTarget, setCancelTarget] = useState<InventoryRequest | null>(null);
 
   const approval = useApprovalActions({ items: catalogItems });
 
@@ -78,6 +92,21 @@ function RequestsPage() {
   function handleRowClick(req: InventoryRequest) {
     setDetailRequest(req);
     setDetailOpen(true);
+  }
+
+  function handleCancel(req: InventoryRequest) {
+    setCancelTarget(req);
+  }
+
+  function confirmCancel() {
+    if (!cancelTarget || !demoStore) return;
+    demoStore.updateRequest(cancelTarget.id, {
+      status: RequestStatus.Cancelled,
+      updatedAt: new Date().toISOString(),
+    });
+    bumpVersion();
+    toast.success(`${cancelTarget.requestNumber} cancelled`);
+    setCancelTarget(null);
   }
 
   return (
@@ -131,9 +160,31 @@ function RequestsPage() {
         onApprove={approval.openApprove}
         onDecline={approval.openDecline}
         onPartial={approval.openPartial}
+        onCancel={handleCancel}
       />
 
       {approval.renderDialogs()}
+
+      {/* Cancel confirmation */}
+      <AlertDialog open={!!cancelTarget} onOpenChange={(o) => !o && setCancelTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Cancel {cancelTarget?.requestNumber}?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. The request will be marked as cancelled.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Keep Request</AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              onClick={confirmCancel}
+            >
+              Confirm Cancel
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <RequestFormSheet open={formOpen} onOpenChange={setFormOpen} items={catalogItems} />
     </div>
