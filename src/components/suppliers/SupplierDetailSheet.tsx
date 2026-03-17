@@ -128,7 +128,7 @@ export function SupplierDetailSheet({
                     <span className="font-mono text-xs text-muted-foreground">
                       {item.currentStock} {item.unit}
                     </span>
-                    <StatusBadge status={item.currentStock <= 0 ? "out" : item.currentStock <= item.reorderPoint ? "low" : "ok"} />
+                    <StatusBadge status={item.currentStock <= 0 ? "out-of-stock" : item.currentStock <= item.reorderPoint ? "low-stock" : "in-stock"} />
                   </div>
                 </div>
               ))}
