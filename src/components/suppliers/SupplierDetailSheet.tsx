@@ -55,19 +55,29 @@ export function SupplierDetailSheet({
         <SheetHeader>
           <div className="flex items-center justify-between">
             <SheetTitle>{supplier.name}</SheetTitle>
-            {canEdit && (
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => {
-                  onOpenChange(false);
-                  onEdit(supplier);
-                }}
-              >
-                <Pencil className="mr-1.5 h-3.5 w-3.5" />
-                Edit
-              </Button>
-            )}
+            <div className="flex items-center gap-2">
+              {canDelete && (
+                <SupplierDeleteDialog
+                  supplier={supplier}
+                  items={items}
+                  purchaseOrders={purchaseOrders}
+                  onDelete={(id) => { onDelete(id); onOpenChange(false); }}
+                />
+              )}
+              {canEdit && (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    onOpenChange(false);
+                    onEdit(supplier);
+                  }}
+                >
+                  <Pencil className="mr-1.5 h-3.5 w-3.5" />
+                  Edit
+                </Button>
+              )}
+            </div>
           </div>
           <SheetDescription>
             {supplier.isActive ? "Active supplier" : "Inactive supplier"}
