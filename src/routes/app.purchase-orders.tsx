@@ -40,6 +40,7 @@ function PurchaseOrdersPage() {
   const { data: purchaseOrders } = usePurchaseOrders();
   const { data: suppliers } = useSuppliers();
   const { data: catalogItems } = useItems();
+  const { data: allMovements } = useMovements();
   const { can } = usePermissions();
   const { role } = useRole();
   const deletePO = useDeletePurchaseOrder();
