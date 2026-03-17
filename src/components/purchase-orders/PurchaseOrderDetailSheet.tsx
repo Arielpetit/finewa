@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { format } from "date-fns";
-import { Pencil, ExternalLink } from "lucide-react";
+import { Pencil, ExternalLink, Trash2 } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -17,6 +17,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -47,7 +58,9 @@ interface PurchaseOrderDetailSheetProps {
   suppliers: Supplier[];
   items: Item[];
   canEdit: boolean;
+  isAdmin: boolean;
   onEdit: (po: PurchaseOrder) => void;
+  onDelete: (id: string) => void;
 }
 
 export function PurchaseOrderDetailSheet({
