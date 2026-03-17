@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
 import { SupplierOrderHistory } from "@/components/suppliers/SupplierOrderHistory";
 import { SupplierPerformance } from "@/components/suppliers/SupplierPerformance";
+import { SupplierDeleteDialog } from "@/components/suppliers/SupplierDeleteDialog";
 import type { Supplier, Item, PurchaseOrder } from "@/types/inventory";
 
 interface SupplierDetailSheetProps {
@@ -21,7 +22,9 @@ interface SupplierDetailSheetProps {
   items: Item[];
   purchaseOrders: PurchaseOrder[];
   canEdit: boolean;
+  canDelete: boolean;
   onEdit: (s: Supplier) => void;
+  onDelete: (id: string) => void;
 }
 
 const MAX_LINKED = 10;
