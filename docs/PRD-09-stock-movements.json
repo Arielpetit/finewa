@@ -139,8 +139,8 @@
       },
       "priority": 6,
       "dependencies": ["US-09-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Shipped/transferred qty cannot exceed currentStock. Adjusted requires note. Transferred requires both locations, must differ. Qty must be positive integer. All inline errors."
     },
     {
       "id": "US-09-007",
