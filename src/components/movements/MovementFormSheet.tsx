@@ -86,11 +86,43 @@ export function MovementFormSheet({
   const validate = (): boolean => {
     const errs: Record<string, string> = {};
     if (!itemId) errs.itemId = "Item is required";
+
+    const num = Number(quantity);
     const qty = parseInt(quantity, 10);
-    if (!quantity || isNaN(qty) || qty <= 0) errs.quantity = "Quantity must be a positive integer";
-    if (quantity && !isNaN(qty) && qty > 0 && !Number.isInteger(Number(quantity))) {
-      errs.quantity = "Quantity must be a whole number";
+    if (!quantity || isNaN(qty) || qty <= 0 || !Number.isInteger(num)) {
+      errs.quantity = "Quantity must be a positive integer";
     }
+
+    const selectedItem = items.find((i) => i.id === itemId);
+
+    // Shipped: cannot exceed current stock
+    if (!errs.quantity && selectedItem && (type === MovementType.Shipped || (type === MovementType.Transferred))) {
+      if (qty > selectedItem.currentStock) {
+        errs.quantity = `Insufficient stock. Current quantity: ${selectedItem.currentStock}`;
+      }
+    }
+
+    // Adjusted out: also cannot exceed current stock
+    if (!errs.quantity && selectedItem && type === MovementType.Adjusted && direction === "out") {
+      if (qty > selectedItem.currentStock) {
+        errs.quantity = `Insufficient stock. Current quantity: ${selectedItem.currentStock}`;
+      }
+    }
+
+    // Adjusted: note required
+    if (type === MovementType.Adjusted && !reference.trim()) {
+      errs.reference = "Reason for adjustment is required";
+    }
+
+    // Transferred: both locations required and different
+    if (type === MovementType.Transferred) {
+      if (!fromLocationId) errs.fromLocationId = "Source location is required";
+      if (!toLocationId) errs.toLocationId = "Destination location is required";
+      if (fromLocationId && toLocationId && fromLocationId === toLocationId) {
+        errs.toLocationId = "Source and destination must differ";
+      }
+    }
+
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
