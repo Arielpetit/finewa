@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
-import type { Supplier, Item } from "@/types/inventory";
+import { SupplierOrderHistory } from "@/components/suppliers/SupplierOrderHistory";
+import type { Supplier, Item, PurchaseOrder } from "@/types/inventory";
 
 interface SupplierDetailSheetProps {
   open: boolean;
