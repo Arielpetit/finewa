@@ -36,7 +36,9 @@ export function SupplierDetailSheet({
   items,
   purchaseOrders,
   canEdit,
+  canDelete,
   onEdit,
+  onDelete,
 }: SupplierDetailSheetProps) {
   const linkedItems = useMemo(() => {
     if (!supplier) return [];
