@@ -49,8 +49,8 @@
       },
       "priority": 2,
       "dependencies": ["US-02-004", "US-05-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "RequestsTable with status/priority badges, sorted newest first, empty state, row click handler."
     },
     {
       "id": "US-13-003",
