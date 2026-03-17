@@ -1,5 +1,5 @@
-import { useState, useMemo, useCallback } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -27,19 +27,28 @@ import type { Item } from "@/types/inventory";
 import { ItemStatus } from "@/types/inventory";
 import type { ItemFilters } from "@/lib/demo-store";
 
+interface CatalogSearch {
+  item?: string;
+}
+
 export const Route = createFileRoute("/app/catalog")({
   component: CatalogPage,
   head: () => ({ meta: [{ title: "Catalog — Stackwise" }] }),
+  validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
+    item: typeof search.item === "string" ? search.item : undefined,
+  }),
 });
 
 function CatalogPage() {
+  const { item: itemId } = Route.useSearch();
+  const navigate = useNavigate();
+
   const [filters, setFilters] = useState<ItemFilters>({});
   const [sort, setSort] = useState<SortState>({ key: "name", dir: "asc" });
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [sheetOpen, setSheetOpen] = useState(false);
   const [editItem, setEditItem] = useState<Item | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
-  const [detailItem, setDetailItem] = useState<Item | null>(null);
 
   // Strip stock-level status before passing to store
   const storeFilters = useMemo(() => {
