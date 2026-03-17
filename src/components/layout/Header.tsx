@@ -28,12 +28,13 @@ export function Header() {
   const displayName = isDemo ? "Demo Admin" : user?.email ?? "User";
 
   const handleExit = async () => {
+    // Navigate away first to avoid route guard redirect race
+    await navigate({ to: "/" });
     if (isDemo) {
       exitDemoMode();
     } else {
       await signOut();
     }
-    navigate({ to: "/" });
   };
 
   return (
