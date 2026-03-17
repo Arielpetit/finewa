@@ -82,21 +82,27 @@ function TreeNode({
 
   return (
     <div role="treeitem" aria-expanded={hasChildren ? expanded : undefined}>
-      <button
-        type="button"
+      <div
+        role="button"
+        tabIndex={0}
         onClick={() => onSelect(node.id)}
+        onKeyDown={(e) => { if (e.key === "Enter") onSelect(node.id); }}
         className={cn(
-          "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors hover:bg-accent/50",
+          "flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors hover:bg-accent/50",
           isSelected && "bg-accent text-accent-foreground",
         )}
         style={{ paddingLeft: `${node.depth * 20 + 8}px` }}
       >
         {hasChildren ? (
-          <button
-            type="button"
+          <span
+            role="button"
+            tabIndex={0}
             onClick={(e) => {
               e.stopPropagation();
               setExpanded((p) => !p);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") { e.stopPropagation(); setExpanded((p) => !p); }
             }}
             className="shrink-0 rounded p-0.5 hover:bg-muted"
             aria-label={expanded ? "Collapse" : "Expand"}
@@ -107,7 +113,7 @@ function TreeNode({
                 expanded && "rotate-90",
               )}
             />
-          </button>
+          </span>
         ) : (
           <span className="w-[18px]" />
         )}
@@ -123,7 +129,7 @@ function TreeNode({
             {count}
           </span>
         )}
-      </button>
+      </div>
 
       {hasChildren && expanded && (
         <div>
