@@ -3,12 +3,11 @@
 ## Current State
 
 - Phase: PRD-10 — Suppliers
-- Status: Starting
+- Status: 1 of 7 stories passed
 
 ## Last Completed
 
-- US-09-008 — Movement detail expansion row — e2e passed
-- PRD-09 complete (8/8 stories passed)
+- US-10-001 — Suppliers list table — e2e passed
 
 ## Known Issues
 
@@ -21,3 +20,4 @@
 - Use nth() for Radix comboboxes in Playwright when multiple exist in same dialog
 - Use data-testid for stats containers to avoid ambiguous locators
 - Use Fragment with key (not <>) when rendering multiple sibling elements in .map()
+- Use { exact: true } in getByText when substring matches multiple elements

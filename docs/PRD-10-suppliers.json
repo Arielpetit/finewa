@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": ["US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "SuppliersTable with search, name sort, items count, status badge, 20/page pagination. Wired into suppliers page."
     },
     {
       "id": "US-10-002",
