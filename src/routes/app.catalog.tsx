@@ -22,6 +22,7 @@ import {
 import { CatalogTable, type SortState } from "@/components/catalog/CatalogTable";
 import { CatalogFilters } from "@/components/catalog/CatalogFilters";
 import { ItemFormSheet } from "@/components/catalog/ItemFormSheet";
+import { ItemDetailSheet } from "@/components/catalog/ItemDetailSheet";
 import { useItems, useCategories, useSuppliers, useLocations } from "@/hooks/useInventoryData";
 import { useCreateItem, useUpdateItem, useDeleteItem } from "@/hooks/useInventoryMutations";
 import { PermissionGate, usePermissions } from "@/hooks/usePermissions";
@@ -42,6 +43,7 @@ function CatalogPage() {
   const [sheetOpen, setSheetOpen] = useState(false);
   const [editItem, setEditItem] = useState<Item | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
+  const [detailItem, setDetailItem] = useState<Item | null>(null);
 
   // Strip stock-level status before passing to store
   const storeFilters = useMemo(() => {
@@ -167,6 +169,7 @@ function CatalogPage() {
         onSortChange={setSort}
         selected={selected}
         onSelectedChange={setSelected}
+        onRowClick={(item) => setDetailItem(item)}
         actionRenderer={actionRenderer}
       />
 
@@ -180,6 +183,17 @@ function CatalogPage() {
         existingSkus={existingSkus}
         onSave={handleSave}
         loading={createItem.isLoading || updateItem.isLoading}
+      />
+
+      <ItemDetailSheet
+        open={!!detailItem}
+        onOpenChange={(v) => { if (!v) setDetailItem(null); }}
+        item={detailItem}
+        categories={categories}
+        suppliers={suppliers}
+        locations={locations}
+        onEdit={(item) => { setDetailItem(null); openEdit(item); }}
+        onArchive={(item) => { setDetailItem(null); setDeleteTarget(item); }}
       />
 
       <AlertDialog open={!!deleteTarget} onOpenChange={(v) => !v && setDeleteTarget(null)}>

@@ -26,8 +26,8 @@
       },
       "priority": 1,
       "dependencies": ["US-07-001", "US-07-005"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ItemDetailSheet created with overview tab, 560px desktop/full mobile, all fields in 2-col grid, qty colored by stock status, edit/archive via PermissionGate. E2E verified."
     },
     {
       "id": "US-08-002",
