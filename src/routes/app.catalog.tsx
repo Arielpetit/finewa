@@ -66,7 +66,19 @@ function CatalogPage() {
   const { can } = usePermissions();
   const { isAdmin } = useRole();
 
-  // Client-side stock-level filter
+  // Derive detail item from URL search param
+  const detailItem = useMemo(() => {
+    if (!itemId) return null;
+    return allItems.find((i) => i.id === itemId) ?? null;
+  }, [itemId, allItems]);
+
+  const openDetail = useCallback((item: Item) => {
+    navigate({ to: "/app/catalog", search: { item: item.id } });
+  }, [navigate]);
+
+  const closeDetail = useCallback(() => {
+    navigate({ to: "/app/catalog", search: {} });
+  }, [navigate]);
   const items = useMemo(() => {
     let result = allItems.filter((i) => i.status !== ItemStatus.Archived);
     if (filters.status === "in-stock") result = result.filter((i) => i.currentStock > i.reorderPoint);
