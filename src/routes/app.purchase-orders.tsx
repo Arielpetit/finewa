@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
@@ -11,17 +11,24 @@ import { usePermissions } from "@/hooks/usePermissions";
 import { useRole } from "@/hooks/useRole";
 import { useDeletePurchaseOrder } from "@/hooks/useInventoryMutations";
 import { Button } from "@/components/ui/button";
-import { OrderStatus } from "@/types/inventory";
 import type { PurchaseOrder } from "@/types/inventory";
 import type { POFilters } from "@/components/purchase-orders/po-filter-types";
 import { EMPTY_PO_FILTERS } from "@/components/purchase-orders/po-filter-types";
 
+interface POSearch {
+  po?: string;
+}
+
 export const Route = createFileRoute("/app/purchase-orders")({
   component: PurchaseOrdersPage,
   head: () => ({ meta: [{ title: "Purchase Orders — Stackwise" }] }),
+  validateSearch: (search: Record<string, unknown>): POSearch => ({
+    po: typeof search.po === "string" ? search.po : undefined,
+  }),
 });
 
 function PurchaseOrdersPage() {
+  const { po: poParam } = Route.useSearch();
   const { data: purchaseOrders } = usePurchaseOrders();
   const { data: suppliers } = useSuppliers();
   const { data: catalogItems } = useItems();
@@ -35,6 +42,17 @@ function PurchaseOrdersPage() {
   const [editPO, setEditPO] = useState<PurchaseOrder | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailPO, setDetailPO] = useState<PurchaseOrder | null>(null);
+
+  // Open detail from URL param
+  useEffect(() => {
+    if (poParam && purchaseOrders.length > 0) {
+      const match = purchaseOrders.find((p) => p.id === poParam);
+      if (match) {
+        setDetailPO(match);
+        setDetailOpen(true);
+      }
+    }
+  }, [poParam, purchaseOrders]);
 
   const filtered = useMemo(() => {
     return purchaseOrders.filter((po) => {
