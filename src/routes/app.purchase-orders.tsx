@@ -1,12 +1,15 @@
 import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
+import { toast } from "sonner";
 import { PurchaseOrdersTable } from "@/components/purchase-orders/PurchaseOrdersTable";
 import { PurchaseOrdersFilters } from "@/components/purchase-orders/PurchaseOrdersFilters";
 import { PurchaseOrderFormSheet } from "@/components/purchase-orders/PurchaseOrderFormSheet";
 import { PurchaseOrderDetailSheet } from "@/components/purchase-orders/PurchaseOrderDetailSheet";
 import { usePurchaseOrders, useSuppliers, useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
+import { useRole } from "@/hooks/useRole";
+import { useDeletePurchaseOrder } from "@/hooks/useInventoryMutations";
 import { Button } from "@/components/ui/button";
 import { OrderStatus } from "@/types/inventory";
 import type { PurchaseOrder } from "@/types/inventory";
