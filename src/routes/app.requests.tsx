@@ -177,7 +177,7 @@ function RequestsPage() {
 
       <RequestDetailSheet
         open={detailOpen}
-        onOpenChange={setDetailOpen}
+        onOpenChange={handleDetailClose}
         request={currentDetail}
         items={catalogItems}
         canApprove={canApproveReq}
