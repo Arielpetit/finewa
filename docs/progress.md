@@ -2,12 +2,13 @@
 
 ## Current State
 
-- Phase: PRD-09 — Stock Movements
-- Status: 7 of 8 stories passed
+- Phase: PRD-10 — Suppliers
+- Status: Starting
 
 ## Last Completed
 
-- US-09-007 — Movement summary statistics — console-check passed
+- US-09-008 — Movement detail expansion row — e2e passed
+- PRD-09 complete (8/8 stories passed)
 
 ## Known Issues
 
@@ -16,9 +17,7 @@
 ## Learnings
 
 - Toaster component must be mounted in __root.tsx RootComponent for toast.success() to render
-- TanStack Router validateSearch for type-safe URL search params drives sheet open/close state
-- Use { exact: true } in getByText when text appears in multiple elements
-- MovementFormSheet supports preSelectedItemId prop to lock item field for quick movement from catalog
-- Adding validateSearch to a route makes `search` required on all typed Link components pointing to it
+- TanStack Router validateSearch makes `search` required on all typed Link components
 - Use nth() for Radix comboboxes in Playwright when multiple exist in same dialog
 - Use data-testid for stats containers to avoid ambiguous locators
+- Use Fragment with key (not <>) when rendering multiple sibling elements in .map()

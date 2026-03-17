@@ -180,8 +180,8 @@
       },
       "priority": 8,
       "dependencies": ["US-09-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Expandable detail row with chevron, note, locations for transfers, item link. Only one expanded at a time. Fragment key fix for React warning."
     }
   ]
 }
