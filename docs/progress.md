@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-12 — Purchase Orders Receiving & Print
-- Status: 1 of 6 stories passed
+- Status: 2 of 6 stories passed
 
 ## Last Completed
 
-- US-12-001 — Receive shipment form — e2e passed
+- US-12-002 — Receive confirmation and stock movement creation — e2e passed
 
 ## Known Issues
 
@@ -26,3 +26,4 @@
 - Demo banner role switcher uses buttons not combobox
 - Route guard must include requestor for PO page since PRD says all authenticated users can view
 - Use exact text matching or getByRole('columnheader') to avoid strict mode violations
+- Use locator('main').getByText() when detail sheet heading duplicates table cell text

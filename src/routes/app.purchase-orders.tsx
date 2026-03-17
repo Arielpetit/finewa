@@ -11,8 +11,14 @@ import { ReceiveShipmentSheet } from "@/components/purchase-orders/ReceiveShipme
 import { usePurchaseOrders, useSuppliers, useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { useRole } from "@/hooks/useRole";
-import { useDeletePurchaseOrder } from "@/hooks/useInventoryMutations";
+import {
+  useDeletePurchaseOrder,
+  useUpdatePurchaseOrder,
+  useCreateMovement,
+  useUpdateItem,
+} from "@/hooks/useInventoryMutations";
 import { Button } from "@/components/ui/button";
+import { OrderStatus, MovementType } from "@/types/inventory";
 import type { PurchaseOrder } from "@/types/inventory";
 import type { POFilters } from "@/components/purchase-orders/po-filter-types";
 import { EMPTY_PO_FILTERS } from "@/components/purchase-orders/po-filter-types";
@@ -37,6 +43,9 @@ function PurchaseOrdersPage() {
   const { can } = usePermissions();
   const { role } = useRole();
   const deletePO = useDeletePurchaseOrder();
+  const updatePO = useUpdatePurchaseOrder();
+  const createMovement = useCreateMovement();
+  const updateItem = useUpdateItem();
   const canManagePOs = can("create_po");
   const isAdmin = role === "admin";
   const [filters, setFilters] = useState<POFilters>(EMPTY_PO_FILTERS);
@@ -149,8 +158,59 @@ function PurchaseOrdersPage() {
           onOpenChange={setReceiveOpen}
           purchaseOrder={receivePO}
           items={catalogItems}
-          onConfirm={() => {
-            // Receiving logic will be implemented in US-12-002
+          onConfirm={(receivedLines, notes) => {
+            const now = new Date().toISOString();
+            const po = receivePO!;
+
+            // 1. Create stock movements for each received line
+            for (const line of receivedLines) {
+              createMovement.mutate({
+                id: crypto.randomUUID(),
+                itemId: line.itemId,
+                type: MovementType.Received,
+                quantity: line.qty,
+                fromLocationId: null,
+                toLocationId: null,
+                reference: po.orderNumber,
+                notes: notes || `Received via ${po.orderNumber}`,
+                performedBy: "demo-user",
+                createdAt: now,
+              });
+
+              // 2. Update item currentStock
+              const item = catalogItems.find((i) => i.id === line.itemId);
+              if (item) {
+                updateItem.mutate({
+                  id: item.id,
+                  updates: { currentStock: item.currentStock + line.qty, updatedAt: now },
+                });
+              }
+            }
+
+            // 3. Update PO line items received quantities
+            const updatedItems = po.items.map((li) => {
+              const received = receivedLines.find((r) => r.lineItemId === li.id);
+              if (received) {
+                return { ...li, quantityReceived: li.quantityReceived + received.qty };
+              }
+              return li;
+            });
+
+            // 4. Determine new PO status
+            const allFullyReceived = updatedItems.every(
+              (li) => li.quantityReceived >= li.quantityOrdered,
+            );
+            const newStatus = allFullyReceived ? OrderStatus.Received : OrderStatus.Partial;
+
+            updatePO.mutate({
+              id: po.id,
+              updates: { items: updatedItems, status: newStatus, updatedAt: now },
+            });
+
+            const totalQty = receivedLines.reduce((sum, l) => sum + l.qty, 0);
+            toast.success(
+              `Received ${totalQty} items across ${receivedLines.length} line items`,
+            );
             setReceiveOpen(false);
           }}
         />

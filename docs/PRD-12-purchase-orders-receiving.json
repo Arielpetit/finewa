@@ -48,8 +48,8 @@
       },
       "priority": 2,
       "dependencies": ["US-12-001", "US-09-003", "US-02-007"],
-      "isPassed": false,
-      "notes": "This is the core receiving logic — must correctly chain PO update + movement creation + item qty update"
+      "isPassed": true,
+      "notes": "On confirm: creates stock movements (type received, PO ref), updates line item quantityReceived, recalculates PO status (partial/fully received), updates item currentStock. Toast with summary. Partial + full receive flow verified."
     },
     {
       "id": "US-12-003",
