@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { useState, useMemo, useEffect } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -32,6 +32,9 @@ import { EMPTY_REQUEST_FILTERS } from "@/components/requests/request-filter-type
 export const Route = createFileRoute("/app/requests")({
   component: RequestsPage,
   head: () => ({ meta: [{ title: "Requests — Stackwise" }] }),
+  validateSearch: (search: Record<string, unknown>) => ({
+    request: (search.request as string) || undefined,
+  }),
 });
 
 function applyFilters(requests: InventoryRequest[], filters: RequestFilters): InventoryRequest[] {
