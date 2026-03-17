@@ -87,6 +87,11 @@ export function CatalogTable({
     else { onSortChange({ key: null, dir: null }); }
   };
 
+  const changePage = (newPage: number) => {
+    setPage(newPage);
+    onSelectedChange(new Set());
+  };
+
   const SortIcon = ({ col }: { col: SortKey }) => {
     if (sort.key !== col) return <ChevronsUpDown className="ml-1 inline h-3 w-3 text-muted-foreground/50" />;
     return sort.dir === "asc" ? <ArrowUp className="ml-1 inline h-3 w-3" /> : <ArrowDown className="ml-1 inline h-3 w-3" />;
