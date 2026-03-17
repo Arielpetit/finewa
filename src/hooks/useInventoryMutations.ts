@@ -6,6 +6,7 @@ import type {
   PurchaseOrder,
   InventoryRequest,
 } from "@/types/inventory";
+import type { DemoStore } from "@/lib/demo-store";
 
 interface MutationResult<TData> {
   mutate: (data: TData, opts?: { onSuccess?: () => void; onError?: (e: Error) => void }) => void;
@@ -14,9 +15,9 @@ interface MutationResult<TData> {
 }
 
 function useDemoMutation<TData>(
-  handler: (store: NonNullable<ReturnType<typeof useDemo>["demoStore"]>, data: TData) => void,
+  handler: (store: DemoStore, data: TData) => void,
 ): MutationResult<TData> {
-  const { isDemo, demoStore } = useDemo();
+  const { isDemo, demoStore, bumpVersion } = useDemo();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -29,6 +30,7 @@ function useDemoMutation<TData>(
       setIsLoading(true);
       try {
         handler(demoStore, data);
+        bumpVersion();
         setError(null);
         opts?.onSuccess?.();
       } catch (e) {
@@ -39,7 +41,7 @@ function useDemoMutation<TData>(
         setIsLoading(false);
       }
     },
-    [isDemo, demoStore, handler],
+    [isDemo, demoStore, handler, bumpVersion],
   );
 
   return { mutate, isLoading, error };

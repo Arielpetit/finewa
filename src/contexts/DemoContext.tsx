@@ -7,7 +7,8 @@ export interface DemoContextValue {
   enterDemoMode: () => void;
   exitDemoMode: () => void;
   resetDemoData: () => void;
-  /** Incremented on every store mutation so consumers can react */
+  /** Increment after any store mutation to trigger re-renders */
+  bumpVersion: () => void;
   version: number;
 }
 
@@ -35,6 +36,8 @@ export function DemoProvider({ children }: { children: ReactNode }) {
     }
   }, [store]);
 
+  const bumpVersion = useCallback(() => setVersion((v) => v + 1), []);
+
   const value = useMemo<DemoContextValue>(
     () => ({
       isDemo: store !== null,
@@ -42,9 +45,10 @@ export function DemoProvider({ children }: { children: ReactNode }) {
       enterDemoMode,
       exitDemoMode,
       resetDemoData,
+      bumpVersion,
       version,
     }),
-    [store, enterDemoMode, exitDemoMode, resetDemoData, version],
+    [store, enterDemoMode, exitDemoMode, resetDemoData, bumpVersion, version],
   );
 
   return <DemoContext.Provider value={value}>{children}</DemoContext.Provider>;
