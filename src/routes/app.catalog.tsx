@@ -241,6 +241,20 @@ function CatalogPage() {
           <Plus className="h-6 w-6" />
         </button>
       </PermissionGate>
+
+      <PermissionGate permission="edit_item">
+        <BulkActionBar
+          selectedCount={selected.size}
+          categories={categories}
+          suppliers={suppliers}
+          locations={locations}
+          onUpdateCategory={(id) => handleBulkUpdate({ categoryId: id })}
+          onUpdateSupplier={(id) => handleBulkUpdate({ supplierId: id })}
+          onUpdateLocation={(id) => handleBulkUpdate({ locationId: id })}
+          onUpdateStatus={(s) => handleBulkUpdate({ status: s })}
+          onDeselectAll={() => setSelected(new Set())}
+        />
+      </PermissionGate>
     </div>
   );
 }
