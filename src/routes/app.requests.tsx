@@ -7,8 +7,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RequestFormSheet } from "@/components/requests/RequestFormSheet";
 import { RequestsTable } from "@/components/requests/RequestsTable";
 import { RequestsFilters } from "@/components/requests/RequestsFilters";
+import { RequestDetailSheet } from "@/components/requests/RequestDetailSheet";
 import { useItems, useRequests } from "@/hooks/useInventoryData";
 import { useRole } from "@/hooks/useRole";
+import { usePermissions } from "@/hooks/usePermissions";
 import { RequestStatus } from "@/types/inventory";
 import type { InventoryRequest } from "@/types/inventory";
 import type { RequestFilters } from "@/components/requests/request-filter-types";
@@ -37,10 +39,13 @@ function RequestsPage() {
   const { data: catalogItems } = useItems();
   const { data: requests } = useRequests();
   const { role } = useRole();
+  const { can } = usePermissions();
   const isManagerOrAdmin = role === "admin" || role === "manager";
+  const canApprove = can("approve_request");
   const [formOpen, setFormOpen] = useState(false);
   const [filters, setFilters] = useState<RequestFilters>(EMPTY_REQUEST_FILTERS);
-  const [_detailRequest, setDetailRequest] = useState<InventoryRequest | null>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [detailRequest, setDetailRequest] = useState<InventoryRequest | null>(null);
 
   const pendingCount = useMemo(
     () => requests.filter((r) => r.status === RequestStatus.Pending).length,
@@ -62,8 +67,14 @@ function RequestsPage() {
 
   const allFiltered = useMemo(() => applyFilters(requests, filters), [requests, filters]);
 
+  const currentDetail = useMemo(
+    () => (detailRequest ? requests.find((r) => r.id === detailRequest.id) ?? detailRequest : null),
+    [requests, detailRequest],
+  );
+
   function handleRowClick(req: InventoryRequest) {
     setDetailRequest(req);
+    setDetailOpen(true);
   }
 
   return (
@@ -107,6 +118,14 @@ function RequestsPage() {
       ) : (
         <RequestsTable requests={requests} onRowClick={handleRowClick} />
       )}
+
+      <RequestDetailSheet
+        open={detailOpen}
+        onOpenChange={setDetailOpen}
+        request={currentDetail}
+        items={catalogItems}
+        canApprove={canApprove}
+      />
 
       <RequestFormSheet open={formOpen} onOpenChange={setFormOpen} items={catalogItems} />
     </div>
