@@ -54,6 +54,7 @@ export function CatalogTable({
   onSelectedChange,
   onRowClick,
   actionRenderer,
+  showCheckboxes = true,
 }: CatalogTableProps) {
   const [page, setPage] = useState(0);
 
