@@ -43,8 +43,8 @@
       },
       "priority": 2,
       "dependencies": ["US-01-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Variable woff2 fonts in public/fonts/. Body renders Geist Sans, font-mono renders Geist Mono."
     },
     {
       "id": "US-01-003",
