@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,9 @@ import type { StockMovement } from "@/types/inventory";
 export const Route = createFileRoute("/app/movements")({
   component: MovementsPage,
   head: () => ({ meta: [{ title: "Movements — Stackwise" }] }),
+  validateSearch: (search: Record<string, unknown>) => ({
+    item: typeof search.item === "string" ? search.item : undefined,
+  }),
 });
 
 function applyFilters(movements: StockMovement[], f: MovementFilters): StockMovement[] {
@@ -35,11 +38,19 @@ function applyFilters(movements: StockMovement[], f: MovementFilters): StockMove
 }
 
 function MovementsPage() {
+  const { item: itemParam } = Route.useSearch();
   const [filters, setFilters] = useState<MovementFilters>(EMPTY_MOVEMENT_FILTERS);
   const [formOpen, setFormOpen] = useState(false);
   const { data: movements } = useMovements();
   const { data: items } = useItems();
   const { data: locations } = useLocations();
+
+  // Pre-filter by item query param on mount
+  useEffect(() => {
+    if (itemParam) {
+      setFilters((prev) => ({ ...prev, itemId: itemParam }));
+    }
+  }, [itemParam]);
 
   const itemNameMap = useMemo(
     () => new Map(items.map((i) => [i.id, i.name])),
