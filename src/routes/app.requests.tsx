@@ -101,7 +101,7 @@ function RequestsPage() {
             <RequestsTable requests={allFiltered} onRowClick={handleRowClick} showRequestor />
           </TabsContent>
           <TabsContent value="pending" className="mt-4">
-            <RequestsTable requests={pendingRequests} onRowClick={handleRowClick} showRequestor />
+            <RequestsTable requests={pendingRequests} onRowClick={handleRowClick} showRequestor preSorted />
           </TabsContent>
         </Tabs>
       ) : (
