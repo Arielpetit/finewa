@@ -144,7 +144,8 @@ export function ItemDetailSheet({
           </TabsContent>
 
           <TabsContent value="history" className="mt-6">
-            <p className="py-8 text-center text-sm text-muted-foreground">No movement history for this item.</p>
+            <MovementTimeline movements={allMovements} itemId={item.id} />
+          </TabsContent>
           </TabsContent>
 
           <TabsContent value="custom" className="mt-6">
