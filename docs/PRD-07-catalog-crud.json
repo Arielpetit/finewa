@@ -1,0 +1,191 @@
+{
+  "prdId": "PRD-07",
+  "feature": "Product Catalog — CRUD & Browse",
+  "description": "The product catalog is the core registry of all inventory items. This PRD covers the catalog browse page at /app/catalog with a data table showing all items, a filter bar for narrowing results by category, supplier, stock status, and location, column sorting, pagination (20 items per page), and the full create/edit item form. The table displays key columns: name, SKU, category, quantity on hand (with status badge), location, and supplier. Items are sourced from demo store hooks. Admin and Manager roles can create, edit, and delete items. Requestors can only browse. The create/edit form is a side-sheet with all item fields organized in logical sections.",
+  "buildOrder": 7,
+  "dependsOnPrds": ["PRD-02", "PRD-05"],
+  "stories": [
+    {
+      "id": "US-07-001",
+      "title": "Catalog data table component",
+      "description": "Create src/components/catalog/CatalogTable.tsx — a data table using the shadcn Table component. Columns: checkbox (for bulk select), Name (with small image thumbnail if available), SKU (font-mono), Category, Qty on Hand (font-mono, with StatusBadge inline), Location, Supplier. Table has sticky header, alternating row hover, and click handler on rows (for detail view, wired later). Pagination controls at bottom showing 'Showing 1-20 of 35 items' with prev/next buttons. 20 items per page. Data comes from useItems() hook.",
+      "acceptanceCriteria": [
+        "Table renders all columns: checkbox, name, SKU, category, qty, location, supplier",
+        "SKU and qty use font-mono",
+        "StatusBadge shown inline with quantity (green/amber/red based on threshold)",
+        "Sticky header on scroll",
+        "Row hover state with subtle background change",
+        "Pagination: 20 per page, prev/next buttons, item count display",
+        "Empty state if no items: 'No items in catalog'",
+        "Responsive: horizontally scrollable on mobile",
+        "Component under 250 lines"
+      ],
+      "verification": {
+        "type": "e2e",
+        "test": "Enter demo mode, navigate to /app/catalog. Table renders with 20 items on first page. Pagination shows 'Showing 1-20 of 35'. Click next — shows remaining items. SKUs in monospace. Status badges visible. Resize to 390px — table scrolls horizontally. No console errors."
+      },
+      "priority": 1,
+      "dependencies": ["US-02-004", "US-01-008"],
+      "isPassed": false,
+      "notes": ""
+    },
+    {
+      "id": "US-07-002",
+      "title": "Catalog filter bar",
+      "description": "Create src/components/catalog/CatalogFilters.tsx — a horizontal filter bar above the table. Filters: Category (Select dropdown populated from useCategories), Supplier (Select dropdown from useSuppliers), Stock Status (Select: All, In Stock, Low Stock, Out of Stock), Location (Select from useLocations top-level). A search input for name/SKU text search. A 'Clear Filters' button that resets all. Filters apply client-side by passing filter params to useItems(). On mobile, filters collapse into a 'Filters' button that opens a sheet with all filter options.",
+      "acceptanceCriteria": [
+        "4 filter dropdowns: Category, Supplier, Status, Location",
+        "Text search input for name/SKU filtering",
+        "Filters apply immediately on change",
+        "Clear Filters button resets all to default",
+        "Filtered results update table and pagination",
+        "Mobile: filters collapse into sheet triggered by 'Filters' button",
+        "Filter state reflected in active filter count badge on mobile button",
+        "Component under 200 lines"
+      ],
+      "verification": {
+        "type": "e2e",
+        "test": "Enter demo mode, /app/catalog. Select a category filter — table shows only items in that category. Select 'Low Stock' status — only low stock items shown. Type a partial name in search — matching items displayed. Click 'Clear Filters' — all items restored. Resize to 390px — filter bar collapses to button, opens as sheet. No console errors."
+      },
+      "priority": 2,
+      "dependencies": ["US-07-001", "US-02-004"],
+      "isPassed": false,
+      "notes": ""
+    },
+    {
+      "id": "US-07-003",
+      "title": "Catalog column sorting",
+      "description": "Add sorting to CatalogTable. Clickable column headers for Name, SKU, Qty, Category, Supplier toggle between ascending, descending, and unsorted. A small arrow icon indicates current sort direction. Only one column sorted at a time. Default sort: Name ascending. Sorting works with current filter state (sort the filtered results).",
+      "acceptanceCriteria": [
+        "Clickable column headers with sort indicators",
+        "Click cycles: ascending → descending → unsorted",
+        "Arrow icon shows sort direction",
+        "Only one active sort at a time",
+        "Default: Name ascending",
+        "Sorting works on filtered results",
+        "Pagination resets to page 1 on sort change"
+      ],
+      "verification": {
+        "type": "e2e",
+        "test": "Enter demo mode, /app/catalog. Click 'Name' header — items sort A-Z (arrow up). Click again — Z-A (arrow down). Click 'Qty' header — sorts by quantity, Name sort clears. Apply a filter, then sort — sorting works on filtered subset. No console errors."
+      },
+      "priority": 3,
+      "dependencies": ["US-07-001"],
+      "isPassed": false,
+      "notes": ""
+    },
+    {
+      "id": "US-07-004",
+      "title": "Create item form — side sheet",
+      "description": "Create src/components/catalog/ItemFormSheet.tsx — a Sheet (sliding from right) containing the full item creation/edit form. Form sections: Basic Info (name, description, SKU, barcode, image URL), Classification (category dropdown, tags multi-input, unit of measure), Stock Settings (reorder threshold, reorder quantity), Pricing (cost per unit, sale price), Assignment (preferred supplier dropdown, location dropdown), Status (active/discontinued/archived radio). Use react-hook-form with zod validation. Required fields: name, SKU. SKU must be unique (check against existing items). Form has Save and Cancel buttons in footer.",
+      "acceptanceCriteria": [
+        "Sheet slides from right, 480px wide on desktop, full-width on mobile",
+        "Form organized in labeled sections",
+        "All item fields present with appropriate input types",
+        "Category and supplier as searchable dropdowns",
+        "Tags as comma-separated text input or multi-chip input",
+        "Zod validation: name required, SKU required and unique",
+        "Validation errors shown inline",
+        "Save button calls useCreateItem or useUpdateItem mutation",
+        "Cancel closes sheet without saving",
+        "Loading state on save button during mutation",
+        "Form under 250 lines (extract section components if needed)"
+      ],
+      "verification": {
+        "type": "e2e",
+        "test": "Enter demo mode, open catalog. Trigger new item sheet. Fill in name and SKU, leave others default. Save — new item appears in table. Open sheet again, enter duplicate SKU — validation error. Cancel — sheet closes, no item created. Fill all fields, save — item created with all data. No console errors."
+      },
+      "priority": 4,
+      "dependencies": ["US-07-001", "US-02-007"],
+      "isPassed": false,
+      "notes": "May need to split form sections into sub-components if over 250 lines"
+    },
+    {
+      "id": "US-07-005",
+      "title": "Edit item via form sheet",
+      "description": "Extend ItemFormSheet to support edit mode. When opened with an existing item ID, pre-populate all form fields with the item's current data. Title changes from 'New Item' to 'Edit Item'. Save calls useUpdateItem mutation instead of create. Add an 'Edit' button/icon to each table row (visible only to admin/manager via PermissionGate). Clicking Edit opens the sheet in edit mode for that item.",
+      "acceptanceCriteria": [
+        "Edit button on table rows (admin/manager only)",
+        "Sheet opens pre-populated with item data",
+        "Title shows 'Edit Item' in edit mode",
+        "Save updates existing item, not creates new",
+        "Updated data reflects in table immediately",
+        "Requestor role: no edit button visible",
+        "SKU uniqueness check excludes current item's own SKU"
+      ],
+      "verification": {
+        "type": "e2e",
+        "test": "Enter demo mode, /app/catalog. Click edit on first item. Sheet opens with pre-filled data. Change the name, save. Table shows updated name. Verify SKU field still allows the item's own SKU. Switch to requestor role — edit buttons disappear. No console errors."
+      },
+      "priority": 5,
+      "dependencies": ["US-07-004", "US-05-004"],
+      "isPassed": false,
+      "notes": ""
+    },
+    {
+      "id": "US-07-006",
+      "title": "Delete item with confirmation",
+      "description": "Add delete functionality for items. Add a delete option in the row actions (three-dot menu or action column). Clicking delete opens an AlertDialog confirmation: 'Delete [Item Name]? This action cannot be undone. All movement history for this item will be preserved but the item will be marked as archived.' Confirm calls useDeleteItem (or useUpdateItem to set status=archived). Only admin role can delete. Manager can archive but not hard-delete.",
+      "acceptanceCriteria": [
+        "Delete/archive option in row actions menu",
+        "AlertDialog confirmation with item name",
+        "Confirm archives the item (sets status to 'archived')",
+        "Archived items disappear from default view (unless filtered)",
+        "Only admin sees delete option",
+        "Manager sees 'Archive' option instead",
+        "Requestor sees no action menu",
+        "Toast confirmation after successful deletion/archive"
+      ],
+      "verification": {
+        "type": "e2e",
+        "test": "Enter demo mode (admin). Click actions menu on an item. Click 'Delete'. Confirmation dialog appears with item name. Click confirm — item disappears from table, toast shown. Item count decreases by 1. No console errors."
+      },
+      "priority": 6,
+      "dependencies": ["US-07-005", "US-05-004", "US-02-007"],
+      "isPassed": false,
+      "notes": ""
+    },
+    {
+      "id": "US-07-007",
+      "title": "New Item button and page header",
+      "description": "Add page header to /app/catalog with: 'Product Catalog' heading, item count subtitle ('35 items'), and a '+ New Item' button (teal primary, admin/manager only via PermissionGate). Clicking opens the ItemFormSheet in create mode. On mobile, the button should be a floating action button (FAB) in bottom-right corner instead of in the header.",
+      "acceptanceCriteria": [
+        "'Product Catalog' heading with item count",
+        "'+ New Item' button in header (admin/manager only)",
+        "Button opens ItemFormSheet in create mode",
+        "Requestor: button not visible",
+        "Mobile: button as FAB in bottom-right",
+        "FAB uses amber accent for visibility"
+      ],
+      "verification": {
+        "type": "e2e",
+        "test": "Enter demo mode, /app/catalog. Page heading shows 'Product Catalog' with count. '+ New Item' button visible. Click it — form sheet opens in create mode. Resize to 390px — FAB visible in bottom-right. Switch to requestor — button/FAB disappear. No console errors."
+      },
+      "priority": 7,
+      "dependencies": ["US-07-004", "US-05-004"],
+      "isPassed": false,
+      "notes": ""
+    },
+    {
+      "id": "US-07-008",
+      "title": "Catalog page composition",
+      "description": "Compose the full /app/catalog page in src/routes/app.catalog.tsx. Layout: page header (US-07-007), filter bar (US-07-002), data table (US-07-001) with sorting (US-07-003). Manage state: current filters, sort column/direction, current page, selected item for sheet. Wire the ItemFormSheet for create and edit. Set page head title to 'Catalog — Stackwise'.",
+      "acceptanceCriteria": [
+        "All catalog components composed in correct order",
+        "Filter → sort → paginate pipeline works correctly",
+        "Create and edit flows functional via sheet",
+        "Page title 'Catalog — Stackwise'",
+        "State resets appropriately (filters reset pagination, etc.)",
+        "Smooth UX: no layout jumps on filter/sort/page changes"
+      ],
+      "verification": {
+        "type": "e2e",
+        "test": "Enter demo mode, /app/catalog. Full page renders: header, filters, table. Filter by category — table updates, pagination resets. Sort by name — works on filtered results. Create new item — appears in table. Edit item — changes persist. Everything flows smoothly. No console errors."
+      },
+      "priority": 8,
+      "dependencies": ["US-07-001", "US-07-002", "US-07-003", "US-07-004", "US-07-005", "US-07-006", "US-07-007"],
+      "isPassed": false,
+      "notes": ""
+    }
+  ]
+}

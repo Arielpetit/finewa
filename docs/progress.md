@@ -3,13 +3,13 @@
 ## Current State
 
 - Phase: PRD generation
-- Status: Generating PRDs (7 of 28 complete)
+- Status: Generating PRDs (8 of 28 complete)
 
 ## Last Completed
 
+- PRD-07 — Product Catalog CRUD & Browse (8 stories)
 - PRD-06 — Dashboard (7 stories)
 - PRD-05 — Role-Based Access Control (6 stories)
-- PRD-15 — Database Schema & RLS Policies (12 stories)
 
 ## Known Issues
 
