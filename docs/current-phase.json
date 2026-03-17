@@ -1,7 +1,7 @@
 {
-  "currentPrd": "PRD-01",
-  "currentPrdFile": "docs/PRD-01-design-system-app-shell.json",
+  "currentPrd": "PRD-02",
+  "currentPrdFile": "docs/PRD-02-demo-mode.json",
   "totalPrds": 28,
-  "completedPrds": [],
+  "completedPrds": ["PRD-01"],
   "status": "in-progress"
 }
