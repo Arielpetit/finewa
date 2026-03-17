@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import { SuppliersTable } from "@/components/suppliers/SuppliersTable";
 import { SupplierFormSheet } from "@/components/suppliers/SupplierFormSheet";
 import { SupplierDetailSheet } from "@/components/suppliers/SupplierDetailSheet";
-import { useSuppliers, useItems } from "@/hooks/useInventoryData";
+import { useSuppliers, useItems, usePurchaseOrders } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
 import type { Supplier } from "@/types/inventory";
