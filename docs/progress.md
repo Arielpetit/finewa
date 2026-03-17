@@ -3,13 +3,13 @@
 ## Current State
 
 - Phase: PRD generation
-- Status: Generating PRDs (23 of 28 complete)
+- Status: Generating PRDs (24 of 28 complete)
 
 ## Last Completed
 
+- PRD-24 — Analytics — Stock & Movement Reports (8 stories)
 - PRD-23 — Admin Settings — User Management (5 stories)
 - PRD-22 — Admin Settings — System Configuration (8 stories)
-- PRD-21 — Empty States, Error States & Edge Cases (6 stories)
 
 ## Known Issues
 
@@ -22,3 +22,4 @@
 - Deleted reference handling must be consistent across all foreign key displays
 - Settings tabs should each have independent error boundaries
 - Last-admin protection must apply to both role changes AND deactivation
+- Analytics charts should group daily/weekly based on date range length
