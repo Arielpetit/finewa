@@ -69,8 +69,8 @@
       },
       "priority": 3,
       "dependencies": ["US-14-001", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "LocationFormSheet with Zod validation, hierarchy-constrained parent select, create/edit modes. Wired into page with New Location button. Admin/Manager gated."
     },
     {
       "id": "US-14-004",
