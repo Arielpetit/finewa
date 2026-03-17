@@ -2,12 +2,12 @@
 
 ## Current State
 
-- Phase: PRD-06 — Dashboard
+- Phase: PRD-07 — Catalog CRUD
 - Status: Ready to start
 
 ## Last Completed
 
-- PRD-05 — Role-Based Access Control — all 6 stories passed
+- PRD-06 — Dashboard — all 7 stories passed
 
 ## Known Issues
 
@@ -23,6 +23,6 @@
 - TanStack Start route-level head() config for per-page SEO meta tags
 - Route guard: navigate away before clearing auth/demo state to avoid redirect race
 - Auth stubs return error strings so forms display meaningful messages pre-Cloud
-- Hooks must be called before any conditional returns (React rules)
 - RBAC: permissions derived from role in centralized roles.ts, sidebar filters by permKey
-- Role switcher in demo banner enables instant role preview
+- StatusBadge has no `type` prop — just `status` with union of stock + item statuses
+- Dashboard search uses click-outside + escape to close dropdown
