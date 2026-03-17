@@ -76,6 +76,7 @@ export function PurchaseOrderDetailSheet({
   onEdit,
   onDelete,
   onReceive,
+  movements = [],
 }: PurchaseOrderDetailSheetProps) {
   const supplierMap = useMemo(
     () => new Map(suppliers.map((s) => [s.id, s])),
