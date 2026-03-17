@@ -20,6 +20,7 @@ const ACTION_ROLES: Record<PermissionAction, UserRoleType[]> = {
   export_data: ["admin", "manager"],
   create_request: ["admin", "manager", "requestor"],
   access_settings: ["admin"],
+  manage_suppliers: ["admin", "manager"],
 };
 
 export function usePermissions() {
