@@ -150,7 +150,7 @@ function CatalogPage() {
   const actionRenderer = (item: Item) => (
     <RowActionsMenu
       item={item}
-      onViewDetails={(i) => setDetailItem(i)}
+      onViewDetails={(i) => openDetail(i)}
       onEdit={(i) => openEdit(i)}
       onLogMovement={(i) => { window.location.href = `/app/movements?item=${i.id}`; }}
       onDelete={(i) => setDeleteTarget(i)}
