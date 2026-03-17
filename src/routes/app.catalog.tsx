@@ -1,14 +1,8 @@
 import { useState, useMemo, useCallback } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, MoreHorizontal, Pencil, Trash2, Archive } from "lucide-react";
+import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,6 +18,7 @@ import { CatalogFilters } from "@/components/catalog/CatalogFilters";
 import { ItemFormSheet } from "@/components/catalog/ItemFormSheet";
 import { BulkActionBar } from "@/components/catalog/BulkActionBar";
 import { ItemDetailSheet } from "@/components/catalog/ItemDetailSheet";
+import { RowActionsMenu } from "@/components/catalog/RowActionsMenu";
 import { useItems, useCategories, useSuppliers, useLocations } from "@/hooks/useInventoryData";
 import { useCreateItem, useUpdateItem, useDeleteItem } from "@/hooks/useInventoryMutations";
 import { PermissionGate, usePermissions } from "@/hooks/usePermissions";
@@ -131,29 +126,15 @@ function CatalogPage() {
     setSelected(new Set());
   }, [selected, updateItem]);
 
-  const actionRenderer = can("edit_item") ? (item: Item) => (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-8 w-8" aria-label="Actions">
-          <MoreHorizontal className="h-4 w-4" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => openEdit(item)}>
-          <Pencil className="mr-2 h-4 w-4" />Edit
-        </DropdownMenuItem>
-        {isAdmin ? (
-          <DropdownMenuItem onClick={() => setDeleteTarget(item)} className="text-destructive">
-            <Trash2 className="mr-2 h-4 w-4" />Delete
-          </DropdownMenuItem>
-        ) : (
-          <DropdownMenuItem onClick={() => setDeleteTarget(item)}>
-            <Archive className="mr-2 h-4 w-4" />Archive
-          </DropdownMenuItem>
-        )}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  ) : undefined;
+  const actionRenderer = (item: Item) => (
+    <RowActionsMenu
+      item={item}
+      onViewDetails={(i) => setDetailItem(i)}
+      onEdit={(i) => openEdit(i)}
+      onLogMovement={(i) => { window.location.href = `/app/movements?item=${i.id}`; }}
+      onDelete={(i) => setDeleteTarget(i)}
+    />
+  );
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">

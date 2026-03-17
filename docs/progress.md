@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-08 — Catalog Detail & Bulk
-- Status: 6 of 8 stories passed
+- Status: 7 of 8 stories passed
 
 ## Last Completed
 
-- US-08-006 — Bulk action floating bar — e2e passed
+- US-08-007 — Row actions dropdown menu — e2e passed
 
 ## Known Issues
 
