@@ -1,14 +1,19 @@
 import { useState, useMemo, useCallback } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, MoreHorizontal, Pencil, Trash2, Archive } from "lucide-react";
+import { Plus } from "lucide-react";
 import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import {
   AlertDialog,
   AlertDialogAction,
