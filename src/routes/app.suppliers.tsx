@@ -63,6 +63,7 @@ function SuppliersPage() {
         onOpenChange={setDetailOpen}
         supplier={detailSupplier}
         items={items}
+        purchaseOrders={purchaseOrders}
         canEdit={canManageSuppliers}
         onEdit={openEdit}
       />
