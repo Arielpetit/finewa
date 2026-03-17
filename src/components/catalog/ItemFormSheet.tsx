@@ -209,7 +209,7 @@ export function ItemFormSheet({
             </div>
             <div>
               <label className={labelCls}>Location</label>
-              <Select value={watch("locationId") ?? ""} onValueChange={(v) => setValue("locationId", v || undefined)}>
+              <Select value={watch("locationId") ?? ""} onValueChange={(v) => setValue("locationId", v || "")}>
                 <SelectTrigger className="h-9"><SelectValue placeholder="Select location" /></SelectTrigger>
                 <SelectContent>
                   {locations.map((l) => <SelectItem key={l.id} value={l.id}>{l.name}</SelectItem>)}
