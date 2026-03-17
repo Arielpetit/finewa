@@ -39,11 +39,13 @@ const item = (
 });
 
 // ~20 healthy (stock > reorder), ~10 low (stock <= reorder & > 0), ~5 out (stock = 0)
+const cf = (fields: Record<string, string | number | boolean>) => fields;
+
 export const items: Item[] = [
   // Electronics — 8 items
-  item(1, "USB-C Charging Cable", "cat-01", "sup-02", "loc-01", 150, 30, 3.5, 8.99),
-  item(2, "Wireless Mouse", "cat-01", "sup-02", "loc-01", 18, 20, 12, 24.99), // low
-  item(3, "HDMI Adapter", "cat-01", "sup-01", "loc-01", 42, 15, 8, 15.99),
+  { ...item(1, "USB-C Charging Cable", "cat-01", "sup-02", "loc-01", 150, 30, 3.5, 8.99), customFields: cf({ "Lot Number": "LOT-2024-A1", "Color": "Black", "Warranty Months": 12 }) },
+  { ...item(2, "Wireless Mouse", "cat-01", "sup-02", "loc-01", 18, 20, 12, 24.99), customFields: cf({ "Lot Number": "LOT-2024-B3", "Color": "Silver", "Wireless": true }) }, // low
+  { ...item(3, "HDMI Adapter", "cat-01", "sup-01", "loc-01", 42, 15, 8, 15.99), customFields: cf({ "Lot Number": "LOT-2024-C2" }) },
   item(4, "Surge Protector", "cat-01", "sup-01", "loc-01", 12, 10, 15, 29.99), // low
   item(5, "LED Desk Lamp", "cat-01", "sup-02", "loc-02", 0, 10, 22, 39.99), // out
   item(6, "Laptop Stand", "cat-01", "sup-02", "loc-01", 65, 15, 18, 34.99),
@@ -51,7 +53,7 @@ export const items: Item[] = [
   item(8, "Webcam HD 1080p", "cat-01", "sup-02", "loc-01", 9, 10, 25, 49.99), // low
 
   // Office Supplies — 8 items
-  item(9, "A4 Copy Paper (Ream)", "cat-02", "sup-01", "loc-01", 200, 50, 4, 7.99),
+  { ...item(9, "A4 Copy Paper (Ream)", "cat-02", "sup-01", "loc-01", 200, 50, 4, 7.99), customFields: cf({ "Expiration Date": "2026-12-31", "Recyclable": true }) },
   item(10, "Ballpoint Pens (12pk)", "cat-02", "sup-01", "loc-01", 20, 25, 2, 5.99), // low
   item(11, "Sticky Notes (6pk)", "cat-02", "sup-01", "loc-02", 55, 20, 3, 6.49),
   item(12, "Binder Clips (Box)", "cat-02", "sup-03", "loc-01", 40, 15, 1.5, 3.99),
