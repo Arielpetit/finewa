@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-11 — Purchase Orders CRUD
-- Status: 4 of 10 stories passed
+- Status: 5 of 10 stories passed
 
 ## Last Completed
 
-- US-11-004 — PO line items editor — e2e passed
+- US-11-005 — Low-stock item suggestions — e2e passed
 
 ## Known Issues
 
