@@ -26,7 +26,10 @@ function PurchaseOrdersPage() {
   const { data: suppliers } = useSuppliers();
   const { data: catalogItems } = useItems();
   const { can } = usePermissions();
+  const { role } = useRole();
+  const deletePO = useDeletePurchaseOrder();
   const canManagePOs = can("create_po");
+  const isAdmin = role === "admin";
   const [filters, setFilters] = useState<POFilters>(EMPTY_PO_FILTERS);
   const [formOpen, setFormOpen] = useState(false);
   const [editPO, setEditPO] = useState<PurchaseOrder | null>(null);
