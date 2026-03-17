@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { Link } from "@tanstack/react-router";
+
 import { ArrowDownToLine, ArrowUpFromLine, RefreshCw, ArrowRightLeft } from "lucide-react";
 import { MovementType } from "@/types/inventory";
 import type { StockMovement } from "@/types/inventory";
