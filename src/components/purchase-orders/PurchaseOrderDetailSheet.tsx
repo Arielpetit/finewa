@@ -175,6 +175,12 @@ export function PurchaseOrderDetailSheet({
                 Receive Shipment
               </Button>
             )}
+            {purchaseOrder.status === OrderStatus.Received && (
+              <Badge className="bg-stock-healthy/15 text-stock-healthy border-stock-healthy/20 gap-1">
+                <Check className="h-3 w-3" />
+                Fully Received
+              </Badge>
+            )}
             <Button
               size="sm"
               variant="outline"
