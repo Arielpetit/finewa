@@ -3,13 +3,13 @@
 ## Current State
 
 - Phase: PRD generation
-- Status: Generating PRDs (20 of 28 complete)
+- Status: Generating PRDs (21 of 28 complete)
 
 ## Last Completed
 
+- PRD-21 — Empty States, Error States & Edge Cases (6 stories)
 - PRD-20 — AI Anomaly Detection & NL Search (7 stories)
 - PRD-19 — AI Smart Reorder & Demand Forecasting (8 stories)
-- PRD-18 — Notifications & Alerts System (7 stories)
 
 ## Known Issues
 
@@ -18,5 +18,5 @@
 ## Learnings
 
 - AI features should always have client-side fallback for demo mode
-- NL search parser can handle most common patterns with heuristics
-- Anomaly detection needs minimum data threshold to avoid false positives
+- Error boundaries should wrap sections independently, not whole pages
+- Deleted reference handling must be consistent across all foreign key displays
