@@ -106,6 +106,8 @@ function PurchaseOrdersPage() {
         )}
       </div>
 
+      <POSummaryStats purchaseOrders={filtered} />
+
       <PurchaseOrdersFilters filters={filters} onChange={setFilters} suppliers={suppliers} />
 
       <PurchaseOrdersTable
