@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-11-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Status multi-select, supplier dropdown, date range filters with AND logic. Clear button. Mobile sheet."
     },
     {
       "id": "US-11-003",
