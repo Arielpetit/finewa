@@ -201,13 +201,13 @@ function CatalogPage() {
 
       <ItemDetailSheet
         open={!!detailItem}
-        onOpenChange={(v) => { if (!v) setDetailItem(null); }}
+        onOpenChange={(v) => { if (!v) closeDetail(); }}
         item={detailItem}
         categories={categories}
         suppliers={suppliers}
         locations={locations}
-        onEdit={(item) => { setDetailItem(null); openEdit(item); }}
-        onArchive={(item) => { setDetailItem(null); setDeleteTarget(item); }}
+        onEdit={(item) => { closeDetail(); openEdit(item); }}
+        onArchive={(item) => { closeDetail(); setDeleteTarget(item); }}
       />
 
       <AlertDialog open={!!deleteTarget} onOpenChange={(v) => !v && setDeleteTarget(null)}>
