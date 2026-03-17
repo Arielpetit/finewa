@@ -102,7 +102,17 @@ function PurchaseOrdersPage() {
         suppliers={suppliers}
         items={catalogItems}
         canEdit={canManagePOs}
+        isAdmin={isAdmin}
         onEdit={handleEdit}
+        onDelete={(id) => {
+          deletePO.mutate(id, {
+            onSuccess: () => {
+              setDetailOpen(false);
+              setDetailPO(null);
+              toast.success("Purchase order deleted");
+            },
+          });
+        }}
       />
 
       <PurchaseOrderFormSheet
