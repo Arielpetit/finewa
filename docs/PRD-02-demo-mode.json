@@ -27,8 +27,8 @@
       },
       "priority": 1,
       "dependencies": ["US-01-003"],
-      "isPassed": false,
-      "notes": "If over 250 lines, split into demo-data-items.ts, demo-data-movements.ts, etc. and re-export from demo-data.ts"
+      "isPassed": true,
+      "notes": "Split into seed-base.ts, seed-items.ts, seed-activity.ts + index.ts barrel. 35 items (20/10/5 stock split), 4 suppliers, 3 locations, 70 movements, 1 PO, 3 requests. All cross-refs valid."
     },
     {
       "id": "US-02-002",
