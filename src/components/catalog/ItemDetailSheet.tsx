@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StatusBadge } from "@/components/StatusBadge";
 import { PermissionGate } from "@/hooks/usePermissions";
 import { MovementTimeline } from "@/components/catalog/MovementTimeline";
+import { BarcodeDisplay } from "@/components/catalog/BarcodeDisplay";
 import { useMovements } from "@/hooks/useInventoryData";
 import type { Item, Category, Supplier, Location } from "@/types/inventory";
 
