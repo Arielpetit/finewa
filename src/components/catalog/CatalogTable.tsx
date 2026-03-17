@@ -133,19 +133,21 @@ export function CatalogTable({
             {paged.map((item) => (
               <TableRow
                 key={item.id}
-                className="cursor-pointer hover:bg-muted/50"
+                className={`cursor-pointer hover:bg-muted/50 ${selected.has(item.id) ? "bg-primary/5" : ""}`}
                 onClick={() => onRowClick?.(item)}
               >
-                <TableCell onClick={(e) => e.stopPropagation()}>
-                  <Checkbox
-                    checked={selected.has(item.id)}
-                    onCheckedChange={(v) => {
-                      const next = new Set(selected);
-                      v ? next.add(item.id) : next.delete(item.id);
-                      onSelectedChange(next);
-                    }}
-                  />
-                </TableCell>
+                {showCheckboxes && (
+                  <TableCell onClick={(e) => e.stopPropagation()}>
+                    <Checkbox
+                      checked={selected.has(item.id)}
+                      onCheckedChange={(v) => {
+                        const next = new Set(selected);
+                        v ? next.add(item.id) : next.delete(item.id);
+                        onSelectedChange(next);
+                      }}
+                    />
+                  </TableCell>
+                )}
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell className="font-mono text-xs">{item.sku}</TableCell>
                 <TableCell className="text-sm text-muted-foreground">{catMap.get(item.categoryId ?? "") ?? "—"}</TableCell>
