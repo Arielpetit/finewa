@@ -175,6 +175,15 @@ export function PurchaseOrderDetailSheet({
                 Receive Shipment
               </Button>
             )}
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-1.5"
+              onClick={() => window.print()}
+            >
+              <Printer className="h-3.5 w-3.5" />
+              Print
+            </Button>
           </div>
 
           {/* Supplier link */}
