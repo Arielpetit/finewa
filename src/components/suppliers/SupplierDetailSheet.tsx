@@ -30,6 +30,7 @@ export function SupplierDetailSheet({
   onOpenChange,
   supplier,
   items,
+  purchaseOrders,
   canEdit,
   onEdit,
 }: SupplierDetailSheetProps) {
