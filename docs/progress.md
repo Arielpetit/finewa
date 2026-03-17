@@ -7,7 +7,7 @@
 
 ## Last Completed
 
-- US-01-001 — Update CSS design tokens with teal/amber palette — console-check PASSED
+- US-01-002 — Add Geist Sans and Geist Mono fonts — console-check PASSED
 
 ## Known Issues
 
@@ -16,4 +16,6 @@
 ## Learnings
 
 - All CSS tokens must use oklch format — verified via getComputedStyle in e2e
-- Stock status tokens (--stock-healthy, --stock-low, --stock-out) and --amber-accent registered in @theme inline
+- Stock status tokens registered in @theme inline
+- Geist variable fonts: copy woff2 to public/fonts/, use absolute URL in @font-face
+- Register --font-sans and --font-mono in @theme inline for Tailwind class integration
