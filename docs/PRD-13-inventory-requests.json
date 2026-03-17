@@ -93,8 +93,8 @@
       },
       "priority": 4,
       "dependencies": ["US-13-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "RequestDetailSheet with status/priority badges, line items table, timeline, and role-gated approval buttons. Wired into page with detail open state."
     },
     {
       "id": "US-13-005",
