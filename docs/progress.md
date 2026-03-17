@@ -2,12 +2,12 @@
 
 ## Current State
 
-- Phase: PRD-04 — Authentication
+- Phase: PRD-05 — RBAC
 - Status: Ready to start
 
 ## Last Completed
 
-- PRD-03 — Landing Page — all 4 stories passed
+- PRD-04 — Authentication & User Profiles — all 8 stories passed
 
 ## Known Issues
 
@@ -22,3 +22,5 @@
 - Data hooks use useMemo keyed on context version for reactivity
 - tw-animate-css provides animate-fade-in with CSS animation support
 - TanStack Start route-level head() config for per-page SEO meta tags
+- Route guard in layout: navigate away before clearing auth/demo state to avoid redirect race
+- Auth stubs return error strings so forms display meaningful messages pre-Cloud
