@@ -87,6 +87,8 @@ function MovementsPage() {
         performers={performers}
       />
 
+      <MovementStats movements={filtered} />
+
       <MovementsTable movements={filtered} itemNameMap={itemNameMap} />
 
       <MovementFormSheet
