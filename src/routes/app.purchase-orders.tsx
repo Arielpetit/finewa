@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { PurchaseOrdersTable } from "@/components/purchase-orders/PurchaseOrdersTable";
+import { POSummaryStats } from "@/components/purchase-orders/POSummaryStats";
 import { PurchaseOrdersFilters } from "@/components/purchase-orders/PurchaseOrdersFilters";
 import { PurchaseOrderFormSheet } from "@/components/purchase-orders/PurchaseOrderFormSheet";
 import { PurchaseOrderDetailSheet } from "@/components/purchase-orders/PurchaseOrderDetailSheet";
@@ -104,6 +105,8 @@ function PurchaseOrdersPage() {
           </Button>
         )}
       </div>
+
+      <POSummaryStats purchaseOrders={filtered} />
 
       <PurchaseOrdersFilters filters={filters} onChange={setFilters} suppliers={suppliers} />
 

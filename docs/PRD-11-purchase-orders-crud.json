@@ -225,8 +225,8 @@
       },
       "priority": 10,
       "dependencies": ["US-11-001", "US-11-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "4 metric pills (Total, Draft, Awaiting Delivery, Completed) above filters. Counts reflect filtered data."
     }
   ]
 }
