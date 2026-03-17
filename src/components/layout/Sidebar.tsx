@@ -6,6 +6,7 @@ import {
   Truck,
   ClipboardList,
   Inbox,
+  MapPin,
   BarChart3,
   Sparkles,
   Settings,
