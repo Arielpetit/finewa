@@ -239,6 +239,15 @@ export function PurchaseOrderFormSheet({
 
             <Separator />
 
+            {!isEdit && (
+              <LowStockSuggestions
+                items={items}
+                supplierId={form.watch("supplierId")}
+                lineItems={lineItems}
+                onAdd={(row) => setLineItems((prev) => [...prev, row])}
+              />
+            )}
+
             <LineItemsEditor
               items={items}
               lineItems={lineItems}
