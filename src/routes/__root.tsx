@@ -1,4 +1,5 @@
 import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { DemoProvider } from "@/contexts/DemoContext";
 
 import appCss from "../styles.css?url";
 
