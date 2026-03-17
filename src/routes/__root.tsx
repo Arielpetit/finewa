@@ -1,5 +1,6 @@
 import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { DemoProvider } from "@/contexts/DemoContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 import appCss from "../styles.css?url";
 
