@@ -169,6 +169,7 @@ function CatalogPage() {
         onSortChange={setSort}
         selected={selected}
         onSelectedChange={setSelected}
+        onRowClick={(item) => setDetailItem(item)}
         actionRenderer={actionRenderer}
       />
 
