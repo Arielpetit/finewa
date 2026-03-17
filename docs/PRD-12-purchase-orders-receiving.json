@@ -133,8 +133,8 @@
       },
       "priority": 6,
       "dependencies": ["US-12-001", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Receive button guarded by canReceive && canEdit. Fully Received badge shown for received POs. Requestor role cannot see button."
     }
   ]
 }
