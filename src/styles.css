@@ -181,3 +181,33 @@
     font-family: var(--font-sans);
   }
 }
+
+/* Print styles — hide app chrome, show print view */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Hide everything except print view */
+  nav, header, aside, [data-radix-dialog-overlay],
+  .po-print-view ~ *, [role="banner"], [role="complementary"],
+  button, [data-slot="sheet-close"] {
+    display: none !important;
+  }
+
+  .po-print-view {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: white;
+    padding: 2rem;
+    overflow: visible;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 1.5cm;
+  }
+}
