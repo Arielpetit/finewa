@@ -26,14 +26,14 @@ import type { Supplier } from "@/types/inventory";
 
 const schema = z.object({
   name: z.string().min(1, "Name is required"),
-  contactName: z.string().default(""),
-  email: z.string().email("Invalid email").or(z.literal("")).default(""),
-  phone: z.string().default(""),
-  address: z.string().default(""),
-  notes: z.string().default(""),
-  paymentTerms: z.string().default(""),
-  leadTimeDays: z.coerce.number().int().min(0, "Must be 0 or more").default(0),
-  minOrderQuantity: z.coerce.number().int().min(0, "Must be 0 or more").default(0),
+  contactName: z.string(),
+  email: z.string().email("Invalid email").or(z.literal("")),
+  phone: z.string(),
+  address: z.string(),
+  notes: z.string(),
+  paymentTerms: z.string(),
+  leadTimeDays: z.coerce.number().int().min(0, "Must be 0 or more"),
+  minOrderQuantity: z.coerce.number().int().min(0, "Must be 0 or more"),
 });
 
 type FormValues = z.infer<typeof schema>;
