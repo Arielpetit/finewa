@@ -72,8 +72,8 @@
       },
       "priority": 3,
       "dependencies": ["US-02-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "DemoContext with bumpVersion, DemoProvider wraps RootComponent in __root.tsx, useDemo hook with error boundary."
     },
     {
       "id": "US-02-004",
@@ -94,8 +94,8 @@
       },
       "priority": 4,
       "dependencies": ["US-02-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "useInventoryData.ts with 9 query hooks, all keyed on context version for reactivity."
     },
     {
       "id": "US-02-005",
@@ -117,8 +117,8 @@
       },
       "priority": 5,
       "dependencies": ["US-02-003", "US-01-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Amber banner with dismiss, responsive text truncation, integrated into app.tsx layout."
     },
     {
       "id": "US-02-006",
@@ -138,8 +138,8 @@
       },
       "priority": 6,
       "dependencies": ["US-02-005", "US-01-005"],
-      "isPassed": false,
-      "notes": "This is temporary — PRD-03 will replace the landing page with a proper design"
+      "isPassed": true,
+      "notes": "Temp landing page with Try Demo button, navigates to /app/dashboard. PRD-03 will replace."
     },
     {
       "id": "US-02-007",
@@ -160,8 +160,8 @@
       },
       "priority": 7,
       "dependencies": ["US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "useInventoryMutations.ts with 8 mutation hooks using bumpVersion for reactivity."
     }
   ]
 }

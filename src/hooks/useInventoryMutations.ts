@@ -1,0 +1,86 @@
+import { useCallback, useState } from "react";
+import { useDemo } from "@/hooks/useDemo";
+import type {
+  Item,
+  StockMovement,
+  PurchaseOrder,
+  InventoryRequest,
+} from "@/types/inventory";
+import type { DemoStore } from "@/lib/demo-store";
+
+interface MutationResult<TData> {
+  mutate: (data: TData, opts?: { onSuccess?: () => void; onError?: (e: Error) => void }) => void;
+  isLoading: boolean;
+  error: Error | null;
+}
+
+function useDemoMutation<TData>(
+  handler: (store: DemoStore, data: TData) => void,
+): MutationResult<TData> {
+  const { isDemo, demoStore, bumpVersion } = useDemo();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const mutate = useCallback(
+    (data: TData, opts?: { onSuccess?: () => void; onError?: (e: Error) => void }) => {
+      if (!isDemo || !demoStore) {
+        opts?.onError?.(new Error("Not in demo mode"));
+        return;
+      }
+      setIsLoading(true);
+      try {
+        handler(demoStore, data);
+        bumpVersion();
+        setError(null);
+        opts?.onSuccess?.();
+      } catch (e) {
+        const err = e instanceof Error ? e : new Error(String(e));
+        setError(err);
+        opts?.onError?.(err);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [isDemo, demoStore, handler, bumpVersion],
+  );
+
+  return { mutate, isLoading, error };
+}
+
+export function useCreateItem() {
+  return useDemoMutation<Item>((store, data) => store.createItem(data));
+}
+
+export function useUpdateItem() {
+  return useDemoMutation<{ id: string; updates: Partial<Item> }>((store, { id, updates }) =>
+    store.updateItem(id, updates),
+  );
+}
+
+export function useDeleteItem() {
+  return useDemoMutation<string>((store, id) => store.deleteItem(id));
+}
+
+export function useCreateMovement() {
+  return useDemoMutation<StockMovement>((store, data) => store.createMovement(data));
+}
+
+export function useCreatePurchaseOrder() {
+  return useDemoMutation<PurchaseOrder>((store, data) => store.createPurchaseOrder(data));
+}
+
+export function useUpdatePurchaseOrder() {
+  return useDemoMutation<{ id: string; updates: Partial<PurchaseOrder> }>((store, { id, updates }) =>
+    store.updatePurchaseOrder(id, updates),
+  );
+}
+
+export function useCreateRequest() {
+  return useDemoMutation<InventoryRequest>((store, data) => store.createRequest(data));
+}
+
+export function useUpdateRequest() {
+  return useDemoMutation<{ id: string; updates: Partial<InventoryRequest> }>((store, { id, updates }) =>
+    store.updateRequest(id, updates),
+  );
+}
