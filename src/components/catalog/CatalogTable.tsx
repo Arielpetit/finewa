@@ -38,6 +38,7 @@ interface CatalogTableProps {
   onSelectedChange: (s: Set<string>) => void;
   onRowClick?: (item: Item) => void;
   actionRenderer?: (item: Item) => React.ReactNode;
+  showCheckboxes?: boolean;
 }
 
 const PER_PAGE = 20;
