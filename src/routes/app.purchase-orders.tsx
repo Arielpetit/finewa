@@ -20,7 +20,7 @@ function PurchaseOrdersPage() {
   const { data: purchaseOrders } = usePurchaseOrders();
   const { data: suppliers } = useSuppliers();
   const { can } = usePermissions();
-  const canManagePOs = can("manage_purchase_orders");
+  const canManagePOs = can("create_po");
   const [filters, setFilters] = useState<POFilters>(EMPTY_PO_FILTERS);
   const [formOpen, setFormOpen] = useState(false);
   const [editPO, setEditPO] = useState<PurchaseOrder | null>(null);
