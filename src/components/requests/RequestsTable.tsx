@@ -36,7 +36,7 @@ interface RequestsTableProps {
   showRequestor?: boolean;
 }
 
-export function RequestsTable({ requests, onRowClick }: RequestsTableProps) {
+export function RequestsTable({ requests, onRowClick, showRequestor = false }: RequestsTableProps) {
   const sorted = useMemo(
     () => [...requests].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
     [requests],
