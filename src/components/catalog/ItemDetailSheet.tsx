@@ -157,15 +157,13 @@ export function ItemDetailSheet({
 
           <TabsContent value="history" className="mt-6">
             <MovementTimeline movements={allMovements} itemId={item.id} />
-
-
+          </TabsContent>
 
           <TabsContent value="custom" className="mt-6">
             <CustomFieldsTab
               customFields={item.customFields}
               onUpdate={(fields) => updateItem.mutate({ id: item.id, updates: { customFields: fields } })}
             />
-          </TabsContent>
           </TabsContent>
         </Tabs>
       </SheetContent>
