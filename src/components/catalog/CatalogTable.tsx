@@ -38,6 +38,7 @@ interface CatalogTableProps {
   onSelectedChange: (s: Set<string>) => void;
   onRowClick?: (item: Item) => void;
   actionRenderer?: (item: Item) => React.ReactNode;
+  showCheckboxes?: boolean;
 }
 
 const PER_PAGE = 20;
@@ -53,6 +54,7 @@ export function CatalogTable({
   onSelectedChange,
   onRowClick,
   actionRenderer,
+  showCheckboxes = true,
 }: CatalogTableProps) {
   const [page, setPage] = useState(0);
 
@@ -85,6 +87,11 @@ export function CatalogTable({
     else { onSortChange({ key: null, dir: null }); }
   };
 
+  const changePage = (newPage: number) => {
+    setPage(newPage);
+    onSelectedChange(new Set());
+  };
+
   const SortIcon = ({ col }: { col: SortKey }) => {
     if (sort.key !== col) return <ChevronsUpDown className="ml-1 inline h-3 w-3 text-muted-foreground/50" />;
     return sort.dir === "asc" ? <ArrowUp className="ml-1 inline h-3 w-3" /> : <ArrowDown className="ml-1 inline h-3 w-3" />;
@@ -102,15 +109,17 @@ export function CatalogTable({
         <Table>
           <TableHeader className="sticky top-0 bg-card">
             <TableRow>
-              <TableHead className="w-10">
-                <Checkbox
-                  checked={allSelected}
-                  onCheckedChange={(v) => {
-                    if (v) onSelectedChange(new Set(paged.map((i) => i.id)));
-                    else onSelectedChange(new Set());
-                  }}
-                />
-              </TableHead>
+              {showCheckboxes && (
+                <TableHead className="w-10">
+                  <Checkbox
+                    checked={allSelected}
+                    onCheckedChange={(v) => {
+                      if (v) onSelectedChange(new Set(paged.map((i) => i.id)));
+                      else onSelectedChange(new Set());
+                    }}
+                  />
+                </TableHead>
+              )}
               <TableHead className="cursor-pointer select-none" onClick={() => toggleSort("name")}>Name<SortIcon col="name" /></TableHead>
               <TableHead className="cursor-pointer select-none" onClick={() => toggleSort("sku")}>SKU<SortIcon col="sku" /></TableHead>
               <TableHead className="cursor-pointer select-none" onClick={() => toggleSort("categoryId")}>Category<SortIcon col="categoryId" /></TableHead>
@@ -124,19 +133,21 @@ export function CatalogTable({
             {paged.map((item) => (
               <TableRow
                 key={item.id}
-                className="cursor-pointer hover:bg-muted/50"
+                className={`cursor-pointer hover:bg-muted/50 ${selected.has(item.id) ? "bg-primary/5" : ""}`}
                 onClick={() => onRowClick?.(item)}
               >
-                <TableCell onClick={(e) => e.stopPropagation()}>
-                  <Checkbox
-                    checked={selected.has(item.id)}
-                    onCheckedChange={(v) => {
-                      const next = new Set(selected);
-                      v ? next.add(item.id) : next.delete(item.id);
-                      onSelectedChange(next);
-                    }}
-                  />
-                </TableCell>
+                {showCheckboxes && (
+                  <TableCell onClick={(e) => e.stopPropagation()}>
+                    <Checkbox
+                      checked={selected.has(item.id)}
+                      onCheckedChange={(v) => {
+                        const next = new Set(selected);
+                        v ? next.add(item.id) : next.delete(item.id);
+                        onSelectedChange(next);
+                      }}
+                    />
+                  </TableCell>
+                )}
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell className="font-mono text-xs">{item.sku}</TableCell>
                 <TableCell className="text-sm text-muted-foreground">{catMap.get(item.categoryId ?? "") ?? "—"}</TableCell>
@@ -161,8 +172,8 @@ export function CatalogTable({
       <div className="mt-3 flex items-center justify-between text-sm text-muted-foreground">
         <span>Showing {start}–{end} of {sorted.length} items</span>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" disabled={safePage === 0} onClick={() => setPage((p) => p - 1)}>Previous</Button>
-          <Button variant="outline" size="sm" disabled={safePage >= totalPages - 1} onClick={() => setPage((p) => p + 1)}>Next</Button>
+          <Button variant="outline" size="sm" disabled={safePage === 0} onClick={() => changePage(safePage - 1)}>Previous</Button>
+          <Button variant="outline" size="sm" disabled={safePage >= totalPages - 1} onClick={() => changePage(safePage + 1)}>Next</Button>
         </div>
       </div>
     </div>

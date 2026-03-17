@@ -171,6 +171,7 @@ function CatalogPage() {
         onSelectedChange={setSelected}
         onRowClick={(item) => setDetailItem(item)}
         actionRenderer={actionRenderer}
+        showCheckboxes={can("edit_item")}
       />
 
       <ItemFormSheet
