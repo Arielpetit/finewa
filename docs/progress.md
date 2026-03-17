@@ -7,7 +7,7 @@
 
 ## Last Completed
 
-- US-01-005 — Create all app route stubs — e2e PASSED
+- US-01-006 — Sidebar mobile toggle with hamburger menu — e2e PASSED
 
 ## Known Issues
 
@@ -17,6 +17,6 @@
 
 - All CSS tokens must use oklch format
 - Geist variable fonts: copy woff2 to public/fonts/, absolute URL in @font-face
-- Domain types: 5 enums + 12 interfaces at 174 lines
-- Layout: app.tsx layout + app.index.tsx with Navigate component (not beforeLoad redirect — causes hydration warning)
-- Sidebar collapsible groups use max-h transition trick
+- Layout: app.tsx layout + Navigate component for redirect (not beforeLoad)
+- Mobile sidebar: Sheet component from left, onNavigate callback closes on link click
+- Implement mobile toggle alongside desktop sidebar to avoid duplicate work
