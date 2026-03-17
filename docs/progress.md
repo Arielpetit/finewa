@@ -2,12 +2,12 @@
 
 ## Current State
 
-- Phase: PRD-10 — Suppliers
-- Status: 6 of 7 stories passed
+- Phase: PRD-11 — Purchase Orders CRUD
+- Status: 0 of ? stories passed
 
 ## Last Completed
 
-- US-10-006 — Delete/archive supplier with safety check — e2e passed
+- US-10-007 — Suppliers page composition — e2e passed (PRD-10 complete!)
 
 ## Known Issues
 
@@ -16,6 +16,6 @@
 ## Learnings
 
 - Spread arrays from demoStore getters in hooks to ensure useMemo detects changes
-- Use getByRole('heading') to avoid strict mode violations when button text matches heading text
 - Enter demo mode via SPA click (not page.goto) since demo state is in-memory React context
-- Use `[role="alertdialog"] button` locator to target AlertDialog action buttons specifically
+- Use `[role="alertdialog"] button` locator to target AlertDialog action buttons
+- Use validateSearch for URL search params in TanStack Router routes

@@ -155,8 +155,8 @@
       },
       "priority": 7,
       "dependencies": ["US-10-001", "US-10-002", "US-10-003", "US-10-004", "US-10-005", "US-10-006"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Full page composition with URL param ?supplier=ID, detail sheet on row click, requestor redirected by route guard."
     }
   ]
 }

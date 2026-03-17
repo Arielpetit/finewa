@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { SuppliersTable } from "@/components/suppliers/SuppliersTable";
 import { SupplierFormSheet } from "@/components/suppliers/SupplierFormSheet";
@@ -11,12 +11,21 @@ import { useRole } from "@/hooks/useRole";
 import { Button } from "@/components/ui/button";
 import type { Supplier } from "@/types/inventory";
 
+interface SuppliersSearch {
+  supplier?: string;
+}
+
 export const Route = createFileRoute("/app/suppliers")({
   component: SuppliersPage,
   head: () => ({ meta: [{ title: "Suppliers — Stackwise" }] }),
+  validateSearch: (search: Record<string, unknown>): SuppliersSearch => ({
+    supplier: typeof search.supplier === "string" ? search.supplier : undefined,
+  }),
 });
 
 function SuppliersPage() {
+  const { supplier: supplierParam } = Route.useSearch();
+  const navigate = useNavigate();
   const { data: suppliers } = useSuppliers();
   const { data: items } = useItems();
   const { data: purchaseOrders } = usePurchaseOrders();
@@ -32,6 +41,17 @@ function SuppliersPage() {
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailSupplier, setDetailSupplier] = useState<Supplier | null>(null);
 
+  // Open detail from URL param
+  useEffect(() => {
+    if (supplierParam && suppliers.length > 0) {
+      const found = suppliers.find((s) => s.id === supplierParam);
+      if (found) {
+        setDetailSupplier(found);
+        setDetailOpen(true);
+      }
+    }
+  }, [supplierParam, suppliers]);
+
   function openCreate() {
     setEditSupplier(null);
     setFormOpen(true);
@@ -40,6 +60,14 @@ function SuppliersPage() {
   function openDetail(s: Supplier) {
     setDetailSupplier(s);
     setDetailOpen(true);
+    navigate({ to: "/app/suppliers", search: { supplier: s.id }, replace: true });
+  }
+
+  function handleDetailClose(open: boolean) {
+    setDetailOpen(open);
+    if (!open) {
+      navigate({ to: "/app/suppliers", search: {}, replace: true });
+    }
   }
 
   function openEdit(s: Supplier) {
@@ -48,7 +76,6 @@ function SuppliersPage() {
   }
 
   function handleDelete(id: string) {
-    // Clear supplier reference from linked items
     for (const item of items) {
       if (item.supplierId === id) {
         updateItem.mutate({ id: item.id, updates: { supplierId: null } });
@@ -76,7 +103,7 @@ function SuppliersPage() {
 
       <SupplierDetailSheet
         open={detailOpen}
-        onOpenChange={setDetailOpen}
+        onOpenChange={handleDetailClose}
         supplier={detailSupplier}
         items={items}
         purchaseOrders={purchaseOrders}
