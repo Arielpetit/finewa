@@ -278,6 +278,45 @@ export function PurchaseOrderDetailSheet({
 
           <Separator />
 
+          {/* Receiving History */}
+          {showHistory && (
+            <div>
+              <p className="mb-2 text-sm font-medium text-foreground">Receiving History</p>
+              {poMovements.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No shipments received yet.</p>
+              ) : (
+                <div className="space-y-3">
+                  {poMovements.map((m) => {
+                    const item = itemMap.get(m.itemId);
+                    return (
+                      <div key={m.id} className="flex items-start gap-2 rounded-md border border-border bg-muted/30 p-3">
+                        <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 text-sm">
+                            <span className="font-medium text-foreground">
+                              {item?.name ?? m.itemId}
+                            </span>
+                            <span className="font-mono text-xs text-muted-foreground">
+                              +{m.quantity}
+                            </span>
+                          </div>
+                          <p className="text-xs text-muted-foreground">
+                            {m.performedBy} · {formatDistanceToNow(new Date(m.createdAt), { addSuffix: true })}
+                          </p>
+                          {m.notes && (
+                            <p className="mt-0.5 text-xs text-muted-foreground italic">{m.notes}</p>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+
+          <Separator />
+
           {/* Status actions */}
           <POStatusActions purchaseOrder={purchaseOrder} />
         </div>
