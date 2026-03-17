@@ -172,8 +172,8 @@ export function CatalogTable({
       <div className="mt-3 flex items-center justify-between text-sm text-muted-foreground">
         <span>Showing {start}–{end} of {sorted.length} items</span>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" disabled={safePage === 0} onClick={() => setPage((p) => p - 1)}>Previous</Button>
-          <Button variant="outline" size="sm" disabled={safePage >= totalPages - 1} onClick={() => setPage((p) => p + 1)}>Next</Button>
+          <Button variant="outline" size="sm" disabled={safePage === 0} onClick={() => changePage(safePage - 1)}>Previous</Button>
+          <Button variant="outline" size="sm" disabled={safePage >= totalPages - 1} onClick={() => changePage(safePage + 1)}>Next</Button>
         </div>
       </div>
     </div>
