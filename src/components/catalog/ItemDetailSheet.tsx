@@ -142,6 +142,14 @@ export function ItemDetailSheet({
               <DetailRow label="Created" value={format(new Date(item.createdAt), "MMM d, yyyy")} />
               <DetailRow label="Updated" value={format(new Date(item.updatedAt), "MMM d, yyyy")} />
             </div>
+
+            {/* Barcode */}
+            <BarcodeDisplay
+              barcode={item.sku}
+              itemName={item.name}
+              sku={item.sku}
+              location={location?.name}
+            />
           </TabsContent>
 
           <TabsContent value="history" className="mt-6">
