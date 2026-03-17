@@ -33,6 +33,7 @@ const STATUS_CLASS: Record<RequestStatus, string> = {
 interface RequestsTableProps {
   requests: InventoryRequest[];
   onRowClick: (request: InventoryRequest) => void;
+  showRequestor?: boolean;
 }
 
 export function RequestsTable({ requests, onRowClick }: RequestsTableProps) {
