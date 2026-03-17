@@ -183,8 +183,8 @@
       },
       "priority": 8,
       "dependencies": ["US-11-007", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Delete button in detail sheet for draft POs, admin only. AlertDialog confirmation. Deletes PO and closes sheet with toast."
     },
     {
       "id": "US-11-009",
