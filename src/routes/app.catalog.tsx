@@ -19,6 +19,7 @@ import { ItemFormSheet } from "@/components/catalog/ItemFormSheet";
 import { BulkActionBar } from "@/components/catalog/BulkActionBar";
 import { ItemDetailSheet } from "@/components/catalog/ItemDetailSheet";
 import { RowActionsMenu } from "@/components/catalog/RowActionsMenu";
+import { MovementFormSheet } from "@/components/movements/MovementFormSheet";
 import { useItems, useCategories, useSuppliers, useLocations } from "@/hooks/useInventoryData";
 import { useCreateItem, useUpdateItem, useDeleteItem } from "@/hooks/useInventoryMutations";
 import { PermissionGate, usePermissions } from "@/hooks/usePermissions";
