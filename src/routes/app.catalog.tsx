@@ -1,5 +1,5 @@
-import { useState, useMemo, useCallback } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -27,19 +27,28 @@ import type { Item } from "@/types/inventory";
 import { ItemStatus } from "@/types/inventory";
 import type { ItemFilters } from "@/lib/demo-store";
 
+interface CatalogSearch {
+  item?: string;
+}
+
 export const Route = createFileRoute("/app/catalog")({
   component: CatalogPage,
   head: () => ({ meta: [{ title: "Catalog — Stackwise" }] }),
+  validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
+    item: typeof search.item === "string" ? search.item : undefined,
+  }),
 });
 
 function CatalogPage() {
+  const { item: itemId } = Route.useSearch();
+  const navigate = useNavigate();
+
   const [filters, setFilters] = useState<ItemFilters>({});
   const [sort, setSort] = useState<SortState>({ key: "name", dir: "asc" });
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [sheetOpen, setSheetOpen] = useState(false);
   const [editItem, setEditItem] = useState<Item | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
-  const [detailItem, setDetailItem] = useState<Item | null>(null);
 
   // Strip stock-level status before passing to store
   const storeFilters = useMemo(() => {
@@ -57,7 +66,19 @@ function CatalogPage() {
   const { can } = usePermissions();
   const { isAdmin } = useRole();
 
-  // Client-side stock-level filter
+  // Derive detail item from URL search param
+  const detailItem = useMemo(() => {
+    if (!itemId) return null;
+    return allItems.find((i) => i.id === itemId) ?? null;
+  }, [itemId, allItems]);
+
+  const openDetail = useCallback((item: Item) => {
+    navigate({ to: "/app/catalog", search: { item: item.id } });
+  }, [navigate]);
+
+  const closeDetail = useCallback(() => {
+    navigate({ to: "/app/catalog", search: {} });
+  }, [navigate]);
   const items = useMemo(() => {
     let result = allItems.filter((i) => i.status !== ItemStatus.Archived);
     if (filters.status === "in-stock") result = result.filter((i) => i.currentStock > i.reorderPoint);
@@ -129,7 +150,7 @@ function CatalogPage() {
   const actionRenderer = (item: Item) => (
     <RowActionsMenu
       item={item}
-      onViewDetails={(i) => setDetailItem(i)}
+      onViewDetails={(i) => openDetail(i)}
       onEdit={(i) => openEdit(i)}
       onLogMovement={(i) => { window.location.href = `/app/movements?item=${i.id}`; }}
       onDelete={(i) => setDeleteTarget(i)}
@@ -161,7 +182,7 @@ function CatalogPage() {
         onSortChange={setSort}
         selected={selected}
         onSelectedChange={setSelected}
-        onRowClick={(item) => setDetailItem(item)}
+        onRowClick={(item) => openDetail(item)}
         actionRenderer={actionRenderer}
         showCheckboxes={can("edit_item")}
       />
@@ -180,13 +201,13 @@ function CatalogPage() {
 
       <ItemDetailSheet
         open={!!detailItem}
-        onOpenChange={(v) => { if (!v) setDetailItem(null); }}
+        onOpenChange={(v) => { if (!v) closeDetail(); }}
         item={detailItem}
         categories={categories}
         suppliers={suppliers}
         locations={locations}
-        onEdit={(item) => { setDetailItem(null); openEdit(item); }}
-        onArchive={(item) => { setDetailItem(null); setDeleteTarget(item); }}
+        onEdit={(item) => { closeDetail(); openEdit(item); }}
+        onArchive={(item) => { closeDetail(); setDeleteTarget(item); }}
       />
 
       <AlertDialog open={!!deleteTarget} onOpenChange={(v) => !v && setDeleteTarget(null)}>

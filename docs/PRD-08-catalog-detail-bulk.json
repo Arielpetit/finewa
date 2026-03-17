@@ -183,8 +183,8 @@
       },
       "priority": 8,
       "dependencies": ["US-08-001", "US-07-008"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "URL search param ?item=ID drives detail sheet. validateSearch on route. Back button closes sheet. Table stays mounted."
     }
   ]
 }
