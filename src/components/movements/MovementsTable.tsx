@@ -156,7 +156,7 @@ export function MovementsTable({ movements, itemNameMap, locationNameMap }: Move
                         </TableCell>
                       </TableRow>
                     )}
-                  </>
+                  </Fragment>
                 );
               })}
             </TableBody>
