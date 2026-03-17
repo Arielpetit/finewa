@@ -138,8 +138,8 @@
       },
       "priority": 6,
       "dependencies": ["US-13-005", "US-09-003"],
-      "isPassed": false,
-      "notes": "Critical: must validate stock before creating movements to prevent negative inventory"
+      "isPassed": true,
+      "notes": "Stock check before approve/partial. Auto-creates shipped movements with request reference. Uses demoStore directly for atomic multi-op. Verified approve toast and status update via e2e."
     },
     {
       "id": "US-13-007",
