@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useState } from "react";
+import { useMemo } from "react";
 import { useDemo } from "@/hooks/useDemo";
 import type {
   Item,
@@ -17,61 +17,78 @@ interface QueryResult<T> {
   error: Error | null;
 }
 
-function useDemoQuery<T>(getter: () => T, fallback: T): QueryResult<T> {
+export function useItems(filters?: ItemFilters): QueryResult<Item[]> {
   const { isDemo, demoStore, version } = useDemo();
   return useMemo(() => {
-    if (isDemo && demoStore) {
-      return { data: getter(), isLoading: false, error: null };
-    }
-    return { data: fallback, isLoading: false, error: null };
-    // version drives re-computation after mutations
+    if (isDemo && demoStore) return { data: demoStore.getItems(filters), isLoading: false, error: null };
+    return { data: [] as Item[], isLoading: false, error: null };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDemo, demoStore, version]);
-}
-
-export function useItems(filters?: ItemFilters): QueryResult<Item[]> {
-  return useDemoQuery(() => useDemo().demoStore!.getItems(filters), []);
+  }, [isDemo, demoStore, version, filters?.categoryId, filters?.supplierId, filters?.status, filters?.search, filters?.locationId]);
 }
 
 export function useItemById(id: string): QueryResult<Item | undefined> {
-  return useDemoQuery(() => useDemo().demoStore!.getItemById(id), undefined);
+  const { isDemo, demoStore, version } = useDemo();
+  return useMemo(() => {
+    if (isDemo && demoStore) return { data: demoStore.getItemById(id), isLoading: false, error: null };
+    return { data: undefined, isLoading: false, error: null };
+  }, [isDemo, demoStore, version, id]);
 }
 
 export function useCategories(): QueryResult<Category[]> {
-  return useDemoQuery(() => useDemo().demoStore!.getCategories(), []);
+  const { isDemo, demoStore, version } = useDemo();
+  return useMemo(() => {
+    if (isDemo && demoStore) return { data: demoStore.getCategories(), isLoading: false, error: null };
+    return { data: [] as Category[], isLoading: false, error: null };
+  }, [isDemo, demoStore, version]);
 }
 
 export function useSuppliers(): QueryResult<Supplier[]> {
-  return useDemoQuery(() => useDemo().demoStore!.getSuppliers(), []);
+  const { isDemo, demoStore, version } = useDemo();
+  return useMemo(() => {
+    if (isDemo && demoStore) return { data: demoStore.getSuppliers(), isLoading: false, error: null };
+    return { data: [] as Supplier[], isLoading: false, error: null };
+  }, [isDemo, demoStore, version]);
 }
 
 export function useLocations(): QueryResult<Location[]> {
-  return useDemoQuery(() => useDemo().demoStore!.getLocations(), []);
+  const { isDemo, demoStore, version } = useDemo();
+  return useMemo(() => {
+    if (isDemo && demoStore) return { data: demoStore.getLocations(), isLoading: false, error: null };
+    return { data: [] as Location[], isLoading: false, error: null };
+  }, [isDemo, demoStore, version]);
 }
 
 export function useMovements(limit?: number): QueryResult<StockMovement[]> {
-  return useDemoQuery(
-    () =>
-      limit
-        ? useDemo().demoStore!.getRecentMovements(limit)
-        : useDemo().demoStore!.getMovements(),
-    [],
-  );
+  const { isDemo, demoStore, version } = useDemo();
+  return useMemo(() => {
+    if (isDemo && demoStore) {
+      const data = limit ? demoStore.getRecentMovements(limit) : demoStore.getMovements();
+      return { data, isLoading: false, error: null };
+    }
+    return { data: [] as StockMovement[], isLoading: false, error: null };
+  }, [isDemo, demoStore, version, limit]);
 }
 
 export function useStockSummary(): QueryResult<StockSummary> {
-  return useDemoQuery(() => useDemo().demoStore!.getStockSummary(), {
-    total: 0,
-    inStock: 0,
-    lowStock: 0,
-    outOfStock: 0,
-  });
+  const { isDemo, demoStore, version } = useDemo();
+  return useMemo(() => {
+    if (isDemo && demoStore) return { data: demoStore.getStockSummary(), isLoading: false, error: null };
+    return { data: { total: 0, inStock: 0, lowStock: 0, outOfStock: 0 }, isLoading: false, error: null };
+  }, [isDemo, demoStore, version]);
 }
 
 export function usePurchaseOrders(): QueryResult<PurchaseOrder[]> {
-  return useDemoQuery(() => useDemo().demoStore!.getPurchaseOrders(), []);
+  const { isDemo, demoStore, version } = useDemo();
+  return useMemo(() => {
+    if (isDemo && demoStore) return { data: demoStore.getPurchaseOrders(), isLoading: false, error: null };
+    return { data: [] as PurchaseOrder[], isLoading: false, error: null };
+  }, [isDemo, demoStore, version]);
 }
 
 export function useRequests(): QueryResult<InventoryRequest[]> {
-  return useDemoQuery(() => useDemo().demoStore!.getRequests(), []);
+  const { isDemo, demoStore, version } = useDemo();
+  return useMemo(() => {
+    if (isDemo && demoStore) return { data: demoStore.getRequests(), isLoading: false, error: null };
+    return { data: [] as InventoryRequest[], isLoading: false, error: null };
+  }, [isDemo, demoStore, version]);
 }
