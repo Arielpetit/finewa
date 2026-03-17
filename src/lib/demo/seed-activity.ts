@@ -46,25 +46,63 @@ export function generateMovements(): StockMovement[] {
 }
 
 export function generatePurchaseOrders(): PurchaseOrder[] {
-  const poItems: PurchaseOrderItem[] = [
+  const po1Items: PurchaseOrderItem[] = [
     { id: "poi-01", purchaseOrderId: "po-01", itemId: "itm-005", quantityOrdered: 20, quantityReceived: 0, unitCost: 22 },
     { id: "poi-02", purchaseOrderId: "po-01", itemId: "itm-014", quantityOrdered: 15, quantityReceived: 0, unitCost: 11 },
     { id: "poi-03", purchaseOrderId: "po-01", itemId: "itm-020", quantityOrdered: 40, quantityReceived: 0, unitCost: 5 },
     { id: "poi-04", purchaseOrderId: "po-01", itemId: "itm-028", quantityOrdered: 10, quantityReceived: 0, unitCost: 30 },
   ];
+  const po2Items: PurchaseOrderItem[] = [
+    { id: "poi-05", purchaseOrderId: "po-02", itemId: "itm-001", quantityOrdered: 50, quantityReceived: 50, unitCost: 15 },
+    { id: "poi-06", purchaseOrderId: "po-02", itemId: "itm-003", quantityOrdered: 30, quantityReceived: 30, unitCost: 8 },
+  ];
+  const po3Items: PurchaseOrderItem[] = [
+    { id: "poi-07", purchaseOrderId: "po-03", itemId: "itm-008", quantityOrdered: 25, quantityReceived: 10, unitCost: 18 },
+    { id: "poi-08", purchaseOrderId: "po-03", itemId: "itm-012", quantityOrdered: 60, quantityReceived: 20, unitCost: 4 },
+    { id: "poi-09", purchaseOrderId: "po-03", itemId: "itm-019", quantityOrdered: 15, quantityReceived: 0, unitCost: 25 },
+  ];
+  const po4Items: PurchaseOrderItem[] = [
+    { id: "poi-10", purchaseOrderId: "po-04", itemId: "itm-010", quantityOrdered: 100, quantityReceived: 0, unitCost: 3 },
+  ];
+  const po5Items: PurchaseOrderItem[] = [
+    { id: "poi-11", purchaseOrderId: "po-05", itemId: "itm-002", quantityOrdered: 40, quantityReceived: 0, unitCost: 12 },
+    { id: "poi-12", purchaseOrderId: "po-05", itemId: "itm-006", quantityOrdered: 20, quantityReceived: 0, unitCost: 35 },
+  ];
+  const po6Items: PurchaseOrderItem[] = [
+    { id: "poi-13", purchaseOrderId: "po-06", itemId: "itm-015", quantityOrdered: 80, quantityReceived: 80, unitCost: 6 },
+    { id: "poi-14", purchaseOrderId: "po-06", itemId: "itm-022", quantityOrdered: 45, quantityReceived: 45, unitCost: 9 },
+  ];
+  const calc = (li: PurchaseOrderItem[]) => li.reduce((s, i) => s + i.quantityOrdered * i.unitCost, 0);
   return [
     {
-      id: "po-01",
-      orderNumber: "PO-2024-001",
-      supplierId: "sup-01",
-      status: OrderStatus.Draft,
-      items: poItems,
-      totalCost: poItems.reduce((s, i) => s + i.quantityOrdered * i.unitCost, 0),
-      expectedDelivery: ts(-7),
-      notes: "Restock for out-of-stock items",
-      createdBy: "demo-user",
-      createdAt: ts(3),
-      updatedAt: ts(1),
+      id: "po-01", orderNumber: "PO-2024-001", supplierId: "sup-01", status: OrderStatus.Draft,
+      items: po1Items, totalCost: calc(po1Items), expectedDelivery: ts(-7),
+      notes: "Restock for out-of-stock items", createdBy: "demo-user", createdAt: ts(3), updatedAt: ts(1),
+    },
+    {
+      id: "po-02", orderNumber: "PO-2024-002", supplierId: "sup-02", status: OrderStatus.Received,
+      items: po2Items, totalCost: calc(po2Items), expectedDelivery: ts(20),
+      notes: "Monthly electronics restock", createdBy: "demo-user", createdAt: ts(25), updatedAt: ts(18),
+    },
+    {
+      id: "po-03", orderNumber: "PO-2024-003", supplierId: "sup-03", status: OrderStatus.Partial,
+      items: po3Items, totalCost: calc(po3Items), expectedDelivery: ts(-3),
+      notes: "Cleaning supplies — partial shipment received", createdBy: "demo-user", createdAt: ts(12), updatedAt: ts(5),
+    },
+    {
+      id: "po-04", orderNumber: "PO-2024-004", supplierId: "sup-01", status: OrderStatus.Submitted,
+      items: po4Items, totalCost: calc(po4Items), expectedDelivery: ts(-5),
+      notes: "Urgent office supplies reorder", createdBy: "demo-user", createdAt: ts(8), updatedAt: ts(7),
+    },
+    {
+      id: "po-05", orderNumber: "PO-2024-005", supplierId: "sup-04", status: OrderStatus.Cancelled,
+      items: po5Items, totalCost: calc(po5Items), expectedDelivery: ts(-2),
+      notes: "Cancelled — supplier out of stock", createdBy: "demo-user", createdAt: ts(15), updatedAt: ts(10),
+    },
+    {
+      id: "po-06", orderNumber: "PO-2024-006", supplierId: "sup-02", status: OrderStatus.Received,
+      items: po6Items, totalCost: calc(po6Items), expectedDelivery: ts(30),
+      notes: "Q4 safety equipment order", createdBy: "demo-user", createdAt: ts(35), updatedAt: ts(28),
     },
   ];
 }

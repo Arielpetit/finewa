@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-11 — Purchase Orders CRUD
-- Status: 0 of ? stories passed
+- Status: 1 of 10 stories passed
 
 ## Last Completed
 
-- US-10-007 — Suppliers page composition — e2e passed (PRD-10 complete!)
+- US-11-001 — Purchase orders list table — e2e passed
 
 ## Known Issues
 
@@ -19,3 +19,4 @@
 - Enter demo mode via SPA click (not page.goto) since demo state is in-memory React context
 - Use `[role="alertdialog"] button` locator to target AlertDialog action buttons
 - Use validateSearch for URL search params in TanStack Router routes
+- Use semantic color tokens (stock-healthy, amber-accent, destructive) for status badges
