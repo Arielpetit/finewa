@@ -159,6 +159,31 @@ export class DemoStore {
     return this.data.locations;
   }
 
+  getLocationById(id: string): Location | undefined {
+    return this.data.locations.find((l) => l.id === id);
+  }
+
+  createLocation(location: Location): Location {
+    this.data.locations.push(location);
+    this.version++;
+    return location;
+  }
+
+  updateLocation(id: string, updates: Partial<Location>): Location | undefined {
+    const idx = this.data.locations.findIndex((l) => l.id === id);
+    if (idx === -1) return undefined;
+    this.data.locations[idx] = { ...this.data.locations[idx], ...updates };
+    this.version++;
+    return this.data.locations[idx];
+  }
+
+  deleteLocation(id: string): boolean {
+    const len = this.data.locations.length;
+    this.data.locations = this.data.locations.filter((l) => l.id !== id);
+    if (this.data.locations.length < len) { this.version++; return true; }
+    return false;
+  }
+
   // ─── Purchase Orders ───────────────────────────────────
   getPurchaseOrders(): PurchaseOrder[] {
     return this.data.purchaseOrders;
