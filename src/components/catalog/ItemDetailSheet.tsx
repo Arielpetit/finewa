@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StatusBadge } from "@/components/StatusBadge";
 import { PermissionGate } from "@/hooks/usePermissions";
 import { MovementTimeline } from "@/components/catalog/MovementTimeline";
+import { BarcodeDisplay } from "@/components/catalog/BarcodeDisplay";
 import { useMovements } from "@/hooks/useInventoryData";
 import type { Item, Category, Supplier, Location } from "@/types/inventory";
 
@@ -141,6 +142,14 @@ export function ItemDetailSheet({
               <DetailRow label="Created" value={format(new Date(item.createdAt), "MMM d, yyyy")} />
               <DetailRow label="Updated" value={format(new Date(item.updatedAt), "MMM d, yyyy")} />
             </div>
+
+            {/* Barcode */}
+            <BarcodeDisplay
+              barcode={item.sku}
+              itemName={item.name}
+              sku={item.sku}
+              location={location?.name}
+            />
           </TabsContent>
 
           <TabsContent value="history" className="mt-6">
