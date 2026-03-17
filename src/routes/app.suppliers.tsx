@@ -6,6 +6,8 @@ import { SupplierFormSheet } from "@/components/suppliers/SupplierFormSheet";
 import { SupplierDetailSheet } from "@/components/suppliers/SupplierDetailSheet";
 import { useSuppliers, useItems, usePurchaseOrders } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
+import { useDeleteSupplier, useUpdateItem } from "@/hooks/useInventoryMutations";
+import { useRole } from "@/hooks/useRole";
 import { Button } from "@/components/ui/button";
 import type { Supplier } from "@/types/inventory";
 
@@ -19,7 +21,11 @@ function SuppliersPage() {
   const { data: items } = useItems();
   const { data: purchaseOrders } = usePurchaseOrders();
   const { can } = usePermissions();
+  const { role } = useRole();
   const canManageSuppliers = can("manage_suppliers");
+  const isAdmin = role === "admin";
+  const deleteSupplier = useDeleteSupplier();
+  const updateItem = useUpdateItem();
 
   const [formOpen, setFormOpen] = useState(false);
   const [editSupplier, setEditSupplier] = useState<Supplier | null>(null);
@@ -39,6 +45,16 @@ function SuppliersPage() {
   function openEdit(s: Supplier) {
     setEditSupplier(s);
     setFormOpen(true);
+  }
+
+  function handleDelete(id: string) {
+    // Clear supplier reference from linked items
+    for (const item of items) {
+      if (item.supplierId === id) {
+        updateItem.mutate({ id: item.id, updates: { supplierId: null } });
+      }
+    }
+    deleteSupplier.mutate(id);
   }
 
   return (
@@ -65,7 +81,9 @@ function SuppliersPage() {
         items={items}
         purchaseOrders={purchaseOrders}
         canEdit={canManageSuppliers}
+        canDelete={isAdmin}
         onEdit={openEdit}
+        onDelete={handleDelete}
       />
 
       <SupplierFormSheet
