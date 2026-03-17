@@ -19,6 +19,8 @@ export const Route = createFileRoute("/app/purchase-orders")({
 function PurchaseOrdersPage() {
   const { data: purchaseOrders } = usePurchaseOrders();
   const { data: suppliers } = useSuppliers();
+  const { data: catalogItems } = useItems();
+  const { data: suppliers } = useSuppliers();
   const { can } = usePermissions();
   const canManagePOs = can("create_po");
   const [filters, setFilters] = useState<POFilters>(EMPTY_PO_FILTERS);
