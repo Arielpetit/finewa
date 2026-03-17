@@ -54,7 +54,7 @@
       "buildOrder": 4,
       "dependsOnPrds": ["PRD-01", "PRD-03"],
       "estimatedStories": 8,
-      "isGenerated": false
+      "isGenerated": true
     },
     {
       "prdId": "PRD-05",

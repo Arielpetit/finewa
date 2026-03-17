@@ -3,10 +3,11 @@
 ## Current State
 
 - Phase: PRD generation
-- Status: Generating PRDs (3 of 28 complete)
+- Status: Generating PRDs (4 of 28 complete)
 
 ## Last Completed
 
+- PRD-04 — Authentication & User Profiles (8 stories)
 - PRD-03 — Landing Page (4 stories)
 - PRD-02 — Demo Mode Infrastructure (7 stories)
 - PRD-01 — Design System & App Shell (8 stories)
