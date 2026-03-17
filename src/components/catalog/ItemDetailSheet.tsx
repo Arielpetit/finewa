@@ -10,7 +10,9 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { PermissionGate } from "@/hooks/usePermissions";
 import { MovementTimeline } from "@/components/catalog/MovementTimeline";
 import { BarcodeDisplay } from "@/components/catalog/BarcodeDisplay";
+import { CustomFieldsTab } from "@/components/catalog/CustomFieldsTab";
 import { useMovements } from "@/hooks/useInventoryData";
+import { useUpdateItem } from "@/hooks/useInventoryMutations";
 import type { Item, Category, Supplier, Location } from "@/types/inventory";
 
 type StockStatus = "in-stock" | "low-stock" | "out-of-stock";
