@@ -103,12 +103,8 @@ export function Sidebar({ onNavigate }: SidebarProps) {
                 {group.label}
               </button>
 
-              <div
-                className={cn(
-                  "overflow-hidden transition-all duration-150",
-                  isCollapsed ? "max-h-0" : "max-h-96"
-                )}
-              >
+              {!isCollapsed && (
+                <div className="transition-all duration-150">
                 {group.items.map((item) => (
                   <Link
                     key={item.href}
