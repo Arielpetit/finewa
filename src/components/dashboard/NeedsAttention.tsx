@@ -48,7 +48,7 @@ export function NeedsAttention() {
           <div className="space-y-2">
             {displayLow.map((item) => (
               <div key={item.id} className="flex items-center gap-3 text-sm">
-                <StatusBadge type="stock" status="low-stock" />
+                <StatusBadge status="low-stock" />
                 <span className="min-w-0 flex-1 truncate">{item.name}</span>
                 <span className="font-mono text-xs text-muted-foreground">{item.sku}</span>
                 <span className="font-mono text-xs font-medium text-stock-low">
