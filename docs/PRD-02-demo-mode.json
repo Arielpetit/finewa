@@ -138,8 +138,8 @@
       },
       "priority": 6,
       "dependencies": ["US-02-005", "US-01-005"],
-      "isPassed": false,
-      "notes": "This is temporary — PRD-03 will replace the landing page with a proper design"
+      "isPassed": true,
+      "notes": "Temp landing page with Try Demo button, navigates to /app/dashboard. PRD-03 will replace."
     },
     {
       "id": "US-02-007",
