@@ -45,8 +45,8 @@
       },
       "priority": 2,
       "dependencies": ["US-14-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Collapsible tree with type badges, item counts, selection highlight, expand/collapse. Added Locations to sidebar nav. Created basic page route."
     },
     {
       "id": "US-14-003",
