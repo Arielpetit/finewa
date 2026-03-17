@@ -8,7 +8,7 @@ import { PurchaseOrdersFilters } from "@/components/purchase-orders/PurchaseOrde
 import { PurchaseOrderFormSheet } from "@/components/purchase-orders/PurchaseOrderFormSheet";
 import { PurchaseOrderDetailSheet } from "@/components/purchase-orders/PurchaseOrderDetailSheet";
 import { ReceiveShipmentSheet } from "@/components/purchase-orders/ReceiveShipmentSheet";
-import { usePurchaseOrders, useSuppliers, useItems } from "@/hooks/useInventoryData";
+import { usePurchaseOrders, useSuppliers, useItems, useMovements } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { useRole } from "@/hooks/useRole";
 import {
@@ -40,6 +40,7 @@ function PurchaseOrdersPage() {
   const { data: purchaseOrders } = usePurchaseOrders();
   const { data: suppliers } = useSuppliers();
   const { data: catalogItems } = useItems();
+  const { data: allMovements } = useMovements();
   const { can } = usePermissions();
   const { role } = useRole();
   const deletePO = useDeletePurchaseOrder();
@@ -134,6 +135,7 @@ function PurchaseOrdersPage() {
         purchaseOrder={currentDetailPO}
         suppliers={suppliers}
         items={catalogItems}
+        movements={allMovements}
         canEdit={canManagePOs}
         isAdmin={isAdmin}
         onEdit={handleEdit}

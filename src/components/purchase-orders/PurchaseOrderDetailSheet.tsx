@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Link } from "@tanstack/react-router";
-import { format } from "date-fns";
-import { Pencil, ExternalLink, Trash2, PackageCheck } from "lucide-react";
+import { format, formatDistanceToNow } from "date-fns";
+import { Pencil, ExternalLink, Trash2, PackageCheck, Clock } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -32,7 +32,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { OrderStatus } from "@/types/inventory";
-import type { PurchaseOrder, Supplier, Item } from "@/types/inventory";
+import type { PurchaseOrder, Supplier, Item, StockMovement } from "@/types/inventory";
 import { POStatusActions } from "./POStatusActions";
 
 const STATUS_LABEL: Record<OrderStatus, string> = {
@@ -62,6 +62,7 @@ interface PurchaseOrderDetailSheetProps {
   onEdit: (po: PurchaseOrder) => void;
   onDelete: (id: string) => void;
   onReceive?: (po: PurchaseOrder) => void;
+  movements?: StockMovement[];
 }
 
 export function PurchaseOrderDetailSheet({
@@ -75,6 +76,7 @@ export function PurchaseOrderDetailSheet({
   onEdit,
   onDelete,
   onReceive,
+  movements = [],
 }: PurchaseOrderDetailSheetProps) {
   const supplierMap = useMemo(
     () => new Map(suppliers.map((s) => [s.id, s])),
@@ -85,6 +87,17 @@ export function PurchaseOrderDetailSheet({
     [items],
   );
 
+  // Filter movements by PO reference (must be before early return)
+  const poMovements = useMemo(
+    () =>
+      purchaseOrder
+        ? movements
+            .filter((m) => m.reference === purchaseOrder.orderNumber)
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+        : [],
+    [movements, purchaseOrder],
+  );
+
   if (!purchaseOrder) return null;
 
   const supplier = supplierMap.get(purchaseOrder.supplierId);
@@ -92,6 +105,10 @@ export function PurchaseOrderDetailSheet({
   const canReceive =
     purchaseOrder.status === OrderStatus.Submitted ||
     purchaseOrder.status === OrderStatus.Partial;
+  const showHistory =
+    purchaseOrder.status === OrderStatus.Submitted ||
+    purchaseOrder.status === OrderStatus.Partial ||
+    purchaseOrder.status === OrderStatus.Received;
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -258,6 +275,45 @@ export function PurchaseOrderDetailSheet({
               </span>
             </span>
           </div>
+
+          <Separator />
+
+          {/* Receiving History */}
+          {showHistory && (
+            <div>
+              <p className="mb-2 text-sm font-medium text-foreground">Receiving History</p>
+              {poMovements.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No shipments received yet.</p>
+              ) : (
+                <div className="space-y-3">
+                  {poMovements.map((m) => {
+                    const item = itemMap.get(m.itemId);
+                    return (
+                      <div key={m.id} className="flex items-start gap-2 rounded-md border border-border bg-muted/30 p-3">
+                        <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-center gap-2 text-sm">
+                            <span className="font-medium text-foreground">
+                              {item?.name ?? m.itemId}
+                            </span>
+                            <span className="font-mono text-xs text-muted-foreground">
+                              +{m.quantity}
+                            </span>
+                          </div>
+                          <p className="text-xs text-muted-foreground">
+                            {m.performedBy} · {formatDistanceToNow(new Date(m.createdAt), { addSuffix: true })}
+                          </p>
+                          {m.notes && (
+                            <p className="mt-0.5 text-xs text-muted-foreground italic">{m.notes}</p>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
 
           <Separator />
 
