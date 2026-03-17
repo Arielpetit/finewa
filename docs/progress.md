@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-12 — Purchase Orders Receiving & Print
-- Status: 4 of 6 stories passed
+- Status: 5 of 6 stories passed
 
 ## Last Completed
 
-- US-12-004 — Line items received progress indicators — console-check passed
+- US-12-005 — Printable PO summary — e2e passed
 
 ## Known Issues
 
@@ -22,3 +22,4 @@
 - Demo banner role switcher uses buttons not combobox
 - Use locator('main').getByText() when detail sheet heading duplicates table cell text
 - Move useMemo hooks before early returns to avoid React hooks order violations
+- Print views use hardcoded colors since CSS tokens won't render in print media
