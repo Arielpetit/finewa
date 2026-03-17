@@ -1,30 +1,49 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { useLocationTree } from "@/hooks/useLocations";
-import { useItems } from "@/hooks/useInventoryData";
+import { useItems, useLocations as useLocationsData } from "@/hooks/useInventoryData";
 import { LocationTree } from "@/components/locations/LocationTree";
+import { LocationSummary } from "@/components/locations/LocationSummary";
 import { LocationFormSheet } from "@/components/locations/LocationFormSheet";
 import { PermissionGate } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
+import type { LocationTreeNode } from "@/hooks/useLocations";
 
 export const Route = createFileRoute("/app/locations")({
   component: LocationsPage,
   head: () => ({ meta: [{ title: "Locations — Stackwise" }] }),
 });
 
+function findNode(nodes: LocationTreeNode[], id: string): LocationTreeNode | null {
+  for (const n of nodes) {
+    if (n.id === id) return n;
+    const found = findNode(n.children, id);
+    if (found) return found;
+  }
+  return null;
+}
+
 function LocationsPage() {
   const tree = useLocationTree();
   const { data: items } = useItems();
+  const { data: allLocations } = useLocationsData();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [formOpen, setFormOpen] = useState(false);
+
+  const selectedNode = useMemo(
+    () => (selectedId ? findNode(tree, selectedId) : null),
+    [tree, selectedId],
+  );
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-semibold text-foreground">Locations</h1>
-          <p className="text-sm text-muted-foreground">Manage warehouses and storage locations</p>
+          <p className="text-sm text-muted-foreground">
+            {allLocations.length} location{allLocations.length !== 1 && "s"}
+          </p>
         </div>
         <PermissionGate permission="create_item">
           <Button size="sm" onClick={() => setFormOpen(true)}>
@@ -44,10 +63,16 @@ function LocationsPage() {
           />
         </div>
         <div className="rounded-lg border border-border bg-card p-4">
-          {selectedId ? (
-            <p className="text-sm text-muted-foreground">Location details coming soon</p>
+          {selectedNode ? (
+            <LocationSummary
+              node={selectedNode}
+              allLocations={allLocations}
+              items={items}
+            />
           ) : (
-            <p className="text-sm text-muted-foreground">Select a location to view details</p>
+            <p className="py-12 text-center text-sm text-muted-foreground">
+              Select a location to view details
+            </p>
           )}
         </div>
       </div>

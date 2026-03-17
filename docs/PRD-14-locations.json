@@ -91,8 +91,8 @@
       },
       "priority": 4,
       "dependencies": ["US-14-002", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "LocationSummary component with full path, item count, total value, top 10 items, parent aggregation via getDescendantIds. Wired into locations page with findNode helper."
     },
     {
       "id": "US-14-005",
