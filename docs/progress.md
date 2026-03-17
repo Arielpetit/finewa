@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-11 — Purchase Orders CRUD
-- Status: 1 of 10 stories passed
+- Status: 2 of 10 stories passed
 
 ## Last Completed
 
-- US-11-001 — Purchase orders list table — e2e passed
+- US-11-002 — Purchase orders filters — e2e passed
 
 ## Known Issues
 
@@ -20,3 +20,4 @@
 - Use `[role="alertdialog"] button` locator to target AlertDialog action buttons
 - Use validateSearch for URL search params in TanStack Router routes
 - Use semantic color tokens (stock-healthy, amber-accent, destructive) for status badges
+- Extract filter types to separate file (po-filter-types.ts) for reuse across components
