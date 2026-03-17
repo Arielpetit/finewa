@@ -27,7 +27,7 @@ export function MovementStats({ movements }: MovementStatsProps) {
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-2 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-2 lg:grid-cols-4" data-testid="movement-stats">
       {pills.map((p) => (
         <div
           key={p.label}
