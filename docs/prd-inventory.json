@@ -1,6 +1,6 @@
 {
   "totalPrds": 28,
-  "generatedCount": 26,
+  "generatedCount": 27,
   "categories": {
     "foundation": ["PRD-01", "PRD-02", "PRD-03", "PRD-04", "PRD-05"],
     "core": ["PRD-06", "PRD-07", "PRD-08", "PRD-09", "PRD-10", "PRD-11", "PRD-12", "PRD-13", "PRD-14"],
@@ -307,7 +307,7 @@
       "buildOrder": 26,
       "dependsOnPrds": ["PRD-01"],
       "estimatedStories": 6,
-      "isGenerated": false
+      "isGenerated": true
     },
     {
       "prdId": "PRD-28",
