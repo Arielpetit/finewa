@@ -24,11 +24,14 @@ import {
 } from "@/components/ui/command";
 import { Command as CommandPrimitive } from "cmdk";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import { useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { PAGES } from "./palette-pages";
 import { ACTIONS } from "./palette-actions";
 import { ItemResultRow } from "./ItemResultRow";
+import { parseQuery } from "@/lib/nl-search-parser";
+import { useDemo } from "@/hooks/useDemo";
 
 // ─── Component ───────────────────────────────────────────
 
