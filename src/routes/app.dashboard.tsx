@@ -4,6 +4,7 @@ import { NeedsAttention } from "@/components/dashboard/NeedsAttention";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { DashboardSearch } from "@/components/dashboard/DashboardSearch";
 import { useStockSummary } from "@/hooks/useInventoryData";
+import { useStockAlertGenerator } from "@/hooks/useStockAlertGenerator";
 
 export const Route = createFileRoute("/app/dashboard")({
   component: DashboardPage,
@@ -14,6 +15,7 @@ export const Route = createFileRoute("/app/dashboard")({
 
 function DashboardPage() {
   const { data: summary } = useStockSummary();
+  useStockAlertGenerator();
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
