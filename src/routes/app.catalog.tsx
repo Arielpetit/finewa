@@ -53,6 +53,22 @@ function CatalogPage() {
   const [editItem, setEditItem] = useState<Item | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
   const [movementItemId, setMovementItemId] = useState<string | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
+
+  const importFields = useMemo<ImportField[]>(() => [
+    { key: "name", label: "Name", required: true },
+    { key: "sku", label: "SKU", required: true },
+    { key: "description", label: "Description" },
+    { key: "category", label: "Category" },
+    { key: "supplier", label: "Supplier" },
+    { key: "location", label: "Location" },
+    { key: "quantity", label: "Quantity" },
+    { key: "reorderPoint", label: "Reorder Point" },
+    { key: "unit", label: "Unit" },
+    { key: "costPrice", label: "Unit Cost" },
+    { key: "sellingPrice", label: "Price" },
+    { key: "barcode", label: "Barcode" },
+  ], []);
 
   // Strip stock-level status before passing to store
   const storeFilters = useMemo(() => {
