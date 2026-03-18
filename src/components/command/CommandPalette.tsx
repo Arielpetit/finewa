@@ -135,7 +135,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
     return allowed.filter((a) => a.label.toLowerCase().includes(q));
   }, [q, can]);
 
-  const hasResults = matchedItems.length > 0 || matchedPages.length > 0 || matchedActions.length > 0;
+  const hasResults = matchedItems.length > 0 || nlItems.length > 0 || matchedPages.length > 0 || matchedActions.length > 0;
 
   const handleSelect = useCallback(
     (value: string) => {

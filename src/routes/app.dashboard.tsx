@@ -50,6 +50,9 @@ function DashboardPage() {
         <RecentActivity />
       </div>
 
+      {/* Anomaly Alerts */}
+      <DashboardAnomalySection movements={movements} items={items} />
+
       {/* Reorder Suggestions */}
       <DashboardReorderSection items={items} movements={movements} suppliers={suppliers} />
     </div>
