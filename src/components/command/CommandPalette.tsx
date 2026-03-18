@@ -63,11 +63,12 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
       .slice(0, 8);
   }, [items, q]);
 
-  // Filter pages by query
+  // Filter pages by query + role
   const matchedPages = useMemo(() => {
-    if (!q) return PAGES;
-    return PAGES.filter((p) => p.label.toLowerCase().includes(q));
-  }, [q]);
+    const accessible = PAGES.filter((p) => canAccessRoute(p.path, role));
+    if (!q) return accessible;
+    return accessible.filter((p) => p.label.toLowerCase().includes(q));
+  }, [q, role]);
 
   // Filter actions by query + permissions
   const matchedActions = useMemo(() => {
