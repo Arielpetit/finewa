@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { formatDistanceToNow } from "date-fns";
-import { X, CheckCheck, Bell } from "lucide-react";
+import { X, CheckCheck, Bell, Settings2 } from "lucide-react";
+import { NotificationPreferences } from "./NotificationPreferences";
 import {
   Sheet,
   SheetContent,
@@ -29,9 +30,10 @@ const TAB_FILTER: Record<FilterTab, (n: Notification) => boolean> = {
 interface NotificationCenterProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onOpenPrefs?: () => void;
 }
 
-export function NotificationCenter({ open, onOpenChange }: NotificationCenterProps) {
+export function NotificationCenter({ open, onOpenChange, onOpenPrefs }: NotificationCenterProps) {
   const [tab, setTab] = useState<FilterTab>("all");
   const { data: notifications } = useNotifications();
   const markAsRead = useMarkAsRead();
@@ -51,6 +53,7 @@ export function NotificationCenter({ open, onOpenChange }: NotificationCenterPro
   };
 
   return (
+    <>
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="right" className="w-full sm:w-[400px] p-0 flex flex-col">
         <SheetHeader className="border-b border-border px-4 py-3">
@@ -63,12 +66,17 @@ export function NotificationCenter({ open, onOpenChange }: NotificationCenterPro
                 </span>
               )}
             </SheetTitle>
-            {unreadCount > 0 && (
-              <Button variant="ghost" size="sm" className="text-xs" onClick={markAllAsRead}>
-                <CheckCheck className="mr-1 h-3.5 w-3.5" />
-                Mark All as Read
+            <div className="flex items-center gap-1">
+              {unreadCount > 0 && (
+                <Button variant="ghost" size="sm" className="text-xs" onClick={markAllAsRead}>
+                  <CheckCheck className="mr-1 h-3.5 w-3.5" />
+                  Mark All as Read
+                </Button>
+              )}
+              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => onOpenPrefs?.()} aria-label="Notification settings">
+                <Settings2 className="h-4 w-4" />
               </Button>
-            )}
+            </div>
           </div>
         </SheetHeader>
 
@@ -105,6 +113,7 @@ export function NotificationCenter({ open, onOpenChange }: NotificationCenterPro
         </ScrollArea>
       </SheetContent>
     </Sheet>
+    </>
   );
 }
 

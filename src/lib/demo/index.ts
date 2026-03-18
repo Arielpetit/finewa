@@ -13,6 +13,22 @@ import { items } from "./seed-items";
 import { generateMovements, generatePurchaseOrders, generateRequests } from "./seed-activity";
 import { generateNotifications } from "./seed-notifications";
 
+export interface NotificationPrefs {
+  low_stock: boolean;
+  zero_stock: boolean;
+  po_reminder: boolean;
+  po_overdue: boolean;
+  request_update: boolean;
+}
+
+export const DEFAULT_NOTIFICATION_PREFS: NotificationPrefs = {
+  low_stock: true,
+  zero_stock: true,
+  po_reminder: true,
+  po_overdue: true,
+  request_update: true,
+};
+
 export interface SeedData {
   categories: Category[];
   items: Item[];
@@ -22,6 +38,7 @@ export interface SeedData {
   purchaseOrders: PurchaseOrder[];
   requests: InventoryRequest[];
   notifications: Notification[];
+  notificationPrefs: NotificationPrefs;
 }
 
 export function generateSeedData(): SeedData {
@@ -34,5 +51,6 @@ export function generateSeedData(): SeedData {
     purchaseOrders: generatePurchaseOrders(),
     requests: generateRequests(),
     notifications: generateNotifications(),
+    notificationPrefs: { ...DEFAULT_NOTIFICATION_PREFS },
   };
 }

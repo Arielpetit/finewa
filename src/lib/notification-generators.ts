@@ -8,6 +8,7 @@ import { differenceInDays } from "date-fns";
  * Deduplicates: skips if an unread alert for the same item already exists.
  */
 export function generateStockAlerts(store: DemoStore): void {
+  const prefs = store.getNotificationPrefs();
   const items = store.getItems();
   const existing = store.getNotifications();
 
@@ -20,6 +21,7 @@ export function generateStockAlerts(store: DemoStore): void {
     if (!isLow && !isOut) continue;
 
     const type = isOut ? "zero_stock" as const : "low_stock" as const;
+    if (!prefs[type]) continue;
 
     const alreadyExists = existing.some(
       (n) => !n.isRead && n.type === type && n.referenceId === item.id,
@@ -52,6 +54,7 @@ export function generateStockAlerts(store: DemoStore): void {
  * Deduplicates by PO ID + type.
  */
 export function generatePOAlerts(store: DemoStore): void {
+  const prefs = store.getNotificationPrefs();
   const pos = store.getPurchaseOrders();
   const existing = store.getNotifications();
   const now = new Date();
@@ -65,7 +68,7 @@ export function generatePOAlerts(store: DemoStore): void {
     const daysUntil = differenceInDays(delivery, now);
 
     // Overdue: past delivery, not fully received
-    if (daysUntil < 0) {
+    if (daysUntil < 0 && prefs.po_overdue) {
       const alreadyExists = existing.some(
         (n) => !n.isRead && n.type === "po_overdue" && n.referenceId === po.id,
       );
@@ -85,7 +88,7 @@ export function generatePOAlerts(store: DemoStore): void {
     }
 
     // Reminder: within 3 days
-    if (daysUntil <= 3) {
+    if (daysUntil <= 3 && prefs.po_reminder) {
       const alreadyExists = existing.some(
         (n) => !n.isRead && n.type === "po_reminder" && n.referenceId === po.id,
       );

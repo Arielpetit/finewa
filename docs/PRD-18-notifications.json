@@ -135,7 +135,7 @@
       "priority": 6,
       "dependencies": ["US-18-004", "US-18-005"],
       "isPassed": false,
-      "notes": ""
+      "notes": "NotificationPreferences component created with toggles, DemoStore persistence, generators respect prefs. Gear icon in NotificationCenter header. E2e test times out on Dialog open after Sheet close — likely Radix portal timing issue in Playwright. Needs retry."
     },
     {
       "id": "US-18-007",
