@@ -133,6 +133,7 @@ export function Header() {
 
       <QuickEntryMode open={quickEntryOpen} onOpenChange={setQuickEntryOpen} />
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      <NotificationCenter open={notifOpen} onOpenChange={setNotifOpen} />
     </header>
   );
 }
