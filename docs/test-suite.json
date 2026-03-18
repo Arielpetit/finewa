@@ -9,7 +9,7 @@
       "description": "Verify the landing page loads with hero section, features, and CTA buttons",
       "steps": ["Navigate to /", "Check hero heading is visible", "Check 'Try Demo' button exists"],
       "expectedResult": "Landing page renders with hero content and CTA buttons",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "LP-02",
