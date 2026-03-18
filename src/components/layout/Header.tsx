@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { Search, Plus, Menu, User, LogOut, Settings, ChevronDown } from "lucide-react";
+import { Search, Plus, Menu, User, LogOut, Settings, ChevronDown, ScanBarcode } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -17,9 +17,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sidebar } from "./Sidebar";
+import { QuickEntryMode } from "@/components/data/QuickEntryMode";
 import { useDemo } from "@/hooks/useDemo";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
+import { PermissionGate } from "@/hooks/usePermissions";
 
 const ROLE_BADGE_STYLES: Record<string, string> = {
   admin: "bg-primary/15 text-primary border-primary/20",
@@ -35,6 +37,7 @@ const ROLE_LABELS: Record<string, string> = {
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [quickEntryOpen, setQuickEntryOpen] = useState(false);
   const { isDemo, exitDemoMode } = useDemo();
   const { user, signOut } = useAuth();
   const { role } = useRole();
@@ -62,6 +65,12 @@ export function Header() {
         <span>Search…</span>
         <kbd className="ml-auto hidden rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-xs md:inline-block">⌘K</kbd>
       </button>
+
+      <PermissionGate permission="log_movement">
+        <Button size="icon" variant="outline" className="shrink-0" aria-label="Quick Entry" onClick={() => setQuickEntryOpen(true)}>
+          <ScanBarcode className="h-4 w-4" />
+        </Button>
+      </PermissionGate>
 
       <Button size="icon" variant="default" className="shrink-0" aria-label="Quick action">
         <Plus className="h-4 w-4" />
@@ -102,6 +111,8 @@ export function Header() {
           <Sidebar onNavigate={() => setMobileOpen(false)} />
         </SheetContent>
       </Sheet>
+
+      <QuickEntryMode open={quickEntryOpen} onOpenChange={setQuickEntryOpen} />
     </header>
   );
 }

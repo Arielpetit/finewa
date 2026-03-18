@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { X, Printer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -20,6 +20,7 @@ interface BulkActionBarProps {
   onUpdateLocation: (locationId: string) => void;
   onUpdateStatus: (status: ItemStatus) => void;
   onDeselectAll: () => void;
+  onPrintLabels?: () => void;
 }
 
 const STATUS_OPTIONS = [
@@ -38,6 +39,7 @@ export function BulkActionBar({
   onUpdateLocation,
   onUpdateStatus,
   onDeselectAll,
+  onPrintLabels,
 }: BulkActionBarProps) {
   if (selectedCount === 0) return null;
 
@@ -99,6 +101,13 @@ export function BulkActionBar({
             ))}
           </SelectContent>
         </Select>
+
+        {onPrintLabels && (
+          <Button variant="outline" size="sm" onClick={onPrintLabels} className="h-8 gap-1 text-xs">
+            <Printer className="h-3 w-3" />
+            Print Labels
+          </Button>
+        )}
 
         <Button variant="ghost" size="sm" onClick={onDeselectAll} className="h-8 gap-1 text-xs">
           <X className="h-3 w-3" />

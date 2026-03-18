@@ -22,6 +22,7 @@ import { BulkActionBar } from "@/components/catalog/BulkActionBar";
 import { ItemDetailSheet } from "@/components/catalog/ItemDetailSheet";
 import { RowActionsMenu } from "@/components/catalog/RowActionsMenu";
 import { MovementFormSheet } from "@/components/movements/MovementFormSheet";
+import { printBarcodeLabels } from "@/components/catalog/PrintBarcodeLabel";
 import { useItems, useCategories, useSuppliers, useLocations } from "@/hooks/useInventoryData";
 import { useCreateItem, useUpdateItem, useDeleteItem } from "@/hooks/useInventoryMutations";
 import { PermissionGate, usePermissions } from "@/hooks/usePermissions";
@@ -295,6 +296,11 @@ function CatalogPage() {
           onUpdateLocation={(id) => handleBulkUpdate({ locationId: id })}
           onUpdateStatus={(s) => handleBulkUpdate({ status: s })}
           onDeselectAll={() => setSelected(new Set())}
+          onPrintLabels={() => {
+            const selectedItems = allItems.filter((i) => selected.has(i.id));
+            const locMap = new Map(locations.map((l) => [l.id, l.name]));
+            printBarcodeLabels(selectedItems, locMap);
+          }}
         />
       </PermissionGate>
 

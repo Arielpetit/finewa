@@ -160,8 +160,8 @@
       },
       "priority": 7,
       "dependencies": ["US-16-006", "US-08-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "PrintBarcodeLabel with @page 2.5x1in sizing, Code128B SVG barcodes. Bulk print from catalog selection via BulkActionBar. Print Label button in item detail."
     },
     {
       "id": "US-16-008",
@@ -184,8 +184,8 @@
       },
       "priority": 8,
       "dependencies": ["US-09-003", "US-02-004", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "QuickEntryMode component in header. Large barcode/SKU input, item lookup, compact movement form with type/qty/notes. Auto-clears and refocuses after submit. Not-found error state. ESC to close. Admin/Manager only via PermissionGate."
     }
   ]
 }
