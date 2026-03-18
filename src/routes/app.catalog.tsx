@@ -31,6 +31,8 @@ import { useRole } from "@/hooks/useRole";
 import type { Item } from "@/types/inventory";
 import { ItemStatus } from "@/types/inventory";
 import type { ItemFilters } from "@/lib/demo-store";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
 interface CatalogSearch {
   item?: string;
