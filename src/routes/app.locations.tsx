@@ -9,6 +9,8 @@ import { LocationFormSheet } from "@/components/locations/LocationFormSheet";
 import { TransferStockSheet } from "@/components/locations/TransferStockSheet";
 import { PermissionGate } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import type { LocationTreeNode } from "@/hooks/useLocations";
 
 export const Route = createFileRoute("/app/locations")({
