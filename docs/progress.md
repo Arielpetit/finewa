@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-15 — Database Schema & RLS Policies
-- Status: 4 of 12 stories passed
+- Status: 5 of 12 stories passed
 
 ## Last Completed
 
-- US-15-004 — Create locations table migration — database review passed
+- US-15-005 — Create items table migration — database review passed
 
 ## Known Issues
 
