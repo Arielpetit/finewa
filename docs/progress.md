@@ -2,12 +2,12 @@
 
 ## Current State
 
-- Phase: PRD-27 — Mobile Responsiveness
-- Status: Complete
+- Phase: PRD-28 — Onboarding & Help
+- Status: Complete — ALL 28 PRDs DONE 🎉
 
 ## Last Completed
 
-- PRD-27 — Mobile Responsiveness (6/6 passed)
+- PRD-28 — Onboarding & Help (5/5 passed)
 
 ## Known Issues
 
@@ -21,3 +21,4 @@
 - Demo store's synchronous nature means optimistic UI is built-in
 - CatalogFilters already had mobile sheet pattern — reused across all filter components
 - BottomNav needs pb-20 on main content to avoid overlap on mobile
+- Onboarding tour uses data-tour attributes and localStorage for persistence
