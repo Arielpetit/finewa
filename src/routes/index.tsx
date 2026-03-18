@@ -190,6 +190,10 @@ function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
             <a
               key={l.label}
               href={l.href}
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               {l.label}
