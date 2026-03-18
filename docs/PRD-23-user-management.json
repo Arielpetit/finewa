@@ -91,8 +91,8 @@
       },
       "priority": 4,
       "dependencies": ["US-23-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Last admin protection on role dropdown and deactivation with tooltip messages."
     },
     {
       "id": "US-23-005",
