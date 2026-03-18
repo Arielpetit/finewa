@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { canAccessRoute } from "@/lib/route-guard";
+import { useRole } from "@/hooks/useRole";
 import {
   LayoutDashboard,
   Package,
@@ -40,6 +42,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const navigate = useNavigate();
   const { data: items } = useItems();
   const { can } = usePermissions();
+  const { role } = useRole();
 
   // Reset query on close
   useEffect(() => {
@@ -60,11 +63,12 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
       .slice(0, 8);
   }, [items, q]);
 
-  // Filter pages by query
+  // Filter pages by query + role
   const matchedPages = useMemo(() => {
-    if (!q) return PAGES;
-    return PAGES.filter((p) => p.label.toLowerCase().includes(q));
-  }, [q]);
+    const accessible = PAGES.filter((p) => canAccessRoute(p.path, role));
+    if (!q) return accessible;
+    return accessible.filter((p) => p.label.toLowerCase().includes(q));
+  }, [q, role]);
 
   // Filter actions by query + permissions
   const matchedActions = useMemo(() => {

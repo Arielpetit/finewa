@@ -71,8 +71,8 @@
       },
       "priority": 3,
       "dependencies": ["US-17-001", "US-05-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Pages filtered by role via canAccessRoute. Filtered when typing. Selection navigates and closes. Icons from lucide-react."
     },
     {
       "id": "US-17-004",
