@@ -4,11 +4,11 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useDemo } from "@/hooks/useDemo";
 import { toast } from "sonner";
 import type { NotificationPrefs } from "@/lib/demo/index";
@@ -46,16 +46,16 @@ export function NotificationPreferences({ open, onOpenChange }: NotificationPref
   };
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-full sm:w-[400px]">
-        <SheetHeader>
-          <SheetTitle className="flex items-center gap-2 text-base">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-base">
             <Settings2 className="h-4 w-4" />
             Notification Preferences
-          </SheetTitle>
-        </SheetHeader>
+          </DialogTitle>
+        </DialogHeader>
 
-        <div className="mt-6 space-y-4">
+        <div className="space-y-3">
           {PREF_LABELS.map(({ key, label, description }) => (
             <div key={key} className="flex items-center justify-between gap-4 rounded-lg border border-border p-3">
               <div className="min-w-0">
@@ -71,10 +71,8 @@ export function NotificationPreferences({ open, onOpenChange }: NotificationPref
           ))}
         </div>
 
-        <div className="mt-6">
-          <Button onClick={handleSave} className="w-full">Save Preferences</Button>
-        </div>
-      </SheetContent>
-    </Sheet>
+        <Button onClick={handleSave} className="w-full mt-2">Save Preferences</Button>
+      </DialogContent>
+    </Dialog>
   );
 }
