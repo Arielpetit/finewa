@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 25,
+    "passed": 26,
     "failed": 0,
     "blocked": 2,
-    "pending": 8,
+    "pending": 7,
     "bugs_fixed": 0
   },
   "tests": [
@@ -662,8 +662,8 @@
       ],
       "expected_result": "FAQ items are filtered to show only matching results",
       "pass_criteria": "After typing a non-matching term like 'xyznonexistent', text 'No matching questions' is visible",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
