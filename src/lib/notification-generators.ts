@@ -54,6 +54,7 @@ export function generateStockAlerts(store: DemoStore): void {
  * Deduplicates by PO ID + type.
  */
 export function generatePOAlerts(store: DemoStore): void {
+  const prefs = store.getNotificationPrefs();
   const pos = store.getPurchaseOrders();
   const existing = store.getNotifications();
   const now = new Date();
