@@ -175,8 +175,54 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             onValueChange={setQuery}
           />
           <CommandList>
-            {!hasResults && <CommandEmpty>No results found.</CommandEmpty>}
+            {!hasResults && <CommandEmpty>No items match your query.</CommandEmpty>}
 
+            {/* NL Search Results */}
+            {isNL && nlItems.length > 0 && (
+              <CommandGroup heading="Search Results">
+                <div className="px-2 pb-2 flex flex-wrap gap-1">
+                  {parsed.filters.status && (
+                    <Badge variant="outline" className="text-[10px]">status: {parsed.filters.status}</Badge>
+                  )}
+                  {parsed.filters.category && (
+                    <Badge variant="outline" className="text-[10px]">category: {parsed.filters.category}</Badge>
+                  )}
+                  {parsed.filters.supplier && (
+                    <Badge variant="outline" className="text-[10px]">supplier: {parsed.filters.supplier}</Badge>
+                  )}
+                  {parsed.searchTerms.length > 0 && (
+                    <Badge variant="outline" className="text-[10px]">terms: {parsed.searchTerms.join(", ")}</Badge>
+                  )}
+                </div>
+                {nlItems.map((item) => (
+                  <CommandItem
+                    key={item.id}
+                    value={`item:${item.id}`}
+                    onSelect={handleSelect}
+                  >
+                    <ItemResultRow item={item} />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+
+            {isNL && nlItems.length === 0 && q.length > 0 && (
+              <CommandEmpty>
+                <div className="space-y-1">
+                  <p>No items match your query.</p>
+                  <div className="flex flex-wrap gap-1 justify-center">
+                    {parsed.filters.status && (
+                      <Badge variant="outline" className="text-[10px]">status: {parsed.filters.status}</Badge>
+                    )}
+                    {parsed.filters.category && (
+                      <Badge variant="outline" className="text-[10px]">category: {parsed.filters.category}</Badge>
+                    )}
+                  </div>
+                </div>
+              </CommandEmpty>
+            )}
+
+            {/* Standard item search */}
             {matchedItems.length > 0 && (
               <CommandGroup heading="Items">
                 {matchedItems.map((item) => (
