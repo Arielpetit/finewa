@@ -53,6 +53,7 @@ export function NotificationCenter({ open, onOpenChange }: NotificationCenterPro
   };
 
   return (
+    <>
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="right" className="w-full sm:w-[400px] p-0 flex flex-col">
         <SheetHeader className="border-b border-border px-4 py-3">
