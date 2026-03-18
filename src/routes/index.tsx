@@ -15,6 +15,7 @@ import {
   Shield,
   Globe,
 } from "lucide-react";
+import heroWarehouse from "@/assets/hero-warehouse.jpg.asset.json";
 import mockupDashboard from "@/assets/mockup-dashboard.png.asset.json";
 import mockupCatalog from "@/assets/mockup-catalog.png.asset.json";
 import mockupAnalytics from "@/assets/mockup-analytics.png.asset.json";
@@ -41,10 +42,10 @@ export const Route = createFileRoute("/")({
 
 /* ─── Data ──────────────────────────────────────────── */
 const stats = [
-  { value: "847+", label: "Items Tracked" },
-  { value: "99.2%", label: "Accuracy Rate" },
-  { value: "6", label: "Modules" },
-  { value: "<1s", label: "Real-time Sync" },
+  { value: "10×", label: "Faster Stock Counts" },
+  { value: "Zero", label: "Stockouts" },
+  { value: "100%", label: "Visibility" },
+  { value: "6", label: "Powerful Modules" },
 ];
 
 const features = [
