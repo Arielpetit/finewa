@@ -133,8 +133,8 @@
       },
       "priority": 6,
       "dependencies": ["US-15-005"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Migration at docs/migrations/00006. CHECK on direction and movement_type, FKs, immutable (no UPDATE/DELETE), 4 indexes, resulting_quantity column."
     },
     {
       "id": "US-15-007",
