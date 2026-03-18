@@ -42,6 +42,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const navigate = useNavigate();
   const { data: items } = useItems();
   const { can } = usePermissions();
+  const { role } = useRole();
 
   // Reset query on close
   useEffect(() => {
