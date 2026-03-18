@@ -96,8 +96,8 @@
       },
       "priority": 4,
       "dependencies": ["US-22-001", "US-14-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "LocationSettings with tree view, add child, inline edit, delete safety checks."
     },
     {
       "id": "US-22-005",
