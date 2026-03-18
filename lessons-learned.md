@@ -41,6 +41,7 @@ This file is read before every test run and updated after. It accumulates practi
 - When sidebar links are not accessible, try using command palette (Ctrl+K) to navigate, but note that clicking command palette results can also time out.
 - Always set `page.setViewportSize({ width: 1280, height: 800 })` to ensure desktop sidebar is visible.
 - When sidebar links are in collapsed groups, use `document.querySelectorAll('a')` in `page.evaluate()` to find and click links by text content — this bypasses visibility issues. Wait 3s after for the page transition to complete.
+- Radix Select dropdowns in the PO LineItemsEditor render options outside the viewport, causing "Element is outside of the viewport" errors in Playwright. Using `force: true` doesn't help. The `page.evaluate(() => el.click())` approach selects the DOM element but doesn't trigger Radix's internal state change. This is a known limitation of testing Radix Select in constrained viewports.
 
 ## Fix Patterns
 

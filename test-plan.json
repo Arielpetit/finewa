@@ -415,13 +415,13 @@
       ],
       "expected_result": "PO is created and appears in the list",
       "pass_criteria": "A toast with success message appears after PO creation",
-      "status": "pending",
+      "status": "blocked",
       "passed": false,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
-      "failure_reason": "",
+      "failure_reason": "Radix Select dropdown for line item selection renders outside viewport. Element is outside of the viewport error when clicking options with force:true.",
       "fix_description": "",
-      "blocked_reason": ""
+      "blocked_reason": "PO line item Radix Select dropdown renders options outside the viewport in Playwright. Cannot select a line item to complete PO creation form."
     },
     {
       "id": "TEST-020",
