@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 13,
+    "passed": 14,
     "failed": 0,
     "blocked": 0,
-    "pending": 22,
+    "pending": 21,
     "bugs_fixed": 0
   },
   "tests": [
@@ -306,8 +306,8 @@
       ],
       "expected_result": "Page shows 'Stock Movements' heading and a table with movement rows",
       "pass_criteria": "h1 'Stock Movements' is visible AND table has at least 1 row",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
