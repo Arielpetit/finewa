@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 26,
+    "passed": 27,
     "failed": 0,
     "blocked": 2,
-    "pending": 7,
+    "pending": 6,
     "bugs_fixed": 0
   },
   "tests": [
@@ -685,8 +685,8 @@
       ],
       "expected_result": "Command palette dialog appears with search input",
       "pass_criteria": "A dialog with a search/command input is visible",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
