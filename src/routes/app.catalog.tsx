@@ -310,8 +310,10 @@ function CatalogPage() {
         onOpenChange={setImportOpen}
         fields={importFields}
         entityName="items"
+        existingSkus={existingSkus}
+        knownCategories={categories.map((c) => c.name)}
+        knownSuppliers={suppliers.map((s) => s.name)}
         onImport={(rows) => {
-          // Import execution will be implemented in US-16-005
           console.log("Import rows:", rows.length);
           toast.success(`Imported ${rows.length} rows (preview — full import coming soon)`);
         }}
