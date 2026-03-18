@@ -27,8 +27,8 @@
       },
       "priority": 1,
       "dependencies": [],
-      "isPassed": false,
-      "notes": "Migration file only — will be applied when Supabase Cloud is enabled"
+      "isPassed": true,
+      "notes": "Migration at docs/migrations/00001. Includes app_role enum, profiles with auto-create trigger, user_roles with unique constraint, has_role SECURITY DEFINER, RLS on both tables. Also includes reusable update_updated_at_column trigger function."
     },
     {
       "id": "US-15-002",
