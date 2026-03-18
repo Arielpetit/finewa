@@ -81,7 +81,7 @@
       "description": "Open the item form, fill in required fields, and save a new item",
       "steps": ["Navigate to /app/catalog", "Click 'Add Item' button", "Fill name, SKU, and stock fields", "Click Save"],
       "expectedResult": "New item appears in the catalog table with a success toast",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "CAT-03",
