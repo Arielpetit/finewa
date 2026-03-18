@@ -18,7 +18,7 @@
       "description": "Clicking the demo CTA button navigates to the app dashboard",
       "steps": ["Navigate to /", "Click 'Try Demo' or equivalent CTA", "Wait for navigation"],
       "expectedResult": "User is redirected to /app/dashboard",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "LP-03",
