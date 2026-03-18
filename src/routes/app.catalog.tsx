@@ -304,6 +304,18 @@ function CatalogPage() {
         locations={locations}
         preSelectedItemId={movementItemId}
       />
+
+      <CSVImportSheet
+        open={importOpen}
+        onOpenChange={setImportOpen}
+        fields={importFields}
+        entityName="items"
+        onImport={(rows) => {
+          // Import execution will be implemented in US-16-005
+          console.log("Import rows:", rows.length);
+          toast.success(`Imported ${rows.length} rows (preview — full import coming soon)`);
+        }}
+      />
     </div>
   );
 }
