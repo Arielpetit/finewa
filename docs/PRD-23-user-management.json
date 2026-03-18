@@ -113,8 +113,8 @@
       },
       "priority": 5,
       "dependencies": ["US-23-001", "US-23-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Deactivate/reactivate via dropdown menu, confirmation dialog, muted styling for inactive."
     }
   ]
 }
