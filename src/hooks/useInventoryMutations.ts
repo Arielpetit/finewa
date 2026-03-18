@@ -65,7 +65,10 @@ export function useDeleteItem() {
 }
 
 export function useCreateMovement() {
-  return useDemoMutation<StockMovement>((store, data) => store.createMovement(data));
+  return useDemoMutation<StockMovement>((store, data) => {
+    store.createMovement(data);
+    generateStockAlerts(store);
+  });
 }
 
 export function useCreatePurchaseOrder() {
