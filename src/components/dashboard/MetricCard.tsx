@@ -33,7 +33,7 @@ const ICON_COLOR: Record<AccentColor, string> = {
 
 export function MetricCard({ label, value, trend, accentColor = "neutral", icon: Icon }: MetricCardProps) {
   return (
-    <div className={`rounded-md border border-border shadow-sm ${ACCENT_BG[accentColor]} border-l-4 ${ACCENT_BORDER[accentColor]}`}>
+    <div className={`rounded-2xl border border-border/50 shadow-md shadow-black/[0.04] ${ACCENT_BG[accentColor]} border-l-4 ${ACCENT_BORDER[accentColor]}`}>
       <div className="p-5">
         <div className="flex items-center justify-between">
           <p className="text-sm font-medium text-muted-foreground">{label}</p>

@@ -9,7 +9,7 @@ export function RecentActivity() {
   const itemMap = new Map(items.map((i) => [i.id, i.name]));
 
   return (
-    <div className="rounded-md border border-border bg-card p-6 shadow-sm">
+    <div className="rounded-2xl border border-border/50 bg-card p-6 shadow-md shadow-black/[0.04]">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-base font-semibold">Recent Activity</h2>
         <Link to="/app/movements" search={{ item: undefined }} className="text-xs font-medium text-primary hover:underline">
