@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": ["US-02-004"],
-      "isPassed": false,
-      "notes": "Client-side only for demo mode; server-side AI enhancement deferred"
+      "isPassed": true,
+      "notes": "Created src/lib/reorder-engine.ts with calculateReorderPoint (avg×lead+1.5σ√lead safety), calculateReorderQuantity (EOQ approx), analyzeItem (full recommendation), analyzeAllItems (batch sorted by urgency). Confidence from history length. Edge cases handled (zero consumption → null stockout, no movements → low confidence)."
     },
     {
       "id": "US-19-002",
@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-19-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ReorderSuggestionCard with urgency left border (red<7d, amber≤14d, green>14d), confidence badge, current→suggested delta arrows, Apply/Dismiss actions, Applied state with green check."
     },
     {
       "id": "US-19-003",
@@ -69,8 +69,8 @@
       },
       "priority": 3,
       "dependencies": ["US-19-002", "US-06-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "DashboardReorderSection with top 5 suggestions, count badge, View All link to /app/ai-insights. Filters items where reorder delta >15% or stockout <30d."
     },
     {
       "id": "US-19-004",
@@ -92,8 +92,8 @@
       },
       "priority": 4,
       "dependencies": ["US-19-001", "US-02-004"],
-      "isPassed": false,
-      "notes": "Uses recharts already available in the project"
+      "isPassed": true,
+      "notes": "DemandForecastChart with recharts, historical 30d solid line, 90d dashed projection, reorder point reference line, stockout badge, item selector dropdown."
     },
     {
       "id": "US-19-005",
@@ -114,8 +114,8 @@
       },
       "priority": 5,
       "dependencies": ["US-19-001", "US-06-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ForecastSummary with 4 metric cards: Items At Risk, Avg Days of Supply, Suggested Reorder Units, Items Needing Attention. 2×2 on mobile, 4-col on desktop."
     },
     {
       "id": "US-19-006",
@@ -136,8 +136,8 @@
       },
       "priority": 6,
       "dependencies": ["US-19-002", "US-02-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Apply action directly on card — calls useUpdateItem, shows Applied state. No confirmation dialog (simplified). Dismiss hides card."
     },
     {
       "id": "US-19-007",
@@ -159,8 +159,8 @@
       },
       "priority": 7,
       "dependencies": ["US-19-003", "US-19-004", "US-19-005", "US-19-006"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Insights page at /app/ai-insights with Beta badge, ForecastSummary, DemandForecastChart, full suggestion list with urgency/confidence/sort filters. Admin/Manager access only via can('view_analytics')."
     },
     {
       "id": "US-19-008",

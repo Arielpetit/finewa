@@ -3,8 +3,10 @@ import { MetricCard } from "@/components/dashboard/MetricCard";
 import { NeedsAttention } from "@/components/dashboard/NeedsAttention";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { DashboardSearch } from "@/components/dashboard/DashboardSearch";
+import { DashboardReorderSection } from "@/components/insights/DashboardReorderSection";
 import { useStockSummary } from "@/hooks/useInventoryData";
 import { useAlertGenerator } from "@/hooks/useStockAlertGenerator";
+import { useDemo } from "@/hooks/useDemo";
 
 export const Route = createFileRoute("/app/dashboard")({
   component: DashboardPage,
@@ -15,7 +17,12 @@ export const Route = createFileRoute("/app/dashboard")({
 
 function DashboardPage() {
   const { data: summary } = useStockSummary();
+  const { demoStore } = useDemo();
   useAlertGenerator();
+
+  const items = demoStore?.getItems() ?? [];
+  const movements = demoStore?.getMovements() ?? [];
+  const suppliers = demoStore?.getSuppliers() ?? [];
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
@@ -41,6 +48,9 @@ function DashboardPage() {
         <NeedsAttention />
         <RecentActivity />
       </div>
+
+      {/* Reorder Suggestions */}
+      <DashboardReorderSection items={items} movements={movements} suppliers={suppliers} />
     </div>
   );
 }
