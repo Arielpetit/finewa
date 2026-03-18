@@ -102,6 +102,13 @@ export function BulkActionBar({
           </SelectContent>
         </Select>
 
+        {onPrintLabels && (
+          <Button variant="outline" size="sm" onClick={onPrintLabels} className="h-8 gap-1 text-xs">
+            <Printer className="h-3 w-3" />
+            Print Labels
+          </Button>
+        )}
+
         <Button variant="ghost" size="sm" onClick={onDeselectAll} className="h-8 gap-1 text-xs">
           <X className="h-3 w-3" />
           Deselect All
