@@ -180,15 +180,20 @@ function LandingPage() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* ── Hero ─────────────────────────────────────── */}
       <section className="relative flex min-h-screen flex-col items-center justify-center px-4 overflow-hidden">
-        {/* Background decoration */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-0 h-[600px] w-[800px] -translate-x-1/2 -translate-y-1/3 rounded-full bg-primary/5 blur-3xl" />
-          <div className="absolute right-0 top-1/3 h-[400px] w-[400px] rounded-full bg-secondary/8 blur-3xl" />
+        {/* Background image with overlay */}
+        <div className="absolute inset-0">
+          <img
+            src={heroWarehouse.url}
+            alt=""
+            className="h-full w-full object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
         </div>
 
         <div className="relative z-10 flex flex-col items-center gap-6 text-center">
           {/* Badge */}
-          <div className="animate-fade-in inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-medium text-muted-foreground shadow-sm">
+          <div className="animate-fade-in inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/80 shadow-sm backdrop-blur-sm">
             <Zap className="h-3.5 w-3.5 text-secondary" />
             Inventory management, reimagined
           </div>
@@ -196,13 +201,13 @@ function LandingPage() {
           {/* Wordmark */}
           <div className="flex items-center gap-4">
             <Package className="h-12 w-12 text-primary sm:h-14 sm:w-14" />
-            <h1 className="text-[40px] font-semibold tracking-tight sm:text-[64px]">
+            <h1 className="text-[40px] font-semibold tracking-tight text-white sm:text-[64px]">
               Stackwise
             </h1>
           </div>
 
           {/* Tagline */}
-          <p className="max-w-lg text-lg text-muted-foreground sm:text-xl">
+          <p className="max-w-lg text-lg text-white/75 sm:text-xl">
             Your inventory command center. Track stock, manage suppliers, automate
             reorders, and keep your team aligned — all in one place.
           </p>
@@ -212,7 +217,7 @@ function LandingPage() {
             <CTAButton onClick={handleTryDemo} />
           </div>
 
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-white/50">
             No account required · Explore with sample data
           </p>
         </div>
@@ -222,16 +227,16 @@ function LandingPage() {
           {stats.map((m, i) => (
             <div
               key={m.label}
-              className="animate-fade-in rounded-lg border border-border bg-card px-6 py-4 text-center shadow-sm"
+              className="animate-fade-in rounded-lg border border-white/15 bg-white/10 px-6 py-4 text-center shadow-sm backdrop-blur-md"
               style={{
                 animationDelay: `${400 + i * 150}ms`,
                 animationFillMode: "backwards",
               }}
             >
-              <p className="font-mono text-2xl font-bold text-foreground">
+              <p className="font-mono text-2xl font-bold text-white">
                 {m.value}
               </p>
-              <p className="mt-1 text-xs text-muted-foreground">{m.label}</p>
+              <p className="mt-1 text-xs text-white/60">{m.label}</p>
             </div>
           ))}
         </div>
