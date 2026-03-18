@@ -21,8 +21,12 @@ function AppLayout() {
   const { role } = useRole();
   const navigate = useNavigate();
   const location = useLocation();
+  const [helpOpen, setHelpOpen] = useState(false);
 
   const hasAccess = isDemo || isAuthenticated;
+
+  // Global keyboard shortcuts
+  useKeyboardShortcuts({ onHelpOpen: () => setHelpOpen(true) });
 
   // Role-based route guard
   useEffect(() => {
