@@ -2,12 +2,12 @@
 
 ## Current State
 
-- Phase: PRD-14 — Locations & Warehouses
-- Status: 6 of 7 stories passed
+- Phase: PRD-15 — Database Schema
+- Status: Starting
 
 ## Last Completed
 
-- US-14-006 — Delete location with safety checks — e2e passed
+- PRD-14 — Locations & Warehouses — ALL 7 stories passed ✅
 
 ## Known Issues
 
@@ -20,5 +20,4 @@
 - Zod .default() causes type mismatch with zodResolver — use plain types with explicit defaults in useForm
 - DemoBanner has role switcher buttons for testing
 - Playwright page.goto() resets demo mode (localStorage) — use SPA navigation via sidebar links instead
-- Use exact: true or more specific locators to avoid strict mode violations in Playwright
 - Nested treeitems cause locator ambiguity — use > div[role="button"] to target direct child row
