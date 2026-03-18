@@ -46,6 +46,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const { data: items } = useItems();
   const { can } = usePermissions();
   const { role } = useRole();
+  const { demoStore } = useDemo();
 
   // Reset query on close
   useEffect(() => {
@@ -54,9 +55,63 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   const q = query.toLowerCase().trim();
 
-  // Item search results (max 8)
+  // NL search parsing
+  const parsed = useMemo(() => parseQuery(query), [query]);
+  const isNL = parsed.isNaturalLanguage && q.length > 0;
+
+  // NL filtered items
+  const nlItems = useMemo(() => {
+    if (!isNL) return [];
+    let results = [...items];
+
+    // Status filter
+    if (parsed.filters.status) {
+      if (parsed.filters.status === "low_stock") {
+        results = results.filter((i) => i.currentStock > 0 && i.currentStock <= i.reorderPoint);
+      } else if (parsed.filters.status === "out_of_stock") {
+        results = results.filter((i) => i.currentStock <= 0);
+      } else if (parsed.filters.status === "active") {
+        results = results.filter((i) => i.status === "active" && i.currentStock > 0);
+      }
+    }
+
+    // Category filter (fuzzy match on category name)
+    if (parsed.filters.category && demoStore) {
+      const cats = demoStore.getCategories();
+      const catName = parsed.filters.category.toLowerCase();
+      const matchingCats = cats.filter((c) => c.name.toLowerCase().includes(catName));
+      if (matchingCats.length > 0) {
+        const catIds = new Set(matchingCats.map((c) => c.id));
+        results = results.filter((i) => i.categoryId && catIds.has(i.categoryId));
+      }
+    }
+
+    // Supplier filter
+    if (parsed.filters.supplier && demoStore) {
+      const sups = demoStore.getSuppliers();
+      const supName = parsed.filters.supplier.toLowerCase();
+      const matchingSups = sups.filter((s) => s.name.toLowerCase().includes(supName));
+      if (matchingSups.length > 0) {
+        const supIds = new Set(matchingSups.map((s) => s.id));
+        results = results.filter((i) => i.supplierId && supIds.has(i.supplierId));
+      }
+    }
+
+    // Search terms
+    if (parsed.searchTerms.length > 0) {
+      results = results.filter((i) =>
+        parsed.searchTerms.every((t) =>
+          i.name.toLowerCase().includes(t) || i.sku.toLowerCase().includes(t),
+        ),
+      );
+    }
+
+    return results.slice(0, 10);
+  }, [isNL, items, parsed, demoStore]);
+
+  // Standard item search results (max 8)
   const matchedItems = useMemo(() => {
-    if (q.length < 1) return [];
+    if (isNL || q.length < 1) return [];
     return items
       .filter((i) =>
         i.name.toLowerCase().includes(q) ||
@@ -64,7 +119,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         (i.barcode && i.barcode.toLowerCase().includes(q))
       )
       .slice(0, 8);
-  }, [items, q]);
+  }, [items, q, isNL]);
 
   // Filter pages by query + role
   const matchedPages = useMemo(() => {
