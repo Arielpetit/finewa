@@ -6,6 +6,7 @@ import { MovementsTable } from "@/components/movements/MovementsTable";
 import { MovementsFilters } from "@/components/movements/MovementsFilters";
 import { MovementStats } from "@/components/movements/MovementStats";
 import { MovementFormSheet } from "@/components/movements/MovementFormSheet";
+import { CSVExportButton, type CSVColumn } from "@/components/data/CSVExportButton";
 import { EMPTY_MOVEMENT_FILTERS } from "@/components/movements/movement-filter-types";
 import type { MovementFilters } from "@/components/movements/movement-filter-types";
 import { useMovements, useItems, useLocations } from "@/hooks/useInventoryData";
@@ -70,6 +71,17 @@ function MovementsPage() {
 
   const filtered = useMemo(() => applyFilters(movements, filters), [movements, filters]);
 
+  const movementCsvColumns = useMemo<CSVColumn<StockMovement>[]>(() => [
+    { header: "Date", accessor: (m) => new Date(m.createdAt).toLocaleDateString() },
+    { header: "Type", accessor: (m) => m.type },
+    { header: "Item Name", accessor: (m) => itemNameMap.get(m.itemId) ?? "" },
+    { header: "SKU", accessor: (m) => items.find((i) => i.id === m.itemId)?.sku ?? "" },
+    { header: "Quantity", accessor: (m) => m.quantity },
+    { header: "Performed By", accessor: (m) => m.performedBy },
+    { header: "Reference", accessor: (m) => m.reference },
+    { header: "Notes", accessor: (m) => m.notes },
+  ], [itemNameMap, items]);
+
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
       <div className="flex items-center justify-between">
@@ -77,12 +89,19 @@ function MovementsPage() {
           <h1 className="text-2xl font-semibold text-foreground">Stock Movements</h1>
           <p className="text-sm text-muted-foreground">{filtered.length} movements</p>
         </div>
-        <PermissionGate permission="log_movement">
-          <Button onClick={() => setFormOpen(true)} className="gap-1.5 bg-amber-600 hover:bg-amber-700 text-white">
-            <Plus className="h-4 w-4" />
-            Log Movement
-          </Button>
-        </PermissionGate>
+        <div className="flex items-center gap-2">
+          <CSVExportButton
+            data={filtered}
+            columns={movementCsvColumns}
+            filename="stackwise-movements"
+          />
+          <PermissionGate permission="log_movement">
+            <Button onClick={() => setFormOpen(true)} className="gap-1.5 bg-amber-600 hover:bg-amber-700 text-white">
+              <Plus className="h-4 w-4" />
+              Log Movement
+            </Button>
+          </PermissionGate>
+        </div>
       </div>
 
       <MovementsFilters

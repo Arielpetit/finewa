@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { SuppliersTable } from "@/components/suppliers/SuppliersTable";
 import { SupplierFormSheet } from "@/components/suppliers/SupplierFormSheet";
 import { SupplierDetailSheet } from "@/components/suppliers/SupplierDetailSheet";
+import { CSVExportButton, type CSVColumn } from "@/components/data/CSVExportButton";
 import { useSuppliers, useItems, usePurchaseOrders } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { useDeleteSupplier, useUpdateItem } from "@/hooks/useInventoryMutations";
@@ -41,7 +42,17 @@ function SuppliersPage() {
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailSupplier, setDetailSupplier] = useState<Supplier | null>(null);
 
-  // Open detail from URL param
+  const supplierCsvColumns = useMemo<CSVColumn<Supplier>[]>(() => [
+    { header: "Name", accessor: (s) => s.name },
+    { header: "Contact Person", accessor: (s) => s.contactName },
+    { header: "Email", accessor: (s) => s.email },
+    { header: "Phone", accessor: (s) => s.phone },
+    { header: "Address", accessor: (s) => s.address },
+    { header: "Lead Time Days", accessor: (s) => s.leadTimeDays },
+    { header: "Rating", accessor: (s) => s.rating },
+    { header: "Notes", accessor: (s) => s.notes },
+  ], []);
+
   useEffect(() => {
     if (supplierParam && suppliers.length > 0) {
       const found = suppliers.find((s) => s.id === supplierParam);
@@ -91,12 +102,19 @@ function SuppliersPage() {
           <h1 className="text-2xl font-semibold text-foreground">Supplier Directory</h1>
           <p className="text-sm text-muted-foreground">{suppliers.length} suppliers</p>
         </div>
-        {canManageSuppliers && (
-          <Button size="sm" onClick={openCreate}>
-            <Plus className="mr-1.5 h-4 w-4" />
-            New Supplier
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          <CSVExportButton
+            data={suppliers}
+            columns={supplierCsvColumns}
+            filename="stackwise-suppliers"
+          />
+          {canManageSuppliers && (
+            <Button size="sm" onClick={openCreate}>
+              <Plus className="mr-1.5 h-4 w-4" />
+              New Supplier
+            </Button>
+          )}
+        </div>
       </div>
 
       <SuppliersTable suppliers={suppliers} items={items} onRowClick={openDetail} />
