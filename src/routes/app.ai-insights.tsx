@@ -45,6 +45,10 @@ function AiInsightsPage() {
   const [urgency, setUrgency] = useState<UrgencyFilter>("all");
   const [confidence, setConfidence] = useState<ConfidenceFilter>("all");
   const [sortBy, setSortBy] = useState<SortBy>("stockout");
+  const [anomSeverity, setAnomSeverity] = useState<AnomalySeverityFilter>("all");
+  const [anomType, setAnomType] = useState<AnomalyTypeFilter>("all");
+  const [showDismissed, setShowDismissed] = useState(false);
+  const [dismissedIds, setDismissedIds] = useState<Set<string>>(new Set());
 
   const items = demoStore?.getItems() ?? [];
   const movements = demoStore?.getMovements() ?? [];
