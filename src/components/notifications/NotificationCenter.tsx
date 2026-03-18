@@ -65,12 +65,17 @@ export function NotificationCenter({ open, onOpenChange }: NotificationCenterPro
                 </span>
               )}
             </SheetTitle>
-            {unreadCount > 0 && (
-              <Button variant="ghost" size="sm" className="text-xs" onClick={markAllAsRead}>
-                <CheckCheck className="mr-1 h-3.5 w-3.5" />
-                Mark All as Read
+            <div className="flex items-center gap-1">
+              {unreadCount > 0 && (
+                <Button variant="ghost" size="sm" className="text-xs" onClick={markAllAsRead}>
+                  <CheckCheck className="mr-1 h-3.5 w-3.5" />
+                  Mark All as Read
+                </Button>
+              )}
+              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setPrefsOpen(true)} aria-label="Notification settings">
+                <Settings2 className="h-4 w-4" />
               </Button>
-            )}
+            </div>
           </div>
         </SheetHeader>
 
