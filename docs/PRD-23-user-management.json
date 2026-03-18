@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": ["US-22-001", "US-05-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "User table with 5 seed users, search, role badges, mobile card layout."
     },
     {
       "id": "US-23-002",
