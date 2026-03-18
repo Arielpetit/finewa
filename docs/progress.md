@@ -2,12 +2,12 @@
 
 ## Current State
 
-- Phase: PRD-22 — Admin Settings
-- Status: Starting
+- Phase: PRD-25 — Analytics: Supplier & Cost Reports
+- Status: Complete
 
 ## Last Completed
 
-- PRD-21 — Empty States, Error States & Edge Cases (6/6 passed)
+- PRD-25 — Analytics: Supplier & Cost Reports (6/6 passed)
 
 ## Known Issues
 
@@ -17,3 +17,4 @@
 
 - Use ?? with inline italic span for deleted reference fallbacks
 - ErrorBoundary class component wraps sections independently
+- Export computeMetrics from SupplierScoreCards for reuse in CSV export
