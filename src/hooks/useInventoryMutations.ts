@@ -9,6 +9,7 @@ import type {
   InventoryRequest,
 } from "@/types/inventory";
 import type { DemoStore } from "@/lib/demo-store";
+import { generateStockAlerts } from "@/lib/notification-generators";
 
 interface MutationResult<TData> {
   mutate: (data: TData, opts?: { onSuccess?: () => void; onError?: (e: Error) => void }) => void;
