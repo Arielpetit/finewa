@@ -148,7 +148,16 @@ function RequestsPage() {
         </Button>
       </div>
 
-      {isManagerOrAdmin ? (
+      <ErrorBoundary>
+      {requests.length === 0 ? (
+        <EmptyState
+          icon={FileText}
+          title="No requests submitted"
+          description="Inventory requests let team members request stock for their departments."
+          actionLabel="New Request"
+          onAction={() => setFormOpen(true)}
+        />
+      ) : isManagerOrAdmin ? (
         <Tabs defaultValue="all">
           <TabsList>
             <TabsTrigger value="all">All Requests</TabsTrigger>
@@ -176,6 +185,7 @@ function RequestsPage() {
       ) : (
         <RequestsTable requests={requests} onRowClick={handleRowClick} />
       )}
+      </ErrorBoundary>
 
       <RequestDetailSheet
         open={detailOpen}
