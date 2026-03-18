@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 5,
+    "passed": 6,
     "failed": 0,
     "blocked": 0,
-    "pending": 30,
+    "pending": 29,
     "bugs_fixed": 0
   },
   "tests": [
@@ -133,8 +133,8 @@
       ],
       "expected_result": "Tour overlay with 'Welcome to Stackwise!' text appears",
       "pass_criteria": "Text 'Welcome to Stackwise!' is visible within 2 seconds of dashboard load",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
