@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": ["US-02-004", "US-02-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Notification type with low_stock/zero_stock/po_reminder/po_overdue/request_update/system. DemoStore CRUD (get/markRead/markAll/dismiss/add). seed-notifications.ts with 7 sample notifications. useNotifications/useUnreadCount/useMarkAsRead/useMarkAllAsRead/useDismissNotification hooks."
     },
     {
       "id": "US-18-002",

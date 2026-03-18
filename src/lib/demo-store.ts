@@ -6,6 +6,7 @@ import type {
   StockMovement,
   PurchaseOrder,
   InventoryRequest,
+  Notification,
 } from "@/types/inventory";
 import { MovementType } from "@/types/inventory";
 import { generateSeedData, type SeedData } from "./demo/index";
@@ -241,5 +242,36 @@ export class DemoStore {
     this.data.requests[idx] = { ...this.data.requests[idx], ...updates };
     this.version++;
     return this.data.requests[idx];
+  }
+
+  // ─── Notifications ────────────────────────────────────
+  getNotifications(): Notification[] {
+    return [...this.data.notifications].sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+  }
+
+  getUnreadCount(): number {
+    return this.data.notifications.filter((n) => !n.isRead).length;
+  }
+
+  markAsRead(id: string): void {
+    const n = this.data.notifications.find((n) => n.id === id);
+    if (n) { n.isRead = true; this.version++; }
+  }
+
+  markAllAsRead(): void {
+    this.data.notifications.forEach((n) => { n.isRead = true; });
+    this.version++;
+  }
+
+  dismissNotification(id: string): void {
+    this.data.notifications = this.data.notifications.filter((n) => n.id !== id);
+    this.version++;
+  }
+
+  addNotification(notification: Notification): void {
+    this.data.notifications.push(notification);
+    this.version++;
   }
 }
