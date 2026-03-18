@@ -217,8 +217,8 @@
       },
       "priority": 10,
       "dependencies": ["US-15-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Migration at docs/migrations/00010. CASCADE on user delete, composite index (user_id, is_read), RLS own-only read/update."
     },
     {
       "id": "US-15-011",
