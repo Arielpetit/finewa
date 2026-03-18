@@ -157,8 +157,8 @@ export function CatalogTable({
                     <StatusBadge status={stockStatus(item)} />
                   </span>
                 </TableCell>
-                <TableCell className="text-sm text-muted-foreground">{locMap.get(item.locationId ?? "") ?? "—"}</TableCell>
-                <TableCell className="text-sm text-muted-foreground">{supMap.get(item.supplierId ?? "") ?? "—"}</TableCell>
+                <TableCell className="text-sm text-muted-foreground">{locMap.get(item.locationId ?? "") ?? (item.locationId ? <span className="italic text-muted-foreground/60">Unknown Location</span> : "—")}</TableCell>
+                <TableCell className="text-sm text-muted-foreground">{supMap.get(item.supplierId ?? "") ?? (item.supplierId ? <span className="italic text-muted-foreground/60">Unknown Supplier</span> : "—")}</TableCell>
                 {actionRenderer && (
                   <TableCell onClick={(e) => e.stopPropagation()}>{actionRenderer(item)}</TableCell>
                 )}

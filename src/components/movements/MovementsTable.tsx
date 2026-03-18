@@ -113,7 +113,7 @@ export function MovementsTable({ movements, itemNameMap, locationNameMap }: Move
                         </span>
                       </TableCell>
                       <TableCell className="font-medium">
-                        {itemNameMap.get(m.itemId) ?? m.itemId}
+                        {itemNameMap.get(m.itemId) ?? <span className="italic text-muted-foreground/60 line-through">[Item Deleted]</span>}
                       </TableCell>
                       <TableCell>
                         <span className={`font-mono text-sm font-medium ${dir === "in" ? "text-emerald-600" : "text-red-500"}`}>
