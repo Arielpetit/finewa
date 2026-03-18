@@ -166,14 +166,22 @@ export interface InventoryRequest {
   updatedAt: string;
 }
 
+export type NotificationType =
+  | "low_stock"
+  | "zero_stock"
+  | "po_reminder"
+  | "po_overdue"
+  | "request_update"
+  | "system";
+
 export interface Notification {
   id: string;
-  userId: string;
+  type: NotificationType;
   title: string;
   message: string;
-  type: "info" | "warning" | "error" | "success";
   isRead: boolean;
   link: string | null;
+  referenceId: string | null;
   createdAt: string;
 }
 
