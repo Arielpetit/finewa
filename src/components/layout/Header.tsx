@@ -135,7 +135,8 @@ export function Header() {
 
       <QuickEntryMode open={quickEntryOpen} onOpenChange={setQuickEntryOpen} />
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
-      <NotificationCenter open={notifOpen} onOpenChange={setNotifOpen} />
+      <NotificationCenter open={notifOpen} onOpenChange={setNotifOpen} onOpenPrefs={() => { setNotifOpen(false); setTimeout(() => setPrefsOpen(true), 300); }} />
+      <NotificationPreferences open={prefsOpen} onOpenChange={setPrefsOpen} />
     </header>
   );
 }
