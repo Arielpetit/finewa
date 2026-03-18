@@ -1,8 +1,10 @@
 import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Sparkles } from "lucide-react";
+import { Sparkles, ShieldAlert } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -14,10 +16,13 @@ import { toast } from "sonner";
 import { ForecastSummary } from "@/components/insights/ForecastSummary";
 import { DemandForecastChart } from "@/components/insights/DemandForecastChart";
 import { ReorderSuggestionCard } from "@/components/insights/ReorderSuggestionCard";
+import { AnomalyAlertCard } from "@/components/insights/AnomalyAlertCard";
 import { useDemo } from "@/hooks/useDemo";
 import { useUpdateItem } from "@/hooks/useInventoryMutations";
 import { analyzeAllItems, type ReorderAnalysis } from "@/lib/reorder-engine";
+import { analyzeMovements, type AnomalySeverity, type AnomalyType } from "@/lib/anomaly-engine";
 import { usePermissions } from "@/hooks/usePermissions";
+import { subDays } from "date-fns";
 
 export const Route = createFileRoute("/app/ai-insights")({
   component: AiInsightsPage,
