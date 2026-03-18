@@ -68,7 +68,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="flex h-14 items-center gap-3 border-b border-border bg-card px-4 md:px-8">
+    <header className="flex h-16 items-center gap-3 border-b border-border bg-card px-4 shadow-sm md:px-8">
       <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileOpen(true)} aria-label="Open menu">
         <Menu className="h-5 w-5" />
       </Button>

@@ -176,6 +176,13 @@
   --amber-accent: oklch(0.70 0.12 75);
 }
 
+@theme inline {
+  --color-metric-healthy-bg: var(--metric-healthy-bg);
+  --color-metric-warning-bg: var(--metric-warning-bg);
+  --color-metric-danger-bg: var(--metric-danger-bg);
+  --color-metric-neutral-bg: var(--metric-neutral-bg);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
