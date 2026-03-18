@@ -92,12 +92,19 @@ function SuppliersPage() {
           <h1 className="text-2xl font-semibold text-foreground">Supplier Directory</h1>
           <p className="text-sm text-muted-foreground">{suppliers.length} suppliers</p>
         </div>
-        {canManageSuppliers && (
-          <Button size="sm" onClick={openCreate}>
-            <Plus className="mr-1.5 h-4 w-4" />
-            New Supplier
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          <CSVExportButton
+            data={suppliers}
+            columns={supplierCsvColumns}
+            filename="stackwise-suppliers"
+          />
+          {canManageSuppliers && (
+            <Button size="sm" onClick={openCreate}>
+              <Plus className="mr-1.5 h-4 w-4" />
+              New Supplier
+            </Button>
+          )}
+        </div>
       </div>
 
       <SuppliersTable suppliers={suppliers} items={items} onRowClick={openDetail} />
