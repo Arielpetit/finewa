@@ -99,7 +99,7 @@
       "description": "Delete an item and confirm via the alert dialog",
       "steps": ["Navigate to /app/catalog", "Open an item's row actions", "Click Delete", "Confirm deletion in dialog"],
       "expectedResult": "Item is removed from the table with a success toast",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "CAT-05",
