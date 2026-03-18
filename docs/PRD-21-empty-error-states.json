@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-21-001", "US-07-001", "US-09-001", "US-10-001", "US-11-001", "US-13-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "All 6 list views have contextual empty states with relevant icons and CTAs: Catalog (Package), Movements (ArrowUpDown), Suppliers (Truck), POs (ClipboardList), Requests (FileText), Locations (MapPin)."
     },
     {
       "id": "US-21-003",
