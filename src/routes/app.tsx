@@ -65,6 +65,7 @@ function AppLayout() {
           </main>
         </div>
       </div>
+      <ShortcutsHelpDialog open={helpOpen} onOpenChange={setHelpOpen} />
     </div>
   );
 }
