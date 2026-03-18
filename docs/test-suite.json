@@ -27,7 +27,7 @@
       "description": "Header nav links scroll to the corresponding page sections",
       "steps": ["Navigate to /", "Click 'Features' nav link", "Verify features section is in viewport"],
       "expectedResult": "Page scrolls to the targeted section",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "DASH-01",
