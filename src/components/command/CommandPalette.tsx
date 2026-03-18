@@ -65,9 +65,7 @@ const ACTIONS: ActionDef[] = [
   {
     label: "New Movement",
     icon: <ArrowRightLeft className="h-4 w-4" />,
-    shortcut: "N M",
-    action: (nav) => nav({ to: "/app/movements", search: {} }),
-    permission: "log_movement",
+    action: (nav) => nav({ to: "/app/movements", search: { item: undefined } }),
   },
   {
     label: "New Purchase Order",
