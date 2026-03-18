@@ -111,8 +111,8 @@
       },
       "priority": 5,
       "dependencies": ["US-15-002", "US-15-003", "US-15-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Migration at docs/migrations/00005. All columns, UNIQUE sku, CHECK status, FKs, tags text[], custom_fields jsonb, 6 indexes, updated_at trigger, RLS admin+manager write."
     },
     {
       "id": "US-15-006",
