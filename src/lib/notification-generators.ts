@@ -88,7 +88,7 @@ export function generatePOAlerts(store: DemoStore): void {
     }
 
     // Reminder: within 3 days
-    if (daysUntil <= 3) {
+    if (daysUntil <= 3 && prefs.po_reminder) {
       const alreadyExists = existing.some(
         (n) => !n.isRead && n.type === "po_reminder" && n.referenceId === po.id,
       );
