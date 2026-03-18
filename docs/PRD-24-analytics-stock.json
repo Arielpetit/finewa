@@ -25,8 +25,8 @@
       },
       "priority": 1,
       "dependencies": ["US-05-003", "US-05-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Analytics page with collapsible sections, date range picker, admin/manager route guard."
     },
     {
       "id": "US-24-002",
@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-24-001", "US-06-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "4 metric cards: Total Value (currency), Total SKUs, Avg Stock, Below Reorder."
     },
     {
       "id": "US-24-003",
@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": ["US-24-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Horizontal bar chart with recharts, clickable bars navigate to catalog with category filter."
     },
     {
       "id": "US-24-004",
@@ -92,8 +92,8 @@
       },
       "priority": 3,
       "dependencies": ["US-24-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Donut chart with green/amber/red segments, center total label, legend and tooltips."
     },
     {
       "id": "US-24-005",
@@ -116,8 +116,8 @@
       },
       "priority": 4,
       "dependencies": ["US-24-001", "US-09-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Line chart with 4 movement type lines, daily/weekly grouping, legend toggle."
     },
     {
       "id": "US-24-006",
@@ -139,8 +139,8 @@
       },
       "priority": 5,
       "dependencies": ["US-24-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Three ranked lists: fastest/slowest moving, most reordered. Clickable rows to catalog."
     },
     {
       "id": "US-24-007",
@@ -161,8 +161,8 @@
       },
       "priority": 6,
       "dependencies": ["US-24-002", "US-24-003", "US-24-005"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Filter bar with category/supplier/location dropdowns, active count badge, clear all."
     },
     {
       "id": "US-24-008",
@@ -184,8 +184,8 @@
       },
       "priority": 7,
       "dependencies": ["US-24-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Client-side CSV export with stock and movement sections, date-stamped filename."
     }
   ]
 }
