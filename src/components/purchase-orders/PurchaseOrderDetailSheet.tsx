@@ -335,8 +335,8 @@ export function PurchaseOrderDetailSheet({
                         <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground" />
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2 text-sm">
-                            <span className="font-medium text-foreground">
-                              {item?.name ?? m.itemId}
+                            <span className={`font-medium ${!item ? "italic text-muted-foreground/60 line-through" : "text-foreground"}`}>
+                              {item?.name ?? "[Item Deleted]"}
                             </span>
                             <span className="font-mono text-xs text-muted-foreground">
                               +{m.quantity}
