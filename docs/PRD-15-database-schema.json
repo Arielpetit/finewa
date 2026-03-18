@@ -87,8 +87,8 @@
       },
       "priority": 4,
       "dependencies": ["US-15-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Migration at docs/migrations/00004. Self-ref FK ON DELETE SET NULL, index on parent_id, RLS admin-only write."
     },
     {
       "id": "US-15-005",
