@@ -48,8 +48,8 @@
       },
       "priority": 2,
       "dependencies": ["US-22-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "CategoryManager with add/rename/delete, item count badges, duplicate name validation, confirmation dialogs."
     },
     {
       "id": "US-22-003",
