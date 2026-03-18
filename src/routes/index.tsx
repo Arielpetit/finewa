@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useDemo } from "@/hooks/useDemo";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useState, useEffect } from "react";
 import {
   Package,
   BarChart3,
@@ -10,12 +11,13 @@ import {
   TrendingUp,
   Users,
   ArrowRight,
-  CheckCircle2,
-  Zap,
   Shield,
   Globe,
+  Zap,
+  Menu,
+  X,
 } from "lucide-react";
-import heroWarehouse from "@/assets/hero-warehouse.jpg.asset.json";
+import heroProductShot from "@/assets/hero-product-shot.png.asset.json";
 import mockupDashboard from "@/assets/mockup-dashboard.png.asset.json";
 import mockupCatalog from "@/assets/mockup-catalog.png.asset.json";
 import mockupAnalytics from "@/assets/mockup-analytics.png.asset.json";
@@ -41,89 +43,95 @@ export const Route = createFileRoute("/")({
 });
 
 /* ─── Data ──────────────────────────────────────────── */
-const stats = [
-  { value: "10×", label: "Faster Stock Counts" },
-  { value: "Zero", label: "Stockouts" },
-  { value: "100%", label: "Visibility" },
-  { value: "6", label: "Powerful Modules" },
+const navLinks = [
+  { label: "Features", href: "#features" },
+  { label: "Solutions", href: "#solutions" },
+  { label: "Analytics", href: "#analytics" },
+];
+
+const solutions = [
+  {
+    icon: BarChart3,
+    title: "Real-Time Tracking",
+    description: "Monitor stock levels across every location with live dashboards and instant status updates.",
+    color: "bg-primary/10 text-primary",
+  },
+  {
+    icon: Bell,
+    title: "Smart Reorders",
+    description: "Automated thresholds and AI-powered forecasting prevent stockouts before they happen.",
+    color: "bg-secondary/10 text-secondary",
+  },
+  {
+    icon: Truck,
+    title: "Supplier Management",
+    description: "Unified view of contacts, lead times, purchase history, and performance scoring.",
+    color: "bg-accent/20 text-accent-foreground",
+  },
+  {
+    icon: TrendingUp,
+    title: "Analytics & Reports",
+    description: "Turn movement data into insights with trend charts, turnover analysis, and exports.",
+    color: "bg-primary/10 text-primary",
+  },
+];
+
+const featureTabs = [
+  {
+    label: "Dashboard",
+    description: "See what matters most — stock levels, pending orders, recent movements, and alerts that need attention.",
+    image: mockupDashboard.url,
+  },
+  {
+    label: "Catalog",
+    description: "Powerful search, filters, bulk actions, and custom fields let you manage hundreds of SKUs effortlessly.",
+    image: mockupCatalog.url,
+  },
+  {
+    label: "Analytics",
+    description: "From stock trends to supplier performance, turn raw data into actionable insights and forecasts.",
+    image: mockupAnalytics.url,
+  },
 ];
 
 const features = [
   {
     icon: BarChart3,
     title: "Real-Time Tracking",
-    description:
-      "Monitor stock levels across every location as changes happen, with instant dashboards and live status indicators.",
+    description: "Monitor stock levels across every location as changes happen, with instant dashboards and live status indicators.",
   },
   {
     icon: Bell,
     title: "Smart Reorder Alerts",
-    description:
-      "Get notified before you run out — automated thresholds and AI-powered forecasting keep shelves stocked.",
+    description: "Get notified before you run out — automated thresholds and AI-powered forecasting keep shelves stocked.",
   },
   {
     icon: Truck,
     title: "Supplier Management",
-    description:
-      "Organize contacts, lead times, and purchase history in one unified view with performance scoring.",
+    description: "Organize contacts, lead times, and purchase history in one unified view with performance scoring.",
   },
   {
     icon: ScanLine,
     title: "Barcode Scanning",
-    description:
-      "Speed up receiving and cycle counts with built-in barcode support and quick-entry mode.",
+    description: "Speed up receiving and cycle counts with built-in barcode support and quick-entry mode.",
   },
   {
     icon: TrendingUp,
     title: "Analytics & Reports",
-    description:
-      "Turn movement data into insights with trend charts, turnover analysis, and exportable reports.",
+    description: "Turn movement data into insights with trend charts, turnover analysis, and exportable reports.",
   },
   {
     icon: Users,
     title: "Team Roles & Permissions",
-    description:
-      "Control who can view, edit, or approve with granular role-based access and approval workflows.",
+    description: "Control who can view, edit, or approve with granular role-based access and approval workflows.",
   },
 ];
 
-const showcaseSections = [
-  {
-    badge: "Command Center",
-    title: "Your entire inventory at a glance",
-    description:
-      "See what matters most — stock levels, pending orders, recent movements, and alerts that need attention. The dashboard surfaces critical insights so you never miss a beat.",
-    bullets: [
-      "Live metric cards with real-time updates",
-      "Attention-needed alerts for low and out-of-stock items",
-      "Recent activity timeline across all modules",
-    ],
-    image: mockupDashboard.url,
-  },
-  {
-    badge: "Catalog",
-    title: "Every item, perfectly organized",
-    description:
-      "Powerful search, filters, and bulk actions let you manage hundreds of SKUs without breaking a sweat. Custom fields adapt to your business.",
-    bullets: [
-      "Advanced filtering by category, status, and location",
-      "Bulk edit, export, and barcode printing",
-      "Custom fields for any data you need to track",
-    ],
-    image: mockupCatalog.url,
-  },
-  {
-    badge: "Analytics",
-    title: "Data-driven inventory decisions",
-    description:
-      "From stock trends to supplier performance, turn raw data into actionable insights. Spot patterns, forecast demand, and optimize your supply chain.",
-    bullets: [
-      "Stock movement trends and turnover analysis",
-      "Supplier spend and performance scoring",
-      "Demand forecasting with AI-powered suggestions",
-    ],
-    image: mockupAnalytics.url,
-  },
+const capabilities = [
+  { icon: Shield, text: "Role-Based Access" },
+  { icon: Globe, text: "Multi-Location Support" },
+  { icon: ScanLine, text: "Barcode Ready" },
+  { icon: Zap, text: "AI-Powered Insights" },
 ];
 
 /* ─── Components ────────────────────────────────────── */
@@ -142,9 +150,7 @@ function RevealSection({
     <div
       ref={ref}
       className={`transition-all duration-700 ease-out ${
-        isVisible
-          ? "translate-y-0 opacity-100"
-          : "translate-y-8 opacity-0"
+        isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
       } ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
@@ -153,16 +159,165 @@ function RevealSection({
   );
 }
 
-function CTAButton({ onClick }: { onClick: () => void }) {
+function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="group inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-background/95 border-b border-border shadow-sm backdrop-blur-md"
+          : "bg-transparent"
+      }`}
     >
-      Try Demo
-      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-    </button>
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        {/* Logo */}
+        <a href="#" className="flex items-center gap-2">
+          <Package className="h-6 w-6 text-primary" />
+          <span className="text-lg font-semibold tracking-tight">Stackwise</span>
+        </a>
+
+        {/* Desktop nav links */}
+        <div className="hidden items-center gap-8 md:flex">
+          {navLinks.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {l.label}
+            </a>
+          ))}
+        </div>
+
+        {/* Desktop CTA */}
+        <button
+          type="button"
+          onClick={onTryDemo}
+          className="hidden items-center gap-2 rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:brightness-110 md:inline-flex"
+        >
+          Try Demo
+          <ArrowRight className="h-3.5 w-3.5" />
+        </button>
+
+        {/* Mobile hamburger */}
+        <button
+          type="button"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="md:hidden p-2 text-foreground"
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+      </div>
+
+      {/* Mobile dropdown */}
+      {mobileOpen && (
+        <div className="border-t border-border bg-background px-4 pb-4 md:hidden">
+          {navLinks.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              onClick={() => setMobileOpen(false)}
+              className="block py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {l.label}
+            </a>
+          ))}
+          <button
+            type="button"
+            onClick={() => {
+              setMobileOpen(false);
+              onTryDemo();
+            }}
+            className="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+          >
+            Try Demo →
+          </button>
+        </div>
+      )}
+    </nav>
+  );
+}
+
+function BrowserFrame({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`overflow-hidden rounded-xl border border-border bg-card shadow-xl ${className}`}>
+      <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-4 py-2.5">
+        <div className="h-2.5 w-2.5 rounded-full bg-destructive/60" />
+        <div className="h-2.5 w-2.5 rounded-full bg-secondary/60" />
+        <div className="h-2.5 w-2.5 rounded-full bg-stock-healthy/60" />
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function FeatureTabsSection() {
+  const [activeTab, setActiveTab] = useState(0);
+
+  return (
+    <section id="analytics" className="px-4 py-20 sm:py-28">
+      <RevealSection className="text-center">
+        <span className="inline-block rounded-md bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+          Product Tour
+        </span>
+        <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
+          Drive your business forward
+        </h2>
+        <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
+          Explore the modules that give you complete control over your supply chain.
+        </p>
+      </RevealSection>
+
+      <div className="mx-auto mt-14 flex max-w-6xl flex-col gap-8 lg:flex-row lg:gap-12">
+        {/* Tab list */}
+        <div className="flex gap-2 overflow-x-auto lg:w-80 lg:shrink-0 lg:flex-col lg:gap-3">
+          {featureTabs.map((tab, i) => (
+            <button
+              key={tab.label}
+              type="button"
+              onClick={() => setActiveTab(i)}
+              className={`whitespace-nowrap rounded-lg px-5 py-3 text-left text-sm font-medium transition-all lg:px-6 lg:py-4 ${
+                activeTab === i
+                  ? "bg-primary text-primary-foreground shadow-md"
+                  : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
+              }`}
+            >
+              <span className="block font-semibold">{tab.label}</span>
+              <span
+                className={`mt-1 hidden text-xs lg:block ${
+                  activeTab === i ? "text-primary-foreground/80" : "text-muted-foreground"
+                }`}
+              >
+                {tab.description}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Tab content */}
+        <div className="flex-1">
+          <BrowserFrame>
+            <img
+              src={featureTabs[activeTab].image}
+              alt={`Stackwise ${featureTabs[activeTab].label} view`}
+              className="w-full transition-opacity duration-300"
+            />
+          </BrowserFrame>
+          <p className="mt-4 text-sm text-muted-foreground lg:hidden">
+            {featureTabs[activeTab].description}
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -178,166 +333,110 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {/* ── Hero ─────────────────────────────────────── */}
-      <section className="relative flex min-h-screen flex-col items-center justify-center px-4 overflow-hidden">
-        {/* Background image with overlay */}
-        <div className="absolute inset-0">
-          <img
-            src={heroWarehouse.url}
-            alt=""
-            className="h-full w-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
-        </div>
+      <StickyNav onTryDemo={handleTryDemo} />
 
-        <div className="relative z-10 flex flex-col items-center gap-6 text-center">
-          {/* Badge */}
-          <div className="animate-fade-in inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium text-white/80 shadow-sm backdrop-blur-sm">
-            <Zap className="h-3.5 w-3.5 text-secondary" />
-            Inventory management, reimagined
-          </div>
-
-          {/* Wordmark */}
-          <div className="flex items-center gap-4">
-            <Package className="h-12 w-12 text-primary sm:h-14 sm:w-14" />
-            <h1 className="text-[40px] font-semibold tracking-tight text-white sm:text-[64px]">
-              Stackwise
-            </h1>
-          </div>
-
-          {/* Tagline */}
-          <p className="max-w-lg text-lg text-white/75 sm:text-xl">
-            Your inventory command center. Track stock, manage suppliers, automate
-            reorders, and keep your team aligned — all in one place.
-          </p>
-
-          {/* CTA */}
-          <div className="mt-2">
-            <CTAButton onClick={handleTryDemo} />
-          </div>
-
-          <p className="text-xs text-white/50">
-            No account required · Explore with sample data
-          </p>
-        </div>
-
-        {/* Floating metric cards */}
-        <div className="relative z-10 mt-16 grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {stats.map((m, i) => (
-            <div
-              key={m.label}
-              className="animate-fade-in rounded-lg border border-white/15 bg-white/10 px-6 py-4 text-center shadow-sm backdrop-blur-md"
-              style={{
-                animationDelay: `${400 + i * 150}ms`,
-                animationFillMode: "backwards",
-              }}
-            >
-              <p className="font-mono text-2xl font-bold text-white">
-                {m.value}
-              </p>
-              <p className="mt-1 text-xs text-white/60">{m.label}</p>
+      {/* ── Split Hero ─────────────────────────────────── */}
+      <section className="relative flex min-h-screen items-center px-4 pt-20 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row lg:gap-16">
+          {/* Left — copy */}
+          <div className="flex-1 text-center lg:text-left">
+            <div className="animate-fade-in inline-flex items-center gap-2 rounded-full border border-border bg-muted/60 px-4 py-1.5 text-xs font-medium text-muted-foreground">
+              <Zap className="h-3.5 w-3.5 text-primary" />
+              AI-Powered Inventory Management
             </div>
+
+            <h1 className="mt-6 text-[36px] font-semibold leading-[1.1] tracking-tight sm:text-[48px] lg:text-[56px]">
+              The Inventory Platform{" "}
+              <span className="text-primary">Built to Scale</span> Your Business
+            </h1>
+
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:max-w-md">
+              Track stock, manage suppliers, automate reorders, and keep your
+              team aligned — all from one powerful command center.
+            </p>
+
+            <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
+              <button
+                type="button"
+                onClick={handleTryDemo}
+                className="group inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
+              >
+                Try Demo
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
+              <span className="text-xs text-muted-foreground">
+                No account required · Explore with sample data
+              </span>
+            </div>
+          </div>
+
+          {/* Right — product shot */}
+          <div className="flex-1 animate-fade-in" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
+            <img
+              src={heroProductShot.url}
+              alt="Stackwise inventory management dashboard on a laptop"
+              className="w-full max-w-xl mx-auto lg:max-w-none"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Solutions Grid ─────────────────────────────── */}
+      <section id="solutions" className="px-4 py-20 sm:py-28">
+        <RevealSection className="text-center">
+          <span className="inline-block rounded-md bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+            Solutions
+          </span>
+          <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
+            Built for modern inventory teams
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
+            Four powerful modules working together to give you complete visibility and control.
+          </p>
+        </RevealSection>
+
+        <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {solutions.map((s, i) => (
+            <RevealSection key={s.title} delay={i * 100}>
+              <div className="group rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+                <div className={`mb-4 inline-flex rounded-lg p-3 ${s.color}`}>
+                  <s.icon className="h-5 w-5" />
+                </div>
+                <h3 className="mb-2 text-sm font-semibold">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{s.description}</p>
+              </div>
+            </RevealSection>
           ))}
         </div>
       </section>
 
-      {/* ── Product Showcase — Dashboard ─────────────── */}
-      <section className="px-4 py-20">
+      {/* ── Product Showcase — Browser Frame ────────────── */}
+      <section className="px-4 py-16">
         <RevealSection>
           <div className="mx-auto max-w-5xl">
-            <div className="overflow-hidden rounded-xl border border-border bg-card shadow-2xl shadow-primary/5">
-              <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-4 py-3">
-                <div className="h-3 w-3 rounded-full bg-destructive/60" />
-                <div className="h-3 w-3 rounded-full bg-secondary/60" />
-                <div className="h-3 w-3 rounded-full bg-stock-healthy/60" />
-                <span className="ml-3 text-xs text-muted-foreground">
-                  stackwise.app/dashboard
-                </span>
-              </div>
+            <BrowserFrame className="shadow-2xl shadow-primary/5">
               <img
                 src={mockupDashboard.url}
                 alt="Stackwise dashboard showing inventory metrics, stock levels chart, and recent activity"
                 className="w-full"
                 loading="lazy"
               />
-            </div>
+            </BrowserFrame>
           </div>
         </RevealSection>
       </section>
 
-      {/* ── Alternating Feature Sections ─────────────── */}
-      {showcaseSections.map((section, idx) => (
-        <section key={section.badge} className="px-4 py-16 sm:py-24">
-          <div
-            className={`mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row ${
-              idx % 2 === 1 ? "lg:flex-row-reverse" : ""
-            }`}
-          >
-            {/* Text */}
-            <RevealSection className="flex-1 space-y-6" delay={100}>
-              <span className="inline-block rounded-md bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                {section.badge}
-              </span>
-              <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-                {section.title}
-              </h2>
-              <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-                {section.description}
-              </p>
-              <ul className="space-y-3">
-                {section.bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-3 text-sm">
-                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-stock-healthy" />
-                    <span className="text-muted-foreground">{b}</span>
-                  </li>
-                ))}
-              </ul>
-            </RevealSection>
-
-            {/* Image */}
-            <RevealSection className="flex-1" delay={250}>
-              <div className="overflow-hidden rounded-xl border border-border bg-card shadow-xl">
-                <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-4 py-2.5">
-                  <div className="h-2.5 w-2.5 rounded-full bg-destructive/60" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-secondary/60" />
-                  <div className="h-2.5 w-2.5 rounded-full bg-stock-healthy/60" />
-                </div>
-                <img
-                  src={section.image}
-                  alt={`Stackwise ${section.badge.toLowerCase()} view`}
-                  className="w-full"
-                  loading="lazy"
-                />
-              </div>
-            </RevealSection>
-          </div>
-        </section>
-      ))}
-
-      {/* ── Stats Bar ────────────────────────────────── */}
-      <section className="border-y border-border bg-muted/30 px-4 py-16">
-        <div className="mx-auto grid max-w-4xl grid-cols-2 gap-8 sm:grid-cols-4">
-          {stats.map((s, i) => (
-            <RevealSection key={s.label} delay={i * 100} className="text-center">
-              <p className="font-mono text-3xl font-bold text-primary sm:text-4xl">
-                {s.value}
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">{s.label}</p>
-            </RevealSection>
-          ))}
-        </div>
-      </section>
+      {/* ── Feature Tabs ───────────────────────────────── */}
+      <FeatureTabsSection />
 
       {/* ── Feature Grid ─────────────────────────────── */}
-      <section className="px-4 py-20 sm:py-28">
+      <section id="features" className="px-4 py-20 sm:py-28">
         <RevealSection className="text-center">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
             Everything you need to manage inventory
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground">
-            Six powerful modules working together to give you complete control over
-            your supply chain.
+            Six powerful modules working together to give you complete control over your supply chain.
           </p>
         </RevealSection>
 
@@ -349,9 +448,7 @@ function LandingPage() {
                   <f.icon className="h-5 w-5 text-primary" />
                 </div>
                 <h3 className="mb-2 text-sm font-semibold">{f.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {f.description}
-                </p>
+                <p className="text-sm leading-relaxed text-muted-foreground">{f.description}</p>
               </div>
             </RevealSection>
           ))}
@@ -362,12 +459,7 @@ function LandingPage() {
       <section className="px-4 py-16">
         <RevealSection>
           <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground">
-            {[
-              { icon: Shield, text: "Role-Based Access" },
-              { icon: Globe, text: "Multi-Location Support" },
-              { icon: ScanLine, text: "Barcode Ready" },
-              { icon: Zap, text: "AI-Powered Insights" },
-            ].map((c) => (
+            {capabilities.map((c) => (
               <div key={c.text} className="flex items-center gap-2">
                 <c.icon className="h-4 w-4 text-primary" />
                 <span>{c.text}</span>
@@ -390,7 +482,14 @@ function LandingPage() {
             Explore Stackwise with sample data. No signup required.
           </p>
           <div className="mt-8">
-            <CTAButton onClick={handleTryDemo} />
+            <button
+              type="button"
+              onClick={handleTryDemo}
+              className="group inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
+            >
+              Try Demo
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
           </div>
         </RevealSection>
       </section>
@@ -399,9 +498,7 @@ function LandingPage() {
       <footer className="border-t border-border px-4 py-10 text-center">
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <Package className="h-4 w-4 text-primary" />
-          <span>
-            Built with Stackwise · {new Date().getFullYear()}
-          </span>
+          <span>Built with Stackwise · {new Date().getFullYear()}</span>
         </div>
       </footer>
     </div>
