@@ -90,7 +90,7 @@
       "description": "Open an existing item, modify a field, and save changes",
       "steps": ["Navigate to /app/catalog", "Click on an item row to open detail", "Click Edit", "Change the item name", "Save"],
       "expectedResult": "Item is updated and the new name is reflected in the table",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "CAT-04",
