@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 31,
+    "passed": 32,
     "failed": 0,
     "blocked": 2,
-    "pending": 2,
+    "pending": 1,
     "bugs_fixed": 0
   },
   "tests": [
@@ -805,8 +805,8 @@
       ],
       "expected_result": "Sort direction toggles through asc → desc → unsorted",
       "pass_criteria": "After first click, items are sorted alphabetically; after second click, they are reverse sorted",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
