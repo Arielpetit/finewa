@@ -1,60 +1,102 @@
+import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { Play } from "lucide-react";
+import { toast } from "sonner";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { NeedsAttention } from "@/components/dashboard/NeedsAttention";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { DashboardSearch } from "@/components/dashboard/DashboardSearch";
 import { DashboardReorderSection } from "@/components/insights/DashboardReorderSection";
 import { DashboardAnomalySection } from "@/components/insights/DashboardAnomalySection";
+import { OnboardingTour } from "@/components/onboarding/OnboardingTour";
+import { DemoWalkthrough } from "@/components/onboarding/DemoWalkthrough";
+import { Button } from "@/components/ui/button";
 import { useStockSummary } from "@/hooks/useInventoryData";
 import { useAlertGenerator } from "@/hooks/useStockAlertGenerator";
 import { useDemo } from "@/hooks/useDemo";
+import { useOnboarding, type TourStep } from "@/hooks/useOnboarding";
+
+const TOUR_STEPS: TourStep[] = [
+  { title: "Welcome to Stackwise!", description: "Let's take a quick tour of the key features. This will only take a minute." },
+  { target: "sidebar", title: "Navigation", description: "Use the sidebar to switch between sections — catalog, movements, suppliers, and more." },
+  { target: "metrics", title: "Stock Health", description: "Your inventory health at a glance — total SKUs, in-stock, low-stock, and out-of-stock counts." },
+  { target: "needs-attention", title: "Needs Attention", description: "Items that need action appear here — low stock, overdue POs, and pending requests." },
+  { target: "search", title: "Command Palette", description: "Press CMD+K (or Ctrl+K) to search anything — items, suppliers, orders, and more." },
+  { title: "You're all set!", description: "Explore the app or try the guided walkthrough to learn the core workflow. Happy managing!" },
+];
 
 export const Route = createFileRoute("/app/dashboard")({
   component: DashboardPage,
-  head: () => ({
-    meta: [{ title: "Dashboard — Stackwise" }],
-  }),
+  head: () => ({ meta: [{ title: "Dashboard — Stackwise" }] }),
 });
 
 function DashboardPage() {
   const { data: summary } = useStockSummary();
-  const { demoStore } = useDemo();
+  const { demoStore, isDemo } = useDemo();
   useAlertGenerator();
 
   const items = demoStore?.getItems() ?? [];
   const movements = demoStore?.getMovements() ?? [];
   const suppliers = demoStore?.getSuppliers() ?? [];
 
+  const tour = useOnboarding("dashboard");
+  const [walkthroughActive, setWalkthroughActive] = useState(false);
+
+  // Auto-start tour on first demo visit
+  useEffect(() => {
+    if (isDemo && !tour.hasCompleted) {
+      const timer = setTimeout(() => tour.startTour(), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isDemo, tour.hasCompleted]);
+
+  const handleTourComplete = () => {
+    tour.completeTour();
+    toast.success("Tour complete! Explore freely or start the walkthrough.");
+  };
+
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
-      {/* Heading */}
-      <div>
-        <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
-        <p className="text-sm text-muted-foreground">Welcome back — here's your inventory overview.</p>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
+          <p className="text-sm text-muted-foreground">Welcome back — here's your inventory overview.</p>
+        </div>
+        {isDemo && (
+          <Button size="sm" variant="outline" className="gap-1.5" onClick={() => setWalkthroughActive(true)}>
+            <Play className="h-3.5 w-3.5" /> Start Walkthrough
+          </Button>
+        )}
       </div>
 
-      {/* Search */}
       <DashboardSearch />
 
-      {/* Metric cards */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div data-tour="metrics" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard label="Total SKUs" value={summary.total} accentColor="neutral" />
         <MetricCard label="In Stock" value={summary.inStock} accentColor="healthy" />
         <MetricCard label="Low Stock" value={summary.lowStock} accentColor="warning" />
         <MetricCard label="Out of Stock" value={summary.outOfStock} accentColor="danger" />
       </div>
 
-      {/* Two-column: Needs Attention + Recent Activity */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[3fr_2fr]">
-        <NeedsAttention />
+        <div data-tour="needs-attention"><NeedsAttention /></div>
         <RecentActivity />
       </div>
 
-      {/* Anomaly Alerts */}
       <DashboardAnomalySection movements={movements} items={items} />
-
-      {/* Reorder Suggestions */}
       <DashboardReorderSection items={items} movements={movements} suppliers={suppliers} />
+
+      <OnboardingTour
+        steps={TOUR_STEPS}
+        currentStep={tour.currentStep}
+        isActive={tour.isActive}
+        onNext={tour.next}
+        onBack={tour.back}
+        onSkip={tour.skipTour}
+        onComplete={handleTourComplete}
+      />
+
+      <DemoWalkthrough active={walkthroughActive} onClose={() => setWalkthroughActive(false)} />
     </div>
   );
 }
