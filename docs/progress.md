@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-15 — Database Schema & RLS Policies
-- Status: 10 of 12 stories passed
+- Status: 11 of 12 stories passed
 
 ## Last Completed
 
-- US-15-010 — Create notifications table — database review passed
+- US-15-011 — Create updated_at trigger function — database review passed
 
 ## Known Issues
 
