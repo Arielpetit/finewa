@@ -26,8 +26,8 @@
       },
       "priority": 1,
       "dependencies": ["US-01-005"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "CommandPalette using shadcn Command/CommandDialog. CMD+K and Ctrl+K open. Header search click opens. Pages/Actions sections. Arrow nav + Enter select. ESC closes. Backdrop blur overlay."
     },
     {
       "id": "US-17-002",

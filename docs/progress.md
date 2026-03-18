@@ -2,12 +2,12 @@
 
 ## Current State
 
-- Phase: PRD-16 — CSV Import/Export & Barcode — **COMPLETE** 🎉
-- Status: 8 of 8 stories passed
+- Phase: PRD-17 — Command Palette & Keyboard Shortcuts
+- Status: 1 of 5 stories passed
 
 ## Last Completed
 
-- US-16-008 — Quick-entry barcode mode — e2e passed
+- US-17-001 — Command palette dialog — e2e passed
 
 ## Known Issues
 
@@ -16,5 +16,5 @@
 ## Learnings
 
 - supabase/migrations/ is read-only — store migration SQL in docs/migrations/ instead
-- Use getByRole('link', { name: 'Catalog' }) not a[href*="catalog"] to avoid strict mode violations
+- Use getByRole('combobox') to target cmdk input, not getByPlaceholder with special chars
 - E2e tests with demo mode + multiple steps can exceed 30s timeout — use shorter waits
