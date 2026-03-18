@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useRef, type DragEvent } from "react";
-import { Upload, FileSpreadsheet, AlertCircle, ChevronRight, ChevronLeft, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
+import { Upload, FileSpreadsheet, AlertCircle, ChevronRight, ChevronLeft, CheckCircle2, XCircle, AlertTriangle, Loader2 } from "lucide-react";
 import {
   Sheet,
   SheetContent,
