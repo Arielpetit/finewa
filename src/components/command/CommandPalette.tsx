@@ -77,7 +77,7 @@ const ACTIONS: ActionDef[] = [
   {
     label: "New Request",
     icon: <ClipboardList className="h-4 w-4" />,
-    action: (nav) => nav({ to: "/app/requests", search: {} }),
+    action: (nav) => nav({ to: "/app/requests", search: { request: undefined } }),
     permission: "create_request",
   },
   {
