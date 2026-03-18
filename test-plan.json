@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 23,
+    "passed": 24,
     "failed": 0,
     "blocked": 2,
-    "pending": 10,
+    "pending": 9,
     "bugs_fixed": 0
   },
   "tests": [
@@ -616,8 +616,8 @@
       ],
       "expected_result": "User is redirected to dashboard with access denied toast",
       "pass_criteria": "URL contains '/app/dashboard' after attempting to access settings as Requestor",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
