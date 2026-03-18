@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": ["US-24-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Horizontal bar chart with recharts, clickable bars navigate to catalog with category filter."
     },
     {
       "id": "US-24-004",
