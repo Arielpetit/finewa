@@ -1,5 +1,7 @@
-import type { Item, Notification } from "@/types/inventory";
+import type { Notification } from "@/types/inventory";
+import { OrderStatus } from "@/types/inventory";
 import type { DemoStore } from "@/lib/demo-store";
+import { differenceInDays } from "date-fns";
 
 /**
  * Scan items and generate low_stock / zero_stock notifications.
@@ -17,9 +19,8 @@ export function generateStockAlerts(store: DemoStore): void {
 
     if (!isLow && !isOut) continue;
 
-    const type = isOut ? "zero_stock" : "low_stock";
+    const type = isOut ? "zero_stock" as const : "low_stock" as const;
 
-    // Dedup: skip if unread alert for same item + type exists
     const alreadyExists = existing.some(
       (n) => !n.isRead && n.type === type && n.referenceId === item.id,
     );
@@ -41,5 +42,65 @@ export function generateStockAlerts(store: DemoStore): void {
     };
 
     store.addNotification(notification);
+  }
+}
+
+/**
+ * Scan POs and generate po_reminder / po_overdue notifications.
+ * po_reminder: submitted PO with expected_delivery within 3 days.
+ * po_overdue: submitted/partial PO with expected_delivery in the past.
+ * Deduplicates by PO ID + type.
+ */
+export function generatePOAlerts(store: DemoStore): void {
+  const pos = store.getPurchaseOrders();
+  const existing = store.getNotifications();
+  const now = new Date();
+
+  for (const po of pos) {
+    // Only active POs (submitted or partial)
+    if (po.status !== OrderStatus.Submitted && po.status !== OrderStatus.Partial) continue;
+    if (!po.expectedDelivery) continue;
+
+    const delivery = new Date(po.expectedDelivery);
+    const daysUntil = differenceInDays(delivery, now);
+
+    // Overdue: past delivery, not fully received
+    if (daysUntil < 0) {
+      const alreadyExists = existing.some(
+        (n) => !n.isRead && n.type === "po_overdue" && n.referenceId === po.id,
+      );
+      if (!alreadyExists) {
+        store.addNotification({
+          id: `notif-auto-po_overdue-${po.id}-${Date.now()}`,
+          type: "po_overdue",
+          title: `PO Overdue: ${po.orderNumber}`,
+          message: `Purchase order ${po.orderNumber} was expected ${Math.abs(daysUntil)} days ago and has not been fully received.`,
+          isRead: false,
+          link: `/app/purchase-orders?po=${po.id}`,
+          referenceId: po.id,
+          createdAt: new Date().toISOString(),
+        });
+      }
+      continue;
+    }
+
+    // Reminder: within 3 days
+    if (daysUntil <= 3) {
+      const alreadyExists = existing.some(
+        (n) => !n.isRead && n.type === "po_reminder" && n.referenceId === po.id,
+      );
+      if (!alreadyExists) {
+        store.addNotification({
+          id: `notif-auto-po_reminder-${po.id}-${Date.now()}`,
+          type: "po_reminder",
+          title: `PO Arriving Soon: ${po.orderNumber}`,
+          message: `Purchase order ${po.orderNumber} is expected to arrive in ${daysUntil} day${daysUntil !== 1 ? "s" : ""}.`,
+          isRead: false,
+          link: `/app/purchase-orders?po=${po.id}`,
+          referenceId: po.id,
+          createdAt: new Date().toISOString(),
+        });
+      }
+    }
   }
 }

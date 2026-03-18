@@ -112,8 +112,8 @@
       },
       "priority": 5,
       "dependencies": ["US-18-001", "US-11-001"],
-      "isPassed": false,
-      "notes": "Seed data dates should be relative to 'now' to trigger alerts consistently"
+      "isPassed": true,
+      "notes": "generatePOAlerts in notification-generators.ts. po_overdue for past delivery, po_reminder within 3 days. Dedup by PO ID+type. Seed PO-01 changed to Submitted with delivery 2 days ago, PO-04 overdue 5 days. Runs on dashboard load via useAlertGenerator."
     },
     {
       "id": "US-18-006",

@@ -75,8 +75,8 @@ export function generatePurchaseOrders(): PurchaseOrder[] {
   const calc = (li: PurchaseOrderItem[]) => li.reduce((s, i) => s + i.quantityOrdered * i.unitCost, 0);
   return [
     {
-      id: "po-01", orderNumber: "PO-2024-001", supplierId: "sup-01", status: OrderStatus.Draft,
-      items: po1Items, totalCost: calc(po1Items), expectedDelivery: ts(-7),
+      id: "po-01", orderNumber: "PO-2024-001", supplierId: "sup-01", status: OrderStatus.Submitted,
+      items: po1Items, totalCost: calc(po1Items), expectedDelivery: ts(-2),
       notes: "Restock for out-of-stock items", createdBy: "demo-user", createdAt: ts(3), updatedAt: ts(1),
     },
     {
