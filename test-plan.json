@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 22,
+    "passed": 23,
     "failed": 0,
     "blocked": 2,
-    "pending": 11,
+    "pending": 10,
     "bugs_fixed": 0
   },
   "tests": [
@@ -592,8 +592,8 @@
       ],
       "expected_result": "Page shows 'Settings' heading with tab options",
       "pass_criteria": "h1 'Settings' is visible AND text 'Categories' is visible as a tab trigger",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
