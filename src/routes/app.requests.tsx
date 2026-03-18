@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
+import { Plus, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

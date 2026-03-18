@@ -119,7 +119,19 @@ function SuppliersPage() {
         </div>
       </div>
 
-      <SuppliersTable suppliers={suppliers} items={items} onRowClick={openDetail} />
+      <ErrorBoundary>
+      {suppliers.length === 0 ? (
+        <EmptyState
+          icon={Truck}
+          title="No suppliers added yet"
+          description="Add your suppliers to track lead times, contact info, and order history."
+          actionLabel={canManageSuppliers ? "Add Supplier" : undefined}
+          onAction={canManageSuppliers ? openCreate : undefined}
+        />
+      ) : (
+        <SuppliersTable suppliers={suppliers} items={items} onRowClick={openDetail} />
+      )}
+      </ErrorBoundary>
 
       <SupplierDetailSheet
         open={detailOpen}

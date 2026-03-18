@@ -125,11 +125,23 @@ function PurchaseOrdersPage() {
 
       <PurchaseOrdersFilters filters={filters} onChange={setFilters} suppliers={suppliers} />
 
-      <PurchaseOrdersTable
-        purchaseOrders={filtered}
-        suppliers={suppliers}
-        onRowClick={handleRowClick}
-      />
+      <ErrorBoundary>
+      {purchaseOrders.length === 0 ? (
+        <EmptyState
+          icon={ClipboardList}
+          title="No purchase orders created"
+          description="Create purchase orders to track inventory procurement from your suppliers."
+          actionLabel={canManagePOs ? "Create PO" : undefined}
+          onAction={canManagePOs ? openCreate : undefined}
+        />
+      ) : (
+        <PurchaseOrdersTable
+          purchaseOrders={filtered}
+          suppliers={suppliers}
+          onRowClick={handleRowClick}
+        />
+      )}
+      </ErrorBoundary>
 
       <PurchaseOrderDetailSheet
         open={detailOpen}
