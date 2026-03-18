@@ -115,7 +115,19 @@ function MovementsPage() {
 
       <MovementStats movements={filtered} />
 
-      <MovementsTable movements={filtered} itemNameMap={itemNameMap} locationNameMap={locationNameMap} />
+      <ErrorBoundary>
+      {movements.length === 0 ? (
+        <EmptyState
+          icon={ArrowUpDown}
+          title="No stock movements recorded"
+          description="Movements track stock changes — receipts, shipments, adjustments, and transfers."
+          actionLabel="Log Movement"
+          onAction={() => setFormOpen(true)}
+        />
+      ) : (
+        <MovementsTable movements={filtered} itemNameMap={itemNameMap} locationNameMap={locationNameMap} />
+      )}
+      </ErrorBoundary>
 
       <MovementFormSheet
         open={formOpen}

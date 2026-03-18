@@ -231,19 +231,31 @@ function CatalogPage() {
 
       <CatalogFilters filters={filters} onChange={setFilters} categories={categories} suppliers={suppliers} locations={locations} />
 
-      <CatalogTable
-        items={items}
-        categories={categories}
-        suppliers={suppliers}
-        locations={locations}
-        sort={sort}
-        onSortChange={setSort}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onRowClick={(item) => openDetail(item)}
-        actionRenderer={actionRenderer}
-        showCheckboxes={can("edit_item")}
-      />
+      <ErrorBoundary>
+      {allItems.length === 0 ? (
+        <EmptyState
+          icon={Package}
+          title="No items in your inventory yet"
+          description="Start building your catalog by adding your first product or item."
+          actionLabel={can("create_item") ? "Add First Item" : undefined}
+          onAction={can("create_item") ? openCreate : undefined}
+        />
+      ) : (
+        <CatalogTable
+          items={items}
+          categories={categories}
+          suppliers={suppliers}
+          locations={locations}
+          sort={sort}
+          onSortChange={setSort}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onRowClick={(item) => openDetail(item)}
+          actionRenderer={actionRenderer}
+          showCheckboxes={can("edit_item")}
+        />
+      )}
+      </ErrorBoundary>
 
       <ItemFormSheet
         open={sheetOpen}
