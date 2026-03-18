@@ -204,6 +204,11 @@ function CatalogPage() {
             filename="stackwise-items"
           />
           <PermissionGate permission="create_item">
+            <Button variant="outline" size="sm" className="hidden gap-1.5 sm:inline-flex" onClick={() => setImportOpen(true)}>
+              <Upload className="h-4 w-4" />Import
+            </Button>
+          </PermissionGate>
+          <PermissionGate permission="create_item">
             <Button onClick={openCreate} className="hidden gap-1.5 sm:inline-flex">
               <Plus className="h-4 w-4" />New Item
             </Button>
