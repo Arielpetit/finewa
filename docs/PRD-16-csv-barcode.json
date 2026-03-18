@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-16-001", "US-10-001", "US-09-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Export buttons added to suppliers and movements pages. Suppliers: 8 columns. Movements: 8 columns with date, type, item name, SKU. Both use filtered data and date-stamped filenames."
     },
     {
       "id": "US-16-003",
