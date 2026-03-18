@@ -34,6 +34,7 @@ interface NotificationCenterProps {
 
 export function NotificationCenter({ open, onOpenChange }: NotificationCenterProps) {
   const [tab, setTab] = useState<FilterTab>("all");
+  const [prefsOpen, setPrefsOpen] = useState(false);
   const { data: notifications } = useNotifications();
   const markAsRead = useMarkAsRead();
   const markAllAsRead = useMarkAllAsRead();
