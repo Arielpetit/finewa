@@ -92,8 +92,8 @@
       },
       "priority": 4,
       "dependencies": [],
-      "isPassed": false,
-      "notes": "Heuristic parser — no AI needed for basic patterns"
+      "isPassed": true,
+      "notes": "Created src/lib/nl-search-parser.ts. Parses status (low_stock, out_of_stock), movement type, date ranges, supplier ('from X'), category ('in X'). Falls back to search terms."
     },
     {
       "id": "US-20-005",
