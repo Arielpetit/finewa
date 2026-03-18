@@ -63,7 +63,7 @@ function AppLayout() {
         </aside>
         <div className="flex flex-1 flex-col overflow-hidden">
           <Header />
-          <main className="flex-1 overflow-y-auto p-4 md:p-8">
+          <main className="flex-1 overflow-y-auto p-4 pb-20 md:p-8 md:pb-8">
             <AnimatePresence mode="wait">
               <PageTransition routeKey={location.pathname}>
                 <Outlet />
@@ -72,6 +72,7 @@ function AppLayout() {
           </main>
         </div>
       </div>
+      <BottomNav />
       <ShortcutsHelpDialog open={helpOpen} onOpenChange={setHelpOpen} />
     </div>
   );
