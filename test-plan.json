@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 19,
+    "passed": 20,
     "failed": 0,
     "blocked": 2,
-    "pending": 14,
+    "pending": 13,
     "bugs_fixed": 0
   },
   "tests": [
@@ -16,7 +16,9 @@
       "feature": "Landing Page",
       "title": "Landing page renders with hero and nav",
       "description": "Verify the landing page loads with the Stackwise branding, hero heading, and Try Demo button",
-      "preconditions": ["Navigate to /"],
+      "preconditions": [
+        "Navigate to /"
+      ],
       "steps": [
         "Step 1: Navigate to /",
         "Step 2: Wait for page to load"
@@ -37,7 +39,9 @@
       "feature": "Demo Mode Entry",
       "title": "Try Demo button enters demo mode and navigates to dashboard",
       "description": "Clicking Try Demo should activate demo mode and redirect to /app/dashboard",
-      "preconditions": ["Navigate to /"],
+      "preconditions": [
+        "Navigate to /"
+      ],
       "steps": [
         "Step 1: Navigate to /",
         "Step 2: Click the 'Try Demo' button in the hero section",
@@ -59,7 +63,9 @@
       "feature": "Demo Banner",
       "title": "Demo banner shows with role switcher",
       "description": "In demo mode, the banner should display with Admin/Manager/Requestor role buttons",
-      "preconditions": ["Enter demo mode via Try Demo"],
+      "preconditions": [
+        "Enter demo mode via Try Demo"
+      ],
       "steps": [
         "Step 1: Enter demo mode",
         "Step 2: Check for demo banner text",
@@ -81,7 +87,9 @@
       "feature": "Role Switching",
       "title": "Switching to Requestor role hides admin-only nav items",
       "description": "When role is changed to Requestor, Settings and Analytics should not be accessible",
-      "preconditions": ["Enter demo mode, on dashboard"],
+      "preconditions": [
+        "Enter demo mode, on dashboard"
+      ],
       "steps": [
         "Step 1: Enter demo mode",
         "Step 2: Click 'Requestor' in the demo banner role switcher",
@@ -103,7 +111,9 @@
       "feature": "Dashboard",
       "title": "Dashboard shows metric cards with seed data",
       "description": "Dashboard should display 4 metric cards: Total SKUs, In Stock, Low Stock, Out of Stock",
-      "preconditions": ["Enter demo mode"],
+      "preconditions": [
+        "Enter demo mode"
+      ],
       "steps": [
         "Step 1: Enter demo mode and navigate to dashboard",
         "Step 2: Dismiss onboarding tour if present",
@@ -125,7 +135,9 @@
       "feature": "Dashboard",
       "title": "Onboarding tour auto-starts on first demo visit",
       "description": "The onboarding tour overlay should appear automatically when entering demo for the first time",
-      "preconditions": ["Fresh demo mode entry"],
+      "preconditions": [
+        "Fresh demo mode entry"
+      ],
       "steps": [
         "Step 1: Click Try Demo from landing page",
         "Step 2: Wait for dashboard to load",
@@ -147,7 +159,9 @@
       "feature": "Navigation",
       "title": "Sidebar navigation to Catalog page",
       "description": "Clicking Catalog in sidebar navigates to /app/catalog",
-      "preconditions": ["In demo mode on dashboard"],
+      "preconditions": [
+        "In demo mode on dashboard"
+      ],
       "steps": [
         "Step 1: Enter demo mode",
         "Step 2: Click 'Catalog' link in the sidebar",
@@ -169,7 +183,9 @@
       "feature": "Catalog",
       "title": "Catalog table renders with seed items",
       "description": "The catalog page should show a table with seeded inventory items",
-      "preconditions": ["In demo mode, navigate to /app/catalog"],
+      "preconditions": [
+        "In demo mode, navigate to /app/catalog"
+      ],
       "steps": [
         "Step 1: Navigate to catalog page",
         "Step 2: Check for table rows"
@@ -190,7 +206,9 @@
       "feature": "Catalog",
       "title": "Search filters catalog items",
       "description": "Typing in the search box should filter the displayed catalog items",
-      "preconditions": ["In demo mode on catalog page"],
+      "preconditions": [
+        "In demo mode on catalog page"
+      ],
       "steps": [
         "Step 1: Navigate to catalog page",
         "Step 2: Type a known item name into the search input",
@@ -212,7 +230,9 @@
       "feature": "Catalog",
       "title": "Create new item via form sheet",
       "description": "Admin should be able to create a new item using the New Item form",
-      "preconditions": ["In demo mode as Admin on catalog page"],
+      "preconditions": [
+        "In demo mode as Admin on catalog page"
+      ],
       "steps": [
         "Step 1: Click 'New Item' button",
         "Step 2: Fill in Name and SKU fields",
@@ -235,7 +255,9 @@
       "feature": "Catalog",
       "title": "Item detail sheet opens on row click",
       "description": "Clicking a catalog row should open the detail sheet for that item",
-      "preconditions": ["In demo mode on catalog page with items"],
+      "preconditions": [
+        "In demo mode on catalog page with items"
+      ],
       "steps": [
         "Step 1: Click on a table row",
         "Step 2: Wait for detail sheet to appear"
@@ -256,7 +278,9 @@
       "feature": "Catalog",
       "title": "Bulk select items via header checkbox",
       "description": "Clicking the header checkbox should select all visible items and show the bulk action bar",
-      "preconditions": ["In demo mode as Admin on catalog page"],
+      "preconditions": [
+        "In demo mode as Admin on catalog page"
+      ],
       "steps": [
         "Step 1: Click the header checkbox in the catalog table",
         "Step 2: Check for bulk action bar"
@@ -277,7 +301,9 @@
       "feature": "Catalog",
       "title": "Requestor cannot see New Item button",
       "description": "When role is Requestor, the New Item button should be hidden",
-      "preconditions": ["In demo mode, switch role to Requestor, on catalog page"],
+      "preconditions": [
+        "In demo mode, switch role to Requestor, on catalog page"
+      ],
       "steps": [
         "Step 1: Switch role to Requestor via banner",
         "Step 2: Navigate to catalog page",
@@ -299,7 +325,9 @@
       "feature": "Movements",
       "title": "Movements page renders with seed data",
       "description": "The movements page should display a table of stock movements",
-      "preconditions": ["In demo mode"],
+      "preconditions": [
+        "In demo mode"
+      ],
       "steps": [
         "Step 1: Navigate to /app/movements via sidebar",
         "Step 2: Check for heading and movement data"
@@ -320,7 +348,9 @@
       "feature": "Movements",
       "title": "Log Movement form opens and submits",
       "description": "Admin should be able to log a new stock movement",
-      "preconditions": ["In demo mode as Admin on movements page"],
+      "preconditions": [
+        "In demo mode as Admin on movements page"
+      ],
       "steps": [
         "Step 1: Click 'Log Movement' button",
         "Step 2: Select an item and movement type",
@@ -343,7 +373,9 @@
       "feature": "Suppliers",
       "title": "Suppliers page renders with seed suppliers",
       "description": "The suppliers page should list seeded suppliers",
-      "preconditions": ["In demo mode"],
+      "preconditions": [
+        "In demo mode"
+      ],
       "steps": [
         "Step 1: Navigate to /app/suppliers via sidebar",
         "Step 2: Check for heading and supplier data"
@@ -364,7 +396,9 @@
       "feature": "Suppliers",
       "title": "Supplier detail sheet opens on row click",
       "description": "Clicking a supplier row opens the detail sheet",
-      "preconditions": ["In demo mode on suppliers page"],
+      "preconditions": [
+        "In demo mode on suppliers page"
+      ],
       "steps": [
         "Step 1: Click on a supplier row",
         "Step 2: Check for detail sheet"
@@ -385,7 +419,9 @@
       "feature": "Purchase Orders",
       "title": "Purchase Orders page renders",
       "description": "The PO page should display with heading and any existing orders",
-      "preconditions": ["In demo mode"],
+      "preconditions": [
+        "In demo mode"
+      ],
       "steps": [
         "Step 1: Navigate to /app/purchase-orders",
         "Step 2: Check for heading"
@@ -406,7 +442,9 @@
       "feature": "Purchase Orders",
       "title": "Create new purchase order",
       "description": "Admin should be able to create a new PO with line items",
-      "preconditions": ["In demo mode as Admin on PO page"],
+      "preconditions": [
+        "In demo mode as Admin on PO page"
+      ],
       "steps": [
         "Step 1: Click 'New PO' button",
         "Step 2: Select a supplier",
@@ -429,7 +467,9 @@
       "feature": "Requests",
       "title": "Requests page renders with tabs for admin",
       "description": "As admin, requests page should show All Requests and Pending Approval tabs",
-      "preconditions": ["In demo mode as Admin"],
+      "preconditions": [
+        "In demo mode as Admin"
+      ],
       "steps": [
         "Step 1: Navigate to /app/requests",
         "Step 2: Check for tabs"
@@ -450,7 +490,9 @@
       "feature": "Requests",
       "title": "Create new inventory request",
       "description": "Any user should be able to create a new inventory request",
-      "preconditions": ["In demo mode on requests page"],
+      "preconditions": [
+        "In demo mode on requests page"
+      ],
       "steps": [
         "Step 1: Click 'New Request' button",
         "Step 2: Fill in required fields",
@@ -472,15 +514,17 @@
       "feature": "Locations",
       "title": "Locations page renders with tree view",
       "description": "The locations page should show location tree and details panel",
-      "preconditions": ["In demo mode"],
+      "preconditions": [
+        "In demo mode"
+      ],
       "steps": [
         "Step 1: Navigate to /app/locations",
         "Step 2: Check for heading and tree"
       ],
       "expected_result": "Page shows 'Locations' heading with location tree",
       "pass_criteria": "h1 'Locations' is visible AND at least one location name is shown",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
@@ -493,7 +537,9 @@
       "feature": "Analytics",
       "title": "Analytics page renders stock overview",
       "description": "As admin, analytics page should show Stock Overview tab with charts",
-      "preconditions": ["In demo mode as Admin"],
+      "preconditions": [
+        "In demo mode as Admin"
+      ],
       "steps": [
         "Step 1: Navigate to /app/analytics",
         "Step 2: Check for heading and stock overview tab"
@@ -514,7 +560,9 @@
       "feature": "AI Insights",
       "title": "AI Insights page renders with reorder suggestions",
       "description": "AI Insights page should show forecast summary and suggestion cards",
-      "preconditions": ["In demo mode as Admin"],
+      "preconditions": [
+        "In demo mode as Admin"
+      ],
       "steps": [
         "Step 1: Navigate to /app/ai-insights",
         "Step 2: Check for heading and content"
@@ -535,7 +583,9 @@
       "feature": "Settings",
       "title": "Settings page renders with tabs for admin",
       "description": "Admin should see settings page with Categories, Custom Fields, Users etc. tabs",
-      "preconditions": ["In demo mode as Admin"],
+      "preconditions": [
+        "In demo mode as Admin"
+      ],
       "steps": [
         "Step 1: Navigate to /app/settings",
         "Step 2: Check for heading and tabs"
@@ -556,7 +606,9 @@
       "feature": "Settings",
       "title": "Requestor is denied access to settings",
       "description": "Switching to Requestor and navigating to settings should redirect to dashboard",
-      "preconditions": ["In demo mode"],
+      "preconditions": [
+        "In demo mode"
+      ],
       "steps": [
         "Step 1: Switch role to Requestor",
         "Step 2: Attempt to navigate to /app/settings",
@@ -578,7 +630,9 @@
       "feature": "Help",
       "title": "Help page renders with FAQ accordion",
       "description": "The help page should show searchable FAQ",
-      "preconditions": ["In demo mode"],
+      "preconditions": [
+        "In demo mode"
+      ],
       "steps": [
         "Step 1: Navigate to /app/help",
         "Step 2: Check for heading and FAQ content"
@@ -599,7 +653,9 @@
       "feature": "Help",
       "title": "Help search filters FAQ items",
       "description": "Typing in the help search should filter FAQ questions",
-      "preconditions": ["In demo mode on help page"],
+      "preconditions": [
+        "In demo mode on help page"
+      ],
       "steps": [
         "Step 1: Type a search term in the help search input",
         "Step 2: Verify results are filtered"
@@ -620,7 +676,9 @@
       "feature": "Command Palette",
       "title": "CMD+K opens command palette",
       "description": "Pressing Ctrl+K or CMD+K should open the command palette dialog",
-      "preconditions": ["In demo mode on any page"],
+      "preconditions": [
+        "In demo mode on any page"
+      ],
       "steps": [
         "Step 1: Press Ctrl+K (or Meta+K)",
         "Step 2: Check for command palette dialog"
@@ -641,7 +699,9 @@
       "feature": "Demo Banner",
       "title": "Demo banner dismiss button hides banner",
       "description": "Clicking X on demo banner should hide it for the session",
-      "preconditions": ["In demo mode with banner visible"],
+      "preconditions": [
+        "In demo mode with banner visible"
+      ],
       "steps": [
         "Step 1: Click the dismiss (X) button on the demo banner",
         "Step 2: Check banner visibility"
@@ -662,7 +722,9 @@
       "feature": "Demo Guard",
       "title": "Direct /app navigation without demo redirects to landing",
       "description": "Navigating to /app/* without being in demo mode should redirect to /",
-      "preconditions": ["Not in demo mode"],
+      "preconditions": [
+        "Not in demo mode"
+      ],
       "steps": [
         "Step 1: Navigate directly to /app/dashboard without entering demo",
         "Step 2: Check URL"
@@ -683,7 +745,9 @@
       "feature": "Role Switching",
       "title": "Switching to Manager role shows appropriate permissions",
       "description": "Manager should see most features except Settings",
-      "preconditions": ["In demo mode"],
+      "preconditions": [
+        "In demo mode"
+      ],
       "steps": [
         "Step 1: Click 'Manager' in demo banner",
         "Step 2: Navigate to catalog page",
@@ -706,7 +770,9 @@
       "feature": "Landing Page",
       "title": "Feature tabs switch content on landing page",
       "description": "Clicking Dashboard/Catalog/Analytics tabs in the Product Tour section should change the displayed image",
-      "preconditions": ["On landing page"],
+      "preconditions": [
+        "On landing page"
+      ],
       "steps": [
         "Step 1: Scroll to the Product Tour section",
         "Step 2: Click on 'Catalog' tab",
@@ -728,7 +794,9 @@
       "feature": "Catalog",
       "title": "Column sorting cycles through asc/desc/unsorted",
       "description": "Clicking a sortable column header should cycle sort direction",
-      "preconditions": ["In demo mode on catalog page with items"],
+      "preconditions": [
+        "In demo mode on catalog page with items"
+      ],
       "steps": [
         "Step 1: Click the 'Name' column header",
         "Step 2: Observe sort direction indicator",
@@ -751,7 +819,9 @@
       "feature": "Exit Demo",
       "title": "Exit demo returns to landing page",
       "description": "Using the exit demo option should return user to the landing page",
-      "preconditions": ["In demo mode"],
+      "preconditions": [
+        "In demo mode"
+      ],
       "steps": [
         "Step 1: Open user dropdown menu in header",
         "Step 2: Click 'Exit Demo' option",
