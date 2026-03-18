@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-16 — CSV Import/Export & Barcode
-- Status: 5 of 8 stories passed
+- Status: 6 of 8 stories passed
 
 ## Last Completed
 
-- US-16-005 — CSV import execute and confirm — e2e passed
+- US-16-006 — Barcode display on item detail — console-check passed
 
 ## Known Issues
 

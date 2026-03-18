@@ -131,7 +131,6 @@ export function ItemDetailSheet({
             {/* Detail grid */}
             <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               <DetailRow label="SKU" value={item.sku} mono />
-              <DetailRow label="Barcode" value={item.sku} mono />
               <DetailRow label="Category" value={category?.name} />
               <DetailRow label="Tags" value="—" />
               <DetailRow label="Unit of Measure" value={item.unit} />
@@ -148,10 +147,11 @@ export function ItemDetailSheet({
 
             {/* Barcode */}
             <BarcodeDisplay
-              barcode={item.sku}
+              barcode={item.barcode}
               itemName={item.name}
               sku={item.sku}
               location={location?.name}
+              onBarcodeChange={(value) => updateItem.mutate({ id: item.id, updates: { barcode: value } })}
             />
           </TabsContent>
 

@@ -59,6 +59,7 @@ export interface CustomFieldDefinition {
 export interface Item {
   id: string;
   sku: string;
+  barcode: string | null;
   name: string;
   description: string;
   categoryId: string | null;
