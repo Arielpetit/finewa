@@ -46,14 +46,11 @@ export interface CSVImportSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   fields: ImportField[];
-  /** Called with validated rows (valid only or all based on user choice) */
-  onImport: (rows: Record<string, string>[]) => void;
+  /** Called with all valid rows to import. Returns { created, failed } counts. */
+  onImport: (rows: Record<string, string>[]) => Promise<{ created: number; failed: number }>;
   entityName?: string;
-  /** Existing SKUs for uniqueness check */
   existingSkus?: string[];
-  /** Known category names for warning on new */
   knownCategories?: string[];
-  /** Known supplier names for warning on new */
   knownSuppliers?: string[];
 }
 
