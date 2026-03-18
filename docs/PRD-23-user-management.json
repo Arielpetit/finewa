@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": ["US-22-001", "US-05-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "User table with 5 seed users, search, role badges, mobile card layout."
     },
     {
       "id": "US-23-002",
@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-23-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Invite dialog with email validation, role selection, duplicate check, pending status."
     },
     {
       "id": "US-23-003",
@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": ["US-23-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Role dropdown with confirmation dialog, disabled on self with tooltip."
     },
     {
       "id": "US-23-004",
@@ -91,8 +91,8 @@
       },
       "priority": 4,
       "dependencies": ["US-23-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Last admin protection on role dropdown and deactivation with tooltip messages."
     },
     {
       "id": "US-23-005",
@@ -113,8 +113,8 @@
       },
       "priority": 5,
       "dependencies": ["US-23-001", "US-23-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Deactivate/reactivate via dropdown menu, confirmation dialog, muted styling for inactive."
     }
   ]
 }
