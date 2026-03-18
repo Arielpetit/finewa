@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 29,
+    "passed": 30,
     "failed": 0,
     "blocked": 2,
-    "pending": 4,
+    "pending": 3,
     "bugs_fixed": 0
   },
   "tests": [
@@ -756,8 +756,8 @@
       ],
       "expected_result": "Manager can see catalog actions but not Settings",
       "pass_criteria": "Button 'New Item' is visible on catalog page AND 'Settings' link is not visible in sidebar",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
