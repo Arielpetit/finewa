@@ -5,8 +5,8 @@
   "stats": {
     "passed": 14,
     "failed": 0,
-    "blocked": 0,
-    "pending": 21,
+    "blocked": 1,
+    "pending": 20,
     "bugs_fixed": 0
   },
   "tests": [
@@ -329,13 +329,13 @@
       ],
       "expected_result": "Movement is logged and success toast appears",
       "pass_criteria": "A toast with success message is visible after form submission",
-      "status": "pending",
+      "status": "blocked",
       "passed": false,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
-      "failure_reason": "",
+      "failure_reason": "Sidebar navigation groups are collapsed and expanding them is unreliable in Playwright. Command palette navigation also times out. Cannot reliably reach movements page to test the form.",
       "fix_description": "",
-      "blocked_reason": ""
+      "blocked_reason": "Sidebar collapsible groups prevent reliable navigation to movements page. Previous test (TEST-014) passed but current session cannot reproduce sidebar link visibility. Likely a state/cookie issue between test runs."
     },
     {
       "id": "TEST-016",

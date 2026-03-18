@@ -36,7 +36,10 @@ This file is read before every test run and updated after. It accumulates practi
 - The sidebar has collapsible group buttons labeled "Admin", "Operations", etc. — when targeting banner role buttons, use `.first()` or scope to avoid strict mode violations with duplicate button names.
 - "Low Stock", "In Stock", "Out of Stock" text appears both in metric cards and as StatusBadge labels throughout the page. Scope to `[data-tour="metrics"]` when checking dashboard metric cards.
 
-- There are 3 "Try Demo" buttons on the landing page (nav bar + 2 in sections). Use `.nth(1)` to click the hero section one, as `.first()` may target the hidden nav button on smaller viewports.
+- There are 3 "Try Demo" buttons on the landing page (nav bar + 2 in sections). Use `.nth(1)` to click the hero section one, as `.first()` may target the hidden nav button on smaller viewports. Alternatively scope via `page.locator('section').filter({ hasText: 'AI-Powered Inventory' }).getByRole('button', { name: /try demo/i })`.
+- Sidebar navigation groups (Operations, Procurement, Intelligence, Admin) are collapsible. Links like "Movements", "Suppliers" are hidden until the group is expanded. Clicking the group button text may conflict with demo banner buttons of the same name. In some test sessions, sidebar links are visible by default; in others they are collapsed. This is session-dependent.
+- When sidebar links are not accessible, try using command palette (Ctrl+K) to navigate, but note that clicking command palette results can also time out.
+- Always set `page.setViewportSize({ width: 1280, height: 800 })` to ensure desktop sidebar is visible.
 
 ## Fix Patterns
 
