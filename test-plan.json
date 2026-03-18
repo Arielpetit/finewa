@@ -335,7 +335,7 @@
       "max_fix_attempts": 3,
       "failure_reason": "Sidebar navigation groups are collapsed and expanding them is unreliable in Playwright. Command palette navigation also times out. Cannot reliably reach movements page to test the form.",
       "fix_description": "",
-      "blocked_reason": ""
+      "blocked_reason": "Sidebar collapsible groups prevent reliable navigation to movements page. Previous test (TEST-014) passed but current session cannot reproduce sidebar link visibility. Likely a state/cookie issue between test runs."
     },
     {
       "id": "TEST-016",
