@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": ["US-05-003", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Tabbed settings page with admin-only route guard, 5 tabs, ErrorBoundary per tab."
     },
     {
       "id": "US-22-002",
@@ -48,8 +48,8 @@
       },
       "priority": 2,
       "dependencies": ["US-22-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "CategoryManager with add/rename/delete, item count badges, duplicate name validation, confirmation dialogs."
     },
     {
       "id": "US-22-003",
@@ -71,8 +71,8 @@
       },
       "priority": 3,
       "dependencies": ["US-22-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "CustomFieldManager with add/delete/reorder, type selection, select options, max 20 limit."
     },
     {
       "id": "US-22-004",
@@ -96,8 +96,8 @@
       },
       "priority": 4,
       "dependencies": ["US-22-001", "US-14-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "LocationSettings with tree view, add child, inline edit, delete safety checks."
     },
     {
       "id": "US-22-005",
@@ -118,8 +118,8 @@
       },
       "priority": 5,
       "dependencies": ["US-22-001", "US-02-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ReorderDefaults form with 4 numeric fields, save/reset, validation, session persistence."
     },
     {
       "id": "US-22-006",
@@ -141,8 +141,8 @@
       },
       "priority": 6,
       "dependencies": ["US-22-001", "US-02-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "SystemSettings with demo data summary, reset button with confirmation, version info."
     },
     {
       "id": "US-22-007",
@@ -162,8 +162,8 @@
       },
       "priority": 2,
       "dependencies": ["US-05-002", "US-01-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Settings in Admin nav group with canAccessSettings permission, Cog icon, active state."
     },
     {
       "id": "US-22-008",
@@ -184,8 +184,8 @@
       },
       "priority": 7,
       "dependencies": ["US-22-002", "US-22-003", "US-22-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ErrorBoundary per tab, duplicate category validation, empty name rejection, name truncation at 50 chars, confirmation dialogs on all deletes."
     }
   ]
 }
