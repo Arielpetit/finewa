@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 21,
+    "passed": 22,
     "failed": 0,
     "blocked": 2,
-    "pending": 12,
+    "pending": 11,
     "bugs_fixed": 0
   },
   "tests": [
@@ -569,8 +569,8 @@
       ],
       "expected_result": "Page shows 'AI Insights' heading with Beta badge",
       "pass_criteria": "Text 'AI Insights' is visible AND text 'Beta' is visible",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
