@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 1,
+    "passed": 2,
     "failed": 0,
     "blocked": 0,
-    "pending": 34,
+    "pending": 33,
     "bugs_fixed": 0
   },
   "tests": [
@@ -45,8 +45,8 @@
       ],
       "expected_result": "User is redirected to /app/dashboard with demo banner visible",
       "pass_criteria": "URL contains '/app/dashboard' AND text 'Dashboard' is visible as an h1",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
