@@ -108,7 +108,7 @@
       "description": "Use the search bar and category filter to narrow down items",
       "steps": ["Navigate to /app/catalog", "Type a search term in the search input", "Verify table filters to matching items", "Select a category filter", "Verify further filtering"],
       "expectedResult": "Table shows only items matching the search and filter criteria",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "CAT-06",
