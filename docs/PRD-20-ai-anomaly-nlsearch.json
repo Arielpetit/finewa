@@ -115,8 +115,8 @@
       },
       "priority": 5,
       "dependencies": ["US-20-004", "US-17-001", "US-17-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "NL search in command palette — detects NL queries (>3 words or NL keywords), shows filter tags, applies status/category/supplier filters, max 10 results."
     },
     {
       "id": "US-20-006",
