@@ -127,6 +127,7 @@ export function Header() {
       </Sheet>
 
       <QuickEntryMode open={quickEntryOpen} onOpenChange={setQuickEntryOpen} />
+      <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
     </header>
   );
 }
