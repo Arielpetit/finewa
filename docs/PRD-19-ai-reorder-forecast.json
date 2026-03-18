@@ -69,8 +69,8 @@
       },
       "priority": 3,
       "dependencies": ["US-19-002", "US-06-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "DashboardReorderSection with top 5 suggestions, count badge, View All link to /app/ai-insights. Filters items where reorder delta >15% or stockout <30d."
     },
     {
       "id": "US-19-004",
