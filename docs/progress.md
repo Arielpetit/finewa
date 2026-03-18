@@ -2,18 +2,18 @@
 
 ## Current State
 
-- Phase: PRD-21 — Empty & Error States
+- Phase: PRD-22 — Admin Settings
 - Status: Starting
 
 ## Last Completed
 
-- PRD-20 — AI Anomaly Detection & NL Search (6/7, US-20-007 deferred)
+- PRD-21 — Empty States, Error States & Edge Cases (6/6 passed)
 
 ## Known Issues
 
-- US-20-007: AI NL search server function deferred — requires OPENAI_API_KEY
+(none)
 
 ## Learnings
 
-- Nested Radix sheets/dialogs cause issues — close parent first with setTimeout
-- E2e tests with demo mode need >16s warmup, exceeds 30s timeout easily
+- Use ?? with inline italic span for deleted reference fallbacks
+- ErrorBoundary class component wraps sections independently

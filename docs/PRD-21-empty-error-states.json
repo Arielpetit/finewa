@@ -134,8 +134,8 @@
       },
       "priority": 6,
       "dependencies": ["US-07-001", "US-09-001", "US-10-001", "US-11-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Deleted supplier shows 'Unknown Supplier' italic. Deleted item in PO shows 'Deleted Item' strikethrough. Movements show '[Item Deleted]'. Catalog shows 'Unknown Category/Location/Supplier'."
     }
   ]
 }
