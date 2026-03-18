@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-15 — Database Schema & RLS Policies
-- Status: 7 of 12 stories passed
+- Status: 8 of 12 stories passed
 
 ## Last Completed
 
-- US-15-007 — Create purchase_orders and line items tables migration — database review passed
+- US-15-008 — Create inventory_requests and request_items — database review passed
 
 ## Known Issues
 
