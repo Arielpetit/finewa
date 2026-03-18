@@ -31,7 +31,7 @@ export function POSummaryStats({ purchaseOrders }: POSummaryStatsProps) {
       {pills.map((p) => (
         <div
           key={p.label}
-          className="rounded-md border border-border bg-muted/50 px-3 py-2 text-center"
+          className="rounded-xl border border-border/50 bg-muted/50 px-3 py-2 text-center"
         >
           <p className="text-xs text-muted-foreground">{p.label}</p>
           <p className="font-mono text-lg font-semibold text-foreground">{p.value}</p>
