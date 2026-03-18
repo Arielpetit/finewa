@@ -1,7 +1,7 @@
 {
-  "currentPrd": "PRD-17",
-  "currentPrdFile": "docs/PRD-17-command-palette.json",
+  "currentPrd": "PRD-18",
+  "currentPrdFile": "docs/PRD-18-notifications.json",
   "totalPrds": 28,
-  "completedPrds": ["PRD-01", "PRD-02", "PRD-03", "PRD-04", "PRD-05", "PRD-06", "PRD-07", "PRD-08", "PRD-09", "PRD-10", "PRD-11", "PRD-12", "PRD-13", "PRD-14", "PRD-15", "PRD-16"],
+  "completedPrds": ["PRD-01", "PRD-02", "PRD-03", "PRD-04", "PRD-05", "PRD-06", "PRD-07", "PRD-08", "PRD-09", "PRD-10", "PRD-11", "PRD-12", "PRD-13", "PRD-14", "PRD-15", "PRD-16", "PRD-17"],
   "status": "in-progress"
 }
