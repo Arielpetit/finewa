@@ -560,11 +560,45 @@ export function CSVImportSheet({
               )}
             </>
           )}
+
+          {/* ── Step 4: Execution ── */}
+          {step === 4 && (
+            <div className="flex flex-col items-center gap-6 py-8">
+              {isImporting ? (
+                <>
+                  <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                  <div className="w-full max-w-xs">
+                    <div className="mb-2 flex justify-between text-sm text-muted-foreground">
+                      <span>Importing…</span>
+                      <span>{importProgress}%</span>
+                    </div>
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-muted">
+                      <div
+                        className="h-full rounded-full bg-primary transition-all duration-200"
+                        style={{ width: `${importProgress}%` }}
+                      />
+                    </div>
+                  </div>
+                </>
+              ) : importResult ? (
+                <>
+                  <CheckCircle2 className="h-12 w-12 text-emerald-500" />
+                  <div className="text-center space-y-1">
+                    <p className="text-lg font-semibold text-foreground">Import Complete</p>
+                    <p className="text-sm text-muted-foreground">
+                      {importResult.created} {entityName} created
+                      {importResult.failed > 0 && `, ${importResult.failed} failed`}
+                    </p>
+                  </div>
+                </>
+              ) : null}
+            </div>
+          )}
         </div>
 
         {/* ── Footer ── */}
         <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
-          {step > 1 ? (
+          {step > 1 && step < 4 ? (
             <Button variant="ghost" size="sm" onClick={() => setStep((s) => s - 1)}>
               <ChevronLeft className="mr-1 h-4 w-4" /> Back
             </Button>
@@ -592,9 +626,7 @@ export function CSVImportSheet({
                     const validRows = validatedRows
                       .filter((r) => r.errors.length === 0)
                       .map((r) => r.data);
-                    onImport(validRows);
-                    reset();
-                    onOpenChange(false);
+                    startImport(validRows);
                   }}
                 >
                   Import {validCount} Valid Rows
@@ -607,9 +639,7 @@ export function CSVImportSheet({
                     const validRows = validatedRows
                       .filter((r) => r.errors.length === 0)
                       .map((r) => r.data);
-                    onImport(validRows);
-                    reset();
-                    onOpenChange(false);
+                    startImport(validRows);
                   }}
                 >
                   Import {validCount} Rows
@@ -621,6 +651,18 @@ export function CSVImportSheet({
                 </Button>
               )}
             </div>
+          )}
+
+          {step === 4 && !isImporting && (
+            <Button
+              size="sm"
+              onClick={() => {
+                reset();
+                onOpenChange(false);
+              }}
+            >
+              Done
+            </Button>
           )}
         </div>
       </SheetContent>
