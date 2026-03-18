@@ -76,7 +76,7 @@ function AiInsightsPage() {
     return result;
   }, [allAnalyses, urgency, confidence, sortBy]);
 
-  if (!isAdmin && !isManager) {
+  if (!can("view_analytics")) {
     return (
       <div className="flex items-center justify-center py-20">
         <p className="text-muted-foreground">You don't have permission to view this page.</p>
