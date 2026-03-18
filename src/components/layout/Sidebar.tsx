@@ -11,6 +11,7 @@ import {
   Sparkles,
   Settings,
   ChevronRight,
+  HelpCircle,
 } from "lucide-react";
 import { Link, useLocation } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
