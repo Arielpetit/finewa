@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-24-001", "US-06-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "4 metric cards: Total Value (currency), Total SKUs, Avg Stock, Below Reorder."
     },
     {
       "id": "US-24-003",
