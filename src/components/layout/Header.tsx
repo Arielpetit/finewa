@@ -111,6 +111,8 @@ export function Header() {
           <Sidebar onNavigate={() => setMobileOpen(false)} />
         </SheetContent>
       </Sheet>
+
+      <QuickEntryMode open={quickEntryOpen} onOpenChange={setQuickEntryOpen} />
     </header>
   );
 }
