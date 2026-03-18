@@ -23,7 +23,6 @@ import { QuickEntryMode } from "@/components/data/QuickEntryMode";
 import { CommandPalette } from "@/components/command/CommandPalette";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { useDemo } from "@/hooks/useDemo";
-import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { PermissionGate } from "@/hooks/usePermissions";
 
@@ -45,20 +44,15 @@ export function Header() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [prefsOpen, setPrefsOpen] = useState(false);
-  const { isDemo, exitDemoMode } = useDemo();
-  const { user, signOut } = useAuth();
+  const { exitDemoMode } = useDemo();
   const { role } = useRole();
   const navigate = useNavigate();
 
-  const displayName = isDemo ? "Demo Admin" : user?.email ?? "User";
+  const displayName = "Demo Admin";
 
   const handleExit = async () => {
     await navigate({ to: "/" });
-    if (isDemo) {
-      exitDemoMode();
-    } else {
-      await signOut();
-    }
+    exitDemoMode();
   };
 
   // CMD+K / Ctrl+K shortcut
@@ -121,7 +115,7 @@ export function Header() {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={handleExit}>
             <LogOut className="mr-2 h-4 w-4" />
-            {isDemo ? "Exit Demo" : "Sign Out"}
+            Exit Demo
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

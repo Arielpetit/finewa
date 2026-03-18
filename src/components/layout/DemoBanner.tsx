@@ -42,13 +42,7 @@ export function DemoBanner() {
         ))}
       </div>
 
-      <div className="flex shrink-0 items-center gap-2">
-        <a
-          href="/"
-          className="rounded-md border border-foreground/20 bg-background/80 px-3 py-0.5 text-xs font-semibold transition-colors hover:bg-background"
-        >
-          Create Account
-        </a>
+      <div className="flex shrink-0 items-center gap-1">
         <button
           type="button"
           onClick={() => setDismissed(true)}
