@@ -257,8 +257,8 @@
       },
       "priority": 12,
       "dependencies": ["US-15-001", "US-15-002", "US-15-003", "US-15-004", "US-15-005", "US-15-006", "US-15-007", "US-15-008", "US-15-009", "US-15-010", "US-15-011"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "docs/database-schema.md created with all 13 tables, columns, types, constraints, relationships, indexes, RLS summaries, and ER overview. Under 200 lines."
     }
   ]
 }
