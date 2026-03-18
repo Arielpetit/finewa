@@ -161,8 +161,8 @@
       },
       "priority": 6,
       "dependencies": ["US-24-002", "US-24-003", "US-24-005"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Filter bar with category/supplier/location dropdowns, active count badge, clear all."
     },
     {
       "id": "US-24-008",
