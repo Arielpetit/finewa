@@ -1,5 +1,5 @@
 import { useState, useCallback, useMemo, useRef, type DragEvent } from "react";
-import { Upload, FileSpreadsheet, AlertCircle, ChevronRight, ChevronLeft } from "lucide-react";
+import { Upload, FileSpreadsheet, AlertCircle, ChevronRight, ChevronLeft, CheckCircle2, XCircle, AlertTriangle } from "lucide-react";
 import {
   Sheet,
   SheetContent,
@@ -17,6 +17,14 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 // ─── Types ───────────────────────────────────────────────
 
@@ -24,15 +32,29 @@ export interface ImportField {
   key: string;
   label: string;
   required?: boolean;
+  /** If true, value must be a valid number */
+  numeric?: boolean;
+}
+
+export interface ValidatedRow {
+  data: Record<string, string>;
+  errors: string[];
+  warnings: string[];
 }
 
 export interface CSVImportSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   fields: ImportField[];
-  /** Called with parsed & mapped rows when user confirms import */
+  /** Called with validated rows (valid only or all based on user choice) */
   onImport: (rows: Record<string, string>[]) => void;
   entityName?: string;
+  /** Existing SKUs for uniqueness check */
+  existingSkus?: string[];
+  /** Known category names for warning on new */
+  knownCategories?: string[];
+  /** Known supplier names for warning on new */
+  knownSuppliers?: string[];
 }
 
 interface ParsedCSV {
@@ -90,7 +112,6 @@ function parseCSV(text: string): ParsedCSV {
 
   if (lines.length === 0) return { headers: [], rows: [] };
 
-  // Strip BOM
   let headerLine = lines[0];
   if (headerLine.charCodeAt(0) === 0xfeff) headerLine = headerLine.slice(1);
 
@@ -113,6 +134,63 @@ function autoMap(csvHeaders: string[], fields: ImportField[]): Record<string, st
     if (match) mapping[field.key] = match;
   }
   return mapping;
+}
+
+// ─── Validation ──────────────────────────────────────────
+
+function validateRows(
+  mappedRows: Record<string, string>[],
+  fields: ImportField[],
+  existingSkus: string[],
+  knownCategories: string[],
+  knownSuppliers: string[],
+): ValidatedRow[] {
+  const seenSkus = new Set<string>(existingSkus.map((s) => s.toLowerCase()));
+  const fileSkus = new Set<string>();
+  const catSet = new Set(knownCategories.map((c) => c.toLowerCase()));
+  const supSet = new Set(knownSuppliers.map((s) => s.toLowerCase()));
+
+  return mappedRows.map((row) => {
+    const errors: string[] = [];
+    const warnings: string[] = [];
+
+    // Required fields
+    for (const f of fields) {
+      if (f.required && !row[f.key]?.trim()) {
+        errors.push(`Missing required field: ${f.label}`);
+      }
+    }
+
+    // Numeric validation
+    for (const f of fields) {
+      if (f.numeric && row[f.key]?.trim()) {
+        const v = Number(row[f.key]);
+        if (isNaN(v)) errors.push(`${f.label} must be a number`);
+      }
+    }
+
+    // SKU uniqueness
+    const sku = row.sku?.trim().toLowerCase();
+    if (sku) {
+      if (seenSkus.has(sku) || fileSkus.has(sku)) {
+        errors.push("Duplicate SKU");
+      } else {
+        fileSkus.add(sku);
+      }
+    }
+
+    // Category / supplier warnings
+    const cat = row.category?.trim();
+    if (cat && !catSet.has(cat.toLowerCase())) {
+      warnings.push(`New category: "${cat}"`);
+    }
+    const sup = row.supplier?.trim();
+    if (sup && !supSet.has(sup.toLowerCase())) {
+      warnings.push(`New supplier: "${sup}"`);
+    }
+
+    return { data: row, errors, warnings };
+  });
 }
 
 // ─── Step Indicator ──────────────────────────────────────
@@ -146,6 +224,9 @@ export function CSVImportSheet({
   fields,
   onImport,
   entityName = "items",
+  existingSkus = [],
+  knownCategories = [],
+  knownSuppliers = [],
 }: CSVImportSheetProps) {
   const [step, setStep] = useState(1);
   const [parsed, setParsed] = useState<ParsedCSV | null>(null);
@@ -155,7 +236,7 @@ export function CSVImportSheet({
   const [isDragOver, setIsDragOver] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const totalSteps = 2; // upload + mapping (validation & execute come in US-16-004/005)
+  const totalSteps = 3; // upload → mapping → validation/preview
 
   const reset = useCallback(() => {
     setStep(1);
@@ -235,6 +316,20 @@ export function CSVImportSheet({
     });
   }, [parsed, mapping, fields]);
 
+  // Validation (computed when on step 3)
+  const validatedRows = useMemo(() => {
+    if (step < 3) return [];
+    return validateRows(mappedRows, fields, existingSkus, knownCategories, knownSuppliers);
+  }, [step, mappedRows, fields, existingSkus, knownCategories, knownSuppliers]);
+
+  const validCount = useMemo(() => validatedRows.filter((r) => r.errors.length === 0).length, [validatedRows]);
+  const errorCount = useMemo(() => validatedRows.filter((r) => r.errors.length > 0).length, [validatedRows]);
+  const warningCount = useMemo(() => validatedRows.filter((r) => r.warnings.length > 0 && r.errors.length === 0).length, [validatedRows]);
+
+  // Preview columns: only mapped fields
+  const previewFields = useMemo(() => fields.filter((f) => mapping[f.key]), [fields, mapping]);
+  const previewRows = useMemo(() => validatedRows.slice(0, 20), [validatedRows]);
+
   return (
     <Sheet
       open={open}
@@ -252,6 +347,7 @@ export function CSVImportSheet({
           <SheetDescription>
             {step === 1 && "Upload a CSV file to import."}
             {step === 2 && "Map CSV columns to fields."}
+            {step === 3 && "Review validation results before importing."}
           </SheetDescription>
         </SheetHeader>
 
@@ -360,6 +456,86 @@ export function CSVImportSheet({
               )}
             </>
           )}
+
+          {/* ── Step 3: Validation & Preview ── */}
+          {step === 3 && (
+            <>
+              {/* Summary */}
+              <div className="flex flex-wrap gap-3">
+                <div className="flex items-center gap-1.5 rounded-md bg-emerald-500/10 px-3 py-1.5 text-sm font-medium text-emerald-700 dark:text-emerald-400">
+                  <CheckCircle2 className="h-4 w-4" />
+                  {validCount} valid
+                </div>
+                {errorCount > 0 && (
+                  <div className="flex items-center gap-1.5 rounded-md bg-destructive/10 px-3 py-1.5 text-sm font-medium text-destructive">
+                    <XCircle className="h-4 w-4" />
+                    {errorCount} errors
+                  </div>
+                )}
+                {warningCount > 0 && (
+                  <div className="flex items-center gap-1.5 rounded-md bg-amber-500/10 px-3 py-1.5 text-sm font-medium text-amber-700 dark:text-amber-400">
+                    <AlertTriangle className="h-4 w-4" />
+                    {warningCount} warnings
+                  </div>
+                )}
+              </div>
+
+              {/* Preview table */}
+              <ScrollArea className="max-h-[45vh]">
+                <div className="min-w-[500px]">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead className="w-8">#</TableHead>
+                        {previewFields.slice(0, 5).map((f) => (
+                          <TableHead key={f.key} className="text-xs">{f.label}</TableHead>
+                        ))}
+                        <TableHead className="text-xs">Status</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {previewRows.map((row, idx) => {
+                        const hasError = row.errors.length > 0;
+                        const hasWarning = row.warnings.length > 0;
+                        return (
+                          <TableRow
+                            key={idx}
+                            className={hasError ? "bg-destructive/5" : hasWarning ? "bg-amber-500/5" : ""}
+                          >
+                            <TableCell className="text-xs text-muted-foreground">{idx + 1}</TableCell>
+                            {previewFields.slice(0, 5).map((f) => (
+                              <TableCell key={f.key} className="text-xs max-w-[120px] truncate">
+                                {row.data[f.key] || "—"}
+                              </TableCell>
+                            ))}
+                            <TableCell className="text-xs">
+                              {hasError ? (
+                                <span className="text-destructive" title={row.errors.join("; ")}>
+                                  {row.errors[0]}
+                                </span>
+                              ) : hasWarning ? (
+                                <span className="text-amber-600 dark:text-amber-400" title={row.warnings.join("; ")}>
+                                  {row.warnings[0]}
+                                </span>
+                              ) : (
+                                <span className="text-emerald-600 dark:text-emerald-400">OK</span>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </div>
+              </ScrollArea>
+
+              {validatedRows.length > 20 && (
+                <p className="text-xs text-muted-foreground text-center">
+                  Showing first 20 of {validatedRows.length} rows
+                </p>
+              )}
+            </>
+          )}
         </div>
 
         {/* ── Footer ── */}
@@ -376,14 +552,51 @@ export function CSVImportSheet({
             <Button
               size="sm"
               disabled={unmappedRequired.length > 0}
-              onClick={() => {
-                onImport(mappedRows);
-                reset();
-                onOpenChange(false);
-              }}
+              onClick={() => setStep(3)}
             >
-              Import {parsed?.rows.length ?? 0} Rows
+              Validate
             </Button>
+          )}
+
+          {step === 3 && (
+            <div className="flex items-center gap-2">
+              {errorCount > 0 && validCount > 0 && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const validRows = validatedRows
+                      .filter((r) => r.errors.length === 0)
+                      .map((r) => r.data);
+                    onImport(validRows);
+                    reset();
+                    onOpenChange(false);
+                  }}
+                >
+                  Import {validCount} Valid Rows
+                </Button>
+              )}
+              {validCount > 0 && errorCount === 0 && (
+                <Button
+                  size="sm"
+                  onClick={() => {
+                    const validRows = validatedRows
+                      .filter((r) => r.errors.length === 0)
+                      .map((r) => r.data);
+                    onImport(validRows);
+                    reset();
+                    onOpenChange(false);
+                  }}
+                >
+                  Import {validCount} Rows
+                </Button>
+              )}
+              {validCount === 0 && (
+                <Button size="sm" disabled>
+                  No valid rows
+                </Button>
+              )}
+            </div>
           )}
         </div>
       </SheetContent>
