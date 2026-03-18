@@ -130,6 +130,7 @@ export function LocationFormSheet({ open, onOpenChange, editLocation }: Location
             toast.success("Location updated");
             onOpenChange(false);
           },
+          onError: (e) => toast.error(e.message || "Failed to update location."),
         },
       );
     } else {

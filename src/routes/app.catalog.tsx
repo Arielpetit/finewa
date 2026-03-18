@@ -169,10 +169,12 @@ function CatalogPage() {
     if (isAdmin) {
       deleteItem.mutate(deleteTarget.id, {
         onSuccess: () => { toast.success(`${deleteTarget.name} deleted`); setDeleteTarget(null); },
+        onError: (e) => toast.error(e.message || "Failed to delete item."),
       });
     } else {
       updateItem.mutate({ id: deleteTarget.id, updates: { status: ItemStatus.Archived } }, {
         onSuccess: () => { toast.success(`${deleteTarget.name} archived`); setDeleteTarget(null); },
+        onError: (e) => toast.error(e.message || "Failed to archive item."),
       });
     }
   }, [deleteTarget, isAdmin, deleteItem, updateItem]);

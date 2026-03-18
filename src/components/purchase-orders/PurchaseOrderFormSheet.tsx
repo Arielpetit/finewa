@@ -144,7 +144,10 @@ export function PurchaseOrderFormSheet({
             updatedAt: now,
           },
         },
-        { onSuccess: () => { toast.success(`${purchaseOrder.orderNumber} updated`); onOpenChange(false); } },
+        {
+          onSuccess: () => { toast.success(`${purchaseOrder.orderNumber} updated`); onOpenChange(false); },
+          onError: (e) => toast.error(e.message || "Failed to update purchase order."),
+        },
       );
     } else {
       const orderNumber = generatePONumber();
@@ -165,6 +168,7 @@ export function PurchaseOrderFormSheet({
       };
       createPO.mutate(newPO, {
         onSuccess: () => { toast.success(`${orderNumber} created`); onOpenChange(false); },
+        onError: (e) => toast.error(e.message || "Failed to create purchase order."),
       });
     }
   }
