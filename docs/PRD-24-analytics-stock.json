@@ -184,8 +184,8 @@
       },
       "priority": 7,
       "dependencies": ["US-24-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Client-side CSV export with stock and movement sections, date-stamped filename."
     }
   ]
 }
