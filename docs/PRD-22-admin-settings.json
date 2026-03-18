@@ -118,8 +118,8 @@
       },
       "priority": 5,
       "dependencies": ["US-22-001", "US-02-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ReorderDefaults form with 4 numeric fields, save/reset, validation, session persistence."
     },
     {
       "id": "US-22-006",
