@@ -33,6 +33,7 @@ This file is read before every test run and updated after. It accumulates practi
 ## Common Failure Patterns
 
 - The sidebar has collapsible group buttons labeled "Admin", "Operations", etc. — when targeting banner role buttons, use `.first()` or scope to avoid strict mode violations with duplicate button names.
+- "Low Stock", "In Stock", "Out of Stock" text appears both in metric cards and as StatusBadge labels throughout the page. Scope to `[data-tour="metrics"]` when checking dashboard metric cards.
 
 ## Fix Patterns
 
