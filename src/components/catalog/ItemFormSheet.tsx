@@ -171,7 +171,7 @@ export function ItemFormSheet({
                 <input type="number" {...register("currentStock")} className={inputCls} />
               </div>
               <div>
-                <label className={labelCls}>Reorder Point</label>
+                <label className={`${labelCls} flex items-center gap-1`}>Reorder Point <HelpTooltip text="Minimum quantity before a low-stock alert is triggered. Set based on your typical usage rate." /></label>
                 <input type="number" {...register("reorderPoint")} className={inputCls} />
               </div>
             </div>
