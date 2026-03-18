@@ -6,6 +6,7 @@ import { MovementsTable } from "@/components/movements/MovementsTable";
 import { MovementsFilters } from "@/components/movements/MovementsFilters";
 import { MovementStats } from "@/components/movements/MovementStats";
 import { MovementFormSheet } from "@/components/movements/MovementFormSheet";
+import { CSVExportButton, type CSVColumn } from "@/components/data/CSVExportButton";
 import { EMPTY_MOVEMENT_FILTERS } from "@/components/movements/movement-filter-types";
 import type { MovementFilters } from "@/components/movements/movement-filter-types";
 import { useMovements, useItems, useLocations } from "@/hooks/useInventoryData";
