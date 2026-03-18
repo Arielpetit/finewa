@@ -48,6 +48,71 @@ export class DemoStore {
     return this.data.categories;
   }
 
+  createCategory(category: Category): Category {
+    this.data.categories.push(category);
+    this.version++;
+    return category;
+  }
+
+  updateCategory(id: string, updates: Partial<Category>): Category | undefined {
+    const idx = this.data.categories.findIndex((c) => c.id === id);
+    if (idx === -1) return undefined;
+    this.data.categories[idx] = { ...this.data.categories[idx], ...updates };
+    this.version++;
+    return this.data.categories[idx];
+  }
+
+  deleteCategory(id: string): boolean {
+    const len = this.data.categories.length;
+    this.data.categories = this.data.categories.filter((c) => c.id !== id);
+    // Unlink items from deleted category
+    for (const item of this.data.items) {
+      if (item.categoryId === id) item.categoryId = null;
+    }
+    if (this.data.categories.length < len) { this.version++; return true; }
+    return false;
+  }
+
+  // ─── Settings (reorder defaults) ──────────────────────
+  private reorderDefaults = { reorderPoint: 10, leadTimeDays: 7, safetyMultiplier: 1.5, orderQuantity: 25 };
+
+  getReorderDefaults() {
+    return { ...this.reorderDefaults };
+  }
+
+  setReorderDefaults(defaults: typeof this.reorderDefaults): void {
+    this.reorderDefaults = { ...defaults };
+    this.version++;
+  }
+
+  // ─── Custom Field Definitions ─────────────────────────
+  private customFieldDefs: import("@/types/inventory").CustomFieldDefinition[] = [];
+
+  getCustomFieldDefs() {
+    return [...this.customFieldDefs];
+  }
+
+  addCustomFieldDef(def: import("@/types/inventory").CustomFieldDefinition): void {
+    this.customFieldDefs.push(def);
+    this.version++;
+  }
+
+  updateCustomFieldDef(id: string, updates: Partial<import("@/types/inventory").CustomFieldDefinition>): void {
+    const idx = this.customFieldDefs.findIndex((d) => d.id === id);
+    if (idx !== -1) { this.customFieldDefs[idx] = { ...this.customFieldDefs[idx], ...updates }; this.version++; }
+  }
+
+  deleteCustomFieldDef(id: string): void {
+    this.customFieldDefs = this.customFieldDefs.filter((d) => d.id !== id);
+    this.version++;
+  }
+
+  reorderCustomFieldDefs(ids: string[]): void {
+    const map = new Map(this.customFieldDefs.map((d) => [d.id, d]));
+    this.customFieldDefs = ids.map((id) => map.get(id)!).filter(Boolean);
+    this.version++;
+  }
+
   // ─── Items ─────────────────────────────────────────────
   getItems(filters?: ItemFilters): Item[] {
     let result = this.data.items;

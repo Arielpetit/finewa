@@ -122,3 +122,18 @@ export function useUpdateLocation() {
 export function useDeleteLocation() {
   return useDemoMutation<string>((store, id) => store.deleteLocation(id));
 }
+
+// ─── Category mutations ─────────────────────────────────
+export function useCreateCategory() {
+  return useDemoMutation<import("@/types/inventory").Category>((store, data) => store.createCategory(data));
+}
+
+export function useUpdateCategory() {
+  return useDemoMutation<{ id: string; updates: Partial<import("@/types/inventory").Category> }>((store, { id, updates }) =>
+    store.updateCategory(id, updates),
+  );
+}
+
+export function useDeleteCategory() {
+  return useDemoMutation<string>((store, id) => store.deleteCategory(id));
+}
