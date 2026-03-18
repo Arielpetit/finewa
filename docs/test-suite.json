@@ -45,7 +45,7 @@
       "description": "Dashboard displays items needing attention such as low stock or overdue POs",
       "steps": ["Navigate to /app/dashboard", "Locate the Needs Attention section", "Verify alert items are listed"],
       "expectedResult": "Needs Attention section is visible with actionable alert items",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "DASH-03",
