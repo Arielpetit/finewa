@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": ["US-23-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Role dropdown with confirmation dialog, disabled on self with tooltip."
     },
     {
       "id": "US-23-004",
