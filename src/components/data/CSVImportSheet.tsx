@@ -231,9 +231,12 @@ export function CSVImportSheet({
   const [fileName, setFileName] = useState<string>("");
   const [mapping, setMapping] = useState<Record<string, string>>({});
   const [isDragOver, setIsDragOver] = useState(false);
+  const [isImporting, setIsImporting] = useState(false);
+  const [importProgress, setImportProgress] = useState(0);
+  const [importResult, setImportResult] = useState<{ created: number; failed: number } | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const totalSteps = 3; // upload → mapping → validation/preview
+  const totalSteps = 4; // upload → mapping → validation → execute
 
   const reset = useCallback(() => {
     setStep(1);
@@ -242,6 +245,9 @@ export function CSVImportSheet({
     setFileName("");
     setMapping({});
     setIsDragOver(false);
+    setIsImporting(false);
+    setImportProgress(0);
+    setImportResult(null);
   }, []);
 
   const handleFile = useCallback(
