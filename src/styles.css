@@ -211,3 +211,13 @@
     margin: 1.5cm;
   }
 }
+
+/* Subtle pulse animation for critical anomaly cards */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}

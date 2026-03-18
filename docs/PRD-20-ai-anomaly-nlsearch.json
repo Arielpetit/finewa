@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": ["US-02-004"],
-      "isPassed": false,
-      "notes": "Seed data should include at least one anomalous movement for testing"
+      "isPassed": true,
+      "notes": "Created src/lib/anomaly-engine.ts with detectQuantitySpike (3× avg), detectFrequentAdjustments (>3 in 7d), detectUnusualTiming (weekend), analyzeMovements. Min 5 history. Severity: warning/critical."
     },
     {
       "id": "US-20-002",
@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-20-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "AnomalyAlertCard with severity icon/border, item link, movement details, Investigate/Dismiss buttons. Pulse animation for critical."
     },
     {
       "id": "US-20-003",
@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": ["US-20-002", "US-06-001"],
-      "isPassed": false,
-      "notes": "Ensure seed data includes at least one spike movement"
+      "isPassed": true,
+      "notes": "DashboardAnomalySection between needs-attention and reorder. Top 3 critical, count badge, View All link. Hidden when empty."
     },
     {
       "id": "US-20-004",
@@ -92,8 +92,8 @@
       },
       "priority": 4,
       "dependencies": [],
-      "isPassed": false,
-      "notes": "Heuristic parser — no AI needed for basic patterns"
+      "isPassed": true,
+      "notes": "Created src/lib/nl-search-parser.ts. Parses status (low_stock, out_of_stock), movement type, date ranges, supplier ('from X'), category ('in X'). Falls back to search terms."
     },
     {
       "id": "US-20-005",
@@ -115,8 +115,8 @@
       },
       "priority": 5,
       "dependencies": ["US-20-004", "US-17-001", "US-17-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "NL search in command palette — detects NL queries (>3 words or NL keywords), shows filter tags, applies status/category/supplier filters, max 10 results."
     },
     {
       "id": "US-20-006",
@@ -138,8 +138,8 @@
       },
       "priority": 6,
       "dependencies": ["US-20-001", "US-20-002", "US-19-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Anomalies section on insights page with #anomalies anchor. Filters by severity/type, summary stats, Show Dismissed toggle. Full 90-day list."
     },
     {
       "id": "US-20-007",

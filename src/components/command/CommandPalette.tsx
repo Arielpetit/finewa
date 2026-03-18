@@ -24,11 +24,14 @@ import {
 } from "@/components/ui/command";
 import { Command as CommandPrimitive } from "cmdk";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import { useItems } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { PAGES } from "./palette-pages";
 import { ACTIONS } from "./palette-actions";
 import { ItemResultRow } from "./ItemResultRow";
+import { parseQuery } from "@/lib/nl-search-parser";
+import { useDemo } from "@/hooks/useDemo";
 
 // ─── Component ───────────────────────────────────────────
 
@@ -43,6 +46,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   const { data: items } = useItems();
   const { can } = usePermissions();
   const { role } = useRole();
+  const { demoStore } = useDemo();
 
   // Reset query on close
   useEffect(() => {
@@ -51,9 +55,63 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
 
   const q = query.toLowerCase().trim();
 
-  // Item search results (max 8)
+  // NL search parsing
+  const parsed = useMemo(() => parseQuery(query), [query]);
+  const isNL = parsed.isNaturalLanguage && q.length > 0;
+
+  // NL filtered items
+  const nlItems = useMemo(() => {
+    if (!isNL) return [];
+    let results = [...items];
+
+    // Status filter
+    if (parsed.filters.status) {
+      if (parsed.filters.status === "low_stock") {
+        results = results.filter((i) => i.currentStock > 0 && i.currentStock <= i.reorderPoint);
+      } else if (parsed.filters.status === "out_of_stock") {
+        results = results.filter((i) => i.currentStock <= 0);
+      } else if (parsed.filters.status === "active") {
+        results = results.filter((i) => i.status === "active" && i.currentStock > 0);
+      }
+    }
+
+    // Category filter (fuzzy match on category name)
+    if (parsed.filters.category && demoStore) {
+      const cats = demoStore.getCategories();
+      const catName = parsed.filters.category.toLowerCase();
+      const matchingCats = cats.filter((c) => c.name.toLowerCase().includes(catName));
+      if (matchingCats.length > 0) {
+        const catIds = new Set(matchingCats.map((c) => c.id));
+        results = results.filter((i) => i.categoryId && catIds.has(i.categoryId));
+      }
+    }
+
+    // Supplier filter
+    if (parsed.filters.supplier && demoStore) {
+      const sups = demoStore.getSuppliers();
+      const supName = parsed.filters.supplier.toLowerCase();
+      const matchingSups = sups.filter((s) => s.name.toLowerCase().includes(supName));
+      if (matchingSups.length > 0) {
+        const supIds = new Set(matchingSups.map((s) => s.id));
+        results = results.filter((i) => i.supplierId && supIds.has(i.supplierId));
+      }
+    }
+
+    // Search terms
+    if (parsed.searchTerms.length > 0) {
+      results = results.filter((i) =>
+        parsed.searchTerms.every((t) =>
+          i.name.toLowerCase().includes(t) || i.sku.toLowerCase().includes(t),
+        ),
+      );
+    }
+
+    return results.slice(0, 10);
+  }, [isNL, items, parsed, demoStore]);
+
+  // Standard item search results (max 8)
   const matchedItems = useMemo(() => {
-    if (q.length < 1) return [];
+    if (isNL || q.length < 1) return [];
     return items
       .filter((i) =>
         i.name.toLowerCase().includes(q) ||
@@ -61,7 +119,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
         (i.barcode && i.barcode.toLowerCase().includes(q))
       )
       .slice(0, 8);
-  }, [items, q]);
+  }, [items, q, isNL]);
 
   // Filter pages by query + role
   const matchedPages = useMemo(() => {
@@ -77,7 +135,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
     return allowed.filter((a) => a.label.toLowerCase().includes(q));
   }, [q, can]);
 
-  const hasResults = matchedItems.length > 0 || matchedPages.length > 0 || matchedActions.length > 0;
+  const hasResults = matchedItems.length > 0 || nlItems.length > 0 || matchedPages.length > 0 || matchedActions.length > 0;
 
   const handleSelect = useCallback(
     (value: string) => {
@@ -117,8 +175,54 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
             onValueChange={setQuery}
           />
           <CommandList>
-            {!hasResults && <CommandEmpty>No results found.</CommandEmpty>}
+            {!hasResults && <CommandEmpty>No items match your query.</CommandEmpty>}
 
+            {/* NL Search Results */}
+            {isNL && nlItems.length > 0 && (
+              <CommandGroup heading="Search Results">
+                <div className="px-2 pb-2 flex flex-wrap gap-1">
+                  {parsed.filters.status && (
+                    <Badge variant="outline" className="text-[10px]">status: {parsed.filters.status}</Badge>
+                  )}
+                  {parsed.filters.category && (
+                    <Badge variant="outline" className="text-[10px]">category: {parsed.filters.category}</Badge>
+                  )}
+                  {parsed.filters.supplier && (
+                    <Badge variant="outline" className="text-[10px]">supplier: {parsed.filters.supplier}</Badge>
+                  )}
+                  {parsed.searchTerms.length > 0 && (
+                    <Badge variant="outline" className="text-[10px]">terms: {parsed.searchTerms.join(", ")}</Badge>
+                  )}
+                </div>
+                {nlItems.map((item) => (
+                  <CommandItem
+                    key={item.id}
+                    value={`item:${item.id}`}
+                    onSelect={handleSelect}
+                  >
+                    <ItemResultRow item={item} />
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            )}
+
+            {isNL && nlItems.length === 0 && q.length > 0 && (
+              <CommandEmpty>
+                <div className="space-y-1">
+                  <p>No items match your query.</p>
+                  <div className="flex flex-wrap gap-1 justify-center">
+                    {parsed.filters.status && (
+                      <Badge variant="outline" className="text-[10px]">status: {parsed.filters.status}</Badge>
+                    )}
+                    {parsed.filters.category && (
+                      <Badge variant="outline" className="text-[10px]">category: {parsed.filters.category}</Badge>
+                    )}
+                  </div>
+                </div>
+              </CommandEmpty>
+            )}
+
+            {/* Standard item search */}
             {matchedItems.length > 0 && (
               <CommandGroup heading="Items">
                 {matchedItems.map((item) => (
