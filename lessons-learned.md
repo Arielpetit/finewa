@@ -17,7 +17,7 @@ This file is read before every test run and updated after. It accumulates practi
 - Onboarding tour appears after a 500ms setTimeout on first demo visit.
 - Page transitions use framer-motion AnimatePresence — slight animation delays between route changes.
 - Demo data is generated synchronously in-memory (no async loading), so pages should render quickly.
-- After clicking "Try Demo" and navigating to dashboard, the h1 may not be immediately visible — use `await expect(h1).toBeVisible({ timeout: 5000 })` instead of immediate `isVisible()` check.
+- After navigating between routes, wait for the specific h1 text (e.g., `getByRole('heading', { level: 1, name: /product catalog/i })`) rather than a generic h1, because framer-motion page transitions may briefly show the previous page's h1.
 
 ## Selectors & DOM Notes
 
