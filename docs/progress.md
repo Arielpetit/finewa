@@ -3,15 +3,15 @@
 ## Current State
 
 - Phase: PRD-19 — AI Smart Reorder & Demand Forecasting
-- Status: 1 of 8 stories passed
+- Status: 7 of 8 stories passed (US-19-008 deferred — requires OpenAI API key)
 
 ## Last Completed
 
-- US-19-001 — Reorder calculation engine — passed
+- US-19-007 — Insights page composition — passed
 
 ## Known Issues
 
-(none)
+- US-19-008: AI edge function deferred — requires OPENAI_API_KEY integration
 
 ## Learnings
 
