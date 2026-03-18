@@ -197,6 +197,86 @@ function AiInsightsPage() {
           ))}
         </div>
       )}
+
+      {/* Anomalies Section */}
+      <div id="anomalies" className="space-y-4 pt-4">
+        <div className="flex items-center gap-3">
+          <ShieldAlert className="h-5 w-5 text-destructive" />
+          <h2 className="text-xl font-semibold">Anomaly Detection</h2>
+          <Badge variant="destructive" className="text-xs">{allAnomalies.length}</Badge>
+        </div>
+
+        {/* Anomaly summary */}
+        <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
+          <span>Total: {allAnomalies.length}</span>
+          <span>Critical: {allAnomalies.filter((a) => a.severity === "critical").length}</span>
+          {allAnomalies.length > 0 && (() => {
+            const counts = new Map<string, number>();
+            allAnomalies.forEach((a) => counts.set(a.itemId, (counts.get(a.itemId) ?? 0) + 1));
+            const [topId, topCount] = [...counts.entries()].sort((a, b) => b[1] - a[1])[0];
+            const topItem = itemMap.get(topId);
+            return topItem ? <span>Most affected: {topItem.name} ({topCount})</span> : null;
+          })()}
+        </div>
+
+        {/* Anomaly filters */}
+        <div className="flex flex-wrap items-center gap-3">
+          <Select value={anomSeverity} onValueChange={(v) => setAnomSeverity(v as AnomalySeverityFilter)}>
+            <SelectTrigger className="w-[130px]">
+              <SelectValue placeholder="Severity" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Severity</SelectItem>
+              <SelectItem value="critical">Critical</SelectItem>
+              <SelectItem value="warning">Warning</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={anomType} onValueChange={(v) => setAnomType(v as AnomalyTypeFilter)}>
+            <SelectTrigger className="w-[170px]">
+              <SelectValue placeholder="Type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Types</SelectItem>
+              <SelectItem value="quantity_spike">Quantity Spike</SelectItem>
+              <SelectItem value="frequent_adjustments">Frequent Adjustments</SelectItem>
+              <SelectItem value="unusual_timing">Unusual Timing</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <div className="flex items-center gap-2 ml-auto">
+            <Switch
+              id="show-dismissed"
+              checked={showDismissed}
+              onCheckedChange={setShowDismissed}
+            />
+            <Label htmlFor="show-dismissed" className="text-xs">Show Dismissed</Label>
+          </div>
+        </div>
+
+        {filteredAnomalies.length === 0 ? (
+          <p className="text-center text-sm text-muted-foreground py-8">
+            No anomalies match the current filters.
+          </p>
+        ) : (
+          <div className="grid gap-3">
+            {filteredAnomalies.map((a) => {
+              const item = itemMap.get(a.itemId);
+              return (
+                <AnomalyAlertCard
+                  key={`${a.type}-${a.movementId}`}
+                  alert={a}
+                  itemName={item?.name}
+                  itemSku={item?.sku}
+                  onDismiss={(alert) => {
+                    setDismissedIds((prev) => new Set([...prev, `${alert.type}-${alert.movementId}`]));
+                  }}
+                />
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
