@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, ArrowRightLeft } from "lucide-react";
+import { Plus, ArrowRightLeft, MapPin } from "lucide-react";
 import { useLocationTree } from "@/hooks/useLocations";
 import { useItems, useLocations as useLocationsData } from "@/hooks/useInventoryData";
 import { LocationTree } from "@/components/locations/LocationTree";
