@@ -117,8 +117,8 @@
       },
       "priority": 5,
       "dependencies": ["US-16-004", "US-02-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Step 4 execution: progress bar with animated ticks, batch item creation via createItem.mutate, completion summary with created/failed counts, Done button closes sheet, catalog refreshes with imported items. Toast notification on complete."
     },
     {
       "id": "US-16-006",
