@@ -35,6 +35,8 @@ This file is read before every test run and updated after. It accumulates practi
 - The sidebar has collapsible group buttons labeled "Admin", "Operations", etc. — when targeting banner role buttons, use `.first()` or scope to avoid strict mode violations with duplicate button names.
 - "Low Stock", "In Stock", "Out of Stock" text appears both in metric cards and as StatusBadge labels throughout the page. Scope to `[data-tour="metrics"]` when checking dashboard metric cards.
 
+- There are 3 "Try Demo" buttons on the landing page (nav bar + 2 in sections). Use `.nth(1)` to click the hero section one, as `.first()` may target the hidden nav button on smaller viewports.
+
 ## Fix Patterns
 
 When a bug is found and fixed, document the pattern here so similar bugs can be fixed faster.
