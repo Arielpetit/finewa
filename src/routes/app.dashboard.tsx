@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Play } from "lucide-react";
+import { Play, Package, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
 import { toast } from "sonner";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { NeedsAttention } from "@/components/dashboard/NeedsAttention";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
-import { DashboardSearch } from "@/components/dashboard/DashboardSearch";
 import { DashboardReorderSection } from "@/components/insights/DashboardReorderSection";
 import { DashboardAnomalySection } from "@/components/insights/DashboardAnomalySection";
 import { OnboardingTour } from "@/components/onboarding/OnboardingTour";
@@ -69,13 +68,11 @@ function DashboardPage() {
         )}
       </div>
 
-      <DashboardSearch />
-
-      <div data-tour="metrics" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <MetricCard label="Total SKUs" value={summary.total} accentColor="neutral" />
-        <MetricCard label="In Stock" value={summary.inStock} accentColor="healthy" />
-        <MetricCard label="Low Stock" value={summary.lowStock} accentColor="warning" />
-        <MetricCard label="Out of Stock" value={summary.outOfStock} accentColor="danger" />
+      <div data-tour="metrics" className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <MetricCard label="Total SKUs" value={summary.total} accentColor="neutral" icon={Package} />
+        <MetricCard label="In Stock" value={summary.inStock} accentColor="healthy" icon={CheckCircle2} />
+        <MetricCard label="Low Stock" value={summary.lowStock} accentColor="warning" icon={AlertTriangle} />
+        <MetricCard label="Out of Stock" value={summary.outOfStock} accentColor="danger" icon={XCircle} />
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[3fr_2fr]">

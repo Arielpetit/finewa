@@ -18,8 +18,8 @@ export function NeedsAttention() {
 
   if (!hasIssues) {
     return (
-      <div className="rounded-md border border-border bg-card p-6">
-        <h2 className="mb-4 text-sm font-semibold">Needs Attention</h2>
+      <div className="rounded-md border border-border bg-card p-6 shadow-sm">
+        <h2 className="mb-4 text-base font-semibold">Needs Attention</h2>
         <div className="flex flex-col items-center gap-2 py-6 text-center">
           <CheckCircle2 className="h-8 w-8 text-stock-healthy" />
           <p className="text-sm text-muted-foreground">All clear — inventory is healthy</p>
@@ -31,8 +31,8 @@ export function NeedsAttention() {
   const displayLow = lowStockItems.slice(0, 5);
 
   return (
-    <div className="rounded-md border border-border bg-card p-6">
-      <h2 className="mb-4 text-sm font-semibold">Needs Attention</h2>
+    <div className="rounded-md border border-border bg-card p-6 shadow-sm">
+      <h2 className="mb-4 text-base font-semibold">Needs Attention</h2>
 
       {/* Low stock items */}
       {displayLow.length > 0 && (
