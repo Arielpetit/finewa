@@ -51,5 +51,6 @@ export function generateSeedData(): SeedData {
     purchaseOrders: generatePurchaseOrders(),
     requests: generateRequests(),
     notifications: generateNotifications(),
+    notificationPrefs: { ...DEFAULT_NOTIFICATION_PREFS },
   };
 }
