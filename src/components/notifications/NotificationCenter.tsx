@@ -30,11 +30,11 @@ const TAB_FILTER: Record<FilterTab, (n: Notification) => boolean> = {
 interface NotificationCenterProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  onOpenPrefs?: () => void;
 }
 
-export function NotificationCenter({ open, onOpenChange }: NotificationCenterProps) {
+export function NotificationCenter({ open, onOpenChange, onOpenPrefs }: NotificationCenterProps) {
   const [tab, setTab] = useState<FilterTab>("all");
-  const [prefsOpen, setPrefsOpen] = useState(false);
   const { data: notifications } = useNotifications();
   const markAsRead = useMarkAsRead();
   const markAllAsRead = useMarkAllAsRead();
