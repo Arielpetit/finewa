@@ -42,6 +42,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [quickEntryOpen, setQuickEntryOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
   const { isDemo, exitDemoMode } = useDemo();
   const { user, signOut } = useAuth();
   const { role } = useRole();
