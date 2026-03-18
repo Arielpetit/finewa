@@ -59,6 +59,9 @@ function SettingsPage() {
           <TabsContent value="reorder-defaults">
             <ErrorBoundary><ReorderDefaults /></ErrorBoundary>
           </TabsContent>
+          <TabsContent value="users">
+            <ErrorBoundary><UserManagement /></ErrorBoundary>
+          </TabsContent>
           <TabsContent value="system">
             <ErrorBoundary><SystemSettings /></ErrorBoundary>
           </TabsContent>
