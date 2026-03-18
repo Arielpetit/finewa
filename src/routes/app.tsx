@@ -4,6 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { DemoBanner } from "@/components/layout/DemoBanner";
+import { BottomNav } from "@/components/layout/BottomNav";
 import { ShortcutsHelpDialog } from "@/components/command/ShortcutsHelpDialog";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { useDemo } from "@/hooks/useDemo";
