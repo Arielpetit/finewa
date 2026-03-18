@@ -66,20 +66,20 @@ const ACTIONS: ActionDef[] = [
     label: "New Movement",
     icon: <ArrowRightLeft className="h-4 w-4" />,
     shortcut: "N M",
-    action: (nav) => nav({ to: "/app/movements" }),
+    action: (nav) => nav({ to: "/app/movements", search: {} }),
     permission: "log_movement",
   },
   {
     label: "New Purchase Order",
     icon: <ShoppingCart className="h-4 w-4" />,
     shortcut: "N P",
-    action: (nav) => nav({ to: "/app/purchase-orders" }),
+    action: (nav) => nav({ to: "/app/purchase-orders", search: {} }),
     permission: "create_po",
   },
   {
     label: "New Request",
     icon: <ClipboardList className="h-4 w-4" />,
-    action: (nav) => nav({ to: "/app/requests" }),
+    action: (nav) => nav({ to: "/app/requests", search: {} }),
     permission: "create_request",
   },
   {
@@ -91,7 +91,7 @@ const ACTIONS: ActionDef[] = [
   {
     label: "Export Items CSV",
     icon: <FileDown className="h-4 w-4" />,
-    action: (nav) => nav({ to: "/app/catalog" }),
+    action: (nav) => nav({ to: "/app/catalog", search: {} }),
     permission: "export_data",
   },
 ];
