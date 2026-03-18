@@ -136,8 +136,8 @@
       },
       "priority": 6,
       "dependencies": ["US-14-002", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "LocationDeleteDialog with AlertDialog. Blocks deletion if children exist. Warns about item count. Unassigns items on confirm. Admin-only via delete_item permission. Integrated into LocationTree with hover-reveal trash icon."
     },
     {
       "id": "US-14-007",
