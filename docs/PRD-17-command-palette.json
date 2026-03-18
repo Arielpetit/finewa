@@ -93,8 +93,8 @@
       },
       "priority": 4,
       "dependencies": ["US-17-001", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Actions section with icons, shortcut hints (N I, N M, N P). Role-filtered by permissions. Filtered when typing. Selection executes action and closes palette."
     },
     {
       "id": "US-17-005",
