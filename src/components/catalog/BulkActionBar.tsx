@@ -39,6 +39,7 @@ export function BulkActionBar({
   onUpdateLocation,
   onUpdateStatus,
   onDeselectAll,
+  onPrintLabels,
 }: BulkActionBarProps) {
   if (selectedCount === 0) return null;
 
