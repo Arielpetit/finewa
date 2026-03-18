@@ -21,6 +21,7 @@ export function generateStockAlerts(store: DemoStore): void {
     if (!isLow && !isOut) continue;
 
     const type = isOut ? "zero_stock" as const : "low_stock" as const;
+    if (!prefs[type]) continue;
 
     const alreadyExists = existing.some(
       (n) => !n.isRead && n.type === type && n.referenceId === item.id,
