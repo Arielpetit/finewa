@@ -141,8 +141,8 @@
       },
       "priority": 6,
       "dependencies": ["US-22-001", "US-02-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "SystemSettings with demo data summary, reset button with confirmation, version info."
     },
     {
       "id": "US-22-007",
