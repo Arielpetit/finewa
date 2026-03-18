@@ -22,6 +22,7 @@ This file is read before every test run and updated after. It accumulates practi
 ## Selectors & DOM Notes
 
 - Dashboard metric cards are wrapped in `[data-tour="metrics"]`.
+- ItemFormSheet inputs use `name` attributes (e.g., `input[name="name"]`, `input[name="sku"]`) but no `id` or proper `htmlFor` label association — use `page.locator('input[name="..."]')` instead of `getByLabel`.
 - The needs-attention section uses `[data-tour="needs-attention"]`.
 - Demo banner contains role switcher buttons with text "Admin", "Manager", "Requestor".
 - Demo banner dismiss button has `aria-label="Dismiss demo banner"`.
