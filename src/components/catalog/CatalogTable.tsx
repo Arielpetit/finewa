@@ -11,6 +11,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { StatusBadge } from "@/components/StatusBadge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useIsMobile } from "@/hooks/use-mobile";
 import type { Item, Category, Supplier, Location } from "@/types/inventory";
 
 type SortDir = "asc" | "desc" | null;
@@ -57,12 +59,12 @@ export function CatalogTable({
   showCheckboxes = true,
 }: CatalogTableProps) {
   const [page, setPage] = useState(0);
+  const isMobile = useIsMobile();
 
   const catMap = useMemo(() => new Map(categories.map((c) => [c.id, c.name])), [categories]);
   const supMap = useMemo(() => new Map(suppliers.map((s) => [s.id, s.name])), [suppliers]);
   const locMap = useMemo(() => new Map(locations.map((l) => [l.id, l.name])), [locations]);
 
-  // Sort
   const sorted = useMemo(() => {
     if (!sort.key || !sort.dir) return items;
     const k = sort.key;
@@ -101,6 +103,63 @@ export function CatalogTable({
 
   if (sorted.length === 0) {
     return <p className="py-16 text-center text-sm text-muted-foreground">No items in catalog</p>;
+  }
+
+  const pagination = (
+    <div className="mt-3 flex items-center justify-between text-sm text-muted-foreground">
+      <span>Showing {start}–{end} of {sorted.length} items</span>
+      <div className="flex gap-2">
+        <Button variant="outline" size="sm" disabled={safePage === 0} onClick={() => changePage(safePage - 1)}>Previous</Button>
+        <Button variant="outline" size="sm" disabled={safePage >= totalPages - 1} onClick={() => changePage(safePage + 1)}>Next</Button>
+      </div>
+    </div>
+  );
+
+  if (isMobile) {
+    return (
+      <div>
+        <div className="space-y-3">
+          {paged.map((item) => (
+            <Card
+              key={item.id}
+              className="cursor-pointer hover:bg-muted/50 transition-colors"
+              onClick={() => onRowClick?.(item)}
+            >
+              <CardHeader className="pb-2 pt-3 px-4">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm font-medium truncate">{item.name}</CardTitle>
+                  <StatusBadge status={stockStatus(item)} />
+                </div>
+              </CardHeader>
+              <CardContent className="px-4 pb-3 space-y-1 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">SKU</span>
+                  <span className="font-mono text-xs">{item.sku}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Qty</span>
+                  <span className="font-mono">{item.currentStock}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Category</span>
+                  <span className="truncate ml-2">{catMap.get(item.categoryId ?? "") ?? "—"}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Supplier</span>
+                  <span className="truncate ml-2">{supMap.get(item.supplierId ?? "") ?? "—"}</span>
+                </div>
+                {actionRenderer && (
+                  <div className="pt-1" onClick={(e) => e.stopPropagation()}>
+                    {actionRenderer(item)}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        {pagination}
+      </div>
+    );
   }
 
   return (
@@ -167,15 +226,7 @@ export function CatalogTable({
           </TableBody>
         </Table>
       </div>
-
-      {/* Pagination */}
-      <div className="mt-3 flex items-center justify-between text-sm text-muted-foreground">
-        <span>Showing {start}–{end} of {sorted.length} items</span>
-        <div className="flex gap-2">
-          <Button variant="outline" size="sm" disabled={safePage === 0} onClick={() => changePage(safePage - 1)}>Previous</Button>
-          <Button variant="outline" size="sm" disabled={safePage >= totalPages - 1} onClick={() => changePage(safePage + 1)}>Next</Button>
-        </div>
-      </div>
+      {pagination}
     </div>
   );
 }
