@@ -98,7 +98,7 @@ export function Sidebar({ onNavigate }: SidebarProps) {
     .filter((g) => g.items.length > 0);
 
   return (
-    <nav className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
+    <nav data-tour="sidebar" className="flex h-full flex-col bg-sidebar text-sidebar-foreground">
       <div className="flex h-14 items-center px-5">
         <span className="text-xl font-semibold tracking-tight text-primary">Stackwise</span>
       </div>
