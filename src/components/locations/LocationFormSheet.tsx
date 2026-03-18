@@ -150,6 +150,7 @@ export function LocationFormSheet({ open, onOpenChange, editLocation }: Location
           toast.success("Location created");
           onOpenChange(false);
         },
+        onError: (e) => toast.error(e.message || "Failed to create location."),
       });
     }
   }
