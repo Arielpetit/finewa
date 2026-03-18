@@ -7,6 +7,7 @@ This file is read before every test run and updated after. It accumulates practi
 - The app uses demo mode (no real auth). All `/app/*` routes require demo mode to be active — without it, users are redirected to `/`.
 - Demo mode is entered by clicking "Try Demo" on the landing page, which calls `enterDemoMode()` and navigates to `/app/dashboard`.
 - An onboarding tour auto-starts on first demo dashboard visit (500ms delay). Tests should account for this overlay and dismiss it when testing other dashboard features.
+- To dismiss the onboarding tour: click "Next" 5 times, then click the finish/done/complete button. The tour has 6 steps total. Without dismissing, the tour overlay blocks interaction with buttons behind it and causes timeouts.
 - Role switching is done via the demo banner (Admin/Manager/Requestor buttons), not through a settings page.
 - The sidebar is only visible on `md:` breakpoints and above (≥768px). On mobile, a bottom nav + "More" sheet is used instead.
 - Permissions gate both UI visibility (PermissionGate component) and route access (useEffect redirects in Settings/Analytics).
