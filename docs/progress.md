@@ -2,19 +2,19 @@
 
 ## Current State
 
-- Phase: PRD-17 — Command Palette & Keyboard Shortcuts
-- Status: 1 of 5 stories passed
+- Phase: PRD-18 — Notifications & Alerts System
+- Status: 6 of 7 stories passed (US-18-006 implemented but e2e timing out)
 
 ## Last Completed
 
-- US-17-001 — Command palette dialog — e2e passed
+- US-18-007 — Toast notifications for actions — passed
 
 ## Known Issues
 
-(none)
+- US-18-006: NotificationPreferences Dialog fails to open reliably in Playwright after Sheet close — Radix portal timing issue. Component works correctly in browser.
 
 ## Learnings
 
-- supabase/migrations/ is read-only — store migration SQL in docs/migrations/ instead
-- Use getByRole('combobox') to target cmdk input, not getByPlaceholder with special chars
-- E2e tests with demo mode + multiple steps can exceed 30s timeout — use shorter waits
+- Nested Radix sheets/dialogs cause issues — close parent first with setTimeout before opening child
+- Moving state up to parent when child unmounts on close
+- E2e tests with demo mode need >16s warmup, exceeds 30s timeout easily

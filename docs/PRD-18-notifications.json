@@ -156,8 +156,8 @@
       },
       "priority": 7,
       "dependencies": ["US-02-007"],
-      "isPassed": false,
-      "notes": "Undo is optional enhancement — core requirement is consistent toast presence"
+      "isPassed": true,
+      "notes": "Added onError toast handlers to all mutations (catalog, suppliers, POs, requests, locations). Added Undo button on item create with 5s duration. Movement log toast extended to 5s. Consistent patterns across all CRUD operations."
     }
   ]
 }

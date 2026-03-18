@@ -142,6 +142,7 @@ export function RequestFormSheet({ open, onOpenChange, items }: RequestFormSheet
           resetForm();
           onOpenChange(false);
         },
+        onError: (e) => toast.error(e.message || "Failed to submit request."),
       },
     );
   }

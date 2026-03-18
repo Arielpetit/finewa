@@ -127,6 +127,7 @@ function CatalogPage() {
     if (editItem) {
       updateItem.mutate({ id: editItem.id, updates: data }, {
         onSuccess: () => { toast.success("Item updated"); setSheetOpen(false); setEditItem(null); },
+        onError: (e) => toast.error(e.message || "Failed to update item. Please try again."),
       });
     } else {
       const newItem: Item = {
@@ -151,20 +152,29 @@ function CatalogPage() {
         updatedAt: new Date().toISOString(),
       };
       createItem.mutate(newItem, {
-        onSuccess: () => { toast.success("Item created"); setSheetOpen(false); },
+        onSuccess: () => {
+          toast.success("Item created", {
+            action: { label: "Undo", onClick: () => { deleteItem.mutate(newItem.id, { onSuccess: () => toast.success("Item creation undone") }); } },
+            duration: 5000,
+          });
+          setSheetOpen(false);
+        },
+        onError: (e) => toast.error(e.message || "Failed to create item. Please try again."),
       });
     }
-  }, [editItem, createItem, updateItem]);
+  }, [editItem, createItem, updateItem, deleteItem]);
 
   const handleDelete = useCallback(() => {
     if (!deleteTarget) return;
     if (isAdmin) {
       deleteItem.mutate(deleteTarget.id, {
         onSuccess: () => { toast.success(`${deleteTarget.name} deleted`); setDeleteTarget(null); },
+        onError: (e) => toast.error(e.message || "Failed to delete item."),
       });
     } else {
       updateItem.mutate({ id: deleteTarget.id, updates: { status: ItemStatus.Archived } }, {
         onSuccess: () => { toast.success(`${deleteTarget.name} archived`); setDeleteTarget(null); },
+        onError: (e) => toast.error(e.message || "Failed to archive item."),
       });
     }
   }, [deleteTarget, isAdmin, deleteItem, updateItem]);

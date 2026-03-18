@@ -151,10 +151,12 @@ export function MovementFormSheet({
       onSuccess: () => {
         const label = selectedItem?.name ?? itemId;
         const sign = direction === "in" ? "+" : "−";
-        toast.success(`Movement logged: ${sign}${qty} ${label} (${type})`);
+        toast.success(`Movement logged: ${sign}${qty} ${label} (${type})`, {
+          duration: 5000,
+        });
         onOpenChange(false);
       },
-      onError: (e) => toast.error(e.message),
+      onError: (e) => toast.error(e.message || "Failed to log movement. Please try again."),
     });
   };
 

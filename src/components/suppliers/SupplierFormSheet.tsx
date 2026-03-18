@@ -107,6 +107,7 @@ export function SupplierFormSheet({ open, onOpenChange, supplier }: SupplierForm
             toast.success("Supplier updated");
             onOpenChange(false);
           },
+          onError: (e) => toast.error(e.message || "Failed to update supplier."),
         },
       );
     } else {
@@ -129,6 +130,7 @@ export function SupplierFormSheet({ open, onOpenChange, supplier }: SupplierForm
           toast.success("Supplier created");
           onOpenChange(false);
         },
+        onError: (e) => toast.error(e.message || "Failed to create supplier."),
       });
     }
   }
