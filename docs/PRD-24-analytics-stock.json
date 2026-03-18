@@ -92,8 +92,8 @@
       },
       "priority": 3,
       "dependencies": ["US-24-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Donut chart with green/amber/red segments, center total label, legend and tooltips."
     },
     {
       "id": "US-24-005",
