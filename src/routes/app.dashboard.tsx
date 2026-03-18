@@ -15,6 +15,7 @@ export const Route = createFileRoute("/app/dashboard")({
 
 function DashboardPage() {
   const { data: summary } = useStockSummary();
+  useStockAlertGenerator();
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
