@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-19-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ReorderSuggestionCard with urgency left border (red<7d, amber≤14d, green>14d), confidence badge, current→suggested delta arrows, Apply/Dismiss actions, Applied state with green check."
     },
     {
       "id": "US-19-003",
