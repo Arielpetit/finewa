@@ -4,6 +4,7 @@ import { NeedsAttention } from "@/components/dashboard/NeedsAttention";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { DashboardSearch } from "@/components/dashboard/DashboardSearch";
 import { DashboardReorderSection } from "@/components/insights/DashboardReorderSection";
+import { DashboardAnomalySection } from "@/components/insights/DashboardAnomalySection";
 import { useStockSummary } from "@/hooks/useInventoryData";
 import { useAlertGenerator } from "@/hooks/useStockAlertGenerator";
 import { useDemo } from "@/hooks/useDemo";
