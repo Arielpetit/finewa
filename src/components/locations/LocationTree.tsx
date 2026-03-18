@@ -85,7 +85,7 @@ function TreeNode({
   const hasChildren = node.children.length > 0;
   const isSelected = selectedId === node.id;
   const count = itemCounts.get(node.id) ?? 0;
-  const isAdmin = can("manage_roles");
+  const isAdmin = can("delete_item");
 
   return (
     <div role="treeitem" aria-expanded={hasChildren ? expanded : undefined}>
