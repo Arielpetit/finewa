@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
+import { Plus, ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MovementsTable } from "@/components/movements/MovementsTable";
 import { MovementsFilters } from "@/components/movements/MovementsFilters";
