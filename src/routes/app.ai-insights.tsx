@@ -59,6 +59,23 @@ function AiInsightsPage() {
     [items, movements, suppliers],
   );
 
+  // Anomaly detection
+  const allAnomalies = useMemo(() => {
+    const cutoff = subDays(new Date(), 90);
+    const recent = movements.filter((m) => new Date(m.createdAt) >= cutoff);
+    return analyzeMovements(recent);
+  }, [movements]);
+
+  const itemMap = useMemo(() => new Map(items.map((i) => [i.id, i])), [items]);
+
+  const filteredAnomalies = useMemo(() => {
+    let result = [...allAnomalies];
+    if (!showDismissed) result = result.filter((a) => !dismissedIds.has(`${a.type}-${a.movementId}`));
+    if (anomSeverity !== "all") result = result.filter((a) => a.severity === anomSeverity);
+    if (anomType !== "all") result = result.filter((a) => a.type === anomType);
+    return result;
+  }, [allAnomalies, anomSeverity, anomType, showDismissed, dismissedIds]);
+
   const filtered = useMemo(() => {
     let result = [...allAnalyses];
 
