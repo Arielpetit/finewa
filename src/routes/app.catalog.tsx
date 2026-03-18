@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { CSVExportButton, type CSVColumn } from "@/components/data/CSVExportButton";
+import { CSVImportSheet, type ImportField } from "@/components/data/CSVImportSheet";
 import {
   AlertDialog,
   AlertDialogAction,
