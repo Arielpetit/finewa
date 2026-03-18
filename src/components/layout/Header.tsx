@@ -66,6 +66,12 @@ export function Header() {
         <kbd className="ml-auto hidden rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-xs md:inline-block">⌘K</kbd>
       </button>
 
+      <PermissionGate permission="log_movement">
+        <Button size="icon" variant="outline" className="shrink-0" aria-label="Quick Entry" onClick={() => setQuickEntryOpen(true)}>
+          <ScanBarcode className="h-4 w-4" />
+        </Button>
+      </PermissionGate>
+
       <Button size="icon" variant="default" className="shrink-0" aria-label="Quick action">
         <Plus className="h-4 w-4" />
       </Button>
