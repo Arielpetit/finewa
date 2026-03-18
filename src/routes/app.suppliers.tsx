@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { SuppliersTable } from "@/components/suppliers/SuppliersTable";
 import { SupplierFormSheet } from "@/components/suppliers/SupplierFormSheet";
 import { SupplierDetailSheet } from "@/components/suppliers/SupplierDetailSheet";
+import { CSVExportButton, type CSVColumn } from "@/components/data/CSVExportButton";
 import { useSuppliers, useItems, usePurchaseOrders } from "@/hooks/useInventoryData";
 import { usePermissions } from "@/hooks/usePermissions";
 import { useDeleteSupplier, useUpdateItem } from "@/hooks/useInventoryMutations";
