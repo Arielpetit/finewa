@@ -91,8 +91,8 @@
       },
       "priority": 4,
       "dependencies": ["US-18-001", "US-06-001", "US-09-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "notification-generators.ts with generateStockAlerts. Deduplicates by type+itemId (unread only). Runs on dashboard load via useStockAlertGenerator hook. Also runs after useCreateMovement. Seed data triggers both low_stock and zero_stock alerts."
     },
     {
       "id": "US-18-005",
