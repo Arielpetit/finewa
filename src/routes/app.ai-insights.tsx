@@ -34,6 +34,8 @@ export const Route = createFileRoute("/app/ai-insights")({
 type UrgencyFilter = "all" | "critical" | "moderate" | "low";
 type ConfidenceFilter = "all" | "high" | "medium" | "low";
 type SortBy = "stockout" | "delta";
+type AnomalySeverityFilter = "all" | "warning" | "critical";
+type AnomalyTypeFilter = "all" | "quantity_spike" | "frequent_adjustments" | "unusual_timing";
 
 function AiInsightsPage() {
   const { demoStore } = useDemo();
