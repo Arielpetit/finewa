@@ -71,8 +71,8 @@
       },
       "priority": 3,
       "dependencies": ["US-05-004"],
-      "isPassed": false,
-      "notes": "CSV parsing can use a simple split-based parser or papaparse-style logic"
+      "isPassed": true,
+      "notes": "CSVImportSheet with drag-drop upload, .csv/5MB validation, auto-column-mapping, required field highlighting. Wired into catalog header for admin/manager."
     },
     {
       "id": "US-16-004",
