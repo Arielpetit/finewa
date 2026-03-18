@@ -28,6 +28,8 @@ import { RequestStatus } from "@/types/inventory";
 import type { InventoryRequest } from "@/types/inventory";
 import type { RequestFilters } from "@/components/requests/request-filter-types";
 import { EMPTY_REQUEST_FILTERS } from "@/components/requests/request-filter-types";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
 export const Route = createFileRoute("/app/requests")({
   component: RequestsPage,
