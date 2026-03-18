@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 6,
+    "passed": 7,
     "failed": 0,
     "blocked": 0,
-    "pending": 29,
+    "pending": 28,
     "bugs_fixed": 0
   },
   "tests": [
@@ -155,8 +155,8 @@
       ],
       "expected_result": "Catalog page loads with 'Product Catalog' heading",
       "pass_criteria": "URL contains '/app/catalog' AND h1 'Product Catalog' is visible",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
