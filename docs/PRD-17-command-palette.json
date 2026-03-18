@@ -116,8 +116,8 @@
       },
       "priority": 5,
       "dependencies": ["US-17-001", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "useKeyboardShortcuts hook with two-key sequences (G+D, G+C, N+I, etc.), 500ms timeout, disabled in inputs. ShortcutsHelpDialog opened by ?. Registered in app shell."
     }
   ]
 }
