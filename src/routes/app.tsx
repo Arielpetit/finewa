@@ -8,7 +8,6 @@ import { BottomNav } from "@/components/layout/BottomNav";
 import { ShortcutsHelpDialog } from "@/components/command/ShortcutsHelpDialog";
 import { PageTransition } from "@/components/shared/PageTransition";
 import { useDemo } from "@/hooks/useDemo";
-import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { canAccessRoute } from "@/lib/route-guard";
@@ -20,33 +19,30 @@ export const Route = createFileRoute("/app")({
 
 function AppLayout() {
   const { isDemo } = useDemo();
-  const { isAuthenticated, isLoading } = useAuth();
   const { role } = useRole();
   const navigate = useNavigate();
   const location = useLocation();
   const [helpOpen, setHelpOpen] = useState(false);
-
-  const hasAccess = isDemo || isAuthenticated;
 
   // Global keyboard shortcuts
   useKeyboardShortcuts({ onHelpOpen: () => setHelpOpen(true) });
 
   // Role-based route guard
   useEffect(() => {
-    if (hasAccess && !canAccessRoute(location.pathname, role)) {
+    if (isDemo && !canAccessRoute(location.pathname, role)) {
       toast.error("You don't have permission to access that page.");
       navigate({ to: "/app/dashboard" });
     }
-  }, [location.pathname, role, navigate, hasAccess]);
+  }, [location.pathname, role, navigate, isDemo]);
 
-  // Auth guard
+  // Demo guard — redirect to landing if not in demo
   useEffect(() => {
-    if (!hasAccess && !isLoading) {
-      navigate({ to: "/login" });
+    if (!isDemo) {
+      navigate({ to: "/" });
     }
-  }, [hasAccess, isLoading, navigate]);
+  }, [isDemo, navigate]);
 
-  if (!hasAccess) {
+  if (!isDemo) {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
         <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />

@@ -98,7 +98,7 @@ function LandingPage() {
             Your inventory command center
           </p>
 
-          <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-4">
             <button
               type="button"
               onClick={handleTryDemo}
@@ -106,12 +106,6 @@ function LandingPage() {
             >
               Try Demo
             </button>
-            <a
-              href="/login"
-              className="rounded-lg border border-primary px-7 py-2.5 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary/5"
-            >
-              Sign In
-            </a>
           </div>
         </div>
 
