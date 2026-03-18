@@ -92,8 +92,8 @@
       },
       "priority": 4,
       "dependencies": ["US-19-001", "US-02-004"],
-      "isPassed": false,
-      "notes": "Uses recharts already available in the project"
+      "isPassed": true,
+      "notes": "DemandForecastChart with recharts, historical 30d solid line, 90d dashed projection, reorder point reference line, stockout badge, item selector dropdown."
     },
     {
       "id": "US-19-005",
