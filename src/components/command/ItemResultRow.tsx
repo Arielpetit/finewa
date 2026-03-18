@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 const STATUS_DOT: Record<ItemStatus, string> = {
   [ItemStatus.Active]: "bg-emerald-500",
   [ItemStatus.Discontinued]: "bg-muted-foreground",
+  [ItemStatus.Archived]: "bg-muted-foreground",
 };
 
 interface ItemResultRowProps {
