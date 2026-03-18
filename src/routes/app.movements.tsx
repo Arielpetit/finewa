@@ -11,6 +11,8 @@ import { EMPTY_MOVEMENT_FILTERS } from "@/components/movements/movement-filter-t
 import type { MovementFilters } from "@/components/movements/movement-filter-types";
 import { useMovements, useItems, useLocations } from "@/hooks/useInventoryData";
 import { PermissionGate } from "@/hooks/usePermissions";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import type { StockMovement } from "@/types/inventory";
 
 export const Route = createFileRoute("/app/movements")({
