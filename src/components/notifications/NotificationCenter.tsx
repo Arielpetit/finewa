@@ -73,7 +73,7 @@ export function NotificationCenter({ open, onOpenChange }: NotificationCenterPro
                   Mark All as Read
                 </Button>
               )}
-              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setPrefsOpen(true)} aria-label="Notification settings">
+              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => { onOpenChange(false); setTimeout(() => setPrefsOpen(true), 300); }} aria-label="Notification settings">
                 <Settings2 className="h-4 w-4" />
               </Button>
             </div>
