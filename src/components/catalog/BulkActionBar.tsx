@@ -20,6 +20,7 @@ interface BulkActionBarProps {
   onUpdateLocation: (locationId: string) => void;
   onUpdateStatus: (status: ItemStatus) => void;
   onDeselectAll: () => void;
+  onPrintLabels?: () => void;
 }
 
 const STATUS_OPTIONS = [
