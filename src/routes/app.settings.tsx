@@ -9,6 +9,7 @@ import { CustomFieldManager } from "@/components/settings/CustomFieldManager";
 import { LocationSettings } from "@/components/settings/LocationSettings";
 import { ReorderDefaults } from "@/components/settings/ReorderDefaults";
 import { SystemSettings } from "@/components/settings/SystemSettings";
+import { UserManagement } from "@/components/settings/UserManagement";
 
 export const Route = createFileRoute("/app/settings")({
   component: SettingsPage,
