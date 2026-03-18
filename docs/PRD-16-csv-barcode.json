@@ -25,8 +25,8 @@
       },
       "priority": 1,
       "dependencies": ["US-07-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "CSVExportButton generic component with Blob download, UTF-8 BOM, date-stamped filename. Wired into catalog header with all item columns. Respects filters."
     },
     {
       "id": "US-16-002",

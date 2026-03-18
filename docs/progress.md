@@ -2,12 +2,12 @@
 
 ## Current State
 
-- Phase: PRD-16 — CSV & Barcode
-- Status: Starting
+- Phase: PRD-16 — CSV Import/Export & Barcode
+- Status: 1 of 8 stories passed
 
 ## Last Completed
 
-- PRD-15 — Database Schema & RLS Policies — ALL 12 stories passed ✅
+- US-16-001 — CSV export for items — e2e passed
 
 ## Known Issues
 
@@ -16,3 +16,4 @@
 ## Learnings
 
 - supabase/migrations/ is read-only — store migration SQL in docs/migrations/ instead
+- Use getByRole('link', { name: 'Catalog' }) not a[href*="catalog"] to avoid strict mode violations
