@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Search, Plus, Menu, User, LogOut, Settings, ChevronDown, ScanBarcode } from "lucide-react";
+import { NotificationBell } from "@/components/notifications/NotificationBell";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -89,6 +90,8 @@ export function Header() {
       <Button size="icon" variant="default" className="shrink-0" aria-label="Quick action">
         <Plus className="h-4 w-4" />
       </Button>
+
+      <NotificationBell onClick={() => { /* US-18-003 will add NotificationCenter */ }} />
 
       {/* Role badge */}
       <Badge variant="outline" className={`hidden shrink-0 text-[10px] font-semibold uppercase sm:inline-flex ${ROLE_BADGE_STYLES[role]}`}>

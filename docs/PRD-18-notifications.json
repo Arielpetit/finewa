@@ -46,8 +46,8 @@
       },
       "priority": 2,
       "dependencies": ["US-18-001", "US-01-005"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "NotificationBell component with unread count badge (red, 99+ cap), aria-label with count, hidden when 0. Wired into Header between quick action and role badge."
     },
     {
       "id": "US-18-003",
