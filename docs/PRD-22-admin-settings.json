@@ -71,8 +71,8 @@
       },
       "priority": 3,
       "dependencies": ["US-22-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "CustomFieldManager with add/delete/reorder, type selection, select options, max 20 limit."
     },
     {
       "id": "US-22-004",
