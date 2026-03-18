@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": ["US-02-004"],
-      "isPassed": false,
-      "notes": "Seed data should include at least one anomalous movement for testing"
+      "isPassed": true,
+      "notes": "Created src/lib/anomaly-engine.ts with detectQuantitySpike (3× avg), detectFrequentAdjustments (>3 in 7d), detectUnusualTiming (weekend), analyzeMovements. Min 5 history. Severity: warning/critical."
     },
     {
       "id": "US-20-002",
