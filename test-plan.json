@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 9,
+    "passed": 10,
     "failed": 0,
     "blocked": 0,
-    "pending": 26,
+    "pending": 25,
     "bugs_fixed": 0
   },
   "tests": [
@@ -221,8 +221,8 @@
       ],
       "expected_result": "Item is created, toast shows 'Item created', and item appears in the catalog",
       "pass_criteria": "Toast with text 'Item created' is visible after form submission",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
