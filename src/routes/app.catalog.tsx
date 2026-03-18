@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus, Upload } from "lucide-react";
 import { toast } from "sonner";
+import { Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CSVExportButton, type CSVColumn } from "@/components/data/CSVExportButton";
 import { CSVImportSheet, type ImportField } from "@/components/data/CSVImportSheet";
@@ -30,6 +31,8 @@ import { useRole } from "@/hooks/useRole";
 import type { Item } from "@/types/inventory";
 import { ItemStatus } from "@/types/inventory";
 import type { ItemFilters } from "@/lib/demo-store";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
 interface CatalogSearch {
   item?: string;
@@ -230,19 +233,31 @@ function CatalogPage() {
 
       <CatalogFilters filters={filters} onChange={setFilters} categories={categories} suppliers={suppliers} locations={locations} />
 
-      <CatalogTable
-        items={items}
-        categories={categories}
-        suppliers={suppliers}
-        locations={locations}
-        sort={sort}
-        onSortChange={setSort}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onRowClick={(item) => openDetail(item)}
-        actionRenderer={actionRenderer}
-        showCheckboxes={can("edit_item")}
-      />
+      <ErrorBoundary>
+      {allItems.length === 0 ? (
+        <EmptyState
+          icon={Package}
+          title="No items in your inventory yet"
+          description="Start building your catalog by adding your first product or item."
+          actionLabel={can("create_item") ? "Add First Item" : undefined}
+          onAction={can("create_item") ? openCreate : undefined}
+        />
+      ) : (
+        <CatalogTable
+          items={items}
+          categories={categories}
+          suppliers={suppliers}
+          locations={locations}
+          sort={sort}
+          onSortChange={setSort}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onRowClick={(item) => openDetail(item)}
+          actionRenderer={actionRenderer}
+          showCheckboxes={can("edit_item")}
+        />
+      )}
+      </ErrorBoundary>
 
       <ItemFormSheet
         open={sheetOpen}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
+import { Plus, Truck } from "lucide-react";
 import { SuppliersTable } from "@/components/suppliers/SuppliersTable";
 import { SupplierFormSheet } from "@/components/suppliers/SupplierFormSheet";
 import { SupplierDetailSheet } from "@/components/suppliers/SupplierDetailSheet";
@@ -11,6 +11,8 @@ import { useDeleteSupplier, useUpdateItem } from "@/hooks/useInventoryMutations"
 import { useRole } from "@/hooks/useRole";
 import { Button } from "@/components/ui/button";
 import type { Supplier } from "@/types/inventory";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
 interface SuppliersSearch {
   supplier?: string;
@@ -117,7 +119,19 @@ function SuppliersPage() {
         </div>
       </div>
 
-      <SuppliersTable suppliers={suppliers} items={items} onRowClick={openDetail} />
+      <ErrorBoundary>
+      {suppliers.length === 0 ? (
+        <EmptyState
+          icon={Truck}
+          title="No suppliers added yet"
+          description="Add your suppliers to track lead times, contact info, and order history."
+          actionLabel={canManageSuppliers ? "Add Supplier" : undefined}
+          onAction={canManageSuppliers ? openCreate : undefined}
+        />
+      ) : (
+        <SuppliersTable suppliers={suppliers} items={items} onRowClick={openDetail} />
+      )}
+      </ErrorBoundary>
 
       <SupplierDetailSheet
         open={detailOpen}

@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
+import { Plus, ClipboardList } from "lucide-react";
 import { toast } from "sonner";
 import { PurchaseOrdersTable } from "@/components/purchase-orders/PurchaseOrdersTable";
 import { POSummaryStats } from "@/components/purchase-orders/POSummaryStats";
@@ -18,6 +18,8 @@ import {
   useUpdateItem,
 } from "@/hooks/useInventoryMutations";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import { OrderStatus, MovementType } from "@/types/inventory";
 import type { PurchaseOrder } from "@/types/inventory";
 import type { POFilters } from "@/components/purchase-orders/po-filter-types";
@@ -123,11 +125,23 @@ function PurchaseOrdersPage() {
 
       <PurchaseOrdersFilters filters={filters} onChange={setFilters} suppliers={suppliers} />
 
-      <PurchaseOrdersTable
-        purchaseOrders={filtered}
-        suppliers={suppliers}
-        onRowClick={handleRowClick}
-      />
+      <ErrorBoundary>
+      {purchaseOrders.length === 0 ? (
+        <EmptyState
+          icon={ClipboardList}
+          title="No purchase orders created"
+          description="Create purchase orders to track inventory procurement from your suppliers."
+          actionLabel={canManagePOs ? "Create PO" : undefined}
+          onAction={canManagePOs ? openCreate : undefined}
+        />
+      ) : (
+        <PurchaseOrdersTable
+          purchaseOrders={filtered}
+          suppliers={suppliers}
+          onRowClick={handleRowClick}
+        />
+      )}
+      </ErrorBoundary>
 
       <PurchaseOrderDetailSheet
         open={detailOpen}

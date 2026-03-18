@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": [],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "EmptyState component with icon, title, description, optional primary/secondary actions. Centered layout, muted icon."
     },
     {
       "id": "US-21-002",
@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-21-001", "US-07-001", "US-09-001", "US-10-001", "US-11-001", "US-13-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "All 6 list views have contextual empty states with relevant icons and CTAs: Catalog (Package), Movements (ArrowUpDown), Suppliers (Truck), POs (ClipboardList), Requests (FileText), Locations (MapPin)."
     },
     {
       "id": "US-21-003",
@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": [],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ErrorBoundary class component with Try Again/Reload Page. Dev-only error details. Console logging."
     },
     {
       "id": "US-21-004",
@@ -91,8 +91,8 @@
       },
       "priority": 4,
       "dependencies": ["US-21-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ErrorBoundary wraps each page's table/content sections independently. Top-level boundary in __root.tsx."
     },
     {
       "id": "US-21-005",
@@ -113,8 +113,8 @@
       },
       "priority": 5,
       "dependencies": ["US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "AsyncErrorState with full/compact modes, error message display, retry button."
     },
     {
       "id": "US-21-006",
@@ -134,8 +134,8 @@
       },
       "priority": 6,
       "dependencies": ["US-07-001", "US-09-001", "US-10-001", "US-11-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Deleted supplier shows 'Unknown Supplier' italic. Deleted item in PO shows 'Deleted Item' strikethrough. Movements show '[Item Deleted]'. Catalog shows 'Unknown Category/Location/Supplier'."
     }
   ]
 }

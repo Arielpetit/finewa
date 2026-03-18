@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, ArrowRightLeft } from "lucide-react";
+import { Plus, ArrowRightLeft, MapPin } from "lucide-react";
 import { useLocationTree } from "@/hooks/useLocations";
 import { useItems, useLocations as useLocationsData } from "@/hooks/useInventoryData";
 import { LocationTree } from "@/components/locations/LocationTree";
@@ -9,6 +9,8 @@ import { LocationFormSheet } from "@/components/locations/LocationFormSheet";
 import { TransferStockSheet } from "@/components/locations/TransferStockSheet";
 import { PermissionGate } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import type { LocationTreeNode } from "@/hooks/useLocations";
 
 export const Route = createFileRoute("/app/locations")({
@@ -65,29 +67,41 @@ function LocationsPage() {
         </PermissionGate>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_3fr]">
-        <div className="rounded-lg border border-border bg-card p-4">
-          <LocationTree
-            tree={tree}
-            items={items}
-            selectedId={selectedId}
-            onSelect={setSelectedId}
-          />
-        </div>
-        <div className="rounded-lg border border-border bg-card p-4">
-          {selectedNode ? (
-            <LocationSummary
-              node={selectedNode}
-              allLocations={allLocations}
+      <ErrorBoundary>
+      {tree.length === 0 ? (
+        <EmptyState
+          icon={MapPin}
+          title="No locations configured"
+          description="Add warehouses, zones, and shelves to organize your inventory by location."
+          actionLabel="Add Location"
+          onAction={() => setFormOpen(true)}
+        />
+      ) : (
+        <div className="grid gap-6 lg:grid-cols-[2fr_3fr]">
+          <div className="rounded-lg border border-border bg-card p-4">
+            <LocationTree
+              tree={tree}
               items={items}
+              selectedId={selectedId}
+              onSelect={setSelectedId}
             />
-          ) : (
-            <p className="py-12 text-center text-sm text-muted-foreground">
-              Select a location to view details
-            </p>
-          )}
+          </div>
+          <div className="rounded-lg border border-border bg-card p-4">
+            {selectedNode ? (
+              <LocationSummary
+                node={selectedNode}
+                allLocations={allLocations}
+                items={items}
+              />
+            ) : (
+              <p className="py-12 text-center text-sm text-muted-foreground">
+                Select a location to view details
+              </p>
+            )}
+          </div>
         </div>
-      </div>
+      )}
+      </ErrorBoundary>
 
       <LocationFormSheet open={formOpen} onOpenChange={setFormOpen} />
       <TransferStockSheet open={transferOpen} onOpenChange={setTransferOpen} />

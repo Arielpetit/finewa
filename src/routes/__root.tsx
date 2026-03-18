@@ -3,6 +3,7 @@ import { DemoProvider } from "@/contexts/DemoContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { RoleProvider } from "@/contexts/RoleContext";
 import { Toaster } from "@/components/ui/sonner";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
 import appCss from "../styles.css?url";
 
@@ -52,7 +53,9 @@ function RootComponent() {
     <AuthProvider>
       <DemoProvider>
         <RoleProvider>
-          <Outlet />
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
           <Toaster position="bottom-right" richColors />
         </RoleProvider>
       </DemoProvider>

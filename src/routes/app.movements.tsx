@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
+import { Plus, ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MovementsTable } from "@/components/movements/MovementsTable";
 import { MovementsFilters } from "@/components/movements/MovementsFilters";
@@ -11,6 +11,8 @@ import { EMPTY_MOVEMENT_FILTERS } from "@/components/movements/movement-filter-t
 import type { MovementFilters } from "@/components/movements/movement-filter-types";
 import { useMovements, useItems, useLocations } from "@/hooks/useInventoryData";
 import { PermissionGate } from "@/hooks/usePermissions";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import type { StockMovement } from "@/types/inventory";
 
 export const Route = createFileRoute("/app/movements")({
@@ -113,7 +115,19 @@ function MovementsPage() {
 
       <MovementStats movements={filtered} />
 
-      <MovementsTable movements={filtered} itemNameMap={itemNameMap} locationNameMap={locationNameMap} />
+      <ErrorBoundary>
+      {movements.length === 0 ? (
+        <EmptyState
+          icon={ArrowUpDown}
+          title="No stock movements recorded"
+          description="Movements track stock changes — receipts, shipments, adjustments, and transfers."
+          actionLabel="Log Movement"
+          onAction={() => setFormOpen(true)}
+        />
+      ) : (
+        <MovementsTable movements={filtered} itemNameMap={itemNameMap} locationNameMap={locationNameMap} />
+      )}
+      </ErrorBoundary>
 
       <MovementFormSheet
         open={formOpen}

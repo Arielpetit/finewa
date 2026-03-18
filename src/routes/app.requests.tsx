@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
+import { Plus, FileText } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -28,6 +28,8 @@ import { RequestStatus } from "@/types/inventory";
 import type { InventoryRequest } from "@/types/inventory";
 import type { RequestFilters } from "@/components/requests/request-filter-types";
 import { EMPTY_REQUEST_FILTERS } from "@/components/requests/request-filter-types";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
 export const Route = createFileRoute("/app/requests")({
   component: RequestsPage,
@@ -146,7 +148,16 @@ function RequestsPage() {
         </Button>
       </div>
 
-      {isManagerOrAdmin ? (
+      <ErrorBoundary>
+      {requests.length === 0 ? (
+        <EmptyState
+          icon={FileText}
+          title="No requests submitted"
+          description="Inventory requests let team members request stock for their departments."
+          actionLabel="New Request"
+          onAction={() => setFormOpen(true)}
+        />
+      ) : isManagerOrAdmin ? (
         <Tabs defaultValue="all">
           <TabsList>
             <TabsTrigger value="all">All Requests</TabsTrigger>
@@ -174,6 +185,7 @@ function RequestsPage() {
       ) : (
         <RequestsTable requests={requests} onRowClick={handleRowClick} />
       )}
+      </ErrorBoundary>
 
       <RequestDetailSheet
         open={detailOpen}
