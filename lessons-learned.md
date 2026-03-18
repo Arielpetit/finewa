@@ -44,6 +44,7 @@ This file is read before every test run and updated after. It accumulates practi
 - Clicking sidebar links with Playwright's `.click()` can time out even when the link is visible. Prefer `page.evaluate()` to click links via href matching — it's more reliable.
 - `page.goto('/app/...')` does NOT work for in-app navigation because demo mode state is in-memory and lost on full page reload. Always use client-side navigation (sidebar clicks or `page.evaluate`).
 - Radix Select dropdowns in the PO LineItemsEditor render options outside the viewport, causing "Element is outside of the viewport" errors in Playwright. Using `force: true` doesn't help. The `page.evaluate(() => el.click())` approach selects the DOM element but doesn't trigger Radix's internal state change. **WORKAROUND**: Use keyboard navigation instead — click the trigger, then `ArrowDown` + `Enter` to select the first option. This works reliably.
+- When using `page.evaluate` to find sidebar links right after `waitForURL`, sidebar may not yet be mounted if wait time is too short. Use `waitForTimeout(8000)` after demo button click instead of `waitForURL` + short delay, to ensure the full app shell (sidebar, header) renders before querying links.
 - Request form: Title input has placeholder "Short description", default line item row exists (no need to click Add Item), use `.first()` for "Select item" when multiple rows exist.
 
 ## Fix Patterns
