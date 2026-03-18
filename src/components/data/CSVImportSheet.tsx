@@ -333,12 +333,32 @@ export function CSVImportSheet({
   const previewFields = useMemo(() => fields.filter((f) => mapping[f.key]), [fields, mapping]);
   const previewRows = useMemo(() => validatedRows.slice(0, 20), [validatedRows]);
 
+  const startImport = useCallback(async (rows: Record<string, string>[]) => {
+    setStep(4);
+    setIsImporting(true);
+    setImportProgress(0);
+    try {
+      // Simulate progress ticks for UX (actual import is batch)
+      const progressInterval = setInterval(() => {
+        setImportProgress((p) => Math.min(p + 5, 90));
+      }, 100);
+      const result = await onImport(rows);
+      clearInterval(progressInterval);
+      setImportProgress(100);
+      setImportResult(result);
+    } catch {
+      setImportResult({ created: 0, failed: rows.length });
+    } finally {
+      setIsImporting(false);
+    }
+  }, [onImport]);
+
   return (
     <Sheet
       open={open}
       onOpenChange={(v) => {
-        if (!v) reset();
-        onOpenChange(v);
+        if (!v && !isImporting) { reset(); onOpenChange(v); }
+        else if (!isImporting) onOpenChange(v);
       }}
     >
       <SheetContent className="w-full sm:max-w-[600px]">
@@ -351,6 +371,7 @@ export function CSVImportSheet({
             {step === 1 && "Upload a CSV file to import."}
             {step === 2 && "Map CSV columns to fields."}
             {step === 3 && "Review validation results before importing."}
+            {step === 4 && (isImporting ? "Importing rows…" : "Import complete.")}
           </SheetDescription>
         </SheetHeader>
 
