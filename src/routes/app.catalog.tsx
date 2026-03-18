@@ -62,11 +62,11 @@ function CatalogPage() {
     { key: "category", label: "Category" },
     { key: "supplier", label: "Supplier" },
     { key: "location", label: "Location" },
-    { key: "quantity", label: "Quantity" },
-    { key: "reorderPoint", label: "Reorder Point" },
+    { key: "quantity", label: "Quantity", numeric: true },
+    { key: "reorderPoint", label: "Reorder Point", numeric: true },
     { key: "unit", label: "Unit" },
-    { key: "costPrice", label: "Unit Cost" },
-    { key: "sellingPrice", label: "Price" },
+    { key: "costPrice", label: "Unit Cost", numeric: true },
+    { key: "sellingPrice", label: "Price", numeric: true },
     { key: "barcode", label: "Barcode" },
   ], []);
 
