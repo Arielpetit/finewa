@@ -139,8 +139,8 @@
       },
       "priority": 5,
       "dependencies": ["US-24-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Three ranked lists: fastest/slowest moving, most reordered. Clickable rows to catalog."
     },
     {
       "id": "US-24-007",
