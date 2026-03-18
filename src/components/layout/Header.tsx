@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sidebar } from "./Sidebar";
 import { QuickEntryMode } from "@/components/data/QuickEntryMode";
+import { CommandPalette } from "@/components/command/CommandPalette";
 import { useDemo } from "@/hooks/useDemo";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
