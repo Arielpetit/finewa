@@ -4,6 +4,7 @@ import { NeedsAttention } from "@/components/dashboard/NeedsAttention";
 import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { DashboardSearch } from "@/components/dashboard/DashboardSearch";
 import { useStockSummary } from "@/hooks/useInventoryData";
+import { useStockAlertGenerator } from "@/hooks/useStockAlertGenerator";
 
 export const Route = createFileRoute("/app/dashboard")({
   component: DashboardPage,
