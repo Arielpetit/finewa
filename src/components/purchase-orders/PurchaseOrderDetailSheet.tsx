@@ -269,7 +269,7 @@ export function PurchaseOrderDetailSheet({
                     return (
                       <TableRow key={li.id}>
                         <TableCell>
-                          <p className="text-sm font-medium">{item?.name ?? li.itemId}</p>
+                          <p className={`text-sm font-medium ${!item ? "italic text-muted-foreground/60 line-through" : ""}`}>{item?.name ?? "Deleted Item"}</p>
                           <p className="font-mono text-xs text-muted-foreground">{item?.sku ?? "—"}</p>
                         </TableCell>
                         <TableCell className="text-right font-mono text-sm">
