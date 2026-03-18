@@ -6,10 +6,12 @@ import type {
   StockMovement,
   PurchaseOrder,
   InventoryRequest,
+  Notification,
 } from "@/types/inventory";
 import { categories, suppliers, locations } from "./seed-base";
 import { items } from "./seed-items";
 import { generateMovements, generatePurchaseOrders, generateRequests } from "./seed-activity";
+import { generateNotifications } from "./seed-notifications";
 
 export interface SeedData {
   categories: Category[];
@@ -19,6 +21,7 @@ export interface SeedData {
   movements: StockMovement[];
   purchaseOrders: PurchaseOrder[];
   requests: InventoryRequest[];
+  notifications: Notification[];
 }
 
 export function generateSeedData(): SeedData {
@@ -30,5 +33,6 @@ export function generateSeedData(): SeedData {
     movements: generateMovements(),
     purchaseOrders: generatePurchaseOrders(),
     requests: generateRequests(),
+    notifications: generateNotifications(),
   };
 }
