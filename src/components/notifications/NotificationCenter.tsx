@@ -113,7 +113,6 @@ export function NotificationCenter({ open, onOpenChange, onOpenPrefs }: Notifica
         </ScrollArea>
       </SheetContent>
     </Sheet>
-    <NotificationPreferences open={prefsOpen} onOpenChange={setPrefsOpen} />
     </>
   );
 }
