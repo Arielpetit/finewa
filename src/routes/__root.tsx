@@ -53,7 +53,9 @@ function RootComponent() {
     <AuthProvider>
       <DemoProvider>
         <RoleProvider>
-          <Outlet />
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
           <Toaster position="bottom-right" richColors />
         </RoleProvider>
       </DemoProvider>
