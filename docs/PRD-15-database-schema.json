@@ -236,8 +236,8 @@
       },
       "priority": 11,
       "dependencies": ["US-15-001"],
-      "isPassed": false,
-      "notes": "Should be created early and referenced by subsequent migrations"
+      "isPassed": true,
+      "notes": "Function created in 00001, triggers applied in 00001 (profiles), 00003 (suppliers), 00005 (items), 00007 (purchase_orders), 00008 (inventory_requests). All 5 tables covered."
     },
     {
       "id": "US-15-012",
