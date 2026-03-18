@@ -68,7 +68,7 @@ export function generatePOAlerts(store: DemoStore): void {
     const daysUntil = differenceInDays(delivery, now);
 
     // Overdue: past delivery, not fully received
-    if (daysUntil < 0) {
+    if (daysUntil < 0 && prefs.po_overdue) {
       const alreadyExists = existing.some(
         (n) => !n.isRead && n.type === "po_overdue" && n.referenceId === po.id,
       );
