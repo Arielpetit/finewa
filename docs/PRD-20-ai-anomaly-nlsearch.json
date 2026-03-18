@@ -138,8 +138,8 @@
       },
       "priority": 6,
       "dependencies": ["US-20-001", "US-20-002", "US-19-007"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Anomalies section on insights page with #anomalies anchor. Filters by severity/type, summary stats, Show Dismissed toggle. Full 90-day list."
     },
     {
       "id": "US-20-007",
