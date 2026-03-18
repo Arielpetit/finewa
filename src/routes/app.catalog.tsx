@@ -131,6 +131,7 @@ function CatalogPage() {
       const newItem: Item = {
         id: `item-${Date.now()}`,
         sku: data.sku ?? "",
+        barcode: data.barcode ?? null,
         name: data.name ?? "",
         description: data.description ?? "",
         categoryId: data.categoryId ?? null,
