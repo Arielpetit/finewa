@@ -344,8 +344,8 @@ function LandingPage() {
       <StickyNav onTryDemo={handleTryDemo} />
 
       {/* ── Split Hero ─────────────────────────────────── */}
-      <section className="relative flex min-h-screen items-center px-4 pt-20 sm:px-6">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row lg:gap-16">
+      <section className="relative flex min-h-[calc(100vh-56px)] items-center px-4 pt-14 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 lg:flex-row lg:gap-10">
           {/* Left — copy */}
           <div className="flex-1 text-center lg:text-left">
             <div className="animate-fade-in inline-flex items-center gap-2 rounded-full border border-border bg-muted/60 px-4 py-1.5 text-xs font-medium text-muted-foreground">
@@ -379,11 +379,11 @@ function LandingPage() {
           </div>
 
           {/* Right — product shot */}
-          <div className="flex-1 animate-fade-in" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
+          <div className="flex-1 lg:flex-[1.3] animate-fade-in" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
             <img
               src={heroProductShot.url}
               alt="Stackwise inventory management dashboard on a laptop"
-              className="w-full max-w-xl mx-auto lg:max-w-none"
+              className="w-full max-w-2xl mx-auto lg:max-w-none scale-110 lg:scale-125 origin-center"
             />
           </div>
         </div>
