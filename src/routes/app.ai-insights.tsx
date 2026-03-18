@@ -32,7 +32,7 @@ type SortBy = "stockout" | "delta";
 
 function AiInsightsPage() {
   const { demoStore } = useDemo();
-  const { isAdmin, isManager } = usePermissions();
+  const { can } = usePermissions();
   const updateItem = useUpdateItem();
 
   const [urgency, setUrgency] = useState<UrgencyFilter>("all");
