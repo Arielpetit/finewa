@@ -160,8 +160,8 @@
       },
       "priority": 7,
       "dependencies": ["US-16-006", "US-08-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "PrintBarcodeLabel with @page 2.5x1in sizing, Code128B SVG barcodes. Bulk print from catalog selection via BulkActionBar. Print Label button in item detail."
     },
     {
       "id": "US-16-008",
