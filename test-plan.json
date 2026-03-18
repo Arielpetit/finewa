@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 10,
+    "passed": 11,
     "failed": 0,
     "blocked": 0,
-    "pending": 25,
+    "pending": 24,
     "bugs_fixed": 0
   },
   "tests": [
@@ -242,8 +242,8 @@
       ],
       "expected_result": "A detail sheet/panel appears showing the item name and details",
       "pass_criteria": "A sheet/dialog element is visible containing item details with tabs (Overview, History)",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
