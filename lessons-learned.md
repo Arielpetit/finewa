@@ -31,7 +31,7 @@ This file is read before every test run and updated after. It accumulates practi
 
 ## Common Failure Patterns
 
-None yet — will be populated during test execution.
+- The sidebar has collapsible group buttons labeled "Admin", "Operations", etc. — when targeting banner role buttons, use `.first()` or scope to avoid strict mode violations with duplicate button names.
 
 ## Fix Patterns
 
