@@ -113,8 +113,8 @@
       },
       "priority": 5,
       "dependencies": ["US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "AsyncErrorState with full/compact modes, error message display, retry button."
     },
     {
       "id": "US-21-006",
