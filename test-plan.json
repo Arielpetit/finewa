@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 11,
+    "passed": 12,
     "failed": 0,
     "blocked": 0,
-    "pending": 24,
+    "pending": 23,
     "bugs_fixed": 0
   },
   "tests": [
