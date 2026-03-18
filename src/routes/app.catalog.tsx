@@ -296,6 +296,11 @@ function CatalogPage() {
           onUpdateLocation={(id) => handleBulkUpdate({ locationId: id })}
           onUpdateStatus={(s) => handleBulkUpdate({ status: s })}
           onDeselectAll={() => setSelected(new Set())}
+          onPrintLabels={() => {
+            const selectedItems = allItems.filter((i) => selected.has(i.id));
+            const locMap = new Map(locations.map((l) => [l.id, l.name]));
+            printBarcodeLabels(selectedItems, locMap);
+          }}
         />
       </PermissionGate>
 
