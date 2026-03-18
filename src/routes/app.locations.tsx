@@ -1,11 +1,12 @@
 import { useState, useMemo } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
+import { Plus, ArrowRightLeft } from "lucide-react";
 import { useLocationTree } from "@/hooks/useLocations";
 import { useItems, useLocations as useLocationsData } from "@/hooks/useInventoryData";
 import { LocationTree } from "@/components/locations/LocationTree";
 import { LocationSummary } from "@/components/locations/LocationSummary";
 import { LocationFormSheet } from "@/components/locations/LocationFormSheet";
+import { TransferStockSheet } from "@/components/locations/TransferStockSheet";
 import { PermissionGate } from "@/hooks/usePermissions";
 import { Button } from "@/components/ui/button";
 import type { LocationTreeNode } from "@/hooks/useLocations";
@@ -30,6 +31,7 @@ function LocationsPage() {
   const { data: allLocations } = useLocationsData();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [formOpen, setFormOpen] = useState(false);
+  const [transferOpen, setTransferOpen] = useState(false);
 
   const selectedNode = useMemo(
     () => (selectedId ? findNode(tree, selectedId) : null),
@@ -46,10 +48,20 @@ function LocationsPage() {
           </p>
         </div>
         <PermissionGate permission="create_item">
-          <Button size="sm" onClick={() => setFormOpen(true)}>
-            <Plus className="mr-1.5 h-4 w-4" />
-            New Location
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setTransferOpen(true)}
+            >
+              <ArrowRightLeft className="mr-1.5 h-4 w-4" />
+              Transfer Stock
+            </Button>
+            <Button size="sm" onClick={() => setFormOpen(true)}>
+              <Plus className="mr-1.5 h-4 w-4" />
+              New Location
+            </Button>
+          </div>
         </PermissionGate>
       </div>
 
@@ -78,6 +90,7 @@ function LocationsPage() {
       </div>
 
       <LocationFormSheet open={formOpen} onOpenChange={setFormOpen} />
+      <TransferStockSheet open={transferOpen} onOpenChange={setTransferOpen} />
     </div>
   );
 }

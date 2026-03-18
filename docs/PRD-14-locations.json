@@ -114,8 +114,8 @@
       },
       "priority": 5,
       "dependencies": ["US-14-001", "US-09-003", "US-05-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "TransferStockSheet with item/from/to/qty fields, Zod validation, auto-fill from location on item select, creates Transferred movement. DemoStore updated to handle Transferred type by updating locationId."
     },
     {
       "id": "US-14-006",
