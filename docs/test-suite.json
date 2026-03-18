@@ -54,7 +54,7 @@
       "description": "Dashboard shows recent activity feed with movement and order entries",
       "steps": ["Navigate to /app/dashboard", "Locate the Recent Activity section"],
       "expectedResult": "Recent activity entries are displayed with timestamps",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "DASH-04",
