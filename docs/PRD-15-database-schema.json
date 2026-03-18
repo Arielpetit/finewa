@@ -67,8 +67,8 @@
       },
       "priority": 3,
       "dependencies": ["US-15-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Migration at docs/migrations/00003. All columns, updated_at trigger, index on name, RLS with has_role for admin+manager write."
     },
     {
       "id": "US-15-004",
