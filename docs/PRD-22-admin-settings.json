@@ -162,8 +162,8 @@
       },
       "priority": 2,
       "dependencies": ["US-05-002", "US-01-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Settings in Admin nav group with canAccessSettings permission, Cog icon, active state."
     },
     {
       "id": "US-22-008",
