@@ -18,6 +18,8 @@ import {
   useUpdateItem,
 } from "@/hooks/useInventoryMutations";
 import { Button } from "@/components/ui/button";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 import { OrderStatus, MovementType } from "@/types/inventory";
 import type { PurchaseOrder } from "@/types/inventory";
 import type { POFilters } from "@/components/purchase-orders/po-filter-types";
