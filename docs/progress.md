@@ -3,11 +3,11 @@
 ## Current State
 
 - Phase: PRD-16 — CSV Import/Export & Barcode
-- Status: 3 of 8 stories passed
+- Status: 4 of 8 stories passed
 
 ## Last Completed
 
-- US-16-003 — CSV import file upload and column mapping — e2e passed
+- US-16-004 — CSV import validation and preview — e2e passed
 
 ## Known Issues
 

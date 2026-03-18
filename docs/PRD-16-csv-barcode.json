@@ -94,8 +94,8 @@
       },
       "priority": 4,
       "dependencies": ["US-16-003", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Step 3 validation: required fields, SKU uniqueness, numeric checks, new category/supplier warnings. Preview table with first 20 rows, error highlighting, summary counts. Import Valid Rows skips errors."
     },
     {
       "id": "US-16-005",
