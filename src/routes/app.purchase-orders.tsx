@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
+import { Plus, ClipboardList } from "lucide-react";
 import { toast } from "sonner";
 import { PurchaseOrdersTable } from "@/components/purchase-orders/PurchaseOrdersTable";
 import { POSummaryStats } from "@/components/purchase-orders/POSummaryStats";
