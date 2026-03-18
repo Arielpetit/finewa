@@ -91,8 +91,8 @@
       },
       "priority": 4,
       "dependencies": ["US-21-003"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "ErrorBoundary wraps each page's table/content sections independently. Top-level boundary in __root.tsx."
     },
     {
       "id": "US-21-005",
