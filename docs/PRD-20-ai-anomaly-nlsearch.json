@@ -70,8 +70,8 @@
       },
       "priority": 3,
       "dependencies": ["US-20-002", "US-06-001"],
-      "isPassed": false,
-      "notes": "Ensure seed data includes at least one spike movement"
+      "isPassed": true,
+      "notes": "DashboardAnomalySection between needs-attention and reorder. Top 3 critical, count badge, View All link. Hidden when empty."
     },
     {
       "id": "US-20-004",
