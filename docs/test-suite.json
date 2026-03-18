@@ -36,7 +36,7 @@
       "description": "Dashboard page loads and displays summary metric cards with inventory stats",
       "steps": ["Navigate to /app/dashboard", "Check for metric cards (Total Items, In Stock, Low Stock, Out of Stock)"],
       "expectedResult": "Four metric cards are visible with numeric values",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "DASH-02",
