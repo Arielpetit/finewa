@@ -3,6 +3,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { CSVExportButton, type CSVColumn } from "@/components/data/CSVExportButton";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -91,6 +92,19 @@ function CatalogPage() {
 
   const existingSkus = useMemo(() => allItems.map((i) => i.sku), [allItems]);
 
+  const csvColumns = useMemo<CSVColumn<Item>[]>(() => [
+    { header: "Name", accessor: (i) => i.name },
+    { header: "SKU", accessor: (i) => i.sku },
+    { header: "Category", accessor: (i) => categories.find((c) => c.id === i.categoryId)?.name ?? "" },
+    { header: "Supplier", accessor: (i) => suppliers.find((s) => s.id === i.supplierId)?.name ?? "" },
+    { header: "Location", accessor: (i) => locations.find((l) => l.id === i.locationId)?.name ?? "" },
+    { header: "Quantity", accessor: (i) => i.currentStock },
+    { header: "Reorder Point", accessor: (i) => i.reorderPoint },
+    { header: "Unit Cost", accessor: (i) => i.costPrice },
+    { header: "Price", accessor: (i) => i.sellingPrice },
+    { header: "Status", accessor: (i) => i.status },
+  ], [categories, suppliers, locations]);
+
   const handleSave = useCallback((data: Partial<Item>) => {
     if (editItem) {
       updateItem.mutate({ id: editItem.id, updates: data }, {
@@ -166,11 +180,18 @@ function CatalogPage() {
           <h1 className="text-2xl font-semibold text-foreground">Product Catalog</h1>
           <p className="text-sm text-muted-foreground">{items.length} items</p>
         </div>
-        <PermissionGate permission="create_item">
-          <Button onClick={openCreate} className="hidden gap-1.5 sm:inline-flex">
-            <Plus className="h-4 w-4" />New Item
-          </Button>
-        </PermissionGate>
+        <div className="flex items-center gap-2">
+          <CSVExportButton
+            data={items}
+            columns={csvColumns}
+            filename="stackwise-items"
+          />
+          <PermissionGate permission="create_item">
+            <Button onClick={openCreate} className="hidden gap-1.5 sm:inline-flex">
+              <Plus className="h-4 w-4" />New Item
+            </Button>
+          </PermissionGate>
+        </div>
       </div>
 
       <CatalogFilters filters={filters} onChange={setFilters} categories={categories} suppliers={suppliers} locations={locations} />
