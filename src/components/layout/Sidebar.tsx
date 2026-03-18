@@ -70,6 +70,7 @@ const navGroups: NavGroup[] = [
 
 const standaloneLinks: NavItem[] = [
   { label: "Requests", href: "/app/requests", icon: Inbox },
+  { label: "Help", href: "/app/help", icon: HelpCircle },
 ];
 
 interface SidebarProps {
