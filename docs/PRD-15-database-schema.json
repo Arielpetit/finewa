@@ -154,8 +154,8 @@
       },
       "priority": 7,
       "dependencies": ["US-15-003", "US-15-005"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Migration at docs/migrations/00007. CASCADE on PO items, CHECK on status, FKs to suppliers/users/items, RLS on both tables, indexes on key columns, updated_at trigger."
     },
     {
       "id": "US-15-008",
