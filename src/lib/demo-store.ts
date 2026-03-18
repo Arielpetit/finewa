@@ -274,4 +274,14 @@ export class DemoStore {
     this.data.notifications.push(notification);
     this.version++;
   }
+
+  // ─── Notification Preferences ─────────────────────────
+  getNotificationPrefs() {
+    return this.data.notificationPrefs;
+  }
+
+  setNotificationPrefs(prefs: typeof this.data.notificationPrefs): void {
+    this.data.notificationPrefs = { ...prefs };
+    this.version++;
+  }
 }
