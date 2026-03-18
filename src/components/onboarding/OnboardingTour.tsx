@@ -24,10 +24,17 @@ export function OnboardingTour({ steps, currentStep, isActive, onNext, onBack, o
 
   useEffect(() => {
     if (!isActive || !step?.target) { setPos(null); return; }
-    const el = document.querySelector(`[data-tour="${step.target}"]`);
+    const el = document.querySelector(`[data-tour="${step.target}"]`) as HTMLElement | null;
     if (!el) { setPos(null); return; }
     const rect = el.getBoundingClientRect();
     setPos({ top: rect.top, left: rect.left, width: rect.width, height: rect.height });
+
+    // Boost target element above backdrop
+    el.style.position = el.style.position || "relative";
+    el.style.zIndex = "10002";
+    return () => {
+      el.style.zIndex = "";
+    };
   }, [isActive, step, currentStep]);
 
   if (!isActive || !step) return null;
@@ -37,10 +44,22 @@ export function OnboardingTour({ steps, currentStep, isActive, onNext, onBack, o
     else onNext();
   };
 
-  // Tooltip positioning
-  const tooltipStyle: React.CSSProperties = hasTarget && pos
-    ? { position: "fixed", top: pos.top + pos.height + 12, left: Math.max(16, Math.min(pos.left, window.innerWidth - 340)), zIndex: 10001 }
-    : { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 10001 };
+  // Smart tooltip positioning
+  const getTooltipStyle = (): React.CSSProperties => {
+    if (!hasTarget || !pos) {
+      return { position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 10001 };
+    }
+    const vh = window.innerHeight;
+    const tooltipH = 180;
+    // Tall element (e.g. sidebar): position to the right
+    if (pos.height > vh * 0.5) {
+      return { position: "fixed", top: Math.min(pos.top + 60, vh - tooltipH - 16), left: pos.left + pos.width + 16, zIndex: 10001 };
+    }
+    // Normal element: position below, clamped to viewport
+    const top = Math.min(pos.top + pos.height + 12, vh - tooltipH - 16);
+    return { position: "fixed", top, left: Math.max(16, Math.min(pos.left, window.innerWidth - 340)), zIndex: 10001 };
+  };
+  const tooltipStyle = getTooltipStyle();
 
   return (
     <>
