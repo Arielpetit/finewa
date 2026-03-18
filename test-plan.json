@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 14,
+    "passed": 15,
     "failed": 0,
     "blocked": 1,
-    "pending": 20,
+    "pending": 19,
     "bugs_fixed": 0
   },
   "tests": [
@@ -350,8 +350,8 @@
       ],
       "expected_result": "Page shows 'Supplier Directory' heading with supplier rows",
       "pass_criteria": "h1 'Supplier Directory' is visible AND at least 1 supplier row is shown",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",

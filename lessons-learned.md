@@ -40,6 +40,7 @@ This file is read before every test run and updated after. It accumulates practi
 - Sidebar navigation groups (Operations, Procurement, Intelligence, Admin) are collapsible. Links like "Movements", "Suppliers" are hidden until the group is expanded. Clicking the group button text may conflict with demo banner buttons of the same name. In some test sessions, sidebar links are visible by default; in others they are collapsed. This is session-dependent.
 - When sidebar links are not accessible, try using command palette (Ctrl+K) to navigate, but note that clicking command palette results can also time out.
 - Always set `page.setViewportSize({ width: 1280, height: 800 })` to ensure desktop sidebar is visible.
+- When sidebar links are in collapsed groups, use `document.querySelectorAll('a')` in `page.evaluate()` to find and click links by text content — this bypasses visibility issues. Wait 3s after for the page transition to complete.
 
 ## Fix Patterns
 
