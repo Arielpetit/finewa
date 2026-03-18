@@ -91,6 +91,8 @@ export function Header() {
         <Plus className="h-4 w-4" />
       </Button>
 
+      <NotificationBell onClick={() => { /* US-18-003 will add NotificationCenter */ }} />
+
       {/* Role badge */}
       <Badge variant="outline" className={`hidden shrink-0 text-[10px] font-semibold uppercase sm:inline-flex ${ROLE_BADGE_STYLES[role]}`}>
         {ROLE_LABELS[role]}
