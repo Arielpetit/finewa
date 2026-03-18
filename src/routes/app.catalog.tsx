@@ -313,9 +313,39 @@ function CatalogPage() {
         existingSkus={existingSkus}
         knownCategories={categories.map((c) => c.name)}
         knownSuppliers={suppliers.map((s) => s.name)}
-        onImport={(rows) => {
-          console.log("Import rows:", rows.length);
-          toast.success(`Imported ${rows.length} rows (preview — full import coming soon)`);
+        onImport={async (rows) => {
+          let created = 0;
+          let failed = 0;
+          for (const row of rows) {
+            try {
+              const newItem: Item = {
+                id: `item-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+                sku: row.sku ?? "",
+                name: row.name ?? "",
+                description: row.description ?? "",
+                categoryId: categories.find((c) => c.name.toLowerCase() === row.category?.toLowerCase())?.id ?? null,
+                status: ItemStatus.Active,
+                unit: row.unit || "each",
+                currentStock: Number(row.quantity) || 0,
+                reorderPoint: Number(row.reorderPoint) || 0,
+                reorderQuantity: 0,
+                costPrice: Number(row.costPrice) || 0,
+                sellingPrice: Number(row.sellingPrice) || 0,
+                locationId: locations.find((l) => l.name.toLowerCase() === row.location?.toLowerCase())?.id ?? null,
+                supplierId: suppliers.find((s) => s.name.toLowerCase() === row.supplier?.toLowerCase())?.id ?? null,
+                imageUrl: null,
+                customFields: {},
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+              };
+              createItem.mutate(newItem);
+              created++;
+            } catch {
+              failed++;
+            }
+          }
+          toast.success(`Imported ${created} items${failed > 0 ? `, ${failed} failed` : ""}`);
+          return { created, failed };
         }}
       />
     </div>
