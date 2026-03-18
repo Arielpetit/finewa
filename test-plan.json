@@ -5,8 +5,8 @@
   "stats": {
     "passed": 14,
     "failed": 0,
-    "blocked": 0,
-    "pending": 21,
+    "blocked": 1,
+    "pending": 20,
     "bugs_fixed": 0
   },
   "tests": [
