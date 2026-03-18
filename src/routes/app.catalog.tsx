@@ -1,9 +1,10 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Plus } from "lucide-react";
+import { Plus, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { CSVExportButton, type CSVColumn } from "@/components/data/CSVExportButton";
+import { CSVImportSheet, type ImportField } from "@/components/data/CSVImportSheet";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -52,6 +53,22 @@ function CatalogPage() {
   const [editItem, setEditItem] = useState<Item | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Item | null>(null);
   const [movementItemId, setMovementItemId] = useState<string | null>(null);
+  const [importOpen, setImportOpen] = useState(false);
+
+  const importFields = useMemo<ImportField[]>(() => [
+    { key: "name", label: "Name", required: true },
+    { key: "sku", label: "SKU", required: true },
+    { key: "description", label: "Description" },
+    { key: "category", label: "Category" },
+    { key: "supplier", label: "Supplier" },
+    { key: "location", label: "Location" },
+    { key: "quantity", label: "Quantity" },
+    { key: "reorderPoint", label: "Reorder Point" },
+    { key: "unit", label: "Unit" },
+    { key: "costPrice", label: "Unit Cost" },
+    { key: "sellingPrice", label: "Price" },
+    { key: "barcode", label: "Barcode" },
+  ], []);
 
   // Strip stock-level status before passing to store
   const storeFilters = useMemo(() => {
@@ -187,6 +204,11 @@ function CatalogPage() {
             filename="stackwise-items"
           />
           <PermissionGate permission="create_item">
+            <Button variant="outline" size="sm" className="hidden gap-1.5 sm:inline-flex" onClick={() => setImportOpen(true)}>
+              <Upload className="h-4 w-4" />Import
+            </Button>
+          </PermissionGate>
+          <PermissionGate permission="create_item">
             <Button onClick={openCreate} className="hidden gap-1.5 sm:inline-flex">
               <Plus className="h-4 w-4" />New Item
             </Button>
@@ -281,6 +303,18 @@ function CatalogPage() {
         items={allItems}
         locations={locations}
         preSelectedItemId={movementItemId}
+      />
+
+      <CSVImportSheet
+        open={importOpen}
+        onOpenChange={setImportOpen}
+        fields={importFields}
+        entityName="items"
+        onImport={(rows) => {
+          // Import execution will be implemented in US-16-005
+          console.log("Import rows:", rows.length);
+          toast.success(`Imported ${rows.length} rows (preview — full import coming soon)`);
+        }}
       />
     </div>
   );
