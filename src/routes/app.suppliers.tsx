@@ -11,6 +11,8 @@ import { useDeleteSupplier, useUpdateItem } from "@/hooks/useInventoryMutations"
 import { useRole } from "@/hooks/useRole";
 import { Button } from "@/components/ui/button";
 import type { Supplier } from "@/types/inventory";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
 interface SuppliersSearch {
   supplier?: string;
