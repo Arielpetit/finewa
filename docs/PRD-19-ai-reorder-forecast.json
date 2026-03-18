@@ -24,8 +24,8 @@
       },
       "priority": 1,
       "dependencies": ["US-02-004"],
-      "isPassed": false,
-      "notes": "Client-side only for demo mode; server-side AI enhancement deferred"
+      "isPassed": true,
+      "notes": "Created src/lib/reorder-engine.ts with calculateReorderPoint (avg×lead+1.5σ√lead safety), calculateReorderQuantity (EOQ approx), analyzeItem (full recommendation), analyzeAllItems (batch sorted by urgency). Confidence from history length. Edge cases handled (zero consumption → null stockout, no movements → low confidence)."
     },
     {
       "id": "US-19-002",
