@@ -49,8 +49,8 @@
       },
       "priority": 2,
       "dependencies": ["US-17-001", "US-02-004"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Disabled cmdk built-in filter, manual filtering by name/SKU/barcode. Status dots (green/amber/red). Max 8 results. No results message. Items section hidden when no query. Refactored into palette-pages, palette-actions, ItemResultRow."
     },
     {
       "id": "US-17-003",
