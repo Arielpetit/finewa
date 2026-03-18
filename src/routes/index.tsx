@@ -190,6 +190,10 @@ function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
             <a
               key={l.label}
               href={l.href}
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               {l.label}
@@ -225,7 +229,11 @@ function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
             <a
               key={l.label}
               href={l.href}
-              onClick={() => setMobileOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileOpen(false);
+                document.querySelector(l.href)?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="block py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
             >
               {l.label}
@@ -332,7 +340,7 @@ function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen bg-background text-foreground">
       <StickyNav onTryDemo={handleTryDemo} />
 
       {/* ── Split Hero ─────────────────────────────────── */}
