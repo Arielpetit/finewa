@@ -47,8 +47,8 @@
       },
       "priority": 2,
       "dependencies": ["US-23-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Invite dialog with email validation, role selection, duplicate check, pending status."
     },
     {
       "id": "US-23-003",
