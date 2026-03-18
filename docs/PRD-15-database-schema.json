@@ -175,8 +175,8 @@
       },
       "priority": 8,
       "dependencies": ["US-15-005", "US-15-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Migration at docs/migrations/00008. Requestors read/insert own, admin+manager read all + update. CASCADE on request_items. No requestor update access. Indexes on requested_by, status."
     },
     {
       "id": "US-15-009",
