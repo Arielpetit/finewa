@@ -196,8 +196,8 @@
       },
       "priority": 9,
       "dependencies": ["US-15-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Migration at docs/migrations/00009. CHECK on field_type, nullable category_id FK, options jsonb, RLS admin-only write."
     },
     {
       "id": "US-15-010",
