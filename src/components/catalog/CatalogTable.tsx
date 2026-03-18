@@ -150,7 +150,7 @@ export function CatalogTable({
                 )}
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell className="font-mono text-xs">{item.sku}</TableCell>
-                <TableCell className="text-sm text-muted-foreground">{catMap.get(item.categoryId ?? "") ?? "—"}</TableCell>
+                <TableCell className="text-sm text-muted-foreground">{catMap.get(item.categoryId ?? "") ?? (item.categoryId ? <span className="italic text-muted-foreground/60">Unknown Category</span> : "—")}</TableCell>
                 <TableCell>
                   <span className="inline-flex items-center gap-2">
                     <span className="font-mono text-sm">{item.currentStock}</span>
