@@ -1,44 +1,105 @@
-import { Printer } from "lucide-react";
+import { useState } from "react";
+import { Printer, Pencil, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
-interface BarcodeDisplayProps {
-  barcode: string | null;
-  itemName: string;
-  sku: string;
-  location?: string;
-}
+// ─── Code 128B Encoder ───────────────────────────────────
 
-/** Generate pseudo-random bar widths from a string for visual effect */
-function barsFromString(str: string): number[] {
-  const bars: number[] = [];
-  for (let i = 0; i < str.length; i++) {
-    const code = str.charCodeAt(i);
-    bars.push(code % 2 === 0 ? 2 : 1);
-    bars.push(code % 3 === 0 ? 3 : 1);
-    bars.push(code % 5 === 0 ? 2 : 1);
-    bars.push(1); // gap
+const CODE128B_START = 104;
+const CODE128B_STOP = [2, 3, 3, 1, 1, 1, 2]; // stop pattern
+
+// Code128B encoding: each character maps to 6 bar/space widths
+const CODE128B_PATTERNS: number[][] = [
+  [2,1,2,2,2,2],[2,2,2,1,2,2],[2,2,2,2,2,1],[1,2,1,2,2,3],[1,2,1,3,2,2],
+  [1,3,1,2,2,2],[1,2,2,2,1,3],[1,2,2,3,1,2],[1,3,2,2,1,2],[2,2,1,2,1,3],
+  [2,2,1,3,1,2],[2,3,1,2,1,2],[1,1,2,2,3,2],[1,2,2,1,3,2],[1,2,2,2,3,1],
+  [1,1,3,2,2,2],[1,2,3,1,2,2],[1,2,3,2,2,1],[2,2,3,2,1,1],[2,2,1,1,3,2],
+  [2,2,1,2,3,1],[2,1,3,2,1,2],[2,2,3,1,1,2],[3,1,2,1,3,1],[3,1,1,2,2,2],
+  [3,2,1,1,2,2],[3,2,1,2,2,1],[3,1,2,2,1,2],[3,2,2,1,1,2],[3,2,2,2,1,1],
+  [2,1,2,1,2,3],[2,1,2,3,2,1],[2,3,2,1,2,1],[1,1,1,3,2,3],[1,3,1,1,2,3],
+  [1,3,1,3,2,1],[1,1,2,3,1,3],[1,3,2,1,1,3],[1,3,2,3,1,1],[2,1,1,3,1,3],
+  [2,3,1,1,1,3],[2,3,1,3,1,1],[1,1,2,1,3,3],[1,1,2,3,3,1],[1,3,2,1,3,1],
+  [1,1,3,1,2,3],[1,1,3,3,2,1],[1,3,3,1,2,1],[3,1,3,1,2,1],[2,1,1,3,3,1],
+  [2,3,1,1,3,1],[2,1,3,1,1,3],[2,1,3,3,1,1],[2,1,3,1,3,1],[3,1,1,1,2,3],
+  [3,1,1,3,2,1],[3,3,1,1,2,1],[3,1,2,1,1,3],[3,1,2,3,1,1],[3,3,2,1,1,1],
+  [3,1,4,1,1,1],[2,2,1,4,1,1],[4,3,1,1,1,1],[1,1,1,2,2,4],[1,1,1,4,2,2],
+  [1,2,1,1,2,4],[1,2,1,4,2,1],[1,4,1,1,2,2],[1,4,1,2,2,1],[1,1,2,2,1,4],
+  [1,1,2,4,1,2],[1,2,2,1,1,4],[1,2,2,4,1,1],[1,4,2,1,1,2],[1,4,2,2,1,1],
+  [2,4,1,2,1,1],[2,2,1,1,1,4],[4,1,3,1,1,1],[2,4,1,1,1,2],[1,3,4,1,1,1],
+  [1,1,1,2,4,2],[1,2,1,1,4,2],[1,2,1,2,4,1],[1,1,4,2,1,2],[1,2,4,1,1,2],
+  [1,2,4,2,1,1],[4,1,1,2,1,2],[4,2,1,1,1,2],[4,2,1,2,1,1],[2,1,2,1,4,1],
+  [2,1,4,1,2,1],[4,1,2,1,2,1],[1,1,1,1,4,3],[1,1,1,3,4,1],[1,3,1,1,4,1],
+  [1,1,4,1,1,3],[1,1,4,3,1,1],[4,1,1,1,1,3],[4,1,1,3,1,1],[1,1,3,1,4,1],
+  [1,1,4,1,3,1],[3,1,1,1,4,1],[4,1,1,1,3,1],[2,1,1,4,1,2],[2,1,1,2,1,4],
+  [2,1,1,2,3,2],[2,3,3,1,1,1,2],
+];
+
+// Start code B pattern
+const START_B_PATTERN = [2, 1, 1, 4, 1, 2];
+
+function encodeCode128B(text: string): number[] {
+  const bars: number[] = [...START_B_PATTERN];
+  let checksum = CODE128B_START;
+
+  for (let i = 0; i < text.length; i++) {
+    const code = text.charCodeAt(i) - 32;
+    if (code < 0 || code > 106) continue;
+    const pattern = CODE128B_PATTERNS[code];
+    if (pattern) bars.push(...pattern);
+    checksum += code * (i + 1);
   }
+
+  // Checksum character
+  const checksumCode = checksum % 103;
+  const checksumPattern = CODE128B_PATTERNS[checksumCode];
+  if (checksumPattern) bars.push(...checksumPattern);
+
+  // Stop
+  bars.push(...CODE128B_STOP);
+
   return bars;
 }
 
-function handlePrint(itemName: string, sku: string, barcode: string, location?: string) {
+function renderBarcodeSVG(bars: number[], height = 50): string {
+  let x = 10; // quiet zone
+  const rects: string[] = [];
+
+  for (let i = 0; i < bars.length; i++) {
+    const w = bars[i];
+    if (i % 2 === 0) {
+      // Even indices are bars (black)
+      rects.push(`<rect x="${x}" y="0" width="${w}" height="${height}" fill="currentColor"/>`);
+    }
+    x += w;
+  }
+
+  const totalWidth = x + 10; // add quiet zone
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalWidth} ${height}" width="${totalWidth}" height="${height}" class="text-foreground">${rects.join("")}</svg>`;
+}
+
+// ─── Print handler ───────────────────────────────────────
+
+function handlePrint(itemName: string, sku: string, barcode: string, svgMarkup: string, location?: string) {
   const printWindow = window.open("", "_blank", "width=400,height=300");
   if (!printWindow) return;
   printWindow.document.write(`
     <!DOCTYPE html>
     <html><head><title>Label — ${sku}</title>
     <style>
-      body { font-family: ui-monospace, monospace; text-align: center; padding: 24px; margin: 0; }
-      .name { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
-      .sku { font-size: 13px; color: #555; margin-bottom: 4px; }
-      .barcode { font-size: 20px; letter-spacing: 4px; font-weight: 700; margin: 16px 0; }
-      .location { font-size: 12px; color: #777; }
-      @media print { body { padding: 12px; } }
+      @page { size: 2.5in 1in; margin: 0; }
+      body { font-family: ui-monospace, monospace; text-align: center; padding: 8px; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 1in; box-sizing: border-box; }
+      .name { font-size: 10px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 2.3in; }
+      .sku { font-size: 8px; color: #555; margin-top: 2px; }
+      .barcode { margin: 4px 0; }
+      .barcode svg { height: 30px; width: auto; }
+      .value { font-size: 9px; letter-spacing: 2px; font-weight: 600; }
+      .location { font-size: 7px; color: #777; }
     </style></head><body>
       <div class="name">${itemName}</div>
       <div class="sku">SKU: ${sku}</div>
-      <div class="barcode">${barcode}</div>
-      ${location ? `<div class="location">Location: ${location}</div>` : ""}
+      <div class="barcode">${svgMarkup}</div>
+      <div class="value">${barcode}</div>
+      ${location ? `<div class="location">${location}</div>` : ""}
     </body></html>
   `);
   printWindow.document.close();
@@ -46,34 +107,113 @@ function handlePrint(itemName: string, sku: string, barcode: string, location?: 
   printWindow.print();
 }
 
-export function BarcodeDisplay({ barcode, itemName, sku, location }: BarcodeDisplayProps) {
+// ─── Props ───────────────────────────────────────────────
+
+interface BarcodeDisplayProps {
+  barcode: string | null;
+  itemName: string;
+  sku: string;
+  location?: string;
+  onBarcodeChange?: (value: string) => void;
+}
+
+// ─── Component ───────────────────────────────────────────
+
+export function BarcodeDisplay({ barcode, itemName, sku, location, onBarcodeChange }: BarcodeDisplayProps) {
+  const [editing, setEditing] = useState(false);
+  const [editValue, setEditValue] = useState("");
+
+  const startEdit = () => {
+    setEditValue(barcode ?? "");
+    setEditing(true);
+  };
+
+  const saveEdit = () => {
+    const trimmed = editValue.trim();
+    if (trimmed && onBarcodeChange) {
+      onBarcodeChange(trimmed);
+    }
+    setEditing(false);
+  };
+
+  const cancelEdit = () => setEditing(false);
+
   if (!barcode) {
     return (
       <div className="rounded-lg border border-dashed border-border p-4 text-center">
         <p className="text-sm text-muted-foreground">No barcode assigned</p>
+        {onBarcodeChange && (
+          editing ? (
+            <div className="mt-3 flex items-center gap-2 justify-center">
+              <Input
+                value={editValue}
+                onChange={(e) => setEditValue(e.target.value)}
+                placeholder="Enter barcode value"
+                className="h-8 w-48 text-sm"
+                autoFocus
+                onKeyDown={(e) => { if (e.key === "Enter") saveEdit(); if (e.key === "Escape") cancelEdit(); }}
+              />
+              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={saveEdit}>
+                <Check className="h-3.5 w-3.5" />
+              </Button>
+              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={cancelEdit}>
+                <X className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          ) : (
+            <Button variant="outline" size="sm" className="mt-2" onClick={startEdit}>
+              Add Barcode
+            </Button>
+          )
+        )}
       </div>
     );
   }
 
-  const bars = barsFromString(barcode);
+  const bars = encodeCode128B(barcode);
+  const svgMarkup = renderBarcodeSVG(bars);
 
   return (
     <div className="rounded-lg border border-border bg-card p-4">
-      <p className="mb-2 text-center text-xs uppercase tracking-wider text-muted-foreground">Barcode</p>
-
-      {/* CSS barcode bars */}
-      <div className="mx-auto flex h-14 max-w-[240px] items-end justify-center gap-px" aria-hidden="true">
-        {bars.map((w, i) => (
-          <div
-            key={i}
-            className={i % 2 === 0 ? "bg-foreground" : "bg-transparent"}
-            style={{ width: `${w}px`, height: `${60 + (w * 7) % 20}%` }}
-          />
-        ))}
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-center text-xs uppercase tracking-wider text-muted-foreground flex-1">Barcode</p>
+        {onBarcodeChange && (
+          <Button variant="ghost" size="icon" className="h-6 w-6" onClick={startEdit} aria-label="Edit barcode">
+            <Pencil className="h-3 w-3" />
+          </Button>
+        )}
       </div>
 
-      {/* Barcode number */}
-      <p className="mt-2 text-center font-mono text-lg font-semibold tracking-widest">{barcode}</p>
+      {editing ? (
+        <div className="flex items-center gap-2 justify-center mb-2">
+          <Input
+            value={editValue}
+            onChange={(e) => setEditValue(e.target.value)}
+            className="h-8 w-48 text-sm font-mono"
+            autoFocus
+            onKeyDown={(e) => { if (e.key === "Enter") saveEdit(); if (e.key === "Escape") cancelEdit(); }}
+          />
+          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={saveEdit}>
+            <Check className="h-3.5 w-3.5" />
+          </Button>
+          <Button variant="ghost" size="icon" className="h-8 w-8" onClick={cancelEdit}>
+            <X className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+      ) : (
+        <>
+          {/* SVG barcode */}
+          <div
+            className="mx-auto flex justify-center"
+            style={{ maxWidth: 240, height: 56 }}
+            aria-label={`Barcode: ${barcode}`}
+            dangerouslySetInnerHTML={{ __html: svgMarkup }}
+          />
+
+          {/* Barcode number */}
+          <p className="mt-2 text-center font-mono text-lg font-semibold tracking-widest">{barcode}</p>
+        </>
+      )}
 
       {/* Print button */}
       <div className="mt-3 flex justify-center">
@@ -81,7 +221,7 @@ export function BarcodeDisplay({ barcode, itemName, sku, location }: BarcodeDisp
           variant="outline"
           size="sm"
           className="gap-1.5"
-          onClick={() => handlePrint(itemName, sku, barcode, location)}
+          onClick={() => handlePrint(itemName, sku, barcode, svgMarkup, location)}
         >
           <Printer className="h-3.5 w-3.5" />
           Print Label
