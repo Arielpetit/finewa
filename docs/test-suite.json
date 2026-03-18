@@ -63,7 +63,7 @@
       "description": "Clicking sidebar links navigates to the correct pages",
       "steps": ["Navigate to /app/dashboard", "Click 'Catalog' in sidebar", "Verify URL is /app/catalog"],
       "expectedResult": "Navigation changes to the clicked page",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "CAT-01",
