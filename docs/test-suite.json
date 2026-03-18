@@ -72,7 +72,7 @@
       "description": "Catalog page loads and displays inventory items in a table",
       "steps": ["Navigate to /app/catalog", "Check table is visible", "Verify rows contain item names and SKUs"],
       "expectedResult": "Table renders with seed data items",
-      "result": null
+      "result": "pass"
     },
     {
       "id": "CAT-02",
