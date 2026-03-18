@@ -116,8 +116,8 @@
       },
       "priority": 4,
       "dependencies": ["US-24-001", "US-09-001"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "Line chart with 4 movement type lines, daily/weekly grouping, legend toggle."
     },
     {
       "id": "US-24-006",
