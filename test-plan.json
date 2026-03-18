@@ -3,10 +3,10 @@
   "generated_at": "2026-03-18T00:00:00.000Z",
   "total_tests": 35,
   "stats": {
-    "passed": 28,
+    "passed": 29,
     "failed": 0,
     "blocked": 2,
-    "pending": 5,
+    "pending": 4,
     "bugs_fixed": 0
   },
   "tests": [
@@ -731,8 +731,8 @@
       ],
       "expected_result": "User is redirected to / (landing page)",
       "pass_criteria": "URL is '/' or landing page content is visible",
-      "status": "pending",
-      "passed": false,
+      "status": "passed",
+      "passed": true,
       "fix_attempts": 0,
       "max_fix_attempts": 3,
       "failure_reason": "",
