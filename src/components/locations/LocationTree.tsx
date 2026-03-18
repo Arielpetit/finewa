@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 import { ChevronRight, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { LocationDeleteDialog } from "@/components/locations/LocationDeleteDialog";
+import { usePermissions } from "@/hooks/usePermissions";
 import type { LocationTreeNode } from "@/hooks/useLocations";
 import type { Item } from "@/types/inventory";
 import type { LocationType } from "@/types/inventory";
@@ -55,6 +57,7 @@ export function LocationTree({ tree, items, selectedId, onSelect }: LocationTree
         <TreeNode
           key={node.id}
           node={node}
+          items={items}
           itemCounts={itemCounts}
           selectedId={selectedId}
           onSelect={onSelect}
@@ -66,19 +69,23 @@ export function LocationTree({ tree, items, selectedId, onSelect }: LocationTree
 
 function TreeNode({
   node,
+  items,
   itemCounts,
   selectedId,
   onSelect,
 }: {
   node: LocationTreeNode;
+  items: Item[];
   itemCounts: Map<string, number>;
   selectedId: string | null;
   onSelect: (id: string) => void;
 }) {
   const [expanded, setExpanded] = useState(node.depth < 1);
+  const { can } = usePermissions();
   const hasChildren = node.children.length > 0;
   const isSelected = selectedId === node.id;
   const count = itemCounts.get(node.id) ?? 0;
+  const isAdmin = can("manage_roles");
 
   return (
     <div role="treeitem" aria-expanded={hasChildren ? expanded : undefined}>
@@ -88,7 +95,7 @@ function TreeNode({
         onClick={() => onSelect(node.id)}
         onKeyDown={(e) => { if (e.key === "Enter") onSelect(node.id); }}
         className={cn(
-          "flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors hover:bg-accent/50",
+          "group flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm transition-colors hover:bg-accent/50",
           isSelected && "bg-accent text-accent-foreground",
         )}
         style={{ paddingLeft: `${node.depth * 20 + 8}px` }}
@@ -129,6 +136,16 @@ function TreeNode({
             {count}
           </span>
         )}
+
+        {isAdmin && (
+          <LocationDeleteDialog
+            node={node}
+            items={items}
+            onDeleted={() => {
+              if (selectedId === node.id) onSelect("");
+            }}
+          />
+        )}
       </div>
 
       {hasChildren && expanded && (
@@ -137,6 +154,7 @@ function TreeNode({
             <TreeNode
               key={child.id}
               node={child}
+              items={items}
               itemCounts={itemCounts}
               selectedId={selectedId}
               onSelect={onSelect}
