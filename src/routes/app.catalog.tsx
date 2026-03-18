@@ -322,6 +322,7 @@ function CatalogPage() {
               const newItem: Item = {
                 id: `item-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
                 sku: row.sku ?? "",
+                barcode: row.barcode ?? null,
                 name: row.name ?? "",
                 description: row.description ?? "",
                 categoryId: categories.find((c) => c.name.toLowerCase() === row.category?.toLowerCase())?.id ?? null,

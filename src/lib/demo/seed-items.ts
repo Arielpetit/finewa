@@ -20,6 +20,7 @@ const item = (
 ): Item => ({
   id: `itm-${String(idx).padStart(3, "0")}`,
   sku: `STK-${String(1000 + idx)}`,
+  barcode: idx % 3 === 0 ? null : `49${String(10000000 + idx * 137).slice(0, 8)}${idx % 10}`,
   name,
   description: `${name} — standard inventory item`,
   categoryId: catId,
