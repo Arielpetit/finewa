@@ -42,7 +42,17 @@ function SuppliersPage() {
   const [detailOpen, setDetailOpen] = useState(false);
   const [detailSupplier, setDetailSupplier] = useState<Supplier | null>(null);
 
-  // Open detail from URL param
+  const supplierCsvColumns = useMemo<CSVColumn<Supplier>[]>(() => [
+    { header: "Name", accessor: (s) => s.name },
+    { header: "Contact Person", accessor: (s) => s.contactName },
+    { header: "Email", accessor: (s) => s.email },
+    { header: "Phone", accessor: (s) => s.phone },
+    { header: "Address", accessor: (s) => s.address },
+    { header: "Lead Time Days", accessor: (s) => s.leadTimeDays },
+    { header: "Rating", accessor: (s) => s.rating },
+    { header: "Notes", accessor: (s) => s.notes },
+  ], []);
+
   useEffect(() => {
     if (supplierParam && suppliers.length > 0) {
       const found = suppliers.find((s) => s.id === supplierParam);
