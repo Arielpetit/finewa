@@ -69,8 +69,8 @@
       },
       "priority": 3,
       "dependencies": ["US-18-001", "US-18-002"],
-      "isPassed": false,
-      "notes": ""
+      "isPassed": true,
+      "notes": "NotificationCenter sheet (400px right). Header with title, unread badge, Mark All as Read. Filter tabs: All/Unread/Stock/PO/Requests. Items with type icon, title, message, relative time, unread dot. Click navigates + marks read. Dismiss per item. Empty state per tab."
     },
     {
       "id": "US-18-004",

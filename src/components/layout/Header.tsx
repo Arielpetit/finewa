@@ -20,6 +20,7 @@ import {
 import { Sidebar } from "./Sidebar";
 import { QuickEntryMode } from "@/components/data/QuickEntryMode";
 import { CommandPalette } from "@/components/command/CommandPalette";
+import { NotificationCenter } from "@/components/notifications/NotificationCenter";
 import { useDemo } from "@/hooks/useDemo";
 import { useAuth } from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
@@ -41,6 +42,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [quickEntryOpen, setQuickEntryOpen] = useState(false);
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
   const { isDemo, exitDemoMode } = useDemo();
   const { user, signOut } = useAuth();
   const { role } = useRole();
@@ -91,7 +93,7 @@ export function Header() {
         <Plus className="h-4 w-4" />
       </Button>
 
-      <NotificationBell onClick={() => { /* US-18-003 will add NotificationCenter */ }} />
+      <NotificationBell onClick={() => setNotifOpen(true)} />
 
       {/* Role badge */}
       <Badge variant="outline" className={`hidden shrink-0 text-[10px] font-semibold uppercase sm:inline-flex ${ROLE_BADGE_STYLES[role]}`}>
@@ -131,6 +133,7 @@ export function Header() {
 
       <QuickEntryMode open={quickEntryOpen} onOpenChange={setQuickEntryOpen} />
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
+      <NotificationCenter open={notifOpen} onOpenChange={setNotifOpen} />
     </header>
   );
 }
