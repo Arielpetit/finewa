@@ -134,7 +134,7 @@ export function ItemFormSheet({
               {errors.name && <p className={errCls}>{errors.name.message}</p>}
             </div>
             <div>
-              <label className={labelCls}>SKU *</label>
+              <label className={`${labelCls} flex items-center gap-1`}>SKU * <HelpTooltip text="Unique identifier for this item. Must be different from all other items." /></label>
               <input {...register("sku")} className={inputCls} placeholder="STK-XXXX" />
               {errors.sku && <p className={errCls}>{errors.sku.message}</p>}
             </div>
