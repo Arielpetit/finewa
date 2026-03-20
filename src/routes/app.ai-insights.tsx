@@ -171,19 +171,19 @@ function AiInsightsPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="stockout">Days to Stockout</SelectItem>
-            <SelectItem value="delta">Reorder Delta</SelectItem>
+            <SelectItem value="delta">Order delta</SelectItem>
           </SelectContent>
         </Select>
 
         <span className="text-xs text-muted-foreground ml-auto">
-          {filtered.length} suggestion{filtered.length !== 1 ? "s" : ""}
+          {filtered.length} order{filtered.length !== 1 ? "s" : ""}
         </span>
       </div>
 
       {/* Suggestion Cards */}
       {filtered.length === 0 ? (
         <p className="text-center text-sm text-muted-foreground py-8">
-          No reorder suggestions match the current filters.
+          No suggested orders match the current filters.
         </p>
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

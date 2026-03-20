@@ -50,7 +50,7 @@ export function DashboardReorderSection({ items, movements, suppliers }: Dashboa
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Lightbulb className="h-4 w-4 text-amber-500" />
-          <h2 className="text-sm font-semibold">Reorder Suggestions</h2>
+          <h2 className="text-sm font-semibold">Suggested orders</h2>
           <Badge variant="secondary" className="text-xs">{suggestions.length}</Badge>
         </div>
         <Button variant="ghost" size="sm" asChild className="text-xs">
