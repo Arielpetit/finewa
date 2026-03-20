@@ -29,7 +29,7 @@ export function SystemSettings() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Demo Data</CardTitle>
+          <CardTitle>Demo data</CardTitle>
           <CardDescription>Manage demo seed data for testing and exploration.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
