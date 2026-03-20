@@ -352,7 +352,7 @@ function LandingPage() {
               AI-powered inventory management
             </div>
 
-            <h1 className="mt-6 text-[36px] font-semibold leading-[1.1] tracking-tight sm:text-[48px] lg:text-[56px]">
+            <h1 className="mt-6 text-[36px] font-semibold leading-[1.05] tracking-tight sm:text-[48px] lg:text-[56px]">
               The inventory platform that scales your business
             </h1>
 
