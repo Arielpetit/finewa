@@ -17,7 +17,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import heroBox3d from "@/assets/hero-box-3d.png";
+import heroBox3d from "@/assets/hero-box.png";
 import mockupDashboard from "@/assets/mockup-dashboard.png.asset.json";
 import mockupCatalog from "@/assets/mockup-catalog.png.asset.json";
 import mockupAnalytics from "@/assets/mockup-analytics.png.asset.json";
