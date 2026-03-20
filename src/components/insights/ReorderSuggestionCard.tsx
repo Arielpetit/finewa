@@ -22,8 +22,8 @@ function getUrgencyBar(days: number | null): string {
 function getUrgencyBg(days: number | null): string {
   if (days === null) return "text-muted-foreground";
   if (days < 7) return "text-destructive";
-  if (days <= 14) return "text-amber-600 dark:text-amber-400";
-  return "text-emerald-600 dark:text-emerald-400";
+  if (days <= 14) return "text-stock-low";
+  return "text-stock-healthy";
 }
 
 const confidenceVariant: Record<ConfidenceLevel, "default" | "secondary" | "outline"> = {
