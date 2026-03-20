@@ -41,7 +41,7 @@ export function NeedsAttention() {
             <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Low stock</p>
             {lowStockItems.length > 5 && (
               <Link to="/app/catalog" className="text-xs font-medium text-primary hover:underline">
-                View All ({lowStockItems.length})
+                View all ({lowStockItems.length})
               </Link>
             )}
           </div>
