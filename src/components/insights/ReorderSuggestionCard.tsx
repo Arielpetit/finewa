@@ -15,15 +15,15 @@ interface ReorderSuggestionCardProps {
 function getUrgencyBar(days: number | null): string {
   if (days === null) return "bg-muted-foreground/30";
   if (days < 7) return "bg-destructive";
-  if (days <= 14) return "bg-amber-500";
-  return "bg-emerald-500";
+  if (days <= 14) return "bg-stock-low";
+  return "bg-stock-healthy";
 }
 
 function getUrgencyBg(days: number | null): string {
   if (days === null) return "text-muted-foreground";
   if (days < 7) return "text-destructive";
-  if (days <= 14) return "text-amber-600 dark:text-amber-400";
-  return "text-emerald-600 dark:text-emerald-400";
+  if (days <= 14) return "text-stock-low";
+  return "text-stock-healthy";
 }
 
 const confidenceVariant: Record<ConfidenceLevel, "default" | "secondary" | "outline"> = {
@@ -46,8 +46,8 @@ export function ReorderSuggestionCard({ analysis, onApply, onDismiss }: ReorderS
       applied && "opacity-75",
     )}>
       <div className={cn(
-        "absolute left-1 top-1 bottom-1 w-[3px] rounded-full",
-        applied ? "bg-emerald-500" : getUrgencyBar(analysis.daysUntilStockout),
+        "absolute left-2 top-2 bottom-2 w-[3px] rounded-full",
+        applied ? "bg-stock-healthy" : getUrgencyBar(analysis.daysUntilStockout),
       )} />
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
@@ -85,7 +85,7 @@ export function ReorderSuggestionCard({ analysis, onApply, onDismiss }: ReorderS
         <div className="font-medium text-right flex items-center justify-end gap-1">
           <span className="text-muted-foreground">{analysis.currentReorderPoint}</span>
           <ArrowRight className="h-3 w-3 text-muted-foreground" />
-          <span className={cn(delta > 0 ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400")}>
+          <span className={cn(delta > 0 ? "text-stock-low" : "text-stock-healthy")}>
             {analysis.suggestedReorderPoint}
           </span>
         </div>
@@ -100,7 +100,7 @@ export function ReorderSuggestionCard({ analysis, onApply, onDismiss }: ReorderS
       {/* Actions */}
       <div className="mt-3 flex items-center gap-2">
         {applied ? (
-          <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+          <div className="flex items-center gap-1.5 text-xs text-stock-healthy font-medium">
             <Check className="h-3.5 w-3.5" />
             Applied
           </div>

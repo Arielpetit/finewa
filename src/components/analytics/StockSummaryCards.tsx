@@ -19,7 +19,7 @@ export function StockSummaryCards({ items }: StockSummaryCardsProps) {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <div className="relative overflow-hidden rounded-md border border-border bg-card p-5 pl-4">
-        <div className="absolute left-1 top-1 bottom-1 w-[3px] rounded-full bg-primary" />
+        <div className="absolute left-2 top-2 bottom-2 w-[3px] rounded-full bg-primary" />
         <p className="text-sm text-muted-foreground">Total Inventory Value</p>
         <div className="mt-1 flex items-baseline gap-2">
           <DollarSign className="h-4 w-4 text-muted-foreground" />

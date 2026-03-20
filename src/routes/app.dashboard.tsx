@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Play, Package, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
+import { Package, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
 import { toast } from "sonner";
 import { MetricCard } from "@/components/dashboard/MetricCard";
 import { NeedsAttention } from "@/components/dashboard/NeedsAttention";
@@ -8,8 +8,7 @@ import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { DashboardReorderSection } from "@/components/insights/DashboardReorderSection";
 import { DashboardAnomalySection } from "@/components/insights/DashboardAnomalySection";
 import { OnboardingTour } from "@/components/onboarding/OnboardingTour";
-import { DemoWalkthrough } from "@/components/onboarding/DemoWalkthrough";
-import { Button } from "@/components/ui/button";
+
 import { useStockSummary } from "@/hooks/useInventoryData";
 import { useAlertGenerator } from "@/hooks/useStockAlertGenerator";
 import { useDemo } from "@/hooks/useDemo";
@@ -39,7 +38,7 @@ function DashboardPage() {
   const suppliers = demoStore?.getSuppliers() ?? [];
 
   const tour = useOnboarding("dashboard");
-  const [walkthroughActive, setWalkthroughActive] = useState(false);
+  
 
   // Auto-start tour on first demo visit
   useEffect(() => {
@@ -56,16 +55,9 @@ function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
-          <p className="text-sm text-muted-foreground">Welcome back — here's your inventory overview.</p>
-        </div>
-        {isDemo && (
-          <Button size="sm" variant="outline" className="gap-1.5" onClick={() => setWalkthroughActive(true)}>
-            <Play className="h-3.5 w-3.5" /> Start Walkthrough
-          </Button>
-        )}
+      <div>
+        <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
+        <p className="text-sm text-muted-foreground">Welcome back — here's your inventory overview.</p>
       </div>
 
       <div data-tour="metrics" className="rounded-xl border border-border/50 bg-card p-3 shadow-md shadow-black/[0.04]">
@@ -95,7 +87,7 @@ function DashboardPage() {
         onComplete={handleTourComplete}
       />
 
-      <DemoWalkthrough active={walkthroughActive} onClose={() => setWalkthroughActive(false)} />
+      
     </div>
   );
 }

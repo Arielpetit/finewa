@@ -18,7 +18,7 @@ export function DemoBanner() {
   if (!isDemo || dismissed) return null;
 
   return (
-    <div className="sticky top-0 z-50 flex h-10 w-full items-center justify-between gap-2 bg-amber-accent px-3 text-sm font-medium text-foreground">
+    <div className="sticky top-0 z-50 flex h-10 w-full items-center justify-between gap-2 bg-primary px-3 text-sm font-medium text-primary-foreground">
       <span className="truncate">
         <span className="hidden sm:inline">
           You're exploring Stackwise in demo mode. Data resets each session.
@@ -27,14 +27,14 @@ export function DemoBanner() {
       </span>
 
       {/* Role switcher */}
-      <div className="flex shrink-0 items-center gap-1 rounded-md border border-foreground/15 bg-background/50 p-0.5">
+      <div className="flex shrink-0 items-center gap-1 rounded-md border border-primary-foreground/20 bg-primary-foreground/15 p-0.5">
         {roles.map((r) => (
           <button
             key={r.value}
             type="button"
             onClick={() => setDemoRole(r.value)}
             className={`rounded px-2 py-0.5 text-xs font-semibold transition-colors ${
-              role === r.value ? "bg-background text-foreground shadow-sm" : "text-foreground/60 hover:text-foreground"
+              role === r.value ? "bg-primary-foreground text-primary shadow-sm" : "text-primary-foreground/70 hover:text-primary-foreground"
             }`}
           >
             {r.label}
@@ -46,7 +46,7 @@ export function DemoBanner() {
         <button
           type="button"
           onClick={() => setDismissed(true)}
-          className="rounded p-0.5 transition-colors hover:bg-foreground/10"
+          className="rounded p-0.5 transition-colors hover:bg-primary-foreground/20"
           aria-label="Dismiss demo banner"
         >
           <X className="h-3.5 w-3.5" />

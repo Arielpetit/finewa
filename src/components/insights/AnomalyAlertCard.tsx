@@ -31,14 +31,14 @@ export function AnomalyAlertCard({ alert, itemName, itemSku, onDismiss }: Anomal
       )}
     >
       <div className={cn(
-        "absolute left-1 top-1 bottom-1 w-[3px] rounded-full",
-        isCritical ? "bg-destructive" : "bg-amber-500",
+        "absolute left-2 top-2 bottom-2 w-[3px] rounded-full",
+        isCritical ? "bg-destructive" : "bg-stock-low",
       )} />
       <div className="flex items-start gap-3">
         <Icon
           className={cn(
             "h-4 w-4 mt-0.5 shrink-0",
-            isCritical ? "text-destructive" : "text-amber-500",
+            isCritical ? "text-destructive" : "text-stock-low",
           )}
         />
         <div className="min-w-0 flex-1">

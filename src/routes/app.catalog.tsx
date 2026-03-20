@@ -4,6 +4,7 @@ import { Plus, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { CSVExportButton, type CSVColumn } from "@/components/data/CSVExportButton";
 import { CSVImportSheet, type ImportField } from "@/components/data/CSVImportSheet";
 import {
@@ -231,7 +232,9 @@ function CatalogPage() {
         </div>
       </div>
 
-      <CatalogFilters filters={filters} onChange={setFilters} categories={categories} suppliers={suppliers} locations={locations} />
+      <Card className="p-4">
+        <CatalogFilters filters={filters} onChange={setFilters} categories={categories} suppliers={suppliers} locations={locations} />
+      </Card>
 
       <ErrorBoundary>
       {allItems.length === 0 ? (
