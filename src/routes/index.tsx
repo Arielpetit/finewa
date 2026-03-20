@@ -434,8 +434,8 @@ function LandingPage() {
           {features.map((f, i) => (
             <RevealSection key={f.title} delay={i * 80}>
               <div className="group rounded-lg border border-border bg-card p-6 transition-all duration-200 hover:border-primary/30 hover:shadow-md">
-                <div className="mb-4 inline-flex rounded-md bg-primary/10 p-2.5">
-                  <f.icon className="h-5 w-5 text-primary" />
+                <div className="mb-4 inline-flex rounded-md bg-primary p-2.5">
+                  <f.icon className="h-5 w-5 text-white" />
                 </div>
                 <h3 className="mb-2 text-sm font-semibold">{f.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{f.description}</p>
