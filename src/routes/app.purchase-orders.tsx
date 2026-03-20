@@ -110,7 +110,7 @@ function PurchaseOrdersPage() {
     <div className="mx-auto max-w-[1400px] space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-foreground">Purchase Orders</h1>
+          <h1 className="text-2xl font-semibold text-foreground">Purchase orders</h1>
           <p className="text-sm text-muted-foreground">{filtered.length} orders</p>
         </div>
         {canManagePOs && (

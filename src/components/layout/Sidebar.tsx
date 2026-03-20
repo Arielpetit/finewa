@@ -46,7 +46,7 @@ const navGroups: NavGroup[] = [
     permKey: "canManagePOs",
     items: [
       { label: "Suppliers", href: "/app/suppliers", icon: Truck },
-      { label: "Purchase Orders", href: "/app/purchase-orders", icon: ClipboardList },
+      { label: "Purchase orders", href: "/app/purchase-orders", icon: ClipboardList },
     ],
   },
   {
@@ -54,7 +54,7 @@ const navGroups: NavGroup[] = [
     permKey: "canViewAnalytics",
     items: [
       { label: "Analytics", href: "/app/analytics", icon: BarChart3 },
-      { label: "AI Insights", href: "/app/ai-insights", icon: Sparkles },
+      { label: "AI insights", href: "/app/ai-insights", icon: Sparkles },
     ],
   },
   {

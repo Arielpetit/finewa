@@ -17,9 +17,9 @@ import { useOnboarding, type TourStep } from "@/hooks/useOnboarding";
 const TOUR_STEPS: TourStep[] = [
   { title: "Welcome to Stackwise!", description: "Let's take a quick tour of the key features. This will only take a minute." },
   { target: "sidebar", title: "Navigation", description: "Use the sidebar to switch between sections — catalog, movements, suppliers, and more." },
-  { target: "metrics", title: "Stock Health", description: "Your inventory health at a glance — total SKUs, in-stock, low-stock, and out-of-stock counts." },
-  { target: "needs-attention", title: "Needs Attention", description: "Items that need action appear here — low stock, overdue POs, and pending requests." },
-  { target: "search", title: "Command Palette", description: "Press CMD+K (or Ctrl+K) to search anything — items, suppliers, orders, and more." },
+  { target: "metrics", title: "Stock health", description: "Your inventory health at a glance — total SKUs, in-stock, low-stock, and out-of-stock counts." },
+  { target: "needs-attention", title: "Needs attention", description: "Items that need action appear here — low stock, overdue POs, and pending requests." },
+  { target: "search", title: "Command palette", description: "Press CMD+K (or Ctrl+K) to search anything — items, suppliers, orders, and more." },
   { title: "You're all set!", description: "Explore the app or try the guided walkthrough to learn the core workflow. Happy managing!" },
 ];
 
@@ -60,7 +60,7 @@ function DashboardPage() {
         <p className="text-sm text-muted-foreground">Welcome back — here's your inventory overview.</p>
       </div>
 
-      <div data-tour="metrics" className="rounded-xl border border-border/50 bg-card p-3 shadow-md shadow-black/[0.04]">
+      <div data-tour="metrics" className="rounded-xl border border-border bg-card p-3 shadow-xs">
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
           <MetricCard label="Total SKUs" value={summary.total} accentColor="neutral" icon={Package} />
           <MetricCard label="In stock" value={summary.inStock} accentColor="healthy" icon={CheckCircle2} />

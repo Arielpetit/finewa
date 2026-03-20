@@ -157,7 +157,7 @@ export function SupplierDetailSheet({
                   to="/app/catalog"
                   className="mt-2 inline-flex items-center gap-1 text-sm text-primary hover:underline"
                 >
-                  View All in Catalog
+                  View all in catalog
                   <ExternalLink className="h-3.5 w-3.5" />
                 </Link>
               )}
