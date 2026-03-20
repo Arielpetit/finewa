@@ -15,8 +15,8 @@ interface ReorderSuggestionCardProps {
 function getUrgencyBar(days: number | null): string {
   if (days === null) return "bg-muted-foreground/30";
   if (days < 7) return "bg-destructive";
-  if (days <= 14) return "bg-amber-500";
-  return "bg-emerald-500";
+  if (days <= 14) return "bg-stock-low";
+  return "bg-stock-healthy";
 }
 
 function getUrgencyBg(days: number | null): string {
