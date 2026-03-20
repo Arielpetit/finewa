@@ -27,7 +27,7 @@ export function DemoBanner() {
       </span>
 
       {/* Role switcher */}
-      <div className="flex shrink-0 items-center gap-1 rounded-md border border-foreground/15 bg-background/50 p-0.5">
+      <div className="flex shrink-0 items-center gap-1 rounded-md border border-primary-foreground/20 bg-primary-foreground/15 p-0.5">
         {roles.map((r) => (
           <button
             key={r.value}
