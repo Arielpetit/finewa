@@ -18,10 +18,10 @@ const ACCENT_BAR: Record<AccentColor, string> = {
 };
 
 const ACCENT_BG: Record<AccentColor, string> = {
-  healthy: "bg-metric-healthy-bg",
-  warning: "bg-metric-warning-bg",
-  danger: "bg-metric-danger-bg",
-  neutral: "bg-metric-neutral-bg",
+  healthy: "bg-metric-healthy-bg/50",
+  warning: "bg-metric-warning-bg/50",
+  danger: "bg-metric-danger-bg/50",
+  neutral: "bg-metric-neutral-bg/50",
 };
 
 const ICON_COLOR: Record<AccentColor, string> = {
@@ -33,14 +33,14 @@ const ICON_COLOR: Record<AccentColor, string> = {
 
 export function MetricCard({ label, value, trend, accentColor = "neutral", icon: Icon }: MetricCardProps) {
   return (
-    <div className={`relative overflow-hidden rounded-lg ${ACCENT_BG[accentColor]} p-5 pl-4`}>
-      <div className={`absolute left-1 top-1 bottom-1 w-[3px] rounded-full ${ACCENT_BAR[accentColor]}`} />
+    <div className={`relative overflow-hidden rounded-lg ${ACCENT_BG[accentColor]} px-6 py-5`}>
+      <div className={`absolute left-1.5 top-1.5 bottom-1.5 w-[3px] rounded-full ${ACCENT_BAR[accentColor]}`} />
       <div className="flex items-center justify-between">
         <p className="text-sm font-medium text-muted-foreground">{label}</p>
-        {Icon && <Icon className={`h-5 w-5 ${ICON_COLOR[accentColor]} opacity-70`} />}
+        {Icon && <Icon className={`h-5 w-5 ${ICON_COLOR[accentColor]} opacity-60`} />}
       </div>
-      <div className="mt-1 flex items-baseline gap-2">
-        <span className="font-mono text-[32px] font-bold leading-tight text-foreground">
+      <div className="mt-1.5 flex items-baseline gap-2">
+        <span className="font-mono text-3xl font-semibold leading-tight text-foreground">
           {value.toLocaleString()}
         </span>
         {trend && (
