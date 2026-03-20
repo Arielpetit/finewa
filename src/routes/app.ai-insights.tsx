@@ -171,7 +171,7 @@ function AiInsightsPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="stockout">Days to Stockout</SelectItem>
-            <SelectItem value="delta">Reorder Delta</SelectItem>
+            <SelectItem value="delta">Order delta</SelectItem>
           </SelectContent>
         </Select>
 
