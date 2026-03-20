@@ -18,7 +18,7 @@ export function DemoBanner() {
   if (!isDemo || dismissed) return null;
 
   return (
-    <div className="sticky top-0 z-50 flex h-10 w-full items-center justify-between gap-2 bg-amber-accent px-3 text-sm font-medium text-foreground">
+    <div className="sticky top-0 z-50 flex h-10 w-full items-center justify-between gap-2 bg-primary px-3 text-sm font-medium text-primary-foreground">
       <span className="truncate">
         <span className="hidden sm:inline">
           You're exploring Stackwise in demo mode. Data resets each session.
