@@ -134,7 +134,7 @@ export function Header() {
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       <NotificationCenter open={notifOpen} onOpenChange={setNotifOpen} onOpenPrefs={() => { setNotifOpen(false); setTimeout(() => setPrefsOpen(true), 300); }} />
       <NotificationPreferences open={prefsOpen} onOpenChange={setPrefsOpen} />
-      <ItemFormSheet open={newItemOpen} onOpenChange={setNewItemOpen} onSave={() => setNewItemOpen(false)} />
+      
     </header>
   );
 }
