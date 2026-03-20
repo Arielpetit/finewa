@@ -64,7 +64,7 @@ export function NeedsAttention() {
       {outOfStockItems.length > 0 && (
         <div className="mb-4">
           <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            Out of Stock ({outOfStockItems.length})
+            Out of stock ({outOfStockItems.length})
           </p>
           <div className="space-y-2">
             {outOfStockItems.slice(0, 3).map((item) => (
