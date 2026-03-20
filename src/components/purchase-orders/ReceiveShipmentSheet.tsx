@@ -90,7 +90,7 @@ export function ReceiveShipmentSheet({
         </SheetHeader>
 
         <div className="mt-6 space-y-5">
-          <div className="overflow-x-auto rounded-md border border-border">
+          <div className="overflow-x-auto rounded-md border border-border bg-white">
             <Table>
               <TableHeader>
                 <TableRow>

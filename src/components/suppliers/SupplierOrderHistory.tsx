@@ -50,7 +50,7 @@ export function SupplierOrderHistory({ purchaseOrders, supplierId }: SupplierOrd
         </p>
       ) : (
         <div className="space-y-2">
-          <div className="overflow-x-auto rounded-md border border-border">
+          <div className="overflow-x-auto rounded-md border border-border bg-white">
             <Table>
               <TableHeader>
                 <TableRow>
