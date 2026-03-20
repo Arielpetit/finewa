@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Plus, Upload } from "lucide-react";
 import { toast } from "sonner";
@@ -37,6 +37,7 @@ import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
 interface CatalogSearch {
   item?: string;
+  newItem?: string;
 }
 
 export const Route = createFileRoute("/app/catalog")({
@@ -44,12 +45,21 @@ export const Route = createFileRoute("/app/catalog")({
   head: () => ({ meta: [{ title: "Catalog — Stackwise" }] }),
   validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
     item: typeof search.item === "string" ? search.item : undefined,
+    newItem: typeof search.newItem === "string" ? search.newItem : undefined,
   }),
 });
 
 function CatalogPage() {
-  const { item: itemId } = Route.useSearch();
+  const { item: itemId, newItem } = Route.useSearch();
   const navigate = useNavigate();
+
+  // Auto-open create form when navigated with newItem param
+  useEffect(() => {
+    if (newItem) {
+      setSheetOpen(true);
+      navigate({ to: "/app/catalog", search: {}, replace: true });
+    }
+  }, [newItem, navigate]);
 
   const [filters, setFilters] = useState<ItemFilters>({});
   const [sort, setSort] = useState<SortState>({ key: "name", dir: "asc" });

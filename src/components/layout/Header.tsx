@@ -44,6 +44,7 @@ export function Header() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [prefsOpen, setPrefsOpen] = useState(false);
+  
   const { exitDemoMode } = useDemo();
   const { role } = useRole();
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ export function Header() {
         <Menu className="h-5 w-5" />
       </Button>
 
-      <button data-tour="search" type="button" onClick={() => setPaletteOpen(true)} className="flex h-9 flex-1 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm text-muted-foreground transition-colors hover:border-primary/40 md:max-w-sm">
+      <button data-tour="search" type="button" onClick={() => setPaletteOpen(true)} className="flex h-9 flex-1 items-center gap-2 rounded-md border border-input bg-white px-3 text-sm text-muted-foreground transition-colors hover:border-primary/40 md:max-w-sm">
         <Search className="h-4 w-4 shrink-0" />
         <span>Search…</span>
         <kbd className="ml-auto hidden rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-xs md:inline-block">⌘K</kbd>
@@ -85,29 +86,31 @@ export function Header() {
         </Button>
       </PermissionGate>
 
-      <Button size="icon" className="shrink-0 bg-foreground text-background hover:bg-foreground/90" aria-label="Quick action">
-        <Plus className="h-4 w-4" />
-      </Button>
+      <PermissionGate permission="create_item">
+        <Button size="icon" variant="outline" className="shrink-0" aria-label="New item" onClick={() => navigate({ to: "/app/catalog", search: { newItem: "true" } })}>
+          <Plus className="h-4 w-4" />
+        </Button>
+      </PermissionGate>
 
       <NotificationBell onClick={() => setNotifOpen(true)} />
-
-      {/* Role badge */}
-      <Badge variant="outline" className={`hidden shrink-0 text-[10px] font-semibold uppercase sm:inline-flex ${ROLE_BADGE_STYLES[role]}`}>
-        {ROLE_LABELS[role]}
-      </Badge>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button type="button" className="flex items-center gap-1.5 rounded-full pl-1 pr-2 py-1 hover:bg-muted transition-colors" aria-label="User menu">
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10">
-              <User className="h-3.5 w-3.5 text-primary" />
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-muted">
+              <User className="h-3.5 w-3.5 text-muted-foreground" />
             </div>
             <span className="hidden text-sm font-medium md:inline-block">{displayName}</span>
             <ChevronDown className="hidden h-3.5 w-3.5 text-muted-foreground md:inline-block" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuLabel className="font-normal text-xs text-muted-foreground">{displayName}</DropdownMenuLabel>
+          <DropdownMenuLabel className="flex items-center justify-between font-normal text-xs text-muted-foreground">
+            {displayName}
+            <Badge variant="outline" className={`ml-2 text-[10px] font-semibold uppercase ${ROLE_BADGE_STYLES[role]}`}>
+              {ROLE_LABELS[role]}
+            </Badge>
+          </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => navigate({ to: "/app/settings" })}>
             <Settings className="mr-2 h-4 w-4" />
@@ -115,7 +118,7 @@ export function Header() {
           </DropdownMenuItem>
           <DropdownMenuItem onClick={handleExit}>
             <LogOut className="mr-2 h-4 w-4" />
-            Exit Demo
+            Exit demo
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -131,6 +134,7 @@ export function Header() {
       <CommandPalette open={paletteOpen} onOpenChange={setPaletteOpen} />
       <NotificationCenter open={notifOpen} onOpenChange={setNotifOpen} onOpenPrefs={() => { setNotifOpen(false); setTimeout(() => setPrefsOpen(true), 300); }} />
       <NotificationPreferences open={prefsOpen} onOpenChange={setPrefsOpen} />
+      
     </header>
   );
 }
