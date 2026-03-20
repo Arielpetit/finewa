@@ -183,7 +183,7 @@ function AiInsightsPage() {
       {/* Suggestion Cards */}
       {filtered.length === 0 ? (
         <p className="text-center text-sm text-muted-foreground py-8">
-          No reorder suggestions match the current filters.
+          No suggested orders match the current filters.
         </p>
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

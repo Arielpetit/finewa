@@ -85,7 +85,7 @@ export function Header() {
         </Button>
       </PermissionGate>
 
-      <Button size="icon" variant="default" className="shrink-0" aria-label="Quick action">
+      <Button size="icon" className="shrink-0 bg-foreground text-background hover:bg-foreground/90" aria-label="Quick action">
         <Plus className="h-4 w-4" />
       </Button>
 
