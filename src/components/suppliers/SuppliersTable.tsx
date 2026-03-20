@@ -91,7 +91,7 @@ export function SuppliersTable({ suppliers, items, onRowClick }: SuppliersTableP
         </>
       ) : (
         <>
-          <div className="overflow-x-auto rounded-md border border-border">
+          <div className="overflow-x-auto rounded-md border border-border bg-white">
             <Table>
               <TableHeader className="sticky top-0 bg-card">
                 <TableRow>
