@@ -37,6 +37,7 @@ import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
 interface CatalogSearch {
   item?: string;
+  newItem?: string;
 }
 
 export const Route = createFileRoute("/app/catalog")({
@@ -44,6 +45,7 @@ export const Route = createFileRoute("/app/catalog")({
   head: () => ({ meta: [{ title: "Catalog — Stackwise" }] }),
   validateSearch: (search: Record<string, unknown>): CatalogSearch => ({
     item: typeof search.item === "string" ? search.item : undefined,
+    newItem: typeof search.newItem === "string" ? search.newItem : undefined,
   }),
 });
 
