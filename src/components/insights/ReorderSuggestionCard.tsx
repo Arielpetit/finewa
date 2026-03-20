@@ -85,7 +85,7 @@ export function ReorderSuggestionCard({ analysis, onApply, onDismiss }: ReorderS
         <div className="font-medium text-right flex items-center justify-end gap-1">
           <span className="text-muted-foreground">{analysis.currentReorderPoint}</span>
           <ArrowRight className="h-3 w-3 text-muted-foreground" />
-          <span className={cn(delta > 0 ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400")}>
+          <span className={cn(delta > 0 ? "text-stock-low" : "text-stock-healthy")}>
             {analysis.suggestedReorderPoint}
           </span>
         </div>
