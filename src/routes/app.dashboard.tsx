@@ -38,7 +38,7 @@ function DashboardPage() {
   const suppliers = demoStore?.getSuppliers() ?? [];
 
   const tour = useOnboarding("dashboard");
-  const [walkthroughActive, setWalkthroughActive] = useState(false);
+  
 
   // Auto-start tour on first demo visit
   useEffect(() => {
