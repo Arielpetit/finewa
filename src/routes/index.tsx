@@ -343,43 +343,34 @@ function LandingPage() {
       <StickyNav onTryDemo={handleTryDemo} />
 
       {/* ── Split Hero ─────────────────────────────────── */}
-      <section className="relative flex min-h-[calc(100vh-56px)] items-center px-4 pt-14 sm:px-6">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 lg:flex-row lg:gap-10">
-          {/* Left — copy */}
-          <div className="flex-1 text-center lg:text-left">
-            <div className="animate-fade-in inline-flex items-center gap-2 rounded-full border border-border bg-muted/60 px-4 py-1.5 text-xs font-medium text-muted-foreground">
-              <Zap className="h-3.5 w-3.5 text-primary" />
-              AI-powered inventory management
-            </div>
-
-            <h1 className="mt-6 text-[36px] font-semibold leading-[1.05] tracking-tight sm:text-[48px] lg:text-[56px]">
-              The inventory platform that scales your business
-            </h1>
-
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:max-w-md">
-              Track stock, manage suppliers, automate reorders, and keep your
-              team aligned from one powerful command center.
-            </p>
-
-            <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
-              <button
-                type="button"
-                onClick={handleTryDemo}
-                className="group inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-base font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
-              >
-                Try demo
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </button>
-            </div>
-          </div>
-
-          {/* Right — product shot */}
-          <div className="flex-1 lg:flex-[1.3] animate-fade-in flex items-center justify-center" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
+      <section className="relative flex min-h-[calc(100vh-56px)] items-center justify-center px-4 pt-14 sm:px-6">
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
+          <div className="animate-fade-in" style={{ animationDelay: "200ms", animationFillMode: "backwards" }}>
             <img
               src={heroBox3d}
-              alt="3D illustration of an open cardboard box filled with inventory items"
-              className="w-full max-w-xl mx-auto lg:max-w-2xl drop-shadow-2xl"
+              alt="3D illustration of a cardboard box"
+              className="mx-auto w-48 drop-shadow-xl sm:w-56"
             />
+          </div>
+
+          <h1 className="mt-8 text-[32px] font-semibold leading-[1.05] tracking-tight sm:text-[44px] lg:text-[52px]">
+            The inventory platform that scales your business
+          </h1>
+
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Track stock, manage suppliers, automate reorders, and keep your
+            team aligned from one powerful command center.
+          </p>
+
+          <div className="mt-8">
+            <button
+              type="button"
+              onClick={handleTryDemo}
+              className="group inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-base font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
+            >
+              Try demo
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
           </div>
         </div>
       </section>
