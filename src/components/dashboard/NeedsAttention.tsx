@@ -18,7 +18,7 @@ export function NeedsAttention() {
 
   if (!hasIssues) {
     return (
-      <div className="rounded-2xl border border-border/50 bg-card p-6 shadow-md shadow-black/[0.04]">
+      <div className="h-full rounded-xl border border-border/50 bg-card p-6 shadow-md shadow-black/[0.04]">
         <h2 className="mb-4 text-base font-semibold">Needs Attention</h2>
         <div className="flex flex-col items-center gap-2 py-6 text-center">
           <CheckCircle2 className="h-8 w-8 text-stock-healthy" />
