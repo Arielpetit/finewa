@@ -349,7 +349,7 @@ function LandingPage() {
             />
           </div>
 
-          <h1 className="mt-8 text-[32px] font-semibold leading-[1.05] tracking-tight sm:text-[44px] lg:text-[52px]">
+          <h1 className="mt-5 text-[32px] font-semibold leading-[1.05] tracking-tight sm:text-[44px] lg:text-[52px]">
             The inventory platform that scales your business
           </h1>
 
