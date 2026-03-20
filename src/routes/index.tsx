@@ -459,13 +459,18 @@ function LandingPage() {
       </section>
 
       {/* ── Capabilities Row ─────────────────────────── */}
-      <section className="px-4 py-16">
+      <section className="px-4 py-20">
         <RevealSection>
-          <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-center gap-8 text-sm text-muted-foreground">
+          <div className="mx-auto grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">
             {capabilities.map((c) => (
-              <div key={c.text} className="flex items-center gap-2">
-                <c.icon className="h-4 w-4 text-primary" />
-                <span>{c.text}</span>
+              <div
+                key={c.text}
+                className="flex flex-col items-center gap-3 rounded-xl border border-border bg-card p-6 text-center shadow-xs"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                  <c.icon className="h-5 w-5 text-primary" />
+                </div>
+                <span className="text-sm font-medium text-foreground">{c.text}</span>
               </div>
             ))}
           </div>
