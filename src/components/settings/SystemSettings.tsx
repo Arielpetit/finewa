@@ -13,6 +13,7 @@ import {
 export function SystemSettings() {
   const { isDemo, demoStore, resetDemoData } = useDemo();
   const [confirmOpen, setConfirmOpen] = useState(false);
+  const [walkthroughActive, setWalkthroughActive] = useState(false);
 
   const items = demoStore?.getItems()?.length ?? 0;
   const suppliers = demoStore?.getSuppliers()?.length ?? 0;
