@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { RotateCcw, Info } from "lucide-react";
+import { RotateCcw, Info, Play } from "lucide-react";
 import { toast } from "sonner";
 import { useDemo } from "@/hooks/useDemo";
+import { DemoWalkthrough } from "@/components/onboarding/DemoWalkthrough";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
