@@ -343,7 +343,7 @@ function LandingPage() {
       <StickyNav onTryDemo={handleTryDemo} />
 
       {/* ── Split Hero ─────────────────────────────────── */}
-      <section className="relative flex min-h-[calc(100vh-56px)] items-center justify-center px-4 pt-14 sm:px-6">
+      <section className="relative px-4 pt-28 pb-16 sm:px-6 sm:pt-32 sm:pb-20">
         <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <div className="animate-fade-in" style={{ animationDelay: "200ms", animationFillMode: "backwards" }}>
             <img
