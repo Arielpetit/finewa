@@ -18,10 +18,7 @@ import {
   X,
 } from "lucide-react";
 import heroBox3d from "@/assets/hero-box.png";
-import uiScreenshot from "@/assets/ui-screenshot-dashboard.png.asset.json";
-import mockupDashboard from "@/assets/mockup-dashboard.png.asset.json";
-import mockupCatalog from "@/assets/mockup-catalog.png.asset.json";
-import mockupAnalytics from "@/assets/mockup-analytics.png.asset.json";
+import uiScreenshot from "@/assets/ui-screenshot-dashboard-v2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
