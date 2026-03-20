@@ -50,8 +50,16 @@ export const Route = createFileRoute("/app/catalog")({
 });
 
 function CatalogPage() {
-  const { item: itemId } = Route.useSearch();
+  const { item: itemId, newItem } = Route.useSearch();
   const navigate = useNavigate();
+
+  // Auto-open create form when navigated with newItem param
+  useEffect(() => {
+    if (newItem) {
+      setSheetOpen(true);
+      navigate({ to: "/app/catalog", search: {}, replace: true });
+    }
+  }, [newItem, navigate]);
 
   const [filters, setFilters] = useState<ItemFilters>({});
   const [sort, setSort] = useState<SortState>({ key: "name", dir: "asc" });
