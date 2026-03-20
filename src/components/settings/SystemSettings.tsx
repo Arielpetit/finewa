@@ -88,6 +88,8 @@ export function SystemSettings() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <DemoWalkthrough active={walkthroughActive} onClose={() => setWalkthroughActive(false)} />
     </div>
   );
 }

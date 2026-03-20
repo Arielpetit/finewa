@@ -55,16 +55,9 @@ function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-[1400px] space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
-          <p className="text-sm text-muted-foreground">Welcome back — here's your inventory overview.</p>
-        </div>
-        {isDemo && (
-          <Button size="sm" variant="outline" className="gap-1.5" onClick={() => setWalkthroughActive(true)}>
-            <Play className="h-3.5 w-3.5" /> Start Walkthrough
-          </Button>
-        )}
+      <div>
+        <h1 className="text-2xl font-semibold text-foreground">Dashboard</h1>
+        <p className="text-sm text-muted-foreground">Welcome back — here's your inventory overview.</p>
       </div>
 
       <div data-tour="metrics" className="rounded-xl border border-border/50 bg-card p-3 shadow-md shadow-black/[0.04]">

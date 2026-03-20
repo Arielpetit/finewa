@@ -46,7 +46,7 @@ export function DemoBanner() {
         <button
           type="button"
           onClick={() => setDismissed(true)}
-          className="rounded p-0.5 transition-colors hover:bg-foreground/10"
+          className="rounded p-0.5 transition-colors hover:bg-primary-foreground/20"
           aria-label="Dismiss demo banner"
         >
           <X className="h-3.5 w-3.5" />

@@ -34,7 +34,7 @@ const ICON_COLOR: Record<AccentColor, string> = {
 export function MetricCard({ label, value, trend, accentColor = "neutral", icon: Icon }: MetricCardProps) {
   return (
     <div className={`relative overflow-hidden rounded-lg ${ACCENT_BG[accentColor]} px-6 py-5`}>
-      <div className={`absolute left-1.5 top-1.5 bottom-1.5 w-[3px] rounded-full ${ACCENT_BAR[accentColor]}`} />
+      <div className={`absolute left-2 top-2 bottom-2 w-[3px] rounded-full ${ACCENT_BAR[accentColor]}`} />
       <div className="flex items-center justify-between">
         <p className="text-sm font-medium text-muted-foreground">{label}</p>
         {Icon && <Icon className={`h-5 w-5 ${ICON_COLOR[accentColor]} opacity-60`} />}

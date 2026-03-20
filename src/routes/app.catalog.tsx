@@ -231,7 +231,9 @@ function CatalogPage() {
         </div>
       </div>
 
-      <CatalogFilters filters={filters} onChange={setFilters} categories={categories} suppliers={suppliers} locations={locations} />
+      <Card className="p-4">
+        <CatalogFilters filters={filters} onChange={setFilters} categories={categories} suppliers={suppliers} locations={locations} />
+      </Card>
 
       <ErrorBoundary>
       {allItems.length === 0 ? (
