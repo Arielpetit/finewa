@@ -17,7 +17,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import heroBox3d from "@/assets/hero-box-3d.png";
+import heroBox3d from "@/assets/hero-box.png";
 import mockupDashboard from "@/assets/mockup-dashboard.png.asset.json";
 import mockupCatalog from "@/assets/mockup-catalog.png.asset.json";
 import mockupAnalytics from "@/assets/mockup-analytics.png.asset.json";
@@ -352,7 +352,7 @@ function LandingPage() {
               AI-powered inventory management
             </div>
 
-            <h1 className="mt-6 text-[36px] font-semibold leading-[1.1] tracking-tight sm:text-[48px] lg:text-[56px]">
+            <h1 className="mt-6 text-[36px] font-semibold leading-[1.05] tracking-tight sm:text-[48px] lg:text-[56px]">
               The inventory platform that scales your business
             </h1>
 
