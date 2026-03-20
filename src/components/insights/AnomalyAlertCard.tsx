@@ -31,8 +31,8 @@ export function AnomalyAlertCard({ alert, itemName, itemSku, onDismiss }: Anomal
       )}
     >
       <div className={cn(
-        "absolute left-1 top-1 bottom-1 w-[3px] rounded-full",
-        isCritical ? "bg-destructive" : "bg-amber-500",
+        "absolute left-2 top-2 bottom-2 w-[3px] rounded-full",
+        isCritical ? "bg-destructive" : "bg-stock-low",
       )} />
       <div className="flex items-start gap-3">
         <Icon

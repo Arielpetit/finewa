@@ -46,8 +46,8 @@ export function ReorderSuggestionCard({ analysis, onApply, onDismiss }: ReorderS
       applied && "opacity-75",
     )}>
       <div className={cn(
-        "absolute left-1 top-1 bottom-1 w-[3px] rounded-full",
-        applied ? "bg-emerald-500" : getUrgencyBar(analysis.daysUntilStockout),
+        "absolute left-2 top-2 bottom-2 w-[3px] rounded-full",
+        applied ? "bg-stock-healthy" : getUrgencyBar(analysis.daysUntilStockout),
       )} />
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
