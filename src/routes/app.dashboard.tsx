@@ -8,7 +8,7 @@ import { RecentActivity } from "@/components/dashboard/RecentActivity";
 import { DashboardReorderSection } from "@/components/insights/DashboardReorderSection";
 import { DashboardAnomalySection } from "@/components/insights/DashboardAnomalySection";
 import { OnboardingTour } from "@/components/onboarding/OnboardingTour";
-import { DemoWalkthrough } from "@/components/onboarding/DemoWalkthrough";
+
 import { useStockSummary } from "@/hooks/useInventoryData";
 import { useAlertGenerator } from "@/hooks/useStockAlertGenerator";
 import { useDemo } from "@/hooks/useDemo";
