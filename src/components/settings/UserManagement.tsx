@@ -93,7 +93,7 @@ export function UserManagement() {
       <div className="flex items-center justify-between gap-3">
         <div className="relative flex-1 max-w-xs">
           <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input placeholder="Search users…" value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-9 text-sm" />
+          <Input placeholder="Search users…" value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9 h-9 text-sm bg-white" />
         </div>
         <Button size="sm" onClick={() => setInviteOpen(true)}>
           <Plus className="mr-1.5 h-3.5 w-3.5" /> Invite User
