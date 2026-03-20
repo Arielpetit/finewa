@@ -22,7 +22,6 @@ import { Sidebar } from "./Sidebar";
 import { QuickEntryMode } from "@/components/data/QuickEntryMode";
 import { CommandPalette } from "@/components/command/CommandPalette";
 import { NotificationCenter } from "@/components/notifications/NotificationCenter";
-import { ItemFormSheet } from "@/components/catalog/ItemFormSheet";
 import { useDemo } from "@/hooks/useDemo";
 import { useRole } from "@/hooks/useRole";
 import { PermissionGate } from "@/hooks/usePermissions";
