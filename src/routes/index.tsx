@@ -379,11 +379,11 @@ function LandingPage() {
           </div>
 
           {/* Right — product shot */}
-          <div className="flex-1 lg:flex-[1.3] animate-fade-in" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
+          <div className="flex-1 lg:flex-[1.3] animate-fade-in flex items-center justify-center" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
             <img
-              src={heroProductShot.url}
-              alt="Stackwise inventory management dashboard on a laptop"
-              className="w-full max-w-2xl mx-auto lg:max-w-none scale-110 lg:scale-125 origin-center"
+              src={heroBox3d}
+              alt="3D illustration of an open cardboard box filled with inventory items"
+              className="w-full max-w-md mx-auto lg:max-w-lg drop-shadow-2xl"
             />
           </div>
         </div>
