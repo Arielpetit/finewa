@@ -176,7 +176,7 @@ function AiInsightsPage() {
         </Select>
 
         <span className="text-xs text-muted-foreground ml-auto">
-          {filtered.length} suggestion{filtered.length !== 1 ? "s" : ""}
+          {filtered.length} order{filtered.length !== 1 ? "s" : ""}
         </span>
       </div>
 
