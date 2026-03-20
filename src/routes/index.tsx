@@ -465,28 +465,27 @@ function LandingPage() {
       </section>
 
       {/* ── Final CTA ────────────────────────────────── */}
-      <section className="relative px-4 py-24 sm:py-32">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute bottom-0 left-1/2 h-[400px] w-[600px] -translate-x-1/2 translate-y-1/2 rounded-full bg-primary/5 blur-3xl" />
+      <section className="px-4 py-24 sm:py-32">
+        <div className="mx-auto max-w-3xl rounded-2xl bg-foreground px-6 py-16 text-center sm:px-12 sm:py-20">
+          <RevealSection>
+            <h2 className="text-2xl font-semibold tracking-tight text-background sm:text-3xl lg:text-4xl">
+              Ready to take control of your inventory?
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-base text-background/60">
+              Explore Stackwise with sample data. No signup required.
+            </p>
+            <div className="mt-8">
+              <button
+                type="button"
+                onClick={handleTryDemo}
+                className="group inline-flex items-center gap-2 rounded-lg bg-background px-5 py-2.5 text-base font-semibold text-foreground shadow-lg transition-all hover:bg-background/90"
+              >
+                Try demo
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </button>
+            </div>
+          </RevealSection>
         </div>
-        <RevealSection className="relative z-10 text-center">
-          <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
-            Ready to take control of your inventory?
-          </h2>
-          <p className="mx-auto mt-4 max-w-md text-base text-muted-foreground">
-            Explore Stackwise with sample data. No signup required.
-          </p>
-          <div className="mt-8">
-            <button
-              type="button"
-              onClick={handleTryDemo}
-              className="group inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-base font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
-            >
-              Try demo
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </button>
-          </div>
-        </RevealSection>
       </section>
 
       {/* ── Footer ───────────────────────────────────── */}
