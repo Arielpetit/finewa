@@ -411,7 +411,7 @@ function LandingPage() {
           <div className="mx-auto max-w-5xl">
             <BrowserFrame className="shadow-2xl shadow-primary/5">
               <img
-                src={mockupDashboard.url}
+                src={uiScreenshot.url}
                 alt="Stackwise dashboard showing inventory metrics, stock levels chart, and recent activity"
                 className="w-full"
                 loading="lazy"
