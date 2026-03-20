@@ -38,7 +38,7 @@ export function AnomalyAlertCard({ alert, itemName, itemSku, onDismiss }: Anomal
         <Icon
           className={cn(
             "h-4 w-4 mt-0.5 shrink-0",
-            isCritical ? "text-destructive" : "text-amber-500",
+            isCritical ? "text-destructive" : "text-stock-low",
           )}
         />
         <div className="min-w-0 flex-1">

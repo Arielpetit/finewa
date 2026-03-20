@@ -100,7 +100,7 @@ export function ReorderSuggestionCard({ analysis, onApply, onDismiss }: ReorderS
       {/* Actions */}
       <div className="mt-3 flex items-center gap-2">
         {applied ? (
-          <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+          <div className="flex items-center gap-1.5 text-xs text-stock-healthy font-medium">
             <Check className="h-3.5 w-3.5" />
             Applied
           </div>
