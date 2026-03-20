@@ -44,7 +44,7 @@ export function Header() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [prefsOpen, setPrefsOpen] = useState(false);
-  const [newItemOpen, setNewItemOpen] = useState(false);
+  
   const { exitDemoMode } = useDemo();
   const { role } = useRole();
   const navigate = useNavigate();
