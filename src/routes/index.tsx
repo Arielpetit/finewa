@@ -52,25 +52,25 @@ const navLinks = [
 const solutions = [
   {
     icon: BarChart3,
-    title: "Real-Time Tracking",
+    title: "Real-time tracking",
     description: "Monitor stock levels across every location with live dashboards and instant status updates.",
     color: "bg-primary/10 text-primary",
   },
   {
     icon: Bell,
-    title: "Smart Reorders",
+    title: "Smart reorders",
     description: "Automated thresholds and AI-powered forecasting prevent stockouts before they happen.",
     color: "bg-secondary/10 text-secondary",
   },
   {
     icon: Truck,
-    title: "Supplier Management",
+    title: "Supplier management",
     description: "Unified view of contacts, lead times, purchase history, and performance scoring.",
     color: "bg-accent/20 text-accent-foreground",
   },
   {
     icon: TrendingUp,
-    title: "Analytics & Reports",
+    title: "Analytics & reports",
     description: "Turn movement data into insights with trend charts, turnover analysis, and exports.",
     color: "bg-primary/10 text-primary",
   },
@@ -79,7 +79,7 @@ const solutions = [
 const featureTabs = [
   {
     label: "Dashboard",
-    description: "See what matters most — stock levels, pending orders, recent movements, and alerts that need attention.",
+    description: "See what matters most: stock levels, pending orders, recent movements, and alerts that need attention.",
     image: mockupDashboard.url,
   },
   {
@@ -97,41 +97,41 @@ const featureTabs = [
 const features = [
   {
     icon: BarChart3,
-    title: "Real-Time Tracking",
+    title: "Real-time tracking",
     description: "Monitor stock levels across every location as changes happen, with instant dashboards and live status indicators.",
   },
   {
     icon: Bell,
-    title: "Smart Reorder Alerts",
-    description: "Get notified before you run out — automated thresholds and AI-powered forecasting keep shelves stocked.",
+    title: "Smart reorder alerts",
+    description: "Get notified before you run out. Automated thresholds and AI-powered forecasting keep shelves stocked.",
   },
   {
     icon: Truck,
-    title: "Supplier Management",
+    title: "Supplier management",
     description: "Organize contacts, lead times, and purchase history in one unified view with performance scoring.",
   },
   {
     icon: ScanLine,
-    title: "Barcode Scanning",
+    title: "Barcode scanning",
     description: "Speed up receiving and cycle counts with built-in barcode support and quick-entry mode.",
   },
   {
     icon: TrendingUp,
-    title: "Analytics & Reports",
+    title: "Analytics & reports",
     description: "Turn movement data into insights with trend charts, turnover analysis, and exportable reports.",
   },
   {
     icon: Users,
-    title: "Team Roles & Permissions",
+    title: "Team roles & permissions",
     description: "Control who can view, edit, or approve with granular role-based access and approval workflows.",
   },
 ];
 
 const capabilities = [
-  { icon: Shield, text: "Role-Based Access" },
-  { icon: Globe, text: "Multi-Location Support" },
-  { icon: ScanLine, text: "Barcode Ready" },
-  { icon: Zap, text: "AI-Powered Insights" },
+  { icon: Shield, text: "Role-based access" },
+  { icon: Globe, text: "Multi-location support" },
+  { icon: ScanLine, text: "Barcode ready" },
+  { icon: Zap, text: "AI-powered insights" },
 ];
 
 /* ─── Components ────────────────────────────────────── */
@@ -201,14 +201,13 @@ function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
           ))}
         </div>
 
-        {/* Desktop CTA */}
+        {/* Desktop CTA - secondary style */}
         <button
           type="button"
           onClick={onTryDemo}
-          className="hidden items-center gap-2 rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-all hover:brightness-110 md:inline-flex"
+          className="hidden items-center gap-2 rounded-lg border border-border bg-muted/60 px-5 py-2 text-sm font-medium text-foreground transition-all hover:bg-muted md:inline-flex"
         >
-          Try Demo
-          <ArrowRight className="h-3.5 w-3.5" />
+          Try demo
         </button>
 
         {/* Mobile hamburger */}
@@ -245,9 +244,9 @@ function StickyNav({ onTryDemo }: { onTryDemo: () => void }) {
               setMobileOpen(false);
               onTryDemo();
             }}
-            className="mt-2 w-full rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
+            className="mt-2 w-full rounded-lg border border-border bg-muted/60 px-5 py-2.5 text-sm font-medium text-foreground"
           >
-            Try Demo →
+            Try demo
           </button>
         </div>
       )}
@@ -275,7 +274,7 @@ function FeatureTabsSection() {
     <section id="analytics" className="px-4 py-20 sm:py-28">
       <RevealSection className="text-center">
         <span className="inline-block rounded-md bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-          Product Tour
+          Product tour
         </span>
         <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">
           Drive your business forward
@@ -293,16 +292,16 @@ function FeatureTabsSection() {
               key={tab.label}
               type="button"
               onClick={() => setActiveTab(i)}
-              className={`whitespace-nowrap rounded-lg px-5 py-3 text-left text-sm font-medium transition-all lg:px-6 lg:py-4 ${
+              className={`min-w-0 rounded-lg px-5 py-3 text-left text-sm font-medium transition-all lg:px-6 lg:py-4 ${
                 activeTab === i
-                  ? "bg-primary text-primary-foreground shadow-md"
+                  ? "bg-foreground text-background shadow-md"
                   : "bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground"
               }`}
             >
               <span className="block font-semibold">{tab.label}</span>
               <span
-                className={`mt-1 hidden text-xs lg:block ${
-                  activeTab === i ? "text-primary-foreground/80" : "text-muted-foreground"
+                className={`mt-1 hidden text-xs leading-relaxed lg:block ${
+                  activeTab === i ? "text-background/70" : "text-muted-foreground"
                 }`}
               >
                 {tab.description}
@@ -350,17 +349,16 @@ function LandingPage() {
           <div className="flex-1 text-center lg:text-left">
             <div className="animate-fade-in inline-flex items-center gap-2 rounded-full border border-border bg-muted/60 px-4 py-1.5 text-xs font-medium text-muted-foreground">
               <Zap className="h-3.5 w-3.5 text-primary" />
-              AI-Powered Inventory Management
+              AI-powered inventory management
             </div>
 
             <h1 className="mt-6 text-[36px] font-semibold leading-[1.1] tracking-tight sm:text-[48px] lg:text-[56px]">
-              The Inventory Platform{" "}
-              <span className="text-primary">Built to Scale</span> Your Business
+              The inventory platform that scales your business
             </h1>
 
             <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:max-w-md">
               Track stock, manage suppliers, automate reorders, and keep your
-              team aligned — all from one powerful command center.
+              team aligned from one powerful command center.
             </p>
 
             <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:justify-start">
@@ -369,12 +367,9 @@ function LandingPage() {
                 onClick={handleTryDemo}
                 className="group inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
               >
-                Try Demo
+                Try demo
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
-              <span className="text-xs text-muted-foreground">
-                No account required · Explore with sample data
-              </span>
             </div>
           </div>
 
@@ -495,7 +490,7 @@ function LandingPage() {
               onClick={handleTryDemo}
               className="group inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
             >
-              Try Demo
+              Try demo
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
