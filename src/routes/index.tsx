@@ -18,10 +18,7 @@ import {
   X,
 } from "lucide-react";
 import heroBox3d from "@/assets/hero-box.png";
-import uiScreenshot from "@/assets/ui-screenshot-dashboard.png.asset.json";
-import mockupDashboard from "@/assets/mockup-dashboard.png.asset.json";
-import mockupCatalog from "@/assets/mockup-catalog.png.asset.json";
-import mockupAnalytics from "@/assets/mockup-analytics.png.asset.json";
+import uiScreenshot from "@/assets/ui-screenshot-dashboard-v2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
@@ -81,17 +78,17 @@ const featureTabs = [
   {
     label: "Dashboard",
     description: "See what matters most: stock levels, pending orders, recent movements, and alerts that need attention.",
-    image: mockupDashboard.url,
+    image: uiScreenshot.url,
   },
   {
     label: "Catalog",
     description: "Powerful search, filters, bulk actions, and custom fields let you manage hundreds of SKUs effortlessly.",
-    image: mockupCatalog.url,
+    image: uiScreenshot.url,
   },
   {
     label: "Analytics",
     description: "From stock trends to supplier performance, turn raw data into actionable insights and forecasts.",
-    image: mockupAnalytics.url,
+    image: uiScreenshot.url,
   },
 ];
 
