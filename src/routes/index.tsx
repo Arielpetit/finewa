@@ -18,6 +18,7 @@ import {
   X,
 } from "lucide-react";
 import heroBox3d from "@/assets/hero-box.png";
+import uiScreenshot from "@/assets/ui-screenshot-dashboard.png.asset.json";
 import mockupDashboard from "@/assets/mockup-dashboard.png.asset.json";
 import mockupCatalog from "@/assets/mockup-catalog.png.asset.json";
 import mockupAnalytics from "@/assets/mockup-analytics.png.asset.json";
@@ -410,7 +411,7 @@ function LandingPage() {
           <div className="mx-auto max-w-5xl">
             <BrowserFrame className="shadow-2xl shadow-primary/5">
               <img
-                src={mockupDashboard.url}
+                src={uiScreenshot.url}
                 alt="Stackwise dashboard showing inventory metrics, stock levels chart, and recent activity"
                 className="w-full"
                 loading="lazy"

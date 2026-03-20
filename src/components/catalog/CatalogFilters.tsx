@@ -42,7 +42,7 @@ export function CatalogFilters({ filters, onChange, categories, suppliers, locat
         placeholder="Search name or SKU…"
         value={filters.search ?? ""}
         onChange={(e) => update({ search: e.target.value || undefined })}
-        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none transition-colors focus:border-primary sm:w-48"
+        className="h-9 w-full rounded-md border border-input bg-white px-3 text-sm outline-none transition-colors focus:border-primary sm:w-48"
       />
 
       <Select value={filters.categoryId ?? "all"} onValueChange={(v) => update({ categoryId: v === "all" ? undefined : v })}>

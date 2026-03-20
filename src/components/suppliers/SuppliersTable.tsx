@@ -61,7 +61,7 @@ export function SuppliersTable({ suppliers, items, onRowClick }: SuppliersTableP
     <div className="space-y-3">
       <div className="relative max-w-xs">
         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-        <Input placeholder="Search suppliers…" className="h-9 pl-8 text-sm" value={search} onChange={(e) => { setSearch(e.target.value); setPage(0); }} />
+        <Input placeholder="Search suppliers…" className="h-9 pl-8 text-sm bg-white" value={search} onChange={(e) => { setSearch(e.target.value); setPage(0); }} />
       </div>
 
       {filtered.length === 0 ? (
@@ -91,7 +91,7 @@ export function SuppliersTable({ suppliers, items, onRowClick }: SuppliersTableP
         </>
       ) : (
         <>
-          <div className="overflow-x-auto rounded-md border border-border">
+          <div className="overflow-x-auto rounded-md border border-border bg-white">
             <Table>
               <TableHeader className="sticky top-0 bg-card">
                 <TableRow>
