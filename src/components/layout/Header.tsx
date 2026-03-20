@@ -80,7 +80,7 @@ export function Header() {
       </button>
 
       <PermissionGate permission="log_movement">
-        <Button size="icon" variant="outline" className="shrink-0" aria-label="Quick Entry" onClick={() => setQuickEntryOpen(true)}>
+        <Button size="icon" variant="outline" className="shrink-0" aria-label="Quick entry" onClick={() => setQuickEntryOpen(true)}>
           <ScanBarcode className="h-4 w-4" />
         </Button>
       </PermissionGate>

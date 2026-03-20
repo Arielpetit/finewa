@@ -71,7 +71,7 @@ export function MovementTimeline({ movements, itemId, maxEntries = 20 }: Movemen
           href={`/app/movements?item=${itemId}`}
           className="text-sm font-medium text-primary hover:underline"
         >
-          View All in Movements →
+          View all in movements →
         </a>
       </div>
     </div>
