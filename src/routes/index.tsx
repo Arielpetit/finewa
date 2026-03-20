@@ -378,7 +378,7 @@ function LandingPage() {
             <img
               src={heroBox3d}
               alt="3D illustration of an open cardboard box filled with inventory items"
-              className="w-full max-w-md mx-auto lg:max-w-lg drop-shadow-2xl"
+              className="w-full max-w-xl mx-auto lg:max-w-2xl drop-shadow-2xl"
             />
           </div>
         </div>
