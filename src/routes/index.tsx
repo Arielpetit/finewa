@@ -284,7 +284,7 @@ function FeatureTabsSection() {
 
       <div className="mx-auto mt-14 flex max-w-6xl flex-col gap-8 lg:flex-row lg:gap-12">
         {/* Tab list */}
-        <div className="flex gap-2 overflow-x-auto lg:w-80 lg:shrink-0 lg:flex-col lg:gap-3">
+        <div className="flex justify-center gap-2 overflow-x-auto lg:w-80 lg:shrink-0 lg:justify-start lg:flex-col lg:gap-3">
           {featureTabs.map((tab, i) => (
             <button
               key={tab.label}
