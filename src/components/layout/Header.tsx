@@ -87,7 +87,7 @@ export function Header() {
       </PermissionGate>
 
       <PermissionGate permission="create_item">
-        <Button size="icon" variant="outline" className="shrink-0" aria-label="New item" onClick={() => navigate({ to: "/app/catalog", search: { newItem: "true" } as any })}>
+        <Button size="icon" variant="outline" className="shrink-0" aria-label="New item" onClick={() => navigate({ to: "/app/catalog", search: { newItem: "true" } })}>
           <Plus className="h-4 w-4" />
         </Button>
       </PermissionGate>
