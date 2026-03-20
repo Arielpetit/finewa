@@ -59,7 +59,7 @@ export function DemoBanner() {
         </DropdownMenu>
 
         <span className="hidden sm:inline text-primary-foreground/70">
-          — data resets each session
+          · data resets each session
         </span>
       </div>
 
