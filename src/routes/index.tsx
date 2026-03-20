@@ -391,8 +391,8 @@ function LandingPage() {
 
         <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {solutions.map((s, i) => (
-            <RevealSection key={s.title} delay={i * 100}>
-              <div className="group rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+            <RevealSection key={s.title} delay={i * 100} className="h-full">
+              <div className="group h-full rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
                 <div className={`mb-4 inline-flex rounded-lg p-3 ${s.color}`}>
                   <s.icon className="h-5 w-5" />
                 </div>
