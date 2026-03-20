@@ -12,11 +12,11 @@ interface ReorderSuggestionCardProps {
   onDismiss: (analysis: ReorderAnalysis) => void;
 }
 
-function getUrgencyColor(days: number | null): string {
-  if (days === null) return "border-l-muted-foreground/30";
-  if (days < 7) return "border-l-destructive";
-  if (days <= 14) return "border-l-amber-500";
-  return "border-l-emerald-500";
+function getUrgencyBar(days: number | null): string {
+  if (days === null) return "bg-muted-foreground/30";
+  if (days < 7) return "bg-destructive";
+  if (days <= 14) return "bg-amber-500";
+  return "bg-emerald-500";
 }
 
 function getUrgencyBg(days: number | null): string {
@@ -42,9 +42,13 @@ export function ReorderSuggestionCard({ analysis, onApply, onDismiss }: ReorderS
 
   return (
     <Card className={cn(
-      "border-l-4 p-4 transition-all",
-      applied ? "border-l-emerald-500 opacity-75" : getUrgencyColor(analysis.daysUntilStockout),
+      "relative overflow-hidden p-4 pl-5 transition-all",
+      applied && "opacity-75",
     )}>
+      <div className={cn(
+        "absolute left-1 top-1 bottom-1 w-[3px] rounded-full",
+        applied ? "bg-emerald-500" : getUrgencyBar(analysis.daysUntilStockout),
+      )} />
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">

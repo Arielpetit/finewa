@@ -26,13 +26,14 @@ export function AnomalyAlertCard({ alert, itemName, itemSku, onDismiss }: Anomal
   return (
     <Card
       className={cn(
-        "border-l-4 p-4 transition-all",
-        isCritical
-          ? "border-l-destructive"
-          : "border-l-amber-500",
+        "relative overflow-hidden p-4 pl-5 transition-all",
         isCritical && "animate-pulse-subtle",
       )}
     >
+      <div className={cn(
+        "absolute left-1 top-1 bottom-1 w-[3px] rounded-full",
+        isCritical ? "bg-destructive" : "bg-amber-500",
+      )} />
       <div className="flex items-start gap-3">
         <Icon
           className={cn(
