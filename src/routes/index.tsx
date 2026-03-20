@@ -468,6 +468,7 @@ function LandingPage() {
       <section className="px-4 py-24 sm:py-32">
         <div className="mx-auto max-w-3xl rounded-2xl bg-foreground px-6 py-16 text-center sm:px-12 sm:py-20">
           <RevealSection>
+            <img src={heroBox3d} alt="" className="mx-auto mb-6 h-16 w-16 object-contain" />
             <h2 className="text-2xl font-semibold tracking-tight text-background sm:text-3xl lg:text-4xl">
               Ready to take control of your inventory?
             </h2>
