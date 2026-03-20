@@ -49,9 +49,14 @@ export function SystemSettings() {
                   <p className="text-xs text-muted-foreground">Locations</p>
                 </div>
               </div>
-              <Button variant="destructive" onClick={() => setConfirmOpen(true)}>
-                <RotateCcw className="mr-1.5 h-4 w-4" /> Reset Demo Data
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" onClick={() => setWalkthroughActive(true)} className="gap-1.5">
+                  <Play className="h-4 w-4" /> Start Walkthrough
+                </Button>
+                <Button variant="destructive" onClick={() => setConfirmOpen(true)}>
+                  <RotateCcw className="mr-1.5 h-4 w-4" /> Reset Demo Data
+                </Button>
+              </div>
             </>
           ) : (
             <p className="text-sm text-muted-foreground">Demo controls not available — enter demo mode first.</p>
