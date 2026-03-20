@@ -10,11 +10,11 @@ interface MetricCardProps {
   icon?: React.ComponentType<{ className?: string }>;
 }
 
-const ACCENT_BORDER: Record<AccentColor, string> = {
-  healthy: "border-l-stock-healthy",
-  warning: "border-l-stock-low",
-  danger: "border-l-stock-out",
-  neutral: "border-l-primary",
+const ACCENT_BAR: Record<AccentColor, string> = {
+  healthy: "bg-stock-healthy",
+  warning: "bg-stock-low",
+  danger: "bg-stock-out",
+  neutral: "bg-primary",
 };
 
 const ACCENT_BG: Record<AccentColor, string> = {
@@ -33,8 +33,9 @@ const ICON_COLOR: Record<AccentColor, string> = {
 
 export function MetricCard({ label, value, trend, accentColor = "neutral", icon: Icon }: MetricCardProps) {
   return (
-    <div className={`rounded-2xl border border-border/50 shadow-md shadow-black/[0.04] ${ACCENT_BG[accentColor]} border-l-4 ${ACCENT_BORDER[accentColor]}`}>
-      <div className="p-5">
+    <div className={`relative overflow-hidden rounded-2xl border border-border/50 shadow-md shadow-black/[0.04] ${ACCENT_BG[accentColor]}`}>
+      <div className={`absolute left-1 top-1 bottom-1 w-[3px] rounded-full ${ACCENT_BAR[accentColor]}`} />
+      <div className="p-5 pl-4">
         <div className="flex items-center justify-between">
           <p className="text-sm font-medium text-muted-foreground">{label}</p>
           {Icon && <Icon className={`h-5 w-5 ${ICON_COLOR[accentColor]} opacity-70`} />}
