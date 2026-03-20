@@ -68,12 +68,12 @@ function DashboardPage() {
         )}
       </div>
 
-      <div data-tour="metrics" className="rounded-xl border border-border/50 bg-card p-2 shadow-md shadow-black/[0.04]">
+      <div data-tour="metrics" className="rounded-xl border border-border/50 bg-card p-3 shadow-md shadow-black/[0.04]">
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
           <MetricCard label="Total SKUs" value={summary.total} accentColor="neutral" icon={Package} />
-          <MetricCard label="In Stock" value={summary.inStock} accentColor="healthy" icon={CheckCircle2} />
-          <MetricCard label="Low Stock" value={summary.lowStock} accentColor="warning" icon={AlertTriangle} />
-          <MetricCard label="Out of Stock" value={summary.outOfStock} accentColor="danger" icon={XCircle} />
+          <MetricCard label="In stock" value={summary.inStock} accentColor="healthy" icon={CheckCircle2} />
+          <MetricCard label="Low stock" value={summary.lowStock} accentColor="warning" icon={AlertTriangle} />
+          <MetricCard label="Out of stock" value={summary.outOfStock} accentColor="danger" icon={XCircle} />
         </div>
       </div>
 
