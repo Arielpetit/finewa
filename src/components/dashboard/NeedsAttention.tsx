@@ -31,8 +31,8 @@ export function NeedsAttention() {
   const displayLow = lowStockItems.slice(0, 5);
 
   return (
-    <div className="h-full rounded-xl border border-border/50 bg-card p-6 shadow-md shadow-black/[0.04]">
-      <h2 className="mb-4 text-base font-semibold">Needs Attention</h2>
+    <div className="h-full rounded-xl border border-border bg-card p-6 shadow-xs">
+      <h2 className="mb-4 text-base font-semibold">Needs attention</h2>
 
       {/* Low stock items */}
       {displayLow.length > 0 && (
