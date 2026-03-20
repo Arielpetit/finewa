@@ -34,7 +34,7 @@ export function DemoBanner() {
             type="button"
             onClick={() => setDemoRole(r.value)}
             className={`rounded px-2 py-0.5 text-xs font-semibold transition-colors ${
-              role === r.value ? "bg-background text-foreground shadow-sm" : "text-foreground/60 hover:text-foreground"
+              role === r.value ? "bg-primary-foreground text-primary shadow-sm" : "text-primary-foreground/70 hover:text-primary-foreground"
             }`}
           >
             {r.label}
