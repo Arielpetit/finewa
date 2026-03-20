@@ -365,7 +365,7 @@ function LandingPage() {
               <button
                 type="button"
                 onClick={handleTryDemo}
-                className="group inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
+                className="group inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-base font-semibold text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:brightness-110"
               >
                 Try demo
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
