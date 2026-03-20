@@ -376,7 +376,7 @@ function LandingPage() {
       </section>
 
       {/* ── Solutions Grid ─────────────────────────────── */}
-      <section id="solutions" className="px-4 py-20 sm:py-28">
+      <section id="solutions" className="rounded-none bg-muted/50 px-4 py-20 sm:py-28">
         <RevealSection className="text-center">
           <span className="inline-block rounded-md bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
             Solutions
