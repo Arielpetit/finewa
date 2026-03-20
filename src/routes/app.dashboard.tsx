@@ -87,7 +87,7 @@ function DashboardPage() {
         onComplete={handleTourComplete}
       />
 
-      <DemoWalkthrough active={walkthroughActive} onClose={() => setWalkthroughActive(false)} />
+      
     </div>
   );
 }
