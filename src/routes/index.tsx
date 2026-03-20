@@ -78,17 +78,17 @@ const featureTabs = [
   {
     label: "Dashboard",
     description: "See what matters most: stock levels, pending orders, recent movements, and alerts that need attention.",
-    image: mockupDashboard.url,
+    image: uiScreenshot.url,
   },
   {
     label: "Catalog",
     description: "Powerful search, filters, bulk actions, and custom fields let you manage hundreds of SKUs effortlessly.",
-    image: mockupCatalog.url,
+    image: uiScreenshot.url,
   },
   {
     label: "Analytics",
     description: "From stock trends to supplier performance, turn raw data into actionable insights and forecasts.",
-    image: mockupAnalytics.url,
+    image: uiScreenshot.url,
   },
 ];
 
