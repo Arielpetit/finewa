@@ -1,4 +1,5 @@
 import type { Item } from "@/types/inventory";
+import { escapeHtml } from "@/lib/html-escape";
 
 // ─── Code 128B Encoder (shared with BarcodeDisplay) ──────
 
