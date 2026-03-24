@@ -85,7 +85,7 @@ function handlePrint(itemName: string, sku: string, barcode: string, svgMarkup: 
   if (!printWindow) return;
   printWindow.document.write(`
     <!DOCTYPE html>
-    <html><head><title>Label — ${sku}</title>
+    <html><head><title>Label — ${escapeHtml(sku)}</title>
     <style>
       @page { size: 2.5in 1in; margin: 0; }
       body { font-family: ui-monospace, monospace; text-align: center; padding: 8px; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 1in; box-sizing: border-box; }
@@ -96,11 +96,11 @@ function handlePrint(itemName: string, sku: string, barcode: string, svgMarkup: 
       .value { font-size: 9px; letter-spacing: 2px; font-weight: 600; }
       .location { font-size: 7px; color: #777; }
     </style></head><body>
-      <div class="name">${itemName}</div>
-      <div class="sku">SKU: ${sku}</div>
+      <div class="name">${escapeHtml(itemName)}</div>
+      <div class="sku">SKU: ${escapeHtml(sku)}</div>
       <div class="barcode">${svgMarkup}</div>
-      <div class="value">${barcode}</div>
-      ${location ? `<div class="location">${location}</div>` : ""}
+      <div class="value">${escapeHtml(barcode)}</div>
+      ${location ? `<div class="location">${escapeHtml(location)}</div>` : ""}
     </body></html>
   `);
   printWindow.document.close();
