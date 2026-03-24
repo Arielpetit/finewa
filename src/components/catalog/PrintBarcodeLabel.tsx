@@ -1,4 +1,5 @@
 import type { Item } from "@/types/inventory";
+import { escapeHtml } from "@/lib/html-escape";
 
 // ─── Code 128B Encoder (shared with BarcodeDisplay) ──────
 
@@ -66,11 +67,11 @@ function buildLabelHTML(items: Item[], locationNames: Map<string, string>): stri
     const loc = item.locationId ? locationNames.get(item.locationId) ?? "" : "";
     return `
       <div class="label">
-        <div class="name">${item.name}</div>
-        <div class="sku">SKU: ${item.sku}</div>
+        <div class="name">${escapeHtml(item.name)}</div>
+        <div class="sku">SKU: ${escapeHtml(item.sku)}</div>
         <div class="barcode">${barcodeSVG(bc)}</div>
-        <div class="value">${bc}</div>
-        ${loc ? `<div class="loc">${loc}</div>` : ""}
+        <div class="value">${escapeHtml(bc)}</div>
+        ${loc ? `<div class="loc">${escapeHtml(loc)}</div>` : ""}
       </div>
     `;
   }).join("");
