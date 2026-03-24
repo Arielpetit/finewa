@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Printer, Pencil, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { escapeHtml } from "@/lib/html-escape";
 
 // ─── Code 128B Encoder ───────────────────────────────────
 
