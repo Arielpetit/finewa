@@ -227,8 +227,9 @@ export function BarcodeDisplay({ barcode, itemName, sku, location, onBarcodeChan
             className="mx-auto flex justify-center"
             style={{ maxWidth: 240, height: 56 }}
             aria-label={`Barcode: ${barcode}`}
-            dangerouslySetInnerHTML={{ __html: svgMarkup }}
-          />
+          >
+            <BarcodeSVG bars={bars} />
+          </div>
 
           {/* Barcode number */}
           <p className="mt-2 text-center font-mono text-lg font-semibold tracking-widest">{barcode}</p>
