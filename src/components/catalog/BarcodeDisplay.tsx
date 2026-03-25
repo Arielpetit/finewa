@@ -61,21 +61,40 @@ function encodeCode128B(text: string): number[] {
   return bars;
 }
 
-function renderBarcodeSVG(bars: number[], height = 50): string {
+/** Compute rect data from bars for both JSX and string rendering. */
+function computeBarRects(bars: number[], height = 50) {
   let x = 10; // quiet zone
-  const rects: string[] = [];
-
+  const rects: { x: number; w: number }[] = [];
   for (let i = 0; i < bars.length; i++) {
     const w = bars[i];
-    if (i % 2 === 0) {
-      // Even indices are bars (black)
-      rects.push(`<rect x="${x}" y="0" width="${w}" height="${height}" fill="currentColor"/>`);
-    }
+    if (i % 2 === 0) rects.push({ x, w });
     x += w;
   }
+  return { rects, totalWidth: x + 10, height };
+}
 
-  const totalWidth = x + 10; // add quiet zone
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalWidth} ${height}" width="${totalWidth}" height="${height}" class="text-foreground">${rects.join("")}</svg>`;
+/** JSX SVG barcode component — avoids dangerouslySetInnerHTML. */
+function BarcodeSVG({ bars, height = 50 }: { bars: number[]; height?: number }) {
+  const { rects, totalWidth, height: h } = computeBarRects(bars, height);
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox={`0 0 ${totalWidth} ${h}`}
+      width={totalWidth}
+      height={h}
+      className="text-foreground"
+    >
+      {rects.map((r, i) => (
+        <rect key={i} x={r.x} y={0} width={r.w} height={h} fill="currentColor" />
+      ))}
+    </svg>
+  );
+}
+
+/** String SVG for print windows (no React rendering context). */
+function renderBarcodeSVGString(bars: number[], height = 50): string {
+  const { rects, totalWidth, height: h } = computeBarRects(bars, height);
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${totalWidth} ${h}" width="${totalWidth}" height="${h}">${rects.map(r => `<rect x="${r.x}" y="0" width="${r.w}" height="${h}"/>`).join("")}</svg>`;
 }
 
 // ─── Print handler ───────────────────────────────────────
