@@ -191,7 +191,7 @@ export function BarcodeDisplay({ barcode, itemName, sku, location, onBarcodeChan
   }
 
   const bars = encodeCode128B(barcode);
-  const svgMarkup = renderBarcodeSVG(bars);
+  const svgMarkup = renderBarcodeSVGString(bars);
 
   return (
     <div className="rounded-lg border border-border bg-card p-4">
