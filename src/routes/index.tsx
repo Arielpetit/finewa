@@ -34,13 +34,13 @@ export const Route = createFileRoute("/")({
   component: FinanceLandingPage,
   head: () => ({
     meta: [
-      { title: "FinWise — Your Smart Financial Assistant" },
+      { title: "Finewa — Your Smart Financial Assistant" },
       {
         name: "description",
         content:
           "Take control of your money with AI-powered insights, smart budgets, and personalized financial advice.",
       },
-      { property: "og:title", content: "FinWise — Your Smart Financial Assistant" },
+      { property: "og:title", content: "Finewa — Your Smart Financial Assistant" },
       {
         property: "og:description",
         content: "AI-powered personal finance app. Track spending, set budgets, get smart advice.",
@@ -70,11 +70,11 @@ const t: Record<string, Record<Lang, string>> = {
   playStore: { en: "Play Store", fr: "Play Store" },
   countries: { en: "Countries", fr: "Pays" },
   users: { en: "Users", fr: "Utilisateurs" },
-  whyFinwise: { en: "Why FinWise?", fr: "Pourquoi FinWise ?" },
+  whyFinwise: { en: "Why Finewa?", fr: "Pourquoi Finewa ?" },
   aboutTitle: { en: "Financial clarity in a world of complexity", fr: "La clarté financière dans un monde complexe" },
   aboutSub: {
-    en: "Most people don't overspend because they're careless — they simply lack visibility. FinWise gives you a clear, intelligent view of your entire financial life.",
-    fr: "La plupart des gens ne dépensent pas trop par négligence — ils manquent simplement de visibilité. FinWise vous offre une vue claire et intelligente de vos finances.",
+    en: "Most people don't overspend because they're careless — they simply lack visibility. Finewa gives you a clear, intelligent view of your entire financial life.",
+    fr: "La plupart des gens ne dépensent pas trop par négligence — ils manquent simplement de visibilité. Finewa vous offre une vue claire et intelligente de vos finances.",
   },
   aboutCard1Title: { en: "Track every dollar", fr: "Suivez chaque euro" },
   aboutCard1Desc: { en: "Automatic categorization & real-time insights", fr: "Catégorisation automatique et analyses en temps réel" },
@@ -102,7 +102,7 @@ const t: Record<string, Record<Lang, string>> = {
   dashboardSub: { en: "A clean, intuitive dashboard that turns complex data into clear insights.", fr: "Un tableau de bord clair et intuitif qui transforme les données en informations exploitables." },
   aiPowered: { en: "AI-Powered", fr: "Propulsé par l'IA" },
   aiTitle: { en: "Your intelligent financial companion", fr: "Votre compagnon financier intelligent" },
-  aiSub: { en: "More than analytics — FinWise understands your financial behavior and gives you personalized advice.", fr: "Plus que de l'analytique — FinWise comprend votre comportement financier et vous donne des conseils personnalisés." },
+  aiSub: { en: "More than analytics — Finewa understands your financial behavior and gives you personalized advice.", fr: "Plus que de l'analytique — Finewa comprend votre comportement financier et vous donne des conseils personnalisés." },
   aiBullet1: { en: "Analyzes your spending habits automatically", fr: "Analyse automatiquement vos habitudes de dépenses" },
   aiBullet2: { en: "Gives personalized advice to save more", fr: "Donne des conseils personnalisés pour économiser plus" },
   aiBullet3: { en: "Detects unusual spending patterns", fr: "Détecte les habitudes de dépenses inhabituelles" },
@@ -110,7 +110,7 @@ const t: Record<string, Record<Lang, string>> = {
   aiBullet5: { en: "Answers your financial questions instantly", fr: "Répond instantanément à vos questions financières" },
   outcomes: { en: "Outcomes", fr: "Résultats" },
   benefitsTitle: { en: "Real results, not just features", fr: "De vrais résultats, pas seulement des fonctionnalités" },
-  benefitsSub: { en: "FinWise isn't about tracking numbers — it's about transforming your relationship with money.", fr: "FinWise ne se limite pas au suivi des chiffres — il transforme votre relation avec l'argent." },
+  benefitsSub: { en: "Finewa isn't about tracking numbers — it's about transforming your relationship with money.", fr: "Finewa ne se limite pas au suivi des chiffres — il transforme votre relation avec l'argent." },
   ben1Title: { en: "Save More Money", fr: "Économisez plus" },
   ben1Desc: { en: "Users save an average of 23% more in their first 3 months.", fr: "Les utilisateurs économisent en moyenne 23 % de plus en 3 mois." },
   ben2Title: { en: "Gain Financial Clarity", fr: "Gagnez en clarté financière" },
@@ -127,7 +127,7 @@ const t: Record<string, Record<Lang, string>> = {
   lovedBy: { en: "Loved by thousands", fr: "Aimé par des milliers" },
   test1Name: { en: "Sarah K.", fr: "Sarah K." },
   test1Role: { en: "Freelance Designer", fr: "Designer freelance" },
-  test1Text: { en: "FinWise helped me finally understand where my money was going. I've saved $2,400 in just 4 months.", fr: "FinWise m'a enfin aidée à comprendre où allait mon argent. J'ai économisé 2 400 $ en 4 mois." },
+  test1Text: { en: "Finewa helped me finally understand where my money was going. I've saved $2,400 in just 4 months.", fr: "Finewa m'a enfin aidée à comprendre où allait mon argent. J'ai économisé 2 400 $ en 4 mois." },
   test2Name: { en: "Marcus T.", fr: "Marcus T." },
   test2Role: { en: "Software Engineer", fr: "Ingénieur logiciel" },
   test2Text: { en: "The AI advisor is like having a personal financial coach. It spotted spending patterns I never noticed.", fr: "Le conseiller IA, c'est comme avoir un coach financier personnel. Il a repéré des habitudes que je n'avais jamais remarquées." },
@@ -137,20 +137,20 @@ const t: Record<string, Record<Lang, string>> = {
   ctaTitle: { en: "Start your journey to financial freedom", fr: "Commencez votre parcours vers la liberté financière" },
   faqLabel: { en: "FAQ", fr: "FAQ" },
   faqTitle: { en: "Frequently asked questions", fr: "Questions fréquentes" },
-  faqSub: { en: "Everything you need to know about FinWise.", fr: "Tout ce que vous devez savoir sur FinWise." },
-  faq1Q: { en: "Is FinWise free to use?", fr: "FinWise est-il gratuit ?" },
-  faq1A: { en: "Yes, FinWise is completely free to download and use. No credit card required.", fr: "Oui, FinWise est entièrement gratuit à télécharger et à utiliser. Aucune carte de crédit requise." },
+  faqSub: { en: "Everything you need to know about Finewa.", fr: "Tout ce que vous devez savoir sur Finewa." },
+  faq1Q: { en: "Is Finewa free to use?", fr: "Finewa est-il gratuit ?" },
+  faq1A: { en: "Yes, Finewa is completely free to download and use. No credit card required.", fr: "Oui, Finewa est entièrement gratuit à télécharger et à utiliser. Aucune carte de crédit requise." },
   faq2Q: { en: "How does the AI advisor work?", fr: "Comment fonctionne le conseiller IA ?" },
   faq2A: { en: "Our AI analyzes your transaction history and spending patterns to give you personalized, actionable financial advice in real time.", fr: "Notre IA analyse votre historique de transactions et vos habitudes pour vous donner des conseils financiers personnalisés en temps réel." },
   faq3Q: { en: "Is my financial data secure?", fr: "Mes données financières sont-elles sécurisées ?" },
   faq3A: { en: "Absolutely. We use bank-level 256-bit encryption and never sell your data to third parties.", fr: "Absolument. Nous utilisons un chiffrement 256 bits de niveau bancaire et ne vendons jamais vos données à des tiers." },
-  faq4Q: { en: "Which platforms is FinWise available on?", fr: "Sur quelles plateformes FinWise est-il disponible ?" },
-  faq4A: { en: "FinWise is available on iOS, Android, and as a web app — all synced in real time.", fr: "FinWise est disponible sur iOS, Android et en application web — tous synchronisés en temps réel." },
+  faq4Q: { en: "Which platforms is Finewa available on?", fr: "Sur quelles plateformes Finewa est-il disponible ?" },
+  faq4A: { en: "Finewa is available on iOS, Android, and as a web app — all synced in real time.", fr: "Finewa est disponible sur iOS, Android et en application web — tous synchronisés en temps réel." },
   faq5Q: { en: "Can I connect my bank account?", fr: "Puis-je connecter mon compte bancaire ?" },
-  faq5A: { en: "Yes, FinWise supports secure bank connections to automatically import and categorize your transactions.", fr: "Oui, FinWise prend en charge les connexions bancaires sécurisées pour importer et catégoriser automatiquement vos transactions." },
+  faq5A: { en: "Yes, Finewa supports secure bank connections to automatically import and categorize your transactions.", fr: "Oui, Finewa prend en charge les connexions bancaires sécurisées pour importer et catégoriser automatiquement vos transactions." },
   stillNeedHelp: { en: "Still need help?", fr: "Besoin d'aide ?" },
   stillNeedHelpSub: { en: "Reach out and we will get back to you as soon as possible.", fr: "Contactez-nous et nous vous répondrons dès que possible." },
-  ctaSub: { en: "Join 50,000+ users who are already making smarter financial decisions with FinWise.", fr: "Rejoignez plus de 50 000 utilisateurs qui prennent déjà de meilleures décisions financières avec FinWise." },
+  ctaSub: { en: "Join 50+ users who are already making smarter financial decisions with Finewa.", fr: "Rejoignez plus de 50 utilisateurs qui prennent déjà de meilleures décisions financières avec Finewa." },
   downloadApp: { en: "Download the App", fr: "Télécharger l'App" },
   noCreditCard: { en: "Free — No credit card required", fr: "Gratuit — Aucune carte de crédit requise" },
   product: { en: "Product", fr: "Produit" },
@@ -262,8 +262,8 @@ function StickyNav() {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-card/95 border-b border-border shadow-sm backdrop-blur-md" : "bg-transparent"}`}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <a href="#" className="flex items-center gap-2">
-          <img src={logoImg} alt="FinWise" className="h-8 w-8 object-contain" />
-          <span className="text-lg font-semibold tracking-tight">FinWise</span>
+          <img src={logoImg} alt="Finewa" className="h-8 w-8 object-contain" />
+          <span className="text-lg font-semibold tracking-tight">Finewa</span>
         </a>
 
         <div className="hidden items-center gap-6 md:flex">
@@ -377,7 +377,7 @@ function FinanceLandingPage() {
 
             <div className="relative flex-shrink-0 lg:w-[280px]">
               <div className="animate-fade-in" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
-                <img src={phoneMockup} alt="FinWise app" className="mx-auto w-48 drop-shadow-2xl sm:w-56 lg:w-full" width={600} height={1024} />
+                <img src={phoneMockup} alt="Finewa app" className="mx-auto w-48 drop-shadow-2xl sm:w-56 lg:w-full" width={600} height={1024} />
               </div>
             </div>
           </div>
@@ -448,7 +448,7 @@ function FinanceLandingPage() {
                   <div className="h-2.5 w-2.5 rounded-full bg-stock-healthy/60" />
                   <div className="ml-3 h-5 flex-1 rounded bg-muted/80" />
                 </div>
-                <img src={laptopMockup} alt="FinWise dashboard" className="w-full" loading="lazy" width={1280} height={800} />
+                <img src={laptopMockup} alt="Finewa dashboard" className="w-full" loading="lazy" width={1280} height={800} />
               </div>
             </div>
           </RevealSection>
@@ -554,11 +554,11 @@ function FinanceLandingPage() {
             <p className="mt-3 text-sm text-muted-foreground"><T k="stillNeedHelpSub" /></p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
-                href="mailto:support@finwise.app"
+                href="mailto:support@finewa.app"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium transition-all hover:bg-muted"
               >
                 <Mail className="h-4 w-4 opacity-60" />
-                support@finwise.app
+                support@finewa.app
               </a>
             </div>
           </RevealSection>
@@ -569,7 +569,7 @@ function FinanceLandingPage() {
           <div className="mx-auto max-w-3xl rounded-2xl bg-primary px-6 py-16 text-center sm:px-12 sm:py-20">
             <RevealSection>
               <div className="mx-auto mb-6 inline-flex rounded-xl bg-primary-foreground/10 p-3">
-                <img src={logoImg} alt="FinWise" className="h-8 w-8 object-contain" />
+                <img src={logoImg} alt="Finewa" className="h-8 w-8 object-contain" />
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl lg:text-4xl">
                 <T k="ctaTitle" />
