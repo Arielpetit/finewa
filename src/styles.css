@@ -80,55 +80,55 @@
 :root {
   --radius: 0.625rem;
 
-  /* Core palette — teal/amber from design-guidelines.md */
-  --background: oklch(0.985 0.005 80);
-  --foreground: oklch(0.18 0.03 160);
+  /* Core palette — deep navy / soft green fintech */
+  --background: oklch(0.98 0.002 240);
+  --foreground: oklch(0.15 0.03 250);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.03 160);
+  --card-foreground: oklch(0.15 0.03 250);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.03 160);
-  --primary: oklch(0.55 0.17 162);
-  --primary-foreground: oklch(0.985 0.005 80);
-  --secondary: oklch(0.75 0.15 75);
-  --secondary-foreground: oklch(0.18 0.03 160);
-  --muted: oklch(0.95 0.01 80);
-  --muted-foreground: oklch(0.55 0.02 160);
-  --accent: oklch(0.95 0.01 80);
-  --accent-foreground: oklch(0.18 0.03 160);
+  --popover-foreground: oklch(0.15 0.03 250);
+  --primary: oklch(0.45 0.12 250);
+  --primary-foreground: oklch(0.98 0.002 240);
+  --secondary: oklch(0.65 0.15 155);
+  --secondary-foreground: oklch(0.15 0.03 250);
+  --muted: oklch(0.95 0.005 240);
+  --muted-foreground: oklch(0.50 0.02 250);
+  --accent: oklch(0.95 0.005 240);
+  --accent-foreground: oklch(0.15 0.03 250);
   --destructive: oklch(0.60 0.22 25);
-  --destructive-foreground: oklch(0.985 0.005 80);
-  --border: oklch(0.94 0.005 80);
-  --input: oklch(0.92 0.01 80);
-  --ring: oklch(0.55 0.17 162);
+  --destructive-foreground: oklch(0.98 0.002 240);
+  --border: oklch(0.92 0.005 240);
+  --input: oklch(0.92 0.008 240);
+  --ring: oklch(0.45 0.12 250);
 
   /* Charts */
-  --chart-1: oklch(0.55 0.17 162);
-  --chart-2: oklch(0.75 0.15 75);
-  --chart-3: oklch(0.60 0.17 155);
+  --chart-1: oklch(0.45 0.12 250);
+  --chart-2: oklch(0.65 0.15 155);
+  --chart-3: oklch(0.55 0.12 200);
   --chart-4: oklch(0.60 0.22 25);
-  --chart-5: oklch(0.55 0.02 160);
+  --chart-5: oklch(0.50 0.02 250);
 
-  /* Sidebar — dark desaturated teal-charcoal */
-  --sidebar: oklch(0.20 0.02 162);
-  --sidebar-foreground: oklch(0.85 0.01 80);
-  --sidebar-primary: oklch(0.65 0.12 162);
-  --sidebar-primary-foreground: oklch(0.98 0.005 80);
-  --sidebar-accent: oklch(0.27 0.025 162);
-  --sidebar-accent-foreground: oklch(0.95 0.01 80);
-  --sidebar-border: oklch(0.27 0.02 162);
-  --sidebar-ring: oklch(0.65 0.12 162);
+  /* Sidebar — deep navy */
+  --sidebar: oklch(0.18 0.03 250);
+  --sidebar-foreground: oklch(0.85 0.01 240);
+  --sidebar-primary: oklch(0.55 0.12 250);
+  --sidebar-primary-foreground: oklch(0.98 0.002 240);
+  --sidebar-accent: oklch(0.25 0.03 250);
+  --sidebar-accent-foreground: oklch(0.95 0.01 240);
+  --sidebar-border: oklch(0.25 0.02 250);
+  --sidebar-ring: oklch(0.55 0.12 250);
 
   /* Metric tints */
   --metric-healthy-bg: oklch(0.96 0.04 155);
   --metric-warning-bg: oklch(0.96 0.04 75);
   --metric-danger-bg: oklch(0.96 0.04 25);
-  --metric-neutral-bg: oklch(0.96 0.03 162);
+  --metric-neutral-bg: oklch(0.96 0.03 250);
 
   /* Stock status tokens */
   --stock-healthy: oklch(0.60 0.17 155);
   --stock-low: oklch(0.75 0.15 75);
   --stock-out: oklch(0.60 0.22 25);
-  --amber-accent: oklch(0.75 0.15 75);
+  --amber-accent: oklch(0.65 0.15 155);
 }
 
 .dark {
