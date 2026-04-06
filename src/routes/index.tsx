@@ -23,10 +23,12 @@ import {
   Globe,
   Download,
   Smartphone,
+  Mail,
 } from "lucide-react";
 import phoneMockup from "@/assets/phone-mockup.png";
 import laptopMockup from "@/assets/laptop-mockup.png";
 import phoneAiChat from "@/assets/phone-ai-chat.png";
+import logoImg from "@/assets/logowithoutbg.png";
 
 export const Route = createFileRoute("/")({
   component: FinanceLandingPage,
@@ -65,7 +67,8 @@ const t: Record<string, Record<Lang, string>> = {
   getStarted: { en: "Get the App", fr: "Obtenir l'App" },
   learnMore: { en: "Learn More", fr: "En savoir plus" },
   appStore: { en: "App Store", fr: "App Store" },
-  tracked: { en: "Tracked", fr: "Suivi" },
+  playStore: { en: "Play Store", fr: "Play Store" },
+  countries: { en: "Countries", fr: "Pays" },
   users: { en: "Users", fr: "Utilisateurs" },
   whyFinwise: { en: "Why FinWise?", fr: "Pourquoi FinWise ?" },
   aboutTitle: { en: "Financial clarity in a world of complexity", fr: "La clarté financière dans un monde complexe" },
@@ -132,6 +135,21 @@ const t: Record<string, Record<Lang, string>> = {
   test3Role: { en: "Small Business Owner", fr: "Propriétaire de PME" },
   test3Text: { en: "Clean, simple, and actually useful. The budget alerts alone have saved me from overspending countless times.", fr: "Propre, simple et vraiment utile. Les alertes budget m'ont évité de dépasser mon budget d'innombrables fois." },
   ctaTitle: { en: "Start your journey to financial freedom", fr: "Commencez votre parcours vers la liberté financière" },
+  faqLabel: { en: "FAQ", fr: "FAQ" },
+  faqTitle: { en: "Frequently asked questions", fr: "Questions fréquentes" },
+  faqSub: { en: "Everything you need to know about FinWise.", fr: "Tout ce que vous devez savoir sur FinWise." },
+  faq1Q: { en: "Is FinWise free to use?", fr: "FinWise est-il gratuit ?" },
+  faq1A: { en: "Yes, FinWise is completely free to download and use. No credit card required.", fr: "Oui, FinWise est entièrement gratuit à télécharger et à utiliser. Aucune carte de crédit requise." },
+  faq2Q: { en: "How does the AI advisor work?", fr: "Comment fonctionne le conseiller IA ?" },
+  faq2A: { en: "Our AI analyzes your transaction history and spending patterns to give you personalized, actionable financial advice in real time.", fr: "Notre IA analyse votre historique de transactions et vos habitudes pour vous donner des conseils financiers personnalisés en temps réel." },
+  faq3Q: { en: "Is my financial data secure?", fr: "Mes données financières sont-elles sécurisées ?" },
+  faq3A: { en: "Absolutely. We use bank-level 256-bit encryption and never sell your data to third parties.", fr: "Absolument. Nous utilisons un chiffrement 256 bits de niveau bancaire et ne vendons jamais vos données à des tiers." },
+  faq4Q: { en: "Which platforms is FinWise available on?", fr: "Sur quelles plateformes FinWise est-il disponible ?" },
+  faq4A: { en: "FinWise is available on iOS, Android, and as a web app — all synced in real time.", fr: "FinWise est disponible sur iOS, Android et en application web — tous synchronisés en temps réel." },
+  faq5Q: { en: "Can I connect my bank account?", fr: "Puis-je connecter mon compte bancaire ?" },
+  faq5A: { en: "Yes, FinWise supports secure bank connections to automatically import and categorize your transactions.", fr: "Oui, FinWise prend en charge les connexions bancaires sécurisées pour importer et catégoriser automatiquement vos transactions." },
+  stillNeedHelp: { en: "Still need help?", fr: "Besoin d'aide ?" },
+  stillNeedHelpSub: { en: "Reach out and we will get back to you as soon as possible.", fr: "Contactez-nous et nous vous répondrons dès que possible." },
   ctaSub: { en: "Join 50,000+ users who are already making smarter financial decisions with FinWise.", fr: "Rejoignez plus de 50 000 utilisateurs qui prennent déjà de meilleures décisions financières avec FinWise." },
   downloadApp: { en: "Download the App", fr: "Télécharger l'App" },
   noCreditCard: { en: "Free — No credit card required", fr: "Gratuit — Aucune carte de crédit requise" },
@@ -201,6 +219,26 @@ function RevealSection({ children, className = "", delay = 0 }: { children: Reac
   );
 }
 
+function FaqItem({ qKey, aKey, delay }: { qKey: string; aKey: string; delay: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <RevealSection delay={delay}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex w-full items-center justify-between gap-4 py-5 text-left"
+        aria-expanded={open}
+      >
+        <span className="text-sm font-semibold sm:text-base"><T k={qKey} /></span>
+        <ChevronRight className={`h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform duration-200 ${open ? "rotate-90" : ""}`} />
+      </button>
+      {open && (
+        <p className="pb-5 text-sm leading-relaxed text-muted-foreground"><T k={aKey} /></p>
+      )}
+    </RevealSection>
+  );
+}
+
+
 function StickyNav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -224,9 +262,7 @@ function StickyNav() {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-card/95 border-b border-border shadow-sm backdrop-blur-md" : "bg-transparent"}`}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <a href="#" className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <Wallet className="h-4 w-4 text-primary-foreground" />
-          </div>
+          <img src={logoImg} alt="FinWise" className="h-8 w-8 object-contain" />
           <span className="text-lg font-semibold tracking-tight">FinWise</span>
         </a>
 
@@ -323,25 +359,25 @@ function FinanceLandingPage() {
 
               <div className="mt-10 flex flex-wrap items-center justify-center gap-6 lg:justify-start">
                 <div className="text-center lg:text-left">
-                  <span className="block text-2xl font-bold">4.9★</span>
-                  <span className="text-xs text-muted-foreground"><T k="appStore" /></span>
+                  <span className="block text-2xl font-bold">4.8★</span>
+                  <span className="text-xs text-muted-foreground"><T k="playStore" /></span>
                 </div>
                 <div className="h-8 w-px bg-border" />
                 <div className="text-center lg:text-left">
-                  <span className="block text-2xl font-bold">$140M+</span>
-                  <span className="text-xs text-muted-foreground"><T k="tracked" /></span>
+                  <span className="block text-2xl font-bold">20+</span>
+                  <span className="text-xs text-muted-foreground"><T k="countries" /></span>
                 </div>
                 <div className="h-8 w-px bg-border" />
                 <div className="text-center lg:text-left">
-                  <span className="block text-2xl font-bold">50K+</span>
+                  <span className="block text-2xl font-bold">50+</span>
                   <span className="text-xs text-muted-foreground"><T k="users" /></span>
                 </div>
               </div>
             </div>
 
-            <div className="relative flex-shrink-0 lg:w-[380px]">
+            <div className="relative flex-shrink-0 lg:w-[280px]">
               <div className="animate-fade-in" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
-                <img src={phoneMockup} alt="FinWise app" className="mx-auto w-64 drop-shadow-2xl sm:w-72 lg:w-full" width={600} height={1024} />
+                <img src={phoneMockup} alt="FinWise app" className="mx-auto w-48 drop-shadow-2xl sm:w-56 lg:w-full" width={600} height={1024} />
               </div>
             </div>
           </div>
@@ -421,8 +457,8 @@ function FinanceLandingPage() {
         {/* ── AI Advisor ────────────────────────────── */}
         <section id="ai-advisor" className="bg-gradient-to-b from-primary/5 via-muted/30 to-background px-4 py-20 sm:py-28">
           <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row lg:gap-20">
-            <RevealSection className="flex-shrink-0 lg:order-1 lg:w-[320px]">
-              <img src={phoneAiChat} alt="AI financial advisor chat" className="mx-auto w-56 drop-shadow-2xl sm:w-64 lg:w-full" loading="lazy" width={600} height={1024} />
+            <RevealSection className="flex-shrink-0 lg:order-1 lg:w-[240px]">
+              <img src={phoneAiChat} alt="AI financial advisor chat" className="mx-auto w-44 drop-shadow-2xl sm:w-52 lg:w-full" loading="lazy" width={600} height={1024} />
             </RevealSection>
             <RevealSection className="flex-1 text-center lg:text-left">
               <span className="inline-block rounded-full bg-secondary/10 px-4 py-1.5 text-xs font-semibold text-secondary"><T k="aiPowered" /></span>
@@ -497,12 +533,43 @@ function FinanceLandingPage() {
           </div>
         </section>
 
+        {/* ── FAQ ───────────────────────────────────── */}
+        <section id="faq" className="px-4 py-20 sm:py-28">
+          <RevealSection className="text-center">
+            <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary"><T k="faqLabel" /></span>
+            <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="faqTitle" /></h2>
+            <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground"><T k="faqSub" /></p>
+          </RevealSection>
+          <div className="mx-auto mt-12 max-w-2xl divide-y divide-border">
+            {(["faq1", "faq2", "faq3", "faq4", "faq5"] as const).map((k, i) => (
+              <FaqItem key={k} qKey={`${k}Q`} aKey={`${k}A`} delay={i * 60} />
+            ))}
+          </div>
+        </section>
+
+        {/* ── Still need help ───────────────────────── */}
+        <section id="contact" className="bg-muted/40 px-4 py-16 sm:py-20">
+          <RevealSection className="text-center">
+            <h2 className="text-xl font-bold tracking-tight sm:text-2xl"><T k="stillNeedHelp" /></h2>
+            <p className="mt-3 text-sm text-muted-foreground"><T k="stillNeedHelpSub" /></p>
+            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href="mailto:support@finwise.app"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium transition-all hover:bg-muted"
+              >
+                <Mail className="h-4 w-4 opacity-60" />
+                support@finwise.app
+              </a>
+            </div>
+          </RevealSection>
+        </section>
+
         {/* ── Final CTA ─────────────────────────────── */}
         <section id="cta" className="px-4 py-24 sm:py-32">
           <div className="mx-auto max-w-3xl rounded-2xl bg-primary px-6 py-16 text-center sm:px-12 sm:py-20">
             <RevealSection>
               <div className="mx-auto mb-6 inline-flex rounded-xl bg-primary-foreground/10 p-3">
-                <Wallet className="h-8 w-8 text-primary-foreground" />
+                <img src={logoImg} alt="FinWise" className="h-8 w-8 object-contain" />
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl lg:text-4xl">
                 <T k="ctaTitle" />
@@ -527,9 +594,7 @@ function FinanceLandingPage() {
           <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 sm:grid-cols-4">
             <div className="col-span-2 sm:col-span-1">
               <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
-                  <Wallet className="h-3.5 w-3.5 text-primary-foreground" />
-                </div>
+                <img src={logoImg} alt="FinWise" className="h-7 w-7 object-contain" />
                 <span className="text-base font-semibold">FinWise</span>
               </div>
               <p className="mt-3 text-sm text-muted-foreground"><T k="smartAssistant" /></p>
@@ -546,7 +611,7 @@ function FinanceLandingPage() {
               <h4 className="mb-3 text-sm font-semibold"><T k="company" /></h4>
               <div className="space-y-2">
                 <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors"><T k="about" /></a>
-                <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors"><T k="contact" /></a>
+                <a href="#contact" className="block text-sm text-muted-foreground hover:text-foreground transition-colors"><T k="contact" /></a>
                 <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors"><T k="careers" /></a>
               </div>
             </div>
