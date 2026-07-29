@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
-import { useState, useEffect, createContext, useContext, type ReactNode } from "react";
+import { useState, useEffect, createContext, useContext, useRef, type ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Wallet,
@@ -173,6 +174,32 @@ const t: Record<string, Record<Lang, string>> = {
   navBenefits: { en: "Benefits", fr: "Avantages" },
   getApp: { en: "Get the App", fr: "Obtenir l'App" },
   smartAssistant: { en: "Your smart financial assistant.", fr: "Votre assistant financier intelligent." },
+  calcTitle: { en: "See how much you can save", fr: "Calculez vos économies" },
+  calcSubtitle: { en: "Enter your monthly habits to see how much Finewa can help you put aside.", fr: "Entrez vos habitudes mensuelles pour voir ce que Finewa peut vous aider à épargner." },
+  monthlyIncome: { en: "Monthly Income", fr: "Revenu mensuel" },
+  discretionarySpending: { en: "Monthly Expenses (discretionary)", fr: "Dépenses mensuelles (variables)" },
+  potentialMonthlySavings: { en: "Potential Monthly Savings", fr: "Économie mensuelle potentielle" },
+  potentialAnnualSavings: { en: "Potential Annual Savings", fr: "Économie annuelle potentielle" },
+  calcCta: { en: "Start saving this amount today", fr: "Commencez à épargner ce montant aujourd'hui" },
+  aiChatTitle: { en: "Finewa AI Advisor", fr: "Conseiller IA Finewa" },
+  aiChatStatus: { en: "Active now", fr: "En ligne" },
+  aiChatPlaceholder: { en: "Tap a question to ask the advisor...", fr: "Appuyez sur une question pour interroger le conseiller..." },
+  aiChatPrompt1: { en: "Where can I save this month?", fr: "Où puis-je économiser ce mois-ci ?" },
+  aiChatPrompt2: { en: "Analyze grocery budget", fr: "Analyser mon budget courses" },
+  aiChatPrompt3: { en: "Can I afford a $150 flight?", fr: "Puis-je m'offrir un vol à 150 $ ?" },
+  aiChatAnswer1: {
+    en: "I analyzed your spending. You spent **FCFA 12,000** on 3 recurring streaming services, but only used one this month. Canceling the other two will save you **FCFA 8,000/month**! Plus, restaurant spending is 15% higher than usual.",
+    fr: "J'ai analysé vos dépenses. Vous payez **12 000 FCFA** pour 3 abonnements de streaming, mais un seul a servi ce mois-ci. En résilier deux vous fera économiser **8 000 FCFA/mois** ! De plus, vos dépenses resto sont 15 % plus élevées."
+  },
+  aiChatAnswer2: {
+    en: "You've spent **FCFA 18,500** out of your **FCFA 25,000** grocery budget (74% used, with 10 days remaining). You are on track to stay within budget if you limit supermarket trips to one more time this week! 🛒",
+    fr: "Vous avez dépensé **18 500 FCFA** sur votre budget courses de **25 000 FCFA** (74 % consommés, 10 jours restants). Vous tiendrez le budget en limitant vos courses à une seule fois cette semaine ! 🛒"
+  },
+  aiChatAnswer3: {
+    en: "Yes! Your current monthly savings is **FCFA 42,300** and you are **FCFA 15,000** ahead of your savings goal. If you purchase the flight, your emergency fund remains fully intact. Safe travels! ✈️",
+    fr: "Oui ! Votre épargne mensuelle est de **42 300 FCFA** et vous avez **15 000 FCFA** d'avance sur votre objectif. En achetant ce billet, votre épargne de sécurité reste intacte. Bon voyage ! ✈️"
+  },
+  aiChatResponsePlaceholder: { en: "Finewa is typing...", fr: "Finewa écrit..." },
 };
 
 function T({ k }: { k: string }) {
@@ -206,35 +233,354 @@ function useTheme() {
 }
 
 /* ─── Components ────────────────────────────────────── */
-function RevealSection({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  const { ref, isVisible } = useScrollReveal();
+function RevealSection({
+  children,
+  className = "",
+  delay = 0,
+  y = 30,
+  duration = 0.6
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+  y?: number;
+  duration?: number;
+}) {
   return (
-    <div
-      ref={ref}
-      className={`transition-all duration-700 ease-out ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+    <motion.div
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration, delay: delay / 1000, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className={className}
     >
       {children}
-    </div>
+    </motion.div>
+  );
+}
+
+function StaggerContainer({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-80px" }}
+      variants={{
+        hidden: {},
+        show: {
+          transition: {
+            staggerChildren: 0.08,
+            delayChildren: delay / 1000,
+          },
+        },
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function StaggerItem({ children, className = "", y = 20 }: { children: ReactNode; className?: string; y?: number }) {
+  return (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y },
+        show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] } },
+      }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   );
 }
 
 function FaqItem({ qKey, aKey, delay }: { qKey: string; aKey: string; delay: number }) {
   const [open, setOpen] = useState(false);
   return (
-    <RevealSection delay={delay}>
+    <RevealSection delay={delay} className="border-b border-border">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-4 py-5 text-left"
+        className="flex w-full items-center justify-between gap-4 py-5 text-left focus:outline-none cursor-pointer"
         aria-expanded={open}
       >
         <span className="text-sm font-semibold sm:text-base"><T k={qKey} /></span>
-        <ChevronRight className={`h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform duration-200 ${open ? "rotate-90" : ""}`} />
+        <ChevronRight className={`h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform duration-300 ${open ? "rotate-90" : ""}`} />
       </button>
-      {open && (
-        <p className="pb-5 text-sm leading-relaxed text-muted-foreground"><T k={aKey} /></p>
-      )}
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="overflow-hidden"
+          >
+            <p className="pb-5 text-sm leading-relaxed text-muted-foreground"><T k={aKey} /></p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </RevealSection>
+  );
+}
+
+function AnimatedNumber({ value }: { value: number }) {
+  const [displayValue, setDisplayValue] = useState(value);
+  const displayValRef = useRef(value);
+
+  useEffect(() => {
+    let startTimestamp: number | null = null;
+    const startValue = displayValRef.current;
+    const duration = 400; // ms
+    const diff = value - startValue;
+
+    if (diff === 0) return;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(startValue + diff * ease);
+      displayValRef.current = current;
+      setDisplayValue(current);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+
+    window.requestAnimationFrame(step);
+  }, [value]);
+
+  return <>{displayValue.toLocaleString()}</>;
+}
+
+function formatMessage(text: string) {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={index} className="font-bold text-primary dark:text-secondary">{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+}
+
+interface Message {
+  sender: "user" | "ai";
+  text: string;
+}
+
+function ChatSimulator() {
+  const { lang } = useLang();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [activePrompts, setActivePrompts] = useState<number[]>([1, 2, 3]);
+
+  // Set welcome message dynamically
+  useEffect(() => {
+    setMessages([
+      {
+        sender: "ai",
+        text: lang === "en" 
+          ? "Hello! I'm your AI Financial Advisor. Tap one of the questions below to see how I analyze your finances." 
+          : "Bonjour ! Je suis votre conseiller financier IA. Choisissez une question ci-dessous pour voir comment j'analyse vos finances."
+      }
+    ]);
+    setActivePrompts([1, 2, 3]);
+  }, [lang]);
+
+  const handlePromptClick = (id: number) => {
+    const promptText = t[`aiChatPrompt${id}`][lang];
+    const answerText = t[`aiChatAnswer${id}`][lang];
+
+    setMessages((prev) => [...prev, { sender: "user", text: promptText }]);
+    setActivePrompts([]);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      setIsTyping(false);
+      setMessages((prev) => [...prev, { sender: "ai", text: answerText }]);
+      
+      setTimeout(() => {
+        setActivePrompts([1, 2, 3].filter(num => num !== id));
+      }, 500);
+    }, 1200);
+  };
+
+  return (
+    <div className="glass-card flex h-[350px] w-full flex-col overflow-hidden rounded-2xl shadow-xl">
+      {/* Header */}
+      <div className="flex items-center gap-3 border-b border-border bg-muted/40 px-4 py-3">
+        <div className="relative">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-sm">
+            AI
+          </div>
+          <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-secondary border-2 border-card" />
+        </div>
+        <div>
+          <span className="block text-xs font-semibold"><T k="aiChatTitle" /></span>
+          <span className="block text-[10px] text-muted-foreground"><T k="aiChatStatus" /></span>
+        </div>
+      </div>
+
+      {/* Messages area */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-3">
+        {messages.map((m, i) => (
+          <div key={i} className={`flex ${m.sender === "user" ? "justify-end" : "justify-start"}`}>
+            <div className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-xs leading-relaxed ${m.sender === "user" ? "bg-primary text-primary-foreground rounded-tr-none" : "bg-muted text-foreground rounded-tl-none border border-border"}`}>
+              {formatMessage(m.text)}
+            </div>
+          </div>
+        ))}
+        {isTyping && (
+          <div className="flex justify-start">
+            <div className="bg-muted text-muted-foreground rounded-2xl rounded-tl-none border border-border px-3.5 py-2 text-xs flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full animate-bounce" />
+              <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full animate-bounce [animation-delay:0.2s]" />
+              <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full animate-bounce [animation-delay:0.4s]" />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Suggestion Chips */}
+      <div className="border-t border-border bg-muted/20 p-3">
+        {activePrompts.length > 0 ? (
+          <div className="flex flex-col gap-1.5">
+            {activePrompts.map((id) => (
+              <button
+                key={id}
+                onClick={() => handlePromptClick(id)}
+                className="w-full text-left rounded-lg border border-primary/20 bg-primary/5 px-3 py-2 text-[11px] font-semibold text-primary transition-all hover:bg-primary hover:text-primary-foreground cursor-pointer"
+              >
+                <T k={`aiChatPrompt${id}`} />
+              </button>
+            ))}
+          </div>
+        ) : !isTyping ? (
+          <div className="flex justify-center text-[10px] text-muted-foreground italic">
+            <T k="aiChatPlaceholder" />
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+function SavingsCalculator() {
+  const { lang } = useLang();
+  const [income, setIncome] = useState(300000);
+  const [spending, setSpending] = useState(120000);
+
+  const monthlySavings = Math.floor(spending * 0.23);
+  const annualSavings = monthlySavings * 12;
+
+  return (
+    <section className="relative px-4 py-12 sm:py-16 overflow-hidden">
+      <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-secondary/5 blur-3xl" />
+      <div className="pointer-events-none absolute -left-20 -bottom-20 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
+
+      <div className="mx-auto max-w-4xl rounded-2xl p-6 shadow-xl sm:p-10 glass-card">
+        <div className="text-center">
+          <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
+            <T k="outcomes" />
+          </span>
+          <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
+            <T k="calcTitle" />
+          </h2>
+          <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
+            <T k="calcSubtitle" />
+          </p>
+        </div>
+
+        <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm font-semibold">
+                <span><T k="monthlyIncome" /></span>
+                <span className="text-primary font-bold">FCFA {income.toLocaleString()}</span>
+              </div>
+              <input
+                type="range"
+                min="50000"
+                max="1500000"
+                step="10000"
+                value={income}
+                onChange={(e) => {
+                  const newIncome = Number(e.target.value);
+                  setIncome(newIncome);
+                  if (spending > newIncome * 0.8) {
+                    setSpending(Math.floor(newIncome * 0.5));
+                  }
+                }}
+                className="h-2 w-full cursor-pointer rounded-lg bg-muted accent-primary appearance-none"
+              />
+              <div className="flex justify-between text-[10px] text-muted-foreground">
+                <span>FCFA 50K</span>
+                <span>FCFA 1.5M</span>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm font-semibold">
+                <span><T k="discretionarySpending" /></span>
+                <span className="text-primary font-bold">FCFA {spending.toLocaleString()}</span>
+              </div>
+              <input
+                type="range"
+                min="10000"
+                max={Math.floor(income * 0.8)}
+                step="5000"
+                value={spending}
+                onChange={(e) => setSpending(Number(e.target.value))}
+                className="h-2 w-full cursor-pointer rounded-lg bg-muted accent-primary appearance-none"
+              />
+              <div className="flex justify-between text-[10px] text-muted-foreground">
+                <span>FCFA 10K</span>
+                <span>FCFA {Math.floor(income * 0.8).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col justify-center rounded-xl bg-muted/40 p-6 text-center border border-border">
+            <div className="grid grid-cols-2 gap-4 divide-x divide-border">
+              <div>
+                <span className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  <T k="potentialMonthlySavings" />
+                </span>
+                <span className="mt-2 block text-lg font-extrabold text-primary sm:text-xl md:text-2xl">
+                  FCFA <AnimatedNumber value={monthlySavings} />
+                </span>
+              </div>
+              <div>
+                <span className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                  <T k="potentialAnnualSavings" />
+                </span>
+                <span className="mt-2 block text-lg font-extrabold text-secondary sm:text-xl md:text-2xl">
+                  FCFA <AnimatedNumber value={annualSavings} />
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-6 border-t border-border pt-4">
+              <p className="text-[10px] text-muted-foreground leading-relaxed">
+                {lang === "en" 
+                  ? "Based on average user savings of 23% in discretionary spending categories." 
+                  : "Basé sur une économie moyenne de 23 % constatée sur les dépenses variables."}
+              </p>
+              <a
+                href={APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-xs font-semibold text-primary-foreground transition-all hover:brightness-110 shadow-md"
+              >
+                <T k="calcCta" />
+                <ArrowRight className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -324,93 +670,111 @@ function FinanceLandingPage() {
 
   return (
     <LangCtx.Provider value={{ lang, setLang }}>
-      <div className="min-h-screen bg-background text-foreground scroll-smooth">
+      <div className="min-h-screen bg-background text-foreground scroll-smooth relative">
+        {/* Floating Ambient Background Blobs */}
+        <div className="pointer-events-none absolute left-1/4 top-10 h-80 w-80 rounded-full bg-primary/5 blur-[100px] animate-ambient-float-1 z-0" />
+        <div className="pointer-events-none absolute right-1/4 top-60 h-[380px] w-[380px] rounded-full bg-secondary/5 blur-[120px] animate-ambient-float-2 z-0" />
+
         <StickyNav />
 
         {/* ── Hero ──────────────────────────────────── */}
-        <section className="relative overflow-hidden px-4 pt-24 pb-16 sm:px-6 sm:pt-32 sm:pb-24">
+        <section className="relative overflow-hidden px-4 pt-20 pb-10 sm:px-6 sm:pt-24 sm:pb-14 z-10">
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-          <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-10 lg:flex-row lg:gap-16">
+          <div className="relative mx-auto flex max-w-6xl flex-col items-center gap-8 lg:flex-row lg:gap-16">
             <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-medium text-muted-foreground">
-                <ShieldCheck className="h-3.5 w-3.5 text-secondary" />
-                <T k="trustedBy" />
-              </div>
-
-              <h1 className="mt-6 text-[32px] font-bold leading-[1.1] tracking-tight sm:text-[44px] lg:text-[56px]">
-                <T k="heroTitle1" />{" "}
-                <span className="text-primary"><T k="heroTitle2" /></span>
-              </h1>
-
-              <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
-                <T k="heroSub" />
-              </p>
-
-              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row lg:justify-start justify-center">
-                <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:shadow-xl hover:brightness-110 active:scale-[0.98]">
-                  <Smartphone className="h-4 w-4" />
-                  <T k="getStarted" />
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
-                <a href="#features" onClick={(e) => { e.preventDefault(); document.querySelector("#features")?.scrollIntoView({ behavior: "smooth" }); }} className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-6 py-3 text-base font-medium text-foreground transition-all hover:bg-muted active:scale-[0.98]">
-                  <T k="learnMore" />
-                </a>
-              </div>
-
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-6 lg:justify-start">
-                <div className="text-center lg:text-left">
-                  <span className="block text-2xl font-bold">4.8★</span>
-                  <span className="text-xs text-muted-foreground"><T k="playStore" /></span>
+              <RevealSection y={20}>
+                <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs font-medium text-muted-foreground">
+                  <ShieldCheck className="h-3.5 w-3.5 text-secondary" />
+                  <T k="trustedBy" />
                 </div>
-                <div className="h-8 w-px bg-border" />
-                <div className="text-center lg:text-left">
-                  <span className="block text-2xl font-bold">20+</span>
-                  <span className="text-xs text-muted-foreground"><T k="countries" /></span>
+              </RevealSection>
+
+              <RevealSection y={20} delay={100}>
+                <h1 className="mt-4 text-[32px] font-bold leading-[1.1] tracking-tight sm:text-[44px] lg:text-[52px]">
+                  <T k="heroTitle1" />{" "}
+                  <span className="text-primary"><T k="heroTitle2" /></span>
+                </h1>
+              </RevealSection>
+
+              <RevealSection y={20} delay={200}>
+                <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg lg:mx-0">
+                  <T k="heroSub" />
+                </p>
+              </RevealSection>
+
+              <RevealSection y={20} delay={300}>
+                <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row lg:justify-start justify-center">
+                  <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:shadow-xl hover:brightness-110 active:scale-[0.98]">
+                    <Smartphone className="h-4 w-4" />
+                    <T k="getStarted" />
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                  <a href="#features" onClick={(e) => { e.preventDefault(); document.querySelector("#features")?.scrollIntoView({ behavior: "smooth" }); }} className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-6 py-3 text-base font-medium text-foreground transition-all hover:bg-muted active:scale-[0.98]">
+                    <T k="learnMore" />
+                  </a>
                 </div>
-                <div className="h-8 w-px bg-border" />
-                <div className="text-center lg:text-left">
-                  <span className="block text-2xl font-bold">50+</span>
-                  <span className="text-xs text-muted-foreground"><T k="users" /></span>
+              </RevealSection>
+
+              <RevealSection y={20} delay={400}>
+                <div className="mt-8 grid grid-cols-3 gap-2 rounded-xl border border-border bg-card/65 p-4 max-w-sm shadow-sm backdrop-blur-md">
+                  <div className="text-center">
+                    <span className="block text-xl font-extrabold text-primary sm:text-2xl">4.8★</span>
+                    <span className="text-[10px] text-muted-foreground sm:text-xs"><T k="playStore" /></span>
+                  </div>
+                  <div className="flex justify-center items-center border-x border-border">
+                    <div className="text-center">
+                      <span className="block text-xl font-extrabold text-primary sm:text-2xl">20+</span>
+                      <span className="text-[10px] text-muted-foreground sm:text-xs"><T k="countries" /></span>
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <span className="block text-xl font-extrabold text-primary sm:text-2xl">50+</span>
+                    <span className="text-[10px] text-muted-foreground sm:text-xs"><T k="users" /></span>
+                  </div>
                 </div>
-              </div>
+              </RevealSection>
             </div>
 
             <div className="relative flex-shrink-0 lg:w-[280px]">
-              <div className="animate-fade-in" style={{ animationDelay: "300ms", animationFillMode: "backwards" }}>
-                <img src={phoneMockup} alt="Finewa app" className="mx-auto w-48 drop-shadow-2xl sm:w-56 lg:w-full" width={600} height={1024} />
-              </div>
+              <RevealSection y={30} delay={300}>
+                <img src={phoneMockup} alt="Finewa app" className="mx-auto w-48 drop-shadow-2xl sm:w-52 lg:w-full" width={600} height={1024} />
+              </RevealSection>
             </div>
           </div>
         </section>
 
         {/* ── About ─────────────────────────────────── */}
-        <section className="px-4 py-20 sm:py-28">
+        <section className="relative px-4 py-12 sm:py-16 z-10">
           <div className="mx-auto max-w-3xl text-center">
             <RevealSection>
               <span className="inline-block rounded-full bg-secondary/10 px-4 py-1.5 text-xs font-semibold text-secondary"><T k="whyFinwise" /></span>
-              <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="aboutTitle" /></h2>
-              <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg"><T k="aboutSub" /></p>
-              <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                {(["aboutCard1", "aboutCard2", "aboutCard3"] as const).map((key) => (
-                  <div key={key} className="rounded-xl border border-border bg-card p-5 text-left transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
-                    <div className="mb-2 h-1 w-8 rounded-full bg-primary" />
-                    <h3 className="text-sm font-semibold"><T k={`${key}Title`} /></h3>
-                    <p className="mt-1 text-sm text-muted-foreground"><T k={`${key}Desc`} /></p>
-                  </div>
-                ))}
-              </div>
+              <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="aboutTitle" /></h2>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg"><T k="aboutSub" /></p>
             </RevealSection>
+            
+            <StaggerContainer className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {(["aboutCard1", "aboutCard2", "aboutCard3"] as const).map((key) => (
+                <StaggerItem key={key}>
+                  <div className="h-full rounded-xl border border-border bg-card p-5 text-left transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg glow-hover glass-card">
+                    <div className="mb-3 h-1 w-8 rounded-full bg-primary" />
+                    <h3 className="text-sm font-semibold"><T k={`${key}Title`} /></h3>
+                    <p className="mt-1 text-sm text-muted-foreground leading-relaxed"><T k={`${key}Desc`} /></p>
+                  </div>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
           </div>
         </section>
 
         {/* ── Features Grid ─────────────────────────── */}
-        <section id="features" className="bg-muted/40 px-4 py-20 sm:py-28">
+        <section id="features" className="relative bg-muted/40 px-4 py-12 sm:py-16 z-10">
           <RevealSection className="text-center">
             <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary"><T k="coreFeatures" /></span>
-            <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="featuresTitle" /></h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground"><T k="featuresSub" /></p>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="featuresTitle" /></h2>
+            <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground"><T k="featuresSub" /></p>
           </RevealSection>
-          <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+          <StaggerContainer className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {([
               { icon: Wallet, k: "feat1" },
               { icon: PieChart, k: "feat2" },
@@ -418,29 +782,32 @@ function FinanceLandingPage() {
               { icon: BrainCircuit, k: "feat4" },
               { icon: Target, k: "feat5" },
               { icon: BellRing, k: "feat6" },
-            ]).map((f, i) => (
-              <RevealSection key={f.k} delay={i * 80}>
-                <div className="group h-full rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                  <div className="mb-4 inline-flex rounded-lg bg-primary p-2.5">
+            ]).map((f) => (
+              <StaggerItem key={f.k} className="h-full">
+                <div className="group h-full rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30 glow-hover glass-card">
+                  <div className="mb-4 inline-flex rounded-lg bg-primary p-2.5 transition-transform group-hover:scale-110">
                     <f.icon className="h-5 w-5 text-primary-foreground" />
                   </div>
                   <h3 className="mb-2 text-sm font-semibold"><T k={`${f.k}Title`} /></h3>
                   <p className="text-sm leading-relaxed text-muted-foreground"><T k={`${f.k}Desc`} /></p>
                 </div>
-              </RevealSection>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </section>
 
+        {/* ── Interactive Savings Calculator ───────── */}
+        <SavingsCalculator />
+
         {/* ── Dashboard Preview ─────────────────────── */}
-        <section id="dashboard" className="px-4 py-20 sm:py-28">
+        <section id="dashboard" className="relative px-4 py-12 sm:py-16 z-10">
           <RevealSection className="text-center">
             <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary"><T k="dashboard" /></span>
-            <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="dashboardTitle" /></h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground"><T k="dashboardSub" /></p>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="dashboardTitle" /></h2>
+            <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground"><T k="dashboardSub" /></p>
           </RevealSection>
-          <RevealSection delay={200}>
-            <div className="mx-auto mt-14 max-w-5xl">
+          <RevealSection delay={150}>
+            <div className="mx-auto mt-8 max-w-5xl">
               <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl shadow-primary/5">
                 <div className="flex items-center gap-2 border-b border-border bg-muted/50 px-4 py-2.5">
                   <div className="h-2.5 w-2.5 rounded-full bg-destructive/60" />
@@ -455,16 +822,17 @@ function FinanceLandingPage() {
         </section>
 
         {/* ── AI Advisor ────────────────────────────── */}
-        <section id="ai-advisor" className="bg-gradient-to-b from-primary/5 via-muted/30 to-background px-4 py-20 sm:py-28">
-          <div className="mx-auto flex max-w-6xl flex-col items-center gap-12 lg:flex-row lg:gap-20">
-            <RevealSection className="flex-shrink-0 lg:order-1 lg:w-[240px]">
-              <img src={phoneAiChat} alt="AI financial advisor chat" className="mx-auto w-44 drop-shadow-2xl sm:w-52 lg:w-full" loading="lazy" width={600} height={1024} />
+        <section id="ai-advisor" className="relative bg-gradient-to-b from-primary/5 via-muted/30 to-background px-4 py-12 sm:py-16 overflow-hidden z-10">
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-10 lg:flex-row lg:gap-16">
+            <RevealSection className="w-full max-w-sm flex-shrink-0 lg:order-1 lg:w-[320px]">
+              <ChatSimulator />
             </RevealSection>
+            
             <RevealSection className="flex-1 text-center lg:text-left">
               <span className="inline-block rounded-full bg-secondary/10 px-4 py-1.5 text-xs font-semibold text-secondary"><T k="aiPowered" /></span>
-              <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="aiTitle" /></h2>
-              <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg"><T k="aiSub" /></p>
-              <div className="mt-8 space-y-4 text-left">
+              <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="aiTitle" /></h2>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg"><T k="aiSub" /></p>
+              <div className="mt-6 space-y-3.5 text-left">
                 {(["aiBullet1", "aiBullet2", "aiBullet3", "aiBullet4", "aiBullet5"] as const).map((k) => (
                   <div key={k} className="flex items-start gap-3">
                     <div className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary">
@@ -479,13 +847,14 @@ function FinanceLandingPage() {
         </section>
 
         {/* ── Benefits ──────────────────────────────── */}
-        <section id="benefits" className="px-4 py-20 sm:py-28">
+        <section id="benefits" className="relative px-4 py-12 sm:py-16 z-10">
           <RevealSection className="text-center">
             <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary"><T k="outcomes" /></span>
-            <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="benefitsTitle" /></h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground"><T k="benefitsSub" /></p>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="benefitsTitle" /></h2>
+            <p className="mx-auto mt-3 max-w-2xl text-base text-muted-foreground"><T k="benefitsSub" /></p>
           </RevealSection>
-          <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          
+          <StaggerContainer className="mx-auto mt-8 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {([
               { icon: TrendingUp, k: "ben1" },
               { icon: Lightbulb, k: "ben2" },
@@ -493,30 +862,31 @@ function FinanceLandingPage() {
               { icon: Target, k: "ben4" },
               { icon: Heart, k: "ben5" },
               { icon: Zap, k: "ben6" },
-            ]).map((b, i) => (
-              <RevealSection key={b.k} delay={i * 80}>
-                <div className="group h-full rounded-xl border border-border bg-card p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                  <div className="mx-auto mb-4 inline-flex rounded-lg bg-primary/10 p-3">
+            ]).map((b) => (
+              <StaggerItem key={b.k} className="h-full">
+                <div className="group h-full rounded-xl border border-border bg-card p-6 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30 glow-hover glass-card">
+                  <div className="mx-auto mb-4 inline-flex rounded-lg bg-primary/10 p-3 transition-transform group-hover:scale-110">
                     <b.icon className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="mb-2 text-sm font-semibold"><T k={`${b.k}Title`} /></h3>
                   <p className="text-sm leading-relaxed text-muted-foreground"><T k={`${b.k}Desc`} /></p>
                 </div>
-              </RevealSection>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </section>
 
         {/* ── Testimonials ──────────────────────────── */}
-        <section className="bg-muted/40 px-4 py-20 sm:py-28">
+        <section className="relative bg-muted/40 px-4 py-12 sm:py-16 z-10">
           <RevealSection className="text-center">
             <span className="inline-block rounded-full bg-secondary/10 px-4 py-1.5 text-xs font-semibold text-secondary"><T k="testimonials" /></span>
-            <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl"><T k="lovedBy" /></h2>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl"><T k="lovedBy" /></h2>
           </RevealSection>
-          <div className="mx-auto mt-14 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
-            {(["test1", "test2", "test3"] as const).map((k, i) => (
-              <RevealSection key={k} delay={i * 100}>
-                <div className="h-full rounded-xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+          
+          <StaggerContainer className="mx-auto mt-8 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-3">
+            {(["test1", "test2", "test3"] as const).map((k) => (
+              <StaggerItem key={k} className="h-full">
+                <div className="h-full rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl glass-card">
                   <div className="mb-3 flex gap-0.5">
                     {Array.from({ length: 5 }).map((_, j) => (
                       <Star key={j} className="h-4 w-4 fill-secondary text-secondary" />
@@ -528,19 +898,19 @@ function FinanceLandingPage() {
                     <span className="block text-xs text-muted-foreground"><T k={`${k}Role`} /></span>
                   </div>
                 </div>
-              </RevealSection>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </section>
 
         {/* ── FAQ ───────────────────────────────────── */}
-        <section id="faq" className="px-4 py-20 sm:py-28">
+        <section id="faq" className="relative px-4 py-12 sm:py-16 z-10">
           <RevealSection className="text-center">
             <span className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary"><T k="faqLabel" /></span>
-            <h2 className="mt-5 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="faqTitle" /></h2>
-            <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground"><T k="faqSub" /></p>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl"><T k="faqTitle" /></h2>
+            <p className="mx-auto mt-3 max-w-xl text-base text-muted-foreground"><T k="faqSub" /></p>
           </RevealSection>
-          <div className="mx-auto mt-12 max-w-2xl divide-y divide-border">
+          <div className="mx-auto mt-8 max-w-2xl">
             {(["faq1", "faq2", "faq3", "faq4", "faq5"] as const).map((k, i) => (
               <FaqItem key={k} qKey={`${k}Q`} aKey={`${k}A`} delay={i * 60} />
             ))}
@@ -548,11 +918,11 @@ function FinanceLandingPage() {
         </section>
 
         {/* ── Still need help ───────────────────────── */}
-        <section id="contact" className="bg-muted/40 px-4 py-16 sm:py-20">
+        <section id="contact" className="relative bg-muted/40 px-4 py-10 sm:py-12 z-10">
           <RevealSection className="text-center">
             <h2 className="text-xl font-bold tracking-tight sm:text-2xl"><T k="stillNeedHelp" /></h2>
-            <p className="mt-3 text-sm text-muted-foreground"><T k="stillNeedHelpSub" /></p>
-            <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <p className="mt-2 text-sm text-muted-foreground"><T k="stillNeedHelpSub" /></p>
+            <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <a
                 href="mailto:support@finewa.app"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium transition-all hover:bg-muted"
@@ -565,19 +935,19 @@ function FinanceLandingPage() {
         </section>
 
         {/* ── Final CTA ─────────────────────────────── */}
-        <section id="cta" className="px-4 py-24 sm:py-32">
-          <div className="mx-auto max-w-3xl rounded-2xl bg-primary px-6 py-16 text-center sm:px-12 sm:py-20">
+        <section id="cta" className="relative px-4 py-14 sm:py-20 z-10">
+          <div className="mx-auto max-w-3xl rounded-2xl bg-primary px-6 py-12 text-center sm:px-12 sm:py-16">
             <RevealSection>
-              <div className="mx-auto mb-6 inline-flex rounded-xl bg-primary-foreground/10 p-3">
+              <div className="mx-auto mb-5 inline-flex rounded-xl bg-primary-foreground/10 p-3">
                 <img src={logoImg} alt="Finewa" className="h-8 w-8 object-contain" />
               </div>
               <h2 className="text-2xl font-bold tracking-tight text-primary-foreground sm:text-3xl lg:text-4xl">
                 <T k="ctaTitle" />
               </h2>
-              <p className="mx-auto mt-4 max-w-md text-base text-primary-foreground/70">
+              <p className="mx-auto mt-3 max-w-md text-base text-primary-foreground/70">
                 <T k="ctaSub" />
               </p>
-              <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+              <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
                 <a href={APP_URL} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-lg bg-card px-6 py-3 text-base font-semibold text-foreground shadow-lg transition-all hover:bg-card/90 active:scale-[0.98]">
                   <Download className="h-4 w-4" />
                   <T k="downloadApp" />

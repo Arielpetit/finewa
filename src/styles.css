@@ -235,3 +235,57 @@
 .animate-pulse-subtle {
   animation: pulse-subtle 2s ease-in-out infinite;
 }
+
+/* Ambient glow & glassmorphic additions */
+@keyframes ambient-float {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+}
+
+.animate-ambient-float-1 {
+  animation: ambient-float 25s infinite ease-in-out;
+}
+
+.animate-ambient-float-2 {
+  animation: ambient-float 30s infinite ease-in-out reverse;
+}
+
+.glass-card {
+  background: color-mix(in oklch, var(--card) 60%, transparent);
+  backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in oklch, var(--border) 40%, transparent);
+}
+
+.dark .glass-card {
+  background: color-mix(in oklch, var(--card) 45%, transparent);
+  border: 1px solid color-mix(in oklch, var(--border) 25%, transparent);
+}
+
+.glow-hover {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  box-shadow: 0 0 25px 5px color-mix(in oklch, var(--primary) 20%, transparent);
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glow-hover:hover::after {
+  opacity: 1;
+}
+
