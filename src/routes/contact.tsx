@@ -27,8 +27,8 @@ const copy = {
   label: { en: "Contact", fr: "Contact" },
   title: { en: "Let's talk", fr: "Parlons-en" },
   sub: {
-    en: "Questions, feedback or partnership ideas — our team usually replies within one business day.",
-    fr: "Questions, retours ou idées de partenariat — notre équipe répond généralement sous un jour ouvré.",
+    en: "Questions, feedback or partnership ideas. Our team usually replies within one business day.",
+    fr: "Questions, retours ou idées de partenariat. Notre équipe répond généralement sous un jour ouvré.",
   },
   emailLabel: { en: "Email us", fr: "Écrivez-nous" },
   hoursLabel: { en: "Support hours", fr: "Heures de support" },
