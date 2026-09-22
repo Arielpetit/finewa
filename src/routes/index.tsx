@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { useState, useEffect, createContext, useContext, useRef, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -923,11 +923,17 @@ function FinanceLandingPage() {
             <h2 className="text-xl font-bold tracking-tight sm:text-2xl"><T k="stillNeedHelp" /></h2>
             <p className="mt-2 text-sm text-muted-foreground"><T k="stillNeedHelpSub" /></p>
             <div className="mt-5 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:brightness-110 active:scale-[0.98]"
+              >
+                <Mail className="h-4 w-4" />
+                <T k="contact" />
+              </Link>
               <a
                 href="mailto:support@finewa.app"
                 className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2.5 text-sm font-medium transition-all hover:bg-muted"
               >
-                <Mail className="h-4 w-4 opacity-60" />
                 support@finewa.app
               </a>
             </div>
@@ -981,7 +987,7 @@ function FinanceLandingPage() {
               <h4 className="mb-3 text-sm font-semibold"><T k="company" /></h4>
               <div className="space-y-2">
                 <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors"><T k="about" /></a>
-                <a href="#contact" className="block text-sm text-muted-foreground hover:text-foreground transition-colors"><T k="contact" /></a>
+                <Link to="/contact" className="block text-sm text-muted-foreground hover:text-foreground transition-colors"><T k="contact" /></Link>
                 <a href="#" className="block text-sm text-muted-foreground hover:text-foreground transition-colors"><T k="careers" /></a>
               </div>
             </div>
